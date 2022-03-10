@@ -1,0 +1,8 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 5" width="15" height="5">
+	<title>bottomTriangle-svg</title>
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: #0f134f } 
+	</style>
+	<path id="Layer" fill-rule="evenodd" class="shp0" d="M14.12 0.12L0 0.12L4.3 3.82C5.76 5.08 7.92 5.12 9.42 3.91L14.12 0.12Z" />
+</svg>

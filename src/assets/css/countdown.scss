@@ -1,0 +1,264 @@
+.banner {
+  width: 100%;
+  height: 86px;
+  background: url(../images/JSTPoolBanner.png) no-repeat;
+  background-size: 100% auto;
+  position: relative;
+  border-radius: 10px;
+  padding: 0px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  margin-top: 20px;
+  .close {
+    position: absolute;
+    width: 24px;
+    height: 22px;
+    right: 0;
+    top: 0;
+    background: url(../images/bannerCloseIcon.svg) no-repeat;
+  }
+
+  .banner-name {
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-width: 150px;
+    line-height: 30px;
+    padding-left: 20px;
+    background: url(../images/liquidity-banner-name.svg) no-repeat;
+    background-size: 100% auto;
+    font-family: PingFang SC;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: #fff;
+    opacity: 0.9;
+  }
+  .banner-title {
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    .main-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 24px;
+      > span {
+        font-family: PingFang SC;
+        font-weight: 600;
+        font-size: 26px;
+        line-height: 36px;
+        letter-spacing: 0.29071px;
+        > span {
+          font-family: PingFang SC;
+          font-weight: 600;
+          font-size: 26px;
+          line-height: 36px;
+          letter-spacing: 0.29071px;
+          color: #ff7200;
+        }
+      }
+      > img {
+        width: 251.31px;
+        // width: 150px;
+      }
+    }
+
+    .sub-title {
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 12px;
+      /* identical to box height */
+
+      text-align: center;
+      // letter-spacing: 2px;
+    }
+  }
+
+  .title {
+    font-family: PingFang SC;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    color: #fff;
+
+    &.titleEn {
+      font-size: 18px;
+    }
+  }
+
+  .desc {
+    background: #8939e5;
+    border-radius: 20px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    font-size: 10px;
+    padding: 0px 20px;
+    display: inline-block;
+    margin-top: 6px;
+    text-align: left;
+
+    &.descEn {
+      font-size: 10px;
+    }
+  }
+
+  .banner-right {
+    &.scale {
+      transform: scale(0.5);
+      margin-right: -120px;
+      margin-top: 5px;
+    }
+
+    .highest-apy {
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 30px;
+      line-height: 42px;
+      color: #fff;
+      text-align: center;
+      margin-top: -5px;
+    }
+
+    .highest-tip {
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 17px;
+      color: #fff;
+      text-align: center;
+    }
+  }
+
+  .count {
+    width: 362px;
+    height: 85px;
+  }
+
+  .countdesc {
+    width: 402px;
+    height: 16x;
+
+    span {
+      display: inline-block;
+      font-family: Avenir Next;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 16px;
+      text-align: center;
+      width: 94px;
+      margin-right: 40px;
+      color: #fff;
+      opacity: 0.6;
+    }
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1340px) {
+  .banner {
+    background: url(../images/JSTPoolBanner.png) no-repeat;
+    background-size: auto 100%;
+    // height: auto;
+    // min-height: 86px;
+    overflow-x: scroll;
+
+    .title {
+      font-size: 16px;
+      // max-width: 70%;
+    }
+
+    .banner-left {
+      min-width: 80%;
+    }
+    // .sub-title {
+    //   font-size: 14px;
+    //   transform: scale(0.5);
+    // }
+
+    .banner-right.scale {
+      margin-left: -60px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav-container .intro-container .intro-bg {
+    flex: auto;
+  }
+  .banner {
+    padding: 0 15px;
+    background: url(../images/mobileBanner.png) no-repeat;
+    background-size: 100% 100%;
+    height: auto;
+    min-height: 60px;
+
+    .title {
+      font-size: 14px;
+      max-width: 200px;
+    }
+
+    .banner-title {
+      .main-title > img {
+        width: 150px;
+      }
+      .sub-title {
+        font-size: 14px;
+        transform: scale(0.5);
+      }
+    }
+
+    .banner-left {
+      margin-right: -100px;
+    }
+
+    .banner-right.scale {
+      margin-right: -170px;
+      margin-left: 10px;
+    }
+
+    .countdesc span {
+      width: 90px;
+      margin: 0 4px 0 0;
+    }
+
+    .desc {
+      padding: 0 15px;
+    }
+
+    .banner-name {
+      line-height: 20px;
+      padding-left: 14px;
+      font-size: 13px;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .banner {
+    .banner-title .main-title > span {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 32px;
+      > span {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 32px;
+      }
+    }
+  }
+}

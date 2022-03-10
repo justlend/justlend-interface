@@ -1,0 +1,127 @@
+.countdown-days:after,
+.countdown-hours:after,
+.countdown-minutes:after {
+  content: ':';
+  line-height: 77px;
+  font-size: 40px;
+  vertical-align: top;
+  display: inline-block;
+  color: #fff;
+  width: 40px;
+}
+
+.countdown-days,
+.countdown-hours,
+.countdown-minutes,
+.countdown-seconds {
+  display: inline-block;
+
+  .cards:nth-child(1) {
+    .card {
+      .front {
+        background: #fff;
+        border-radius: 10px 0 0 10px;
+
+        .side-num {
+          text-indent: 8px;
+        }
+      }
+
+      .back {
+        background: #fff;
+        border-radius: 10px 0 0 10px;
+
+        .side-num {
+          text-indent: 8px;
+        }
+      }
+    }
+  }
+
+  .cards:nth-child(2) {
+    .card {
+      .front {
+        background: #fff;
+        border-radius: 0 10px 10px 0;
+
+        .side-num {
+          text-indent: -8px;
+        }
+      }
+
+      .back {
+        background: #fff;
+        border-radius: 0 10px 10px 0;
+
+        .side-num {
+          text-indent: -8px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .countdown-days:after,
+  .countdown-hours:after,
+  .countdown-minutes:after {
+    content: ':';
+    line-height: 59px;
+    font-size: 28px;
+    vertical-align: top;
+    display: inline-block;
+    color: #fff;
+    width: 28px;
+  }
+
+  .countdown-days,
+  .countdown-hours,
+  .countdown-minutes,
+  .countdown-seconds {
+    display: inline-block;
+
+    .cards:nth-child(1) {
+      .card {
+        .front {
+          background: #fff;
+          border-radius: 8px 0 0 8px;
+
+          .side-num {
+            text-indent: 8px;
+          }
+        }
+
+        .back {
+          background: #fff;
+          border-radius: 8px 0 0 8px;
+
+          .side-num {
+            text-indent: 8px;
+          }
+        }
+      }
+    }
+
+    .cards:nth-child(2) {
+      .card {
+        .front {
+          background: #fff;
+          border-radius: 0 8px 8px 0;
+
+          .side-num {
+            text-indent: -8px;
+          }
+        }
+
+        .back {
+          background: #fff;
+          border-radius: 0 8px 8px 0;
+
+          .side-num {
+            text-indent: -8px;
+          }
+        }
+      }
+    }
+  }
+}

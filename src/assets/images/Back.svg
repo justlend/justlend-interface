@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="13px" viewBox="0 0 17 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>Back</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-152.000000, -1677.000000)" fill="#333333">
+            <g id="图标" transform="translate(0.000000, 1464.000000)">
+                <g id="Back" transform="translate(152.000000, 213.000000)">
+                    <g id="Group-7" transform="translate(6.717514, 7.000000) rotate(-315.000000) translate(-6.717514, -7.000000) translate(2.217514, 2.000000)">
+                        <path d="M0.857142857,0.428571429 L0.857142857,0.428571429 C1.33052979,0.428571429 1.71428571,0.812327357 1.71428571,1.28571429 L1.71428571,8.57142857 C1.71428571,9.0448155 1.33052979,9.42857143 0.857142857,9.42857143 L0.857142857,9.42857143 C0.383755929,9.42857143 -1.81882041e-12,9.0448155 -1.81887838e-12,8.57142857 L-1.81887838e-12,1.28571429 C-1.81893635e-12,0.812327357 0.383755929,0.428571429 0.857142857,0.428571429 Z" id="Rectangle"></path>
+                        <rect id="Rectangle-Copy-3" transform="translate(4.500000, 8.571429) rotate(-270.000000) translate(-4.500000, -8.571429) " x="3.64285714" y="4.07142857" width="1.71428571" height="9" rx="0.857142857"></rect>
+                    </g>
+                    <rect id="Rectangle" x="2" y="5.99669914" width="15" height="2" rx="1"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

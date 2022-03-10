@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>浏览器列表-占位</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Swap浏览器页面" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="SunSwap_explorer_-1200" transform="translate(-612.000000, -934.000000)">
+            <g id="Group-17" transform="translate(548.000000, 724.000000)">
+                <g id="Group-11-Copy-2" transform="translate(20.000000, 202.000000)">
+                    <g id="Group-6" transform="translate(29.000000, 8.000000)">
+                        <g id="浏览器列表-占位" transform="translate(15.000000, 0.000000)">
+                            <circle id="Oval" fill="#C1C1C1" cx="10" cy="10" r="10"></circle>
+                            <g id="Group" stroke-linecap="round" transform="translate(4.000000, 4.000000)" stroke="#FFFFFF" stroke-width="1.53680521">
+                                <path d="M1.70512069,6.68096929 L4.05270231,6.7584748 C5.10334156,6.79316167 5.9831722,7.67299234 6.0178591,8.72363159 L6.09536461,11.0712132" id="Path" transform="translate(3.900243, 8.876091) rotate(45.000000) translate(-3.900243, -8.876091) "></path>
+                                <path d="M5.89893749,0.91986062 L8.24651909,0.997366107 C9.29715834,1.032053 10.176989,1.91188367 10.2116759,2.9625229 L10.2891814,5.31010453" id="Path-Copy" transform="translate(8.094059, 3.114983) scale(-1, 1) rotate(45.000000) translate(-8.094059, -3.114983) "></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

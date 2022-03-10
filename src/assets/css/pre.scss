@@ -1,0 +1,263 @@
+.pre-container {
+  background: url(../images/pre/wfoot_bg.png) bottom no-repeat;
+  background-size: 100% auto;
+  .pre-lang {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #fff;
+    z-index: 9;
+    .slice-lg,
+    .lg-text {
+      opacity: 0.5;
+      &.lg-active {
+        opacity: 1;
+      }
+    }
+  }
+  .inner-box {
+    width: 66%;
+    margin: 0 auto;
+  }
+  .pre-header {
+    background: url(../images/pre/whead_bg.png) no-repeat;
+    background-size: 100% 100%;
+    .inner-box {
+      display: flex;
+      justify-content: space-between;
+      padding: 10vh 0 12vh;
+      margin: 0 auto;
+      .info {
+        .pre-title {
+          font-size: 3.5vw;
+          color: #fff;
+          font-weight: 800;
+          font-family: 'Avenir-Black';
+          text-shadow: 5px 0px 18px rgba(0, 0, 0, 0.15);
+        }
+        .pre-sec-title {
+          color: #fff;
+          font-family: 'Avenir-Medium';
+          text-shadow: 5px 0px 18px rgba(0, 0, 0, 0.15);
+          // line-height: 1;
+          span {
+            font-size: 2.8vw;
+          }
+        }
+        .border {
+          color: #4ec5fe;
+          width: 40%;
+          border-bottom: 3px solid #4ec5fe;
+          border-radius: 3px;
+          margin: 40px 0 20px;
+        }
+        .ant-statistic-content-value,
+        .content span,
+        .content {
+          color: #fff;
+          font-family: 'Helvetica-Bold';
+          font-size: 3.5vw;
+          letter-spacing: 0px;
+          text-shadow: 5px 0px 18px rgba(0, 0, 0, 0.15);
+        }
+      }
+      .logo {
+        width: 40%;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .pre-features {
+    .title {
+      span {
+        font-size: 2vw;
+        line-height: 17px;
+        color: #29285f;
+        font-weight: bold;
+        font-family: 'Ping Fang SC';
+        text-align: center;
+      }
+      text-align: center;
+      background: url(../images/pre/title_img1.png) top no-repeat;
+      padding-top: 48px;
+      background-size: auto 8px;
+    }
+    .tip {
+      text-align: center;
+      margin-top: 20px;
+      span {
+        font-size: 1.25vw;
+        color: #8788a1;
+        font-family: 'Ping Fang SC';
+        text-align: center;
+      }
+    }
+    ul {
+      margin-top: 100px;
+      li {
+        margin-top: -100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .feature-text {
+          text-align: left;
+          width: 45%;
+          .ft-title {
+            padding-bottom: 30px;
+            font-weight: bold;
+            color: #29285f;
+            font-weight: bold;
+            font-family: 'Ping Fang SC';
+            background: url(../images/pre/title_img2.png) left bottom no-repeat;
+            background-size: auto 8px;
+            span {
+              font-size: 2vw;
+            }
+          }
+          .ft-tip {
+            line-height: 2vw;
+            margin-top: 30px;
+            span {
+              font-size: 1.2vw;
+              color: #8788a1;
+              font-family: 'Ping Fang SC';
+              text-align: center;
+            }
+          }
+        }
+        img {
+          width: 50%;
+        }
+        &:nth-child(2) {
+          .feature-text {
+            margin-left: 10%;
+            width: 35%;
+          }
+        }
+      }
+    }
+  }
+  .pre-footer {
+    font-size: 24px;
+    line-height: 17px;
+    color: #ffffff;
+    font-weight: bold;
+    font-family: 'Ping Fang SC';
+    text-align: center;
+    padding-bottom: 40px;
+    opacity: 0.8;
+    span {
+      a {
+        color: #ffffff;
+        opacity: 0.8;
+      }
+      &:first-child {
+      }
+      &:nth-child(2) {
+        margin-left: 20px;
+      }
+      &:nth-child(3) {
+        height: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .pre-container .pre-header .inner-box .info .pre-sec-title {
+    font-size: 4vh;
+    margin-top: 1vh;
+  }
+  .pre-container .pre-features ul li .feature-text .ft-tip {
+    line-height: 25px;
+  }
+  .pre-container .pre-features ul li .feature-text .ft-title span {
+    font-size: 16px;
+  }
+  .pre-container .pre-features ul li .feature-text .ft-tip span {
+    font-size: 12px;
+  }
+  .pre-container {
+    background: url(../images/pre/m_foot_bg.png) bottom no-repeat;
+    background-size: 100% 150px;
+    .inner-box {
+      width: 90%;
+    }
+    .pre-header {
+      background: url(../images/pre/m_head_bg.png) top no-repeat;
+      background-size: 100% 100%;
+      .inner-box {
+        display: block;
+        position: relative;
+        .logo {
+          position: absolute;
+          top: 5vh;
+          left: 0;
+          right: 0;
+          margin: auto;
+          width: 33vw;
+        }
+        .info {
+          margin-top: 12vh;
+          text-align: center;
+          .pre-title {
+            font-size: 8vh;
+            line-height: 1;
+          }
+          .border {
+            display: none;
+          }
+          .ant-statistic-content-value,
+          .content span,
+          .content {
+            font-size: 6vh;
+          }
+        }
+      }
+    }
+    .pre-features {
+      .title {
+        span {
+          font-size: 22px;
+        }
+        padding-top: 30px;
+        background-size: auto 5px;
+      }
+      .tip {
+        span {
+          font-size: 16px;
+        }
+      }
+      ul {
+        margin-top: 0;
+        li {
+          display: block;
+          margin-top: 0;
+          img {
+            width: 100%;
+            display: block;
+          }
+          .feature-text {
+            width: 100%;
+            text-align: center;
+            .ft-title {
+              background-position: bottom center;
+            }
+          }
+          &:nth-child(2) {
+            .feature-text {
+              width: 100%;
+              margin-left: 0;
+            }
+          }
+        }
+      }
+    }
+    .pre-footer {
+      padding-bottom: 30px;
+      margin-top: 100px;
+    }
+  }
+}

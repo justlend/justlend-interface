@@ -1,0 +1,345 @@
+.main {
+  .ant-modal {
+    text-align: center;
+    .ant-modal-body {
+      min-height: 280px;
+    }
+    .ant-modal-title {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      img {
+        width: 24px;
+        margin-right: 8px;
+      }
+    }
+    .ant-modal-header {
+      padding: 20px 0 10px;
+    }
+    &.DAWPop {
+      .ant-tabs-nav-list {
+        width: 100%;
+        .ant-tabs-tab {
+          width: 50%;
+          .ant-tabs-tab-btn {
+            width: 100%;
+            text-align: center;
+          }
+        }
+      }
+      .deposit {
+        img {
+          width: 60px;
+          margin: 40px auto 20px;
+          display: block;
+        }
+        .ant-progress-line {
+          -moz-transform: scaleX(-1);
+          -webkit-transform: scaleX(-1);
+          -o-transform: scaleX(-1);
+          transform: scaleX(-1);
+        }
+        .approve-tip {
+          margin: 0 auto;
+          // margin-bottom: 20px;
+          // border-bottom: 1px solid #ccc;
+          // padding-bottom: 40px;
+          > span {
+            font-size: 14px;
+            color: #0f134f;
+          }
+        }
+        button.full {
+          width: 100%;
+          display: block;
+          border-radius: 5px;
+          background: #369;
+          color: #fff;
+          text-align: center;
+          height: 40px;
+          line-height: 40px;
+          margin-top: 10px;
+          &.gray {
+            background: #ccc;
+            cursor: not-allowed;
+          }
+        }
+        .ant-input-suffix {
+          cursor: pointer;
+        }
+        a.toSwap {
+          color: #3d56d6;
+          margin-left: 5px;
+        }
+        span.point {
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          border-radius: 6px;
+          background: #fff;
+          margin: 0 6px;
+          &:nth-child(1) {
+            opacity: 1;
+            animation: go1 2s infinite linear;
+          }
+          &:nth-child(2) {
+            opacity: 0.4;
+            animation: go2 2s infinite linear;
+          }
+          &:nth-child(3) {
+            opacity: 0.2;
+            animation: go3 2s infinite linear;
+          }
+        }
+      }
+    }
+    &.mortgage-modal {
+      .ant-modal-header {
+        padding: 20px 24px;
+      }
+      .mortgage-modal-body {
+        .borrow-using {
+          img {
+            display: block;
+            width: 20%;
+            margin: 30px auto 20px;
+          }
+
+          button {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            bottom: 24px;
+            width: calc(100% - 48px);
+            height: 40px;
+            line-height: 40px;
+            padding: 0;
+            font-size: 14px;
+            color: #fff;
+            text-align: center;
+            border: none;
+            border-radius: 8px;
+            background: #3d56d6;
+          }
+        }
+
+        .tips {
+          font-family: PingFang SC;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 24px;
+          /* or 171% */
+          text-align: center;
+          color: #84869e;
+        }
+        .content {
+          text-align: left;
+          margin: 20px 0 16px;
+          background: #f5f6f9;
+          border-radius: 4px;
+          padding: 20px;
+        }
+        .r1,
+        .r2 {
+          display: flex;
+          justify-content: space-between;
+          .r-l {
+            font-family: PingFang SC;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 17px;
+            color: #5a5e89;
+          }
+        }
+        .r2 {
+          margin-top: 16px;
+        }
+        .morgate-btn {
+          cursor: pointer;
+          width: 100%;
+          background: #3d56d6;
+          border-radius: 8px;
+          height: 40px;
+          line-height: 40px;
+          font-family: PingFang SC;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          text-align: center;
+          color: #ffffff;
+          border: none;
+          padding: 0;
+          &:disabled {
+            background: #f0f1f6;
+            cursor: not-allowed;
+            color: #84869e;
+          }
+        }
+      }
+    }
+    &.borrow-modal {
+      .deposit {
+        img {
+          width: 60px;
+          margin: 40px auto 20px;
+          display: block;
+        }
+        .approve-tip {
+          margin: 0 auto;
+          > span {
+            font-size: 14px;
+            color: #0f134f;
+          }
+        }
+      }
+      a.toSwap {
+        color: #3d56d6;
+        margin-left: 5px;
+      }
+      .borrow-tip {
+        margin: 20px 0 10px;
+        color: #84869e;
+        font-size: 12px;
+        span {
+          display: inline-block;
+          width: 18px;
+          height: 18px;
+          border-radius: 18px;
+          background: rgba($color: #84869e, $alpha: 0.5);
+          color: #fff;
+          text-align: center;
+          line-height: 18px;
+          font-size: 12px;
+          margin-right: 5px;
+        }
+      }
+    }
+    .custom-btn {
+      cursor: pointer;
+      width: 100%;
+      background: #3d56d6;
+      border-radius: 8px;
+      height: 40px;
+      line-height: 40px;
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      text-align: center;
+      color: #ffffff;
+      border: none;
+      padding: 0;
+      &:disabled {
+        background: #f0f1f6;
+        cursor: not-allowed;
+        color: #84869e;
+      }
+    }
+  }
+}
+
+.ant-modal.trans-modal,
+.login-modal {
+  .trans-modal-wait-confirm {
+    margin-top: 5px;
+  }
+  .trans-modal-icon {
+    margin-top: 15px;
+  }
+  span.point {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 6px;
+    background: #3d56d6;
+    margin: 0 4px;
+    &:nth-child(1) {
+      opacity: 1;
+      animation: go1 2s infinite linear;
+    }
+    &:nth-child(2) {
+      opacity: 0.4;
+      animation: go2 2s infinite linear;
+    }
+    &:nth-child(3) {
+      opacity: 0.2;
+      animation: go3 2s infinite linear;
+    }
+  }
+}
+.login-modal {
+  span.point {
+    background-color: #fff;
+  }
+}
+
+@keyframes go3 {
+  0% {
+    opacity: 1;
+  }
+  32% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 0.4;
+  }
+  65% {
+    opacity: 0.4;
+  }
+  66% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+@keyframes go2 {
+  0% {
+    opacity: 0.4;
+  }
+  32% {
+    opacity: 0.4;
+  }
+  33% {
+    opacity: 0.2;
+  }
+  65% {
+    opacity: 0.2;
+  }
+  66% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes go1 {
+  0% {
+    opacity: 0.2;
+  }
+  32% {
+    opacity: 0.2;
+  }
+  33% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+@media screen and (max-width: 374px) {
+  .main .ant-modal.mortgage-modal .ant-modal-header {
+    padding: 20px 2px;
+  }
+}

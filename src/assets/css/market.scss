@@ -1,0 +1,773 @@
+.market-container {
+  .common-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: #0f134f;
+  }
+
+  .market-summary-blocks {
+    display: flex;
+    justify-content: space-between;
+
+    .market-summary-block {
+      width: 49%;
+      padding: 20px;
+      border-radius: 8px;
+      background-color: #fff;
+
+      .block-title {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        color: #0f134f;
+        margin-bottom: 12px;
+      }
+
+      .block-money {
+        font-size: 20px;
+        line-height: 23px;
+        color: #0f134f;
+        margin-bottom: 20px;
+
+        .block-percent {
+          font-size: 14px;
+          color: #3d56d6;
+          margin-left: 4px;
+        }
+      }
+
+      .block-subtitle {
+        font-size: 12px;
+        color: #84869e;
+        margin-bottom: 12px;
+      }
+
+      .block-process {
+        > span {
+          font-size: 14px;
+          color: #5a5e89;
+          font-weight: 500;
+
+          &.process-text {
+            color: #3d56d6;
+          }
+        }
+      }
+
+      &.lend-block {
+        .block-process {
+          .process-text {
+            color: #1ed0ac;
+          }
+        }
+
+        .block-percent {
+          color: #1ed0ac;
+        }
+      }
+    }
+
+    .summary-footer {
+      overflow: hidden;
+    }
+  }
+
+  .market-summary-list {
+    margin-top: 20px;
+    padding: 20px 20px 28px;
+    border-radius: 8px;
+    background-color: #fff;
+
+    .table-alike {
+      display: flex;
+
+      > div:nth-child(1) {
+        width: 20%;
+      }
+
+      > div:nth-child(2),
+      > div:nth-child(4) {
+        width: 20%;
+      }
+
+      > div:nth-child(3),
+      > div:nth-child(5) {
+        width: 20%;
+      }
+
+      &.table-header {
+        margin-top: 16px;
+        background: rgba(238, 241, 247, 0.5);
+
+        > div {
+          height: 32px;
+          line-height: 32px;
+          text-align: right;
+          font-size: 12px;
+          color: #84869e;
+
+          &:first-child {
+            text-align: left;
+          }
+
+          > span {
+            font-size: 12px;
+          }
+        }
+      }
+
+      &.table-row {
+        border-bottom: 1px solid #f2f2f2;
+
+        &:hover {
+          background-color: #f5f7fd;
+          transition: all ease-in 0.2s;
+        }
+
+        > div {
+          height: 66px;
+          line-height: 66px;
+          text-align: right;
+          color: #0f134f;
+          font-size: 14px;
+
+          &:first-child {
+            text-align: left;
+            position: relative;
+
+            > img {
+              width: 24px;
+              height: 24px;
+              position: absolute;
+              top: 19px;
+              left: 5px;
+            }
+
+            > p {
+              text-indent: 30px;
+              color: #0f134f;
+              font-size: 14px;
+              line-height: 16px;
+              margin-top: 14px;
+              margin-bottom: 4px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+
+              &:last-child {
+                color: #84869e;
+                font-size: 12px;
+                line-height: 14px;
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+
+      &.table-header > div,
+      &.table-row > div {
+        padding: 0 12px;
+      }
+
+      div.fw500 {
+        span.fw500 {
+          padding-left: 22px;
+          min-width: 95px;
+          display: inline-block;
+          padding-right: 15px;
+        }
+        &.fire {
+          span.fw500 {
+            background: url(../images/fire.png) left no-repeat;
+            background-size: 14px 18px;
+          }
+        }
+      }
+    }
+  }
+
+  .market-detail-header {
+    padding: 20px;
+    height: 88px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+
+    .header-title {
+      width: 20%;
+      display: flex;
+      align-items: center;
+      margin: 0;
+
+      > img {
+        width: 40px;
+        height: 40px;
+        margin-right: 8px;
+      }
+
+      > span {
+        font-size: 18px;
+        font-weight: 500;
+      }
+    }
+
+    .header-info {
+      width: 80%;
+
+      > div {
+        width: 25%;
+        text-align: right;
+
+        > p {
+          font-size: 16px;
+          line-height: 20px;
+          color: #0f134f;
+          margin-bottom: 8px;
+
+          &:nth-child(1) {
+            line-height: 18px;
+
+            > span {
+              font-size: 12px;
+              color: #84869e;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .market-detail-info {
+    width: 33%;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+
+    .detail-title {
+      line-height: 20px;
+      color: #0f134f;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .detail-info {
+      > div {
+        margin-bottom: 14px;
+
+        &:last-child {
+          margin-bottom: 0;
+
+          span:last-child {
+            text-align: right;
+          }
+        }
+
+        > span,
+        > span > span {
+          color: #84869e;
+          font-size: 12px;
+
+          &:nth-child(2) {
+            color: #0f134f;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  .market-detail-echarts {
+    width: 100%;
+    height: 260px !important;
+    padding: 0px 20px 0px;
+
+    .default-text-clone {
+      color: #5a5e89;
+      width: 206px;
+      height: auto;
+      padding: 16px;
+      background: #ffffff;
+      box-shadow: 0px 2px 20px rgba(135, 135, 135, 0.2);
+
+      p {
+        margin-bottom: 0;
+        line-height: 25px;
+        font-family: PingFang SC;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 12px;
+        line-height: 17px;
+        color: #84869e;
+        display: flex;
+        justify-content: space-between;
+
+        &:nth-child(2) {
+          margin-top: 10px;
+        }
+
+        span {
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 16px;
+          text-align: right;
+        }
+
+        .green {
+          color: #1ed0ac;
+        }
+
+        .blue {
+          color: #3d56d6;
+        }
+      }
+    }
+  }
+
+  .echarts-frame {
+    position: relative;
+    width: 65%;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+
+    .left {
+      position: absolute;
+      top: 144px;
+      // top: calc(56% - 40px);
+      left: 20px;
+      color: #84869e;
+      font-size: 12px;
+      display: block;
+      z-index: 9;
+      display: none;
+      // transform: rotate(-90deg);
+    }
+
+    .right {
+      margin-left: 20px;
+      margin-top: -15px;
+      color: #84869e;
+      font-size: 12px;
+      display: block;
+    }
+
+    .echarts-title {
+      // position: absolute;
+      // top: 20px;
+      // left: 20px;
+      line-height: 20px;
+      color: #0f134f;
+      font-weight: 600;
+      z-index: 1;
+      width: calc(100% - 40px);
+    }
+
+    .echarts-subtitle {
+      color: #84869e;
+      font-size: 12px;
+      font-weight: 400;
+      margin-top: 5px;
+    }
+
+    // detail
+    .default-text {
+      display: block;
+      position: absolute;
+      left: 20%;
+      top: 0px;
+      background: #ffffff;
+      box-shadow: 0px 2px 20px rgba(135, 135, 135, 0.2);
+      color: #333;
+      font-size: 14px;
+      display: inline-block;
+      vertical-align: top;
+      margin: 100px auto 20%;
+      padding: 16px;
+      color: #5a5e89;
+      width: 206px;
+      height: auto;
+
+      &.hide {
+        display: none;
+      }
+
+      p {
+        margin-bottom: 0;
+        line-height: 25px;
+        font-family: PingFang SC;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 12px;
+        line-height: 17px;
+        color: #84869e;
+        display: flex;
+        justify-content: space-between;
+
+        &:nth-child(2) {
+          margin-top: 10px;
+        }
+
+        span {
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 16px;
+          text-align: right;
+        }
+
+        .green {
+          color: #1ed0ac;
+        }
+
+        .blue {
+          color: #3d56d6;
+        }
+      }
+    }
+
+    .gray-bar {
+      padding: 12px;
+      background: #f5f6f9;
+      border-radius: 2px;
+      margin-top: 20px;
+      align-items: center;
+
+      .title {
+        font-family: PingFang SC;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        color: #0f134f;
+      }
+
+      .data-tip {
+        font-family: PingFang SC;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+        color: #84869e;
+      }
+
+      .data {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 18px;
+        text-align: right;
+        color: #3d56d6;
+        padding-left: 18px;
+        background: url(../images/fire.png) left -1.5px no-repeat;
+        background-size: 14px 18px;
+        margin-left: 8px;
+      }
+    }
+
+    .bottom-bar {
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 17px;
+      color: #84869e;
+      margin-top: 9px;
+      padding-left: 18px;
+      background: url(../images/fire.png) left center no-repeat;
+      background-size: 14px 18px;
+    }
+  }
+
+  .go-transcan > a,
+  .market-footer > a {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3d56d6;
+  }
+}
+
+.market-footer {
+  .go-transcan {
+    width: 33%;
+  }
+
+  .go-sun {
+    margin-left: 2%;
+  }
+}
+
+.market-container .market-summary-list a {
+  &:last-child {
+    .table-alike.table-row {
+      border-bottom: none;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .right-container {
+    width: calc(100% - 230px);
+
+    &.mobile-right-container {
+      width: 100%;
+    }
+  }
+
+  .market-container .market-summary-blocks {
+    display: block;
+
+    .market-summary-block {
+      width: 100%;
+
+      &:first-child {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .market-container {
+    .market-info-block {
+      display: block;
+    }
+
+    .market-detail-info,
+    .echarts-frame {
+      width: 100%;
+
+      &:hover {
+        .default-box {
+          display: none;
+        }
+      }
+    }
+
+    .market-detail-info {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .table-row > div > p {
+    display: none;
+  }
+
+  .market-container .market-summary-list .table-alike > div:nth-child(1) {
+    width: 15%;
+  }
+
+  .market-container .market-summary-list .table-alike.table-row > div:first-child > img {
+    left: 13px;
+  }
+
+  .market-container .market-summary-list .table-alike {
+    &.table-row > div,
+    &.table-header > div {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  .market-container .market-detail-header .header-info > div > p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .market-container .echarts-frame .left {
+    left: -1%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .market-container .market-detail-header {
+    display: block;
+    height: auto;
+    overflow: hidden;
+
+    .header-title {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .header-info {
+      display: block;
+      width: 100%;
+
+      > div {
+        float: left;
+        width: 50%;
+
+        &:nth-child(2n + 1) {
+          text-align: left;
+        }
+
+        &:nth-child(3) {
+          clear: left;
+        }
+      }
+    }
+  }
+
+  .market-container {
+    .market-footer {
+      justify-content: space-between;
+
+      .go-transcan {
+        width: auto;
+        padding-top: 5px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .market-container .market-summary-list .table-alike.table-row > div,
+  .market-container .market-summary-list .table-alike.table-header > div,
+  .market-container .market-detail-header .header-info > div > p {
+    font-size: 12px;
+  }
+
+  .market-container .market-summary-list .table-alike.table-row {
+    align-items: center;
+    height: 45px;
+    line-height: 45px;
+  }
+
+  .market-container .market-detail-header .header-title {
+    // width: 10%;
+    > img {
+      width: 30px;
+      height: 30px;
+    }
+
+    > span {
+      font-size: 12px;
+    }
+  }
+
+  // .market-container .market-detail-header .header-info {
+  //   width: 85%;
+  // }
+
+  .market-container .market-summary-list .table-alike.table-row > div,
+  .market-container .market-summary-list .table-alike.table-header > div {
+    white-space: pre-wrap;
+    text-overflow: unset;
+    word-break: word-break;
+    text-align: center;
+    overflow: unset;
+    height: auto;
+    padding: 2px;
+  }
+
+  .market-container .market-summary-list .table-alike.table-header > div:first-child {
+    text-align: center;
+  }
+
+  .market-container .market-summary-list .table-alike.table-header div {
+    line-height: 16px;
+
+    &:nth-child(3) {
+      width: 25%;
+    }
+  }
+
+  .market-container .market-summary-list .table-alike div.fw500 {
+    line-height: 17px;
+    word-break: break-all;
+    font-size: 12px;
+
+    span.fw500 {
+      display: inline-block;
+      font-size: 12px;
+    }
+  }
+
+  .market-container .market-summary-list .table-alike.table-row {
+    > div:first-child {
+      height: 30px;
+      text-align: center;
+    }
+
+    > div:nth-child(3) {
+      width: 25%;
+    }
+  }
+
+  .market-container .market-summary-list .table-alike.table-row > div:first-child > img {
+    position: static;
+    vertical-align: top;
+    margin: 1px auto 0;
+  }
+}
+
+.ant-progress {
+  margin-bottom: 15px;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.link {
+  width: 100%;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.oh {
+  overflow: hidden;
+}
+
+body {
+  background: #f0f2f7;
+}
+
+.fs12 {
+  font-size: 12px;
+}
+
+.fs14 {
+  font-size: 14px;
+}
+
+.fs16 {
+  font-size: 16px;
+}
+
+.fw600 {
+  font-weight: 600;
+}
+
+.c-0F134F {
+  color: #0f134f;
+}
+
+.c-1ED0AC {
+  color: #1ed0ac;
+}
+
+.c-84869E {
+  color: #84869e;
+}
+
+.mt12 {
+  margin-top: 12px;
+}

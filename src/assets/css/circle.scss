@@ -1,0 +1,94 @@
+.canvasBox {
+  position: relative;
+  // width: 308px;
+  margin: 0 auto;
+  height: 190px;
+  .ellipse-color {
+    width: 220px;
+    height: 190px;
+    margin: 10px auto 0;
+    background: url(../images/ellipse-color.png) no-repeat;
+    background-size: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-top: 35px;
+    .Triangle {
+      position: absolute;
+      left: 101.5px;
+      top: 32.5px;
+      transform: rotate(-0.25turn);
+      transform-origin: 8.5px 73px;
+    }
+    .canvas-text {
+      margin: 0px auto 0;
+      text-align: center;
+      width: 110px;
+      height: 70px;
+      cursor: pointer;
+      .fz20 {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .red {
+        color: #f66;
+      }
+      .purple {
+        color: #c9f;
+      }
+      .blue {
+        color: #69f;
+      }
+      .green {
+        color: #1ed0ac;
+      }
+      .gray {
+        color: #f2f2f2;
+      }
+      p {
+        margin-bottom: 0;
+        &.fz20 {
+          font-family: PingFang SC;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 12px;
+          line-height: 20px;
+          text-align: center;
+          &.with-color {
+            color: #3d56d6;
+          }
+        }
+        &.black {
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 24px;
+          line-height: 33px;
+          text-align: center;
+          &.with-color {
+            color: #0f134f;
+          }
+        }
+        &.not-connect {
+          font-family: PingFang SC;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 20px;
+          text-align: center;
+          color: #84869e;
+        }
+        &.big {
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 24px;
+          line-height: 28px;
+          text-align: center;
+          color: #0f134f;
+          margin-top: -2px;
+        }
+      }
+    }
+  }
+}
