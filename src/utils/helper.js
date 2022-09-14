@@ -217,7 +217,7 @@ export const SUPPOER_LOCALES = [
     value: 'zh-CN'
   },
   {
-    name: '繁体中文',
+    name: '繁體中文',
     value: 'zh-TC'
   }
 ];
@@ -543,12 +543,10 @@ export const getDepositJtokenAll = userDataList => {
   return depositJtokenAll;
 };
 
-
 export const getBorrowLimit = (trxPrice, userDataList) => {
   let depositUSDAll = BigNumber(0);
   userDataList.map(_ => {
     if (_.account_entered === 1) {
-
       _.deposited_usd = getDepositUsd(_, trxPrice);
 
       const temp = BigNumber(_.deposited_usd).times(_.collateralFactor).div(Config.tokenDefaultPrecision);
@@ -566,11 +564,8 @@ export const getBorrowLimitAfter = (item, priceList, userDataList, tokenValue = 
   return borrowLimit.plus(tokenValue.times(item.collateralFactor).times(assetPrice));
 };
 
-
 export const getBorrowPercent = (item, trxPrice, borrowLimit) => {
   const balanceNewUsd = item.borrowBalanceNewUsd || getBorrowBalanceNewUsd(item, trxPrice);
-
-
 
   return balanceNewUsd.div(borrowLimit).times(100);
 };
@@ -611,7 +606,6 @@ export const amountFormat = (amount, decimal, { miniText = false, needDolar = fa
     .div(precision)
     .toFixed(decimal)}`;
 };
-
 
 export const deduplication = (dataSource, value) => {
   let arr = dataSource.map(item => {
@@ -778,7 +772,6 @@ export const myLocal = {
         return null;
       }
       if (now > result.exp) {
-
         window.localStorage.removeItem(key);
         return '';
       }
