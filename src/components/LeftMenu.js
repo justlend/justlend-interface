@@ -1,27 +1,28 @@
-import React from 'react';
+import { Drawer, Menu, Modal, Select } from 'antd';
 import isMobile from 'ismobilejs';
-import intl from 'react-intl-universal';
 import { inject, observer } from 'mobx-react';
+import React from 'react';
+import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
-import { Layout, Select, Menu, Modal, Drawer, Tooltip, Popover, Button } from 'antd';
-import { LoadingOutlined, CopyOutlined, UnorderedListOutlined } from '@ant-design/icons';
-const { Option } = Select;
-const { SubMenu } = Menu;
-import { cutMiddle, copyToClipboard, tronscanTX, formatNumber, getModalLeft, modalCloseIcon } from '../utils/helper';
 import '../assets/css/header.scss';
-import Config from '../config';
-import walletSuccess from '../assets/images/walletSuccess.svg';
-import walletFail from '../assets/images/walletFail.svg';
-import logoSingle from '../assets/images/mainLogo.svg';
 import closeIcon from '../assets/images/closeBlack.svg';
-import tronlink from '../assets/images/tronlinkLogo.svg';
-import tronlinkBlue from '../assets/images/tronlinkBlue.svg';
-import tronlinkRightArrow from '../assets/images/tronlinkRightArrow.svg';
+import justLend from '../assets/images/justLend.svg';
+import logoSingle from '../assets/images/mainLogo.svg';
 import menuLeft from '../assets/images/menuLeft.svg';
 import menuRight from '../assets/images/menuRight.svg';
-import justLend from '../assets/images/justLend.svg';
+import tronlinkBlue from '../assets/images/tronlinkBlue.svg';
+import tronlink from '../assets/images/tronlinkLogo.svg';
+import tronlinkRightArrow from '../assets/images/tronlinkRightArrow.svg';
+import walletConnectLogo from '../assets/images/walletConnectLogo.svg';
+import walletFail from '../assets/images/walletFail.svg';
+import walletSuccess from '../assets/images/walletSuccess.svg';
+import Config from '../config';
+import { copyToClipboard, cutMiddle } from '../utils/helper';
+const { Option } = Select;
+const { SubMenu } = Menu;
 
 @inject('network')
+@inject('walletConnect')
 @observer
 class LeftMenu extends React.Component {
   constructor(props) {
@@ -74,18 +75,30 @@ class LeftMenu extends React.Component {
   };
 
   loginWallet = (e, type) => {
-    this.props.network.setData({ loginModalStep: 2 });
-    this.props.network.initTronLinkWallet(
-      () => {
-        if (this.props.network.isConnected) {
-          this.props.network.setData({ loginModalStep: 2 });
-          this.props.mountedActions && this.props.mountedActions();
+    switch (type) {
+      case 1:
+        this.props.network.setData({ loginModalStep: 2 });
+        this.props.network.initTronLinkWallet(
+          () => {
+            if (this.props.network.isConnected) {
+              this.props.network.setData({ loginModalStep: 2 });
+              this.props.mountedActions && this.props.mountedActions();
+            }
+          },
+          () => {
+            this.props.unmountedActions && this.props.unmountedActions();
+          }
+        );
+        break;
+      case 2:
+        // this.props.network.setData({ loginModalStep: 2 });
+        try {
+          this.props.walletConnect.connect(() => this.props.network.setData({ loginModalVisible: false }));
+        } catch (e) {
+          console.log(` LeftMenu.js --- e:`, e);
         }
-      },
-      () => {
-        this.props.unmountedActions && this.props.unmountedActions();
-      }
-    );
+        break;
+    }
   };
 
   showAccountInfo = () => {
@@ -198,7 +211,7 @@ class LeftMenu extends React.Component {
               dropdownClassName="lang-select"
             >
               <Option value="en-US">English</Option>
-              <Option value="zh-TC">繁体中文</Option>
+              <Option value="zh-TC">繁體中文</Option>
               <Option value="zh-CN">简体中文</Option>
             </Select>
             {/* <span>
@@ -251,15 +264,8 @@ class LeftMenu extends React.Component {
 
   render() {
     const { accountModal, lang, drawerVisible, mobile } = this.state;
-    const {
-      isConnected,
-      defaultAccount,
-      defaultSelectedKeys,
-      loginModalVisible,
-      loginModalStep,
-      routeName,
-      menuFlag
-    } = this.props.network;
+    const { isConnected, defaultAccount, defaultSelectedKeys, loginModalVisible, loginModalStep, routeName, menuFlag } =
+      this.props.network;
     return (
       <>
         {!mobile ? (
@@ -361,7 +367,7 @@ class LeftMenu extends React.Component {
                         dropdownClassName="lang-select"
                       >
                         <Option value="en-US">English</Option>
-                        <Option value="zh-TC">繁体中文</Option>
+                        <Option value="zh-TC">繁體中文</Option>
                         <Option value="zh-CN">简体中文</Option>
                       </Select>
                       {/* <span>
@@ -466,21 +472,38 @@ class LeftMenu extends React.Component {
                     <img src={tronlinkRightArrow} className="tronlink-right-arrow-logo" alt="" />
                   </div>
                 </div>
+                <br />
+                <div
+                  className="wallet-item"
+                  onClick={e => {
+                    this.loginWallet(e, 2);
+                  }}
+                >
+                  <span>
+                    <img src={walletConnectLogo} className="tronlink-logo" alt="" />
+                  </span>
+                  <div>
+                    <span className="wallet-txt">{intl.get('login_modal.walletConnect')}</span>
+                    <img src={tronlinkRightArrow} className="tronlink-right-arrow-logo" alt="" />
+                  </div>
+                </div>
               </div>
 
               <div className="tronlink-tips">
                 <span>{intl.get('wallet.accept_tips')} </span>
                 <a
-                  href={`${Config.fileLink}JustLend_Terms_of_Use_${lang === 'en-US' ? 'en' : lang === 'zh-CN' ? 'cn' : 'tc'
-                    }.pdf`}
+                  href={`${Config.fileLink}JustLend_Terms_of_Use_${
+                    lang === 'en-US' ? 'en' : lang === 'zh-CN' ? 'cn' : 'tc'
+                  }.pdf`}
                   target="walletService"
                 >
                   {intl.get('wallet.service')}
                 </a>
                 &nbsp;
                 <a
-                  href={`${Config.fileLink}JustLend_Privacy_Policy_${lang === 'en-US' ? 'en' : lang === 'zh-CN' ? 'cn' : 'tc'
-                    }.pdf`}
+                  href={`${Config.fileLink}JustLend_Privacy_Policy_${
+                    lang === 'en-US' ? 'en' : lang === 'zh-CN' ? 'cn' : 'tc'
+                  }.pdf`}
                   target="walletPrivacy"
                 >
                   {intl.get('wallet.privacy')}
@@ -517,14 +540,23 @@ class LeftMenu extends React.Component {
           footer={null}
           onCancel={this.handleCancelAccount}
           className="login-modal custom-modal"
-          visible={accountModal}
+          visible={accountModal && isConnected}
           style={defaultSelectedKeys === '1'} // except scan
           width={320}
         >
           <div>
-            <img className="mb16" src={tronlinkBlue} />
+            <img
+              className="mb16 tronlink-logo"
+              src={this.props.walletConnect.isWalletConnect ? walletConnectLogo : tronlinkBlue}
+            />
             <div className="address-con">
-              <div className="tip-text mb16 fs12 c-5A5E89">{intl.get('account_modal.connect_with_tronlink')}</div>
+              <div className="tip-text mb16 fs12 c-5A5E89">
+                {intl.get(
+                  this.props.walletConnect.isWalletConnect
+                    ? 'account_modal.connect_with_walletconnect'
+                    : 'account_modal.connect_with_tronlink'
+                )}
+              </div>
               <div className="address-tex mb16">
                 <div className="c-0F134F fs12">{defaultAccount}</div>
                 <div

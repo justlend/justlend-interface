@@ -115,7 +115,6 @@ export default class NetworkStore {
     if (intlObj.needCallAgain && intlObj.needCallAgain === 'getVoteDetail') {
       this.rootStore.lend.getVoteDetail(intlObj.obj.token);
     }
-
   };
 
   logTransactionFailed = (item, needDelete = false) => {
@@ -128,7 +127,6 @@ export default class NetworkStore {
       duration: 30
     });
     this.saveTransactions(item, needDelete);
-
   };
 
   saveTransactions = (record, needDelete) => {
@@ -299,15 +297,15 @@ export default class NetworkStore {
     try {
       const self = this;
 
-      const tronlinkPromise = new Promise(reslove => {
+      const tronlinkPromise = new Promise(resolve => {
         if (window.tronLink) {
           window.tronLink.gg = 'gg';
-          return reslove(window.tronLink);
+          return resolve(window.tronLink);
         } else {
           window.addEventListener(
             'tronLink#initialized',
             async () => {
-              return reslove(window.tronLink || tronObj.tronWeb);
+              return resolve(window.tronLink || tronObj.tronWeb);
             },
             {
               once: true
@@ -316,7 +314,7 @@ export default class NetworkStore {
 
           setTimeout(() => {
             if (window.tronLink) {
-              return reslove(window.tronLink);
+              return resolve(window.tronLink);
             }
           }, 3000);
         }

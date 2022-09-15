@@ -181,6 +181,7 @@
   },
   "login_modal": {
     "tronlink": "TronLink 錢包",
+    "walletConnect": "Wallet Connect 錢包",
     "no_tronlink_tip": {
       "tip1": "還沒安裝 TronLink？",
       "tip2": "請點擊此處>>"
@@ -191,6 +192,7 @@
   "account_modal": {
     "account": "賬戶",
     "connect_with_tronlink": "已連接 TronLink",
+    "connect_with_walletconnect": "已連接 WalletConnect",
     "copy": "複制",
     "copied": "已複制"
   },

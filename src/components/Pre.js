@@ -24,7 +24,7 @@ const SUPPOER_LOCALES = [
     value: 'zh-CN'
   },
   {
-    name: '繁体中文',
+    name: '繁體中文',
     value: 'zh-TC'
   }
 ];

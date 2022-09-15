@@ -181,6 +181,7 @@
   },
   "login_modal": {
     "tronlink": "TronLink Wallet",
+    "walletConnect": "Wallet Connect Wallet",
     "no_tronlink_tip": {
       "tip1": "Haven't installed TronLink yet?",
       "tip2": "Click here>>"
@@ -191,6 +192,7 @@
   "account_modal": {
     "account": "Account",
     "connect_with_tronlink": "Connected with TronLink",
+    "connect_with_walletconnect": "Connected with WalletConnect",
     "copy": "Copy",
     "copied": "Copied"
   },

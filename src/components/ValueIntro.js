@@ -30,7 +30,7 @@ class ValueIntro extends React.Component {
     let totalValue = BigNumber(0);
     if (defiTVL) {
       let justLendTVL = defiTVL.projects.filter(item => item.project === 'JustLend');
-      totalValue = BigNumber(justLendTVL[0].locked).integerValue(BigNumber.ROUND_DOWN);
+      totalValue = BigNumber(justLendTVL?.[0]?.locked).integerValue(BigNumber.ROUND_DOWN);
     }
 
     let deposit = dashboardData ? BigNumber(dashboardData.totalDepositedUSD) : BigNumber(0);
@@ -80,10 +80,10 @@ class ValueIntro extends React.Component {
                   className="value-number"
                   start={0}
                   duration={1}
-                  redraw={true} 
-                  separator="," 
-                  decimal="." 
-                  prefix="$" 
+                  redraw={true}
+                  separator=","
+                  decimal="."
+                  prefix="$"
                   end={item.value}
                 />
               ) : (
