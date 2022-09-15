@@ -192,6 +192,7 @@
   "account_modal": {
     "account": "Account",
     "connect_with_tronlink": "Connected with TronLink",
+    "connect_with_walletconnect": "Connected with WalletConnect",
     "copy": "Copy",
     "copied": "Copied"
   },

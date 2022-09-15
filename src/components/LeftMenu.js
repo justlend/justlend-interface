@@ -540,14 +540,23 @@ class LeftMenu extends React.Component {
           footer={null}
           onCancel={this.handleCancelAccount}
           className="login-modal custom-modal"
-          visible={accountModal}
+          visible={accountModal && isConnected}
           style={defaultSelectedKeys === '1'} // except scan
           width={320}
         >
           <div>
-            <img className="mb16" src={tronlinkBlue} />
+            <img
+              className="mb16 tronlink-logo"
+              src={this.props.walletConnect.isWalletConnect ? walletConnectLogo : tronlinkBlue}
+            />
             <div className="address-con">
-              <div className="tip-text mb16 fs12 c-5A5E89">{intl.get('account_modal.connect_with_tronlink')}</div>
+              <div className="tip-text mb16 fs12 c-5A5E89">
+                {intl.get(
+                  this.props.walletConnect.isWalletConnect
+                    ? 'account_modal.connect_with_walletconnect'
+                    : 'account_modal.connect_with_tronlink'
+                )}
+              </div>
               <div className="address-tex mb16">
                 <div className="c-0F134F fs12">{defaultAccount}</div>
                 <div

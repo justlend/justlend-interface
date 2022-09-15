@@ -3,8 +3,8 @@ import QRCodeModal from '@walletconnect/qrcode-modal';
 import { observable } from 'mobx';
 
 export default class WalletConnectStore {
-  @observable accounts = [];
-  @observable chainId = '';
+  @observable isWalletConnect = false;
+  @observable chainId = null;
   @observable connector = new WalletConnect({
     bridge: 'https://bridge.walletconnect.org', // Required
     qrcodeModal: QRCodeModal
@@ -13,6 +13,13 @@ export default class WalletConnectStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
+  setAccount = account => {
+    window.defaultAccount = account;
+    this.rootStore.network.defaultAccount = account;
+
+    this.rootStore.network.isConnected = true;
+    this.isWalletConnect = true;
+  };
 
   listenEvents = () => {
     // Subscribe to connection events
@@ -20,10 +27,9 @@ export default class WalletConnectStore {
       if (error) {
         throw error;
       }
-
       // Get provided accounts and chainId
-      const { accounts: a, chainId: c } = payload.params[0];
-      this.accounts = a;
+      const { accounts, chainId: c } = payload.params[0];
+      this.setAccount(accounts[0]);
       this.chainId = c;
     });
 
@@ -33,8 +39,8 @@ export default class WalletConnectStore {
       }
 
       // Get updated accounts and chainId
-      const { accounts: a, chainId: c } = payload.params[0];
-      this.accounts = a;
+      const { accounts, chainId: c } = payload.params[0];
+      this.setAccount(accounts[0]);
       this.chainId = c;
     });
 
@@ -42,19 +48,23 @@ export default class WalletConnectStore {
       if (error) {
         throw error;
       }
-
       // Delete connector
-      this.accounts = [];
-      this.chainId = '';
+      this.isWalletConnect = false;
+      this.chainId = null;
+
+      window.defaultAccount = '';
+      this.rootStore.network.defaultAccount = '';
+      this.rootStore.network.isConnected = false;
+      this.rootStore.network.loginModalVisible = false;
     });
   };
 
   connect = async cb => {
-    console.log(` walletConnect.js --- connector:`, this.connector);
-
     try {
       this.listenEvents();
-      let a = await this.connector.connect();
+      let { chainId: c, accounts } = await this.connector.connect();
+      this.setAccount(accounts[0]);
+      this.chainId = c;
       cb & cb();
     } catch (error) {
       console.log(` walletConnect.js --- error:`, error);

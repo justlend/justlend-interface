@@ -192,6 +192,7 @@
   "account_modal": {
     "account": "賬戶",
     "connect_with_tronlink": "已連接 TronLink",
+    "connect_with_walletconnect": "已連接 WalletConnect",
     "copy": "複制",
     "copied": "已複制"
   },
