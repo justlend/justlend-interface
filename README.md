@@ -88,7 +88,7 @@ Getting the interface running on your local machine is straightforward.
    Bash
 
    ```
-   npm run dev
+   npm run start
    ```
 
 ------
@@ -164,7 +164,7 @@ We encourage developers to get directly involved with coding. Issues tagged with
   Bash
 
   ```
-  npm run dev
+  npm run start
   ```
 
 - **Production Mode (local preview)**
