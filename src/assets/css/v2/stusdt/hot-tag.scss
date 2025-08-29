@@ -1,0 +1,13 @@
+.hot-tag {
+  background: url(../../../images/v2/stusdt/hot-tag-bg.svg) no-repeat center/100% auto;
+  margin-right: 3px;
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+  span {
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 17px;
+  }
+}

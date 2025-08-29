@@ -1,0 +1,836 @@
+.rental-order-mini-list {
+  display: flex;
+  flex-direction: column;
+
+  .list-wrapper {
+    .list-header {
+      .list-header-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .title-cotent {
+          display: inline-block;
+
+          .order-count-rect {
+            display: inline-block;
+            background: rgba(76, 84, 255, 0.3);
+            border-radius: 1px;
+            color: #9195fb;
+          }
+        }
+
+        .list-order-select {
+          position: relative;
+          z-index: 1;
+
+          text-align: right;
+          flex-shrink: 0;
+
+          color: #ffffff;
+          opacity: 0.6;
+
+          cursor: pointer;
+
+          &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-60%) rotate(180deg);
+            background: url(../../../images/v2/energy-rental/down-arrow-white.svg) 0 0 no-repeat;
+            background-size: 100%;
+
+            transition: all 0.3s ease;
+          }
+
+          .list-content {
+            position: absolute;
+
+            background-color: #40414a;
+
+            opacity: 0;
+            left: 1000px;
+            transition: opacity 0.3s ease;
+
+            text-align: left;
+
+            .order-option {
+              position: relative;
+              color: #ffffff;
+
+              cursor: pointer;
+
+              &::after {
+                content: '';
+                position: absolute;
+                top: 45%;
+                right: 0;
+                transform: translateY(-50%);
+                background: url(../../../images/v2/energy-rental/tick-white.svg) 0 0 no-repeat;
+                background-size: 100%;
+
+                opacity: 0;
+              }
+
+              &.active {
+                color: #ffffff;
+                cursor: default;
+
+                &::after {
+                  opacity: 1;
+                }
+              }
+              &:hover {
+                background-color: rgba(255, 255, 255, 0.04);
+              }
+            }
+          }
+
+          &:hover {
+            opacity: 1;
+
+            &::after {
+              opacity: 1;
+              transform-origin: center;
+              transform: translateY(-52%);
+            }
+            .list-content {
+              opacity: 1;
+              left: auto;
+            }
+          }
+        }
+      }
+    }
+
+    .order-list {
+      margin-top: 14px;
+
+      .order-item {
+        background-color: #2b2d34;
+        border-radius: 5px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+
+        &.renter {
+          background-color: #24262d;
+        }
+
+        &:not(:first-child) {
+          margin-top: 10px;
+        }
+
+        .order-header {
+          position: relative;
+          padding: 16px 12px;
+
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+          color: #b3b4b7;
+          font-size: 12px;
+          font-weight: 400;
+
+          .rent-for-self-tips,
+          .rent-for-others-tips {
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            padding: 3px 8px;
+            border-radius: 0 5px 0 5px;
+
+            font-size: 10px;
+            font-weight: 400;
+          }
+          .rent-for-self-tips {
+            background-color: rgba(77, 84, 255, 0.1);
+            color: #9195fb;
+          }
+          .rent-for-others-tips {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.4);
+          }
+        }
+        .order-detail {
+          padding: 16px 6px;
+
+          .warning-box {
+            background: rgba(255, 82, 102, 0.06);
+            border-radius: 5px;
+            margin-top: 10px;
+            // padding-bottom: 10px;
+            &.none {
+              background: transparent;
+              margin-top: 0;
+            }
+          }
+
+          .tip-box {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            &.alert {
+              padding-top: 10px;
+              background: rgba(255, 82, 102, 0.06);
+              border-radius: 5px;
+            }
+            &.warning {
+              padding-top: 10px;
+              background: rgba(245, 135, 33, 0.06);
+              border-radius: 5px;
+              margin-top: 10px;
+            }
+          }
+
+          .tobe-liquidated-warning {
+            padding: 0 6px;
+            padding-bottom: 10px;
+            svg {
+              min-width: 12px;
+            }
+            span {
+              font-size: 12px;
+              color: #ff5266;
+              margin-left: 5px;
+            }
+          }
+
+          .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 6px;
+
+            .warning-box {
+              display: flex;
+              align-items: center;
+              svg {
+                min-width: 12px;
+                transform: translateY(0px);
+              }
+              span {
+                font-size: 12px;
+                font-weight: 400;
+                margin-left: 4px;
+                &.red-tip {
+                  color: #ff5266;
+                }
+                &.yellow-tip {
+                  color: #f58721;
+                }
+              }
+            }
+
+            &:not(:first-child) {
+              margin-top: 10px;
+            }
+
+            .field,
+            .value,
+            .value > span {
+              font-size: 12px;
+              position: relative;
+            }
+
+            .field {
+              margin-right: 10px;
+              .j-tooltip-icon {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                background-size: 100%;
+
+                background-size: 12px 12px;
+                width: 12px;
+                height: 13px;
+              }
+            }
+            .value {
+              padding-right: 18px;
+              text-align: right;
+              display: inline-flex;
+              align-items: center;
+              width: 100%;
+              overflow: hidden;
+              width: fit-content;
+
+              &.value-dash {
+                &::before {
+                  content: '';
+                  position: absolute;
+                  left: 0;
+                  bottom: 0;
+                  height: 1px;
+                  width: 100%;
+                  border-bottom: 1px dashed #b3b4b7;
+                }
+                &:hover {
+                  color: #9195fb !important;
+                  &::before {
+                    border-bottom: 1px dashed #9195fb;
+                  }
+                }
+              }
+
+              &.red {
+                &::before {
+                  display: none;
+                }
+                // padding-right: 0;
+                color: rgba(255, 82, 102, 1) !important;
+                // border-bottom: 1px dashed rgba(255, 82, 102, 1) !important;
+
+                &:hover {
+                  color: rgba(255, 82, 102, 1) !important;
+                  // color: #b33947 !important;
+                  // border-bottom: 1px dashed #b33947 !important;
+                }
+              }
+
+              > span {
+                width: 100%;
+                display: inline-block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+
+              .energy-icon,
+              .switch-icon {
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translateY(-55%);
+                background: url(../../../images/v2/energy-rental/energy-grey.svg) 0 0 no-repeat;
+                background-size: 100%;
+
+                margin: 0;
+                background-size: 14px 14px;
+                width: 14px;
+                height: 15px;
+
+                transition: all 0.3s ease;
+              }
+              .energy-icon {
+                background-image: url(../../../images/v2/energy-rental/energy-grey.svg);
+              }
+              .switch-icon {
+                cursor: pointer;
+                opacity: 0.3;
+                background-image: url(../../../images/v2/energy-rental/switch.svg);
+
+                &:hover {
+                  opacity: 1;
+                }
+              }
+            }
+
+            &.energy-row {
+              .field,
+              .value,
+              .value > span {
+                color: #ffffff;
+              }
+              .field {
+                font-weight: 500;
+              }
+              .value,
+              .value > span {
+                font-weight: 600;
+              }
+            }
+            &.time-row {
+              .field,
+              .value,
+              .value > span {
+                color: #b3b4b7;
+              }
+              .value.red {
+                color: #ff5266;
+                > span {
+                  color: #ff5266;
+                }
+              }
+              .value.yellow {
+                color: #f58721;
+                > span {
+                  color: #f58721;
+                }
+              }
+              .field {
+                font-weight: 400;
+              }
+              .value,
+              .value > span {
+                font-weight: 500;
+              }
+              .value {
+                justify-content: flex-end;
+                white-space: nowrap;
+                font-size: 12px;
+                padding-right: 0;
+              }
+              .inline-flex {
+                display: inline-flex;
+                align-items: center;
+              }
+            }
+            .j-tooltip-icon {
+              // transform: translateY(2px);
+            }
+          }
+        }
+        .action-btns {
+          display: flex;
+          padding: 0px 12px 16px;
+
+          > * {
+            width: 50%;
+          }
+          .j-rent-renew {
+            width: 100%;
+          }
+          .action-btn {
+            transition: all 0.3s ease;
+
+            &.add-btn,
+            &.end-btn {
+              padding: 3px 12px;
+              border-radius: 5px;
+
+              font-size: 12px;
+              font-weight: 500;
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            &.add-btn {
+              background-color: #4d54ff;
+              color: #ffffff;
+
+              &:hover {
+                background: #9195fb;
+              }
+            }
+            &.end-btn {
+              border: 1px solid #9195fb;
+
+              background-color: transparent;
+              color: #9195fb;
+
+              &:hover {
+                color: #fff;
+                background: #4d54ff;
+                border-color: #4d54ff;
+              }
+            }
+            &.disabled,
+            &.disabled:hover {
+              background-color: #53545a;
+              color: rgba(255, 255, 255, 0.6);
+              cursor: not-allowed;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .blur-filter-on-list {
+    position: relative;
+  }
+}
+
+.order-list-subtitle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: -3px;
+  > span {
+    display: inline-block;
+    font-size: 12px;
+    color: #b3b4b7;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+    margin: 0 60px;
+    background: #31333b;
+  }
+  .olt-line {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.06);
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+  }
+}
+
+.j-wrapper.white {
+  .order-list-subtitle {
+    > span {
+      color: #737480;
+      background: #fff;
+    }
+    .olt-line {
+      background-color: rgba(34, 35, 43, 0.06);
+    }
+  }
+
+  .rental-order-mini-list {
+    .list-wrapper {
+      .list-header {
+        .list-header-title {
+          .title-cotent {
+            .order-count-rect {
+              color: #4d54ff;
+              border-radius: 1px;
+              background: rgba(76, 84, 255, 0.2);
+            }
+          }
+
+          .list-order-select {
+            color: #22232b;
+
+            &::after {
+              background-image: url(../../../images/v2/energy-rental/down-arrow-black.svg);
+            }
+
+            .list-content {
+              background-color: #f9fafc;
+              box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.06);
+
+              .order-option {
+                color: #22232b;
+
+                &::after {
+                  background-image: url(../../../images/v2/energy-rental/tick-black.svg);
+                }
+                &.active {
+                  color: #22232b;
+                }
+                &:hover {
+                  background-color: #f0f2f7;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .order-list {
+        .order-item {
+          background-color: #f6f6f6;
+          background-color: rgba(34, 35, 43, 0.03);
+
+          &.renter {
+            background-color: rgba(34, 35, 43, 0.08);
+          }
+
+          .order-header {
+            border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+            color: #737480;
+
+            .rent-for-self-tips {
+              background-color: rgba(77, 84, 255, 0.1);
+              color: #4d54ff;
+            }
+            .rent-for-others-tips {
+              background-color: rgba(34, 35, 43, 0.1);
+              color: rgba(34, 35, 43, 0.4);
+            }
+          }
+          .order-detail {
+            .detail-row {
+              .value {
+                &.value-dash {
+                  &:hover {
+                    color: #4d54ff !important;
+
+                    &::before {
+                      border-bottom: 1px dashed #4d54ff !important;
+                    }
+                  }
+                }
+                &.red {
+                  color: #ff5266 !important;
+                  // border-bottom: 1px dashed #ff5266 !important;
+
+                  &:hover {
+                    color: #ff5266 !important;
+                    // border-bottom: 1px dashed #cc4252 !important;
+                  }
+                }
+                .energy-icon {
+                  background-image: url(../../../images/v2/energy-rental/energy-grey-white-theme.svg);
+                }
+                .switch-icon {
+                  background-image: url(../../../images/v2/energy-rental/switch-white-theme.svg);
+                }
+              }
+
+              &.energy-row {
+                .field,
+                .value,
+                .value > span {
+                  color: #22232b;
+                }
+              }
+              &.time-row {
+                .field,
+                .value,
+                .value > span {
+                  color: #737480;
+                }
+                .value.red {
+                  color: #ff5266;
+                  > span {
+                    color: #ff5266;
+                  }
+                }
+                .value.yellow {
+                  color: #f58721;
+                  > span {
+                    color: #f58721;
+                  }
+                }
+              }
+            }
+          }
+          .action-btns {
+            .action-btn {
+              &.add-btn {
+                background-color: #4d54ff;
+                color: #ffffff;
+
+                &:hover {
+                  background: #9195fb;
+                }
+              }
+              &.end-btn {
+                border: 1px solid #4d54ff;
+
+                background-color: transparent;
+                color: #4d54ff;
+
+                &:hover {
+                  background: #4d54ff;
+                  color: #fff;
+                }
+              }
+              &.disabled,
+              &.disabled:hover {
+                background-color: #d3d3d5;
+                color: #fff;
+                cursor: not-allowed;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .blur-filter-on-list {
+      &::after {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
+      }
+    }
+  }
+}
+
+/* Font size/margin/padding for all screen */
+.rental-order-mini-list {
+  .list-wrapper {
+    .list-header {
+      .list-header-title {
+        .title-cotent {
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 22px;
+
+          .order-count-rect {
+            min-width: 16px;
+            height: 16px;
+            text-align: center;
+
+            margin-left: 6px;
+            padding-left: 3px;
+            padding-right: 3px;
+
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 18px;
+          }
+        }
+
+        .list-order-select {
+          font-size: 12px;
+          font-weight: 400;
+
+          padding-bottom: 5px;
+          padding-top: 5px;
+          padding-right: 14px;
+
+          &::after {
+            background-size: 8px 8px;
+            width: 8px;
+            height: 9px;
+          }
+
+          .list-content {
+            top: 100%;
+            right: 0;
+            padding: 10px 0;
+            width: 140px;
+
+            border-radius: 5px;
+
+            .order-option {
+              font-size: 12px;
+              font-weight: 500;
+
+              padding: 10px 13px;
+
+              &::after {
+                background-size: 13px 13px;
+                width: 13px;
+                height: 13px;
+
+                right: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .order-list-link {
+    align-self: center;
+    margin-top: 20px;
+    margin-right: 0;
+  }
+}
+
+/* Large screen */
+@media (min-width: 799px) {
+  .rental-order-mini-list {
+    flex-basis: 340px;
+    padding: 20px 26px;
+    margin-left: 20px;
+    .list-wrapper {
+      .order-list {
+        max-height: 484px; // change js formula if changed this value
+        overflow-y: scroll;
+        border-right: 1px solid transparent;
+
+        &::-webkit-scrollbar {
+          /*滚动条整体样式*/
+          width: 1px; /*高宽分别对应横竖滚动条的尺寸*/
+          height: 40px;
+          display: none;
+        }
+        &::-webkit-scrollbar-thumb {
+          /*滚动条里面小方块*/
+          max-height: 40px;
+          border-radius: 1px;
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+        &:hover {
+          border-right: none;
+          &::-webkit-scrollbar {
+            display: block;
+          }
+        }
+
+        .order-item {
+          .order-detail {
+            .detail-row {
+              .field {
+                display: flex;
+                align-items: center;
+                padding-left: 16px;
+                white-space: nowrap;
+              }
+            }
+          }
+          .action-btns {
+            .action-btn {
+              &.add-btn {
+                margin-left: 12px;
+              }
+              &.end-btn {
+                margin-right: 12px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .blur-filter-on-list {
+      &::after {
+        content: '';
+        position: absolute;
+        border-radius: 5px;
+        background: linear-gradient(180deg, rgba(49, 51, 58, 0) 0%, #31333a 100%);
+        left: 0;
+        right: 0;
+        height: 64px;
+        top: -64px;
+        user-select: none;
+        pointer-events: none;
+        opacity: 1;
+
+        transition: all 0.2s ease-in-out;
+      }
+      &.transparent {
+        &::after {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
+
+/* Small screen */
+@media (max-width: 798px) {
+  .rental-order-mini-list {
+    width: 100%;
+    padding: 20px 15px;
+    margin-bottom: 20px;
+
+    .list-wrapper {
+      .order-list {
+        .order-item {
+          .order-detail {
+            .detail-row {
+              .field {
+                padding-left: 0;
+                flex-shrink: 0;
+                .j-tooltip-icon {
+                  opacity: 0;
+                }
+              }
+            }
+          }
+          .action-btns {
+            .action-btn {
+              &.add-btn {
+                margin-left: 10px;
+              }
+              &.end-btn {
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

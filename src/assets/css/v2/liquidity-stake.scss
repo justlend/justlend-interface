@@ -1,0 +1,2019 @@
+.j-stake-container {
+  min-height: calc(100vh - 202px);
+}
+.j-wrapper .j-liquidity-stake-content .stake-box .j-info-tip div {
+  opacity: 0.6;
+}
+.j-liquidity-stake {
+  width: 90%;
+  max-width: 1440px;
+  margin: 0 auto;
+
+  .top-header {
+    margin: 30px auto 20px;
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      height: 28px;
+      line-height: 27px;
+      margin-bottom: 10px;
+
+      &:before {
+        content: '';
+        width: 6px;
+        height: 18px;
+        display: inline-block;
+        background: #4d54ff;
+        border-radius: 1px;
+        margin-right: 10px;
+        margin-top: -1px;
+      }
+      &.energy-rent-title {
+        &::before {
+          background-color: #18c19f;
+          // background: linear-gradient(360deg, #c0ea6a 2.78%, #3cffd8 100%);
+        }
+      }
+    }
+
+    .info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .desc {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: rgba(255, 255, 255, 0.6);
+        padding-left: 16px;
+        a {
+          color: #9195fb;
+          margin-left: 10px;
+          opacity: 1;
+          em {
+            display: inline-block;
+            width: 7px;
+            height: 20px;
+            margin-left: 4px;
+            background: url(../../images/v2/liquidity-stake/unlock-arrow.svg) no-repeat center;
+            vertical-align: top;
+          }
+        }
+      }
+      .announce {
+        // height: 28px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.04) url(../../images/v2/liquidity-stake/announce.svg) no-repeat left 10px
+          center;
+        padding-left: 10px;
+        line-height: 28px;
+        text-indent: 18px;
+        a {
+          color: #fff;
+          font-size: 12px;
+        }
+        em {
+          display: inline-block;
+          width: 5px;
+          height: 28px;
+          background: url(../../images/v2/liquidity-stake/arrow.svg) no-repeat center;
+          margin-left: 8px;
+          margin-right: 10px;
+          vertical-align: top;
+        }
+        a:hover {
+          color: #9195fb;
+          em {
+            background: url(../../images/v2/liquidity-stake/arrow-hover.svg) no-repeat center;
+          }
+        }
+      }
+    }
+  }
+}
+.j-liquidity-stake-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  > div {
+    position: relative;
+    width: 50%;
+    height: 418px;
+    border-radius: 10px;
+  }
+  .apy-box-nostake {
+    margin-right: 20px;
+    background: #31333a url(../../images/v2/liquidity-stake/apy-box-nostake.png) no-repeat center;
+    background-size: cover;
+    padding: 60px 30px 0;
+    .connect-btn {
+      display: none;
+    }
+
+    &.disconnect {
+      background: #31333a url(../../images/v2/liquidity-stake/apy-box-disconnect.jpg) no-repeat top center;
+      background-size: cover;
+      padding: 80px 30px 0;
+
+      .apy-img {
+        top: 90px;
+      }
+    }
+    .apy-title {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 22px;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .j-tooltip-icon {
+      margin-left: 6px;
+      width: 14px;
+      height: 14px;
+      transform: translateY(2px);
+    }
+    .apy-value {
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 41px;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .apy-desc {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 24px;
+      color: rgba(255, 255, 255, 0.6);
+      max-width: 64%;
+    }
+    .apy-img {
+      position: absolute;
+      width: 150px;
+      height: 130px;
+      background: url(../../images/v2/liquidity-stake/apy.png) no-repeat center;
+      top: 58px;
+      right: 40px;
+      background-size: contain;
+    }
+    .connect-wallet {
+      position: absolute;
+      width: calc(100% - 60px);
+      height: 40px;
+      bottom: 40px;
+      left: 30px;
+      border: 1px solid rgba(145, 149, 251, 0.8);
+      border-radius: 2px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 38px;
+      text-align: center;
+      color: #9195fb;
+      cursor: pointer;
+    }
+    .redeem {
+      position: absolute;
+      width: calc(100% - 60px);
+      height: 126px;
+      background: rgba(255, 255, 255, 0.06) url(../../images/v2/liquidity-stake/redeem.png) no-repeat center;
+      border-radius: 10px;
+      background-size: 530px 126px;
+      left: 30px;
+      bottom: 40px;
+      padding: 40px 20px;
+      section {
+        width: 50%;
+        display: inline-block;
+      }
+      div {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+        color: #fff;
+        margin-bottom: 6px;
+      }
+      p {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 25px;
+        color: #fff;
+        margin-bottom: 6px;
+        strong {
+          font-weight: 600;
+          font-size: 18px;
+          margin-right: 4px;
+        }
+      }
+      span {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .value {
+        font-family: 'Avenir Next';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 25px;
+        color: #fff;
+        .pre {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 25px;
+          display: inline-block;
+          margin-right: 4px;
+          color: #fff;
+        }
+        .income {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 105px;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 25px;
+          display: inline-block;
+          vertical-align: middle;
+          color: #fff;
+        }
+        .postfix {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 19px;
+          margin-left: 4px;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .apy-box-stake {
+    height: 418px;
+    margin-right: 20px;
+    background: #31333a url(../../images/v2/liquidity-stake/apy-box-stake.svg) no-repeat center;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 26px 30px;
+    position: relative;
+    background-size: cover;
+
+    .balance-info {
+      &.only-stake {
+        margin-top: 50px;
+      }
+
+      .balance-label {
+        display: inline-block;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        color: #fff;
+        height: 22px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        &:hover {
+          color: #9195fb;
+          .exchange {
+            background: url(../../images/v2/liquidity-stake/exchange-hover.svg) no-repeat center;
+          }
+        }
+
+        .exchange {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          background: url(../../images/v2/liquidity-stake/exchange.svg) no-repeat center;
+          margin-left: 6px;
+          margin-top: -1px;
+          vertical-align: middle;
+          cursor: pointer;
+          &::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            background: url(../../images/v2/liquidity-stake/exchange-hover.svg) no-repeat center;
+          }
+        }
+      }
+      .balance {
+        font-weight: 700;
+        font-size: 26px;
+        line-height: 36px;
+        color: #fff;
+        margin-bottom: 8px;
+        .postfix {
+          font-weight: 400;
+          margin-left: 4px;
+        }
+      }
+      .money {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+    .user-stake-info {
+      width: calc(100% - 60px);
+      height: 230px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+      padding: 26px 20px;
+      position: absolute;
+      bottom: 40px;
+      left: 30px;
+
+      .withdraw-label {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+        color: #fff;
+        margin-bottom: 6px;
+        display: inline-block;
+      }
+
+      .j-tooltip-icon {
+        margin-left: 6px;
+        transform: translateY(-1px);
+        vertical-align: middle;
+      }
+
+      .withdraw-balance {
+        color: #ffffff;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 9px;
+
+        strong {
+          font-size: 18px;
+          font-weight: 600;
+          font-size: 18px;
+          margin-right: 4px;
+        }
+      }
+
+      .unlock-bar {
+        display: inline-flex;
+        flex-wrap: wrap;
+        align-items: center;
+        background: #31333a;
+        border-radius: 2px;
+        height: 22px;
+        padding: 0 10px;
+        line-height: 22px;
+        font-weight: 400;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+
+        &.empty {
+          background: transparent;
+        }
+
+        strong {
+          font-weight: 500;
+          color: #fff;
+        }
+
+        span {
+          display: inline;
+          font-size: 12px;
+        }
+        .detail {
+          color: #4d54ff;
+          margin-left: 6px;
+          font-size: 12px;
+          line-height: 14px;
+          cursor: pointer;
+        }
+
+        em {
+          display: inline-block;
+          width: 6px;
+          height: 22px;
+          margin-left: 4px;
+          background: url(../../images/v2/liquidity-stake/unlock-arrow.svg) no-repeat center;
+          vertical-align: top;
+        }
+      }
+
+      .apy-info {
+        width: 100%;
+        height: 100px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        margin-top: 26px;
+        padding-top: 26px;
+      }
+      .withdraw {
+        padding: 6px 0px;
+        width: 90px;
+        background: #4c54ff;
+        border-radius: 2px;
+        line-height: 18px;
+        font-weight: 400;
+        font-size: 12px;
+        color: rgb(255, 255, 255, 1) !important;
+        text-align: center;
+        position: absolute;
+        top: 49px;
+        right: 20px;
+        margin-top: 0;
+        height: unset;
+        cursor: pointer;
+        transition: all 0.3s;
+
+        &:hover {
+          background-color: #9195fb;
+        }
+
+        &.disabled {
+          background: #53545a;
+          border-radius: 2px;
+          cursor: not-allowed;
+          color: rgb(255, 255, 255, 0.6);
+        }
+
+        .siging-icon {
+          position: relative;
+          top: 2px;
+        }
+      }
+
+      .reject-info {
+        background: transparent;
+        color: #ff5266;
+        top: 19px;
+        right: 20px;
+        flex-direction: row-reverse;
+        padding: 0;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 20px;
+      }
+    }
+    .j-tooltip-icon {
+      margin-left: 4px;
+      transform: translateY(-1px);
+      vertical-align: middle;
+    }
+    .column {
+      width: 33%;
+      display: inline-block;
+      color: #ffffff;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 17px;
+      margin-bottom: 6px;
+
+      > div {
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+
+      em {
+        display: inline-block;
+        width: 18px;
+        height: 17px;
+        background: url(../../images/v2/liquidity-stake/income-arrow.png) no-repeat center/100%;
+        vertical-align: middle;
+      }
+
+      strong {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 25px;
+        margin-bottom: 6px;
+        font-family: 'Avenir Next';
+        span {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 19px;
+        }
+        .pre {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 25px;
+          display: inline-block;
+          margin-right: 4px;
+        }
+        .income {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 105px;
+          margin-top: -1px;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 25px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+    }
+
+    .apy-only-stake {
+      position: absolute;
+      width: calc(100% - 60px);
+      height: 126px;
+      background: rgba(255, 255, 255, 0.06) url(../../images/v2/liquidity-stake/apy-stake-box.png) no-repeat center;
+      border-radius: 10px;
+      background-size: cover;
+      left: 30px;
+      bottom: 40px;
+      padding-top: 39px;
+      padding-left: 19px;
+      color: #fff;
+      .title {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+        margin-bottom: 6px;
+      }
+      .value {
+        font-family: 'Avenir Next';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 25px;
+        .postfix {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 19px;
+          margin-left: 4px;
+        }
+      }
+    }
+    .img-bg {
+      width: 118px;
+      height: 110px;
+      background: url(../../images/v2/liquidity-stake/stake-img.svg) no-repeat center;
+      top: 22px;
+      right: 30px;
+      position: absolute;
+
+      &.only-stake {
+        top: 60px;
+      }
+    }
+  }
+  .stake-box {
+    background: #31333a url(../../images/v2/liquidity-stake/stake-box.png) no-repeat center;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-size: cover;
+
+    .tabs {
+      padding-top: 26px;
+      height: 68px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-left: 30px;
+      width: 100%;
+
+      span {
+        display: inline-block;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 25px;
+        text-transform: capitalize;
+        margin-right: 30px;
+        position: relative;
+        color: rgba(255, 255, 255, 0.4);
+        cursor: pointer;
+
+        &.active {
+          color: #ffffff;
+
+          &:after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            position: absolute;
+            bottom: -17px;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            background: #4c54ff;
+            border-radius: 1px;
+          }
+        }
+      }
+    }
+
+    .lock-content {
+      padding: 20px 30px 0;
+      position: relative;
+
+      .balance-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 11px;
+      }
+      .balance-label {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #fff;
+      }
+      .balance {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 20px;
+        color: rgba(255, 255, 255, 0.6);
+        strong {
+          color: #fff;
+          font-weight: 500;
+          margin-left: 4px;
+        }
+      }
+      .input-wrap {
+        position: relative;
+
+        .inputDollar {
+          position: absolute;
+          top: 20px;
+          right: 127px;
+          height: 40px;
+          width: calc(100% - 147px);
+          line-height: 40px;
+          font-weight: 500;
+          font-size: 16px;
+          color: rgba(255, 255, 255, 0.4);
+          text-align: right;
+          pointer-events: none;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          &.strx {
+            right: 137px;
+            background: none;
+          }
+        }
+
+        &.j-error-stake {
+          .inputDollar {
+            top: 16px;
+            height: 22px;
+            width: calc(100% - 147px);
+            line-height: 22px;
+          }
+
+          .j-error-tip {
+            background: transparent;
+            top: 42px;
+            padding: 0px 20px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            > div {
+              line-height: 14px;
+            }
+          }
+
+          .j-info-tip {
+            .j-error-img {
+              min-width: 12px;
+              height: 12px;
+              margin-right: 6px;
+              margin-top: -1px;
+              margin-left: 0;
+              background: url(../../images/v2/liquidity-stake/info-icon.svg) 0 0 no-repeat;
+              background-size: cover;
+            }
+            .j-error-text-wrap {
+              opacity: 1;
+              .j-error-text {
+                display: inline;
+                margin-right: 4px;
+              }
+              div {
+                opacity: 1;
+              }
+            }
+
+            div {
+              color: #fff;
+              font-weight: 400;
+              font-size: 12px;
+              line-height: 14px;
+            }
+
+            span {
+              color: #9195fb;
+              font-weight: 400;
+              font-size: 12px;
+              cursor: pointer;
+            }
+            em {
+              display: inline-block;
+              width: 6px;
+              height: 14px;
+              background: url(../../images/v2/liquidity-stake/icon-arrow.svg) no-repeat center;
+              margin-left: 4px;
+              margin-right: 10px;
+              vertical-align: top;
+            }
+          }
+        }
+      }
+      .stake-input {
+        width: 100%;
+        height: 79px;
+        background: rgba(41, 43, 50, 0.7);
+        border-radius: 5px;
+        padding-top: 20px;
+
+        .ant-input-affix-wrapper {
+          height: 77px;
+          background: rgba(41, 43, 50, 0.7);
+          border: 1px solid rgba(41, 43, 50, 0.7);
+        }
+
+        .ant-input-group {
+          height: 40px;
+        }
+        .ant-input {
+          background: transparent;
+          height: 40px;
+          border: none;
+          padding: 0 20px;
+
+          &:hover {
+            border: none;
+          }
+
+          ::placeholder {
+            color: red;
+          }
+        }
+        .ant-input-group-addon {
+          background: transparent;
+          padding: 0 20px;
+          height: 40px;
+          border-left: 1px solid rgba($color: #fff, $alpha: 0.16);
+          &::after {
+            height: 40px;
+            top: 0;
+          }
+        }
+        .stake-trx {
+          background: url(../../images/v2/liquidity-stake/input-TRX.svg) no-repeat left center;
+          width: 66px;
+          height: 26px;
+          display: block;
+          text-indent: 36px;
+          line-height: 26px;
+          font-weight: 500;
+          font-size: 16px;
+          background-size: contain;
+          display: flex;
+          align-items: center;
+          &.stake-strx {
+            width: 75px;
+          }
+        }
+
+        .stake-strx {
+          background: url(../../images/v2/liquidity-stake/input-sTRX.svg) no-repeat left center;
+          background-size: contain;
+        }
+
+        &.j-error-input {
+          background: rgba(255, 82, 102, 0.08);
+          padding-top: 16px;
+
+          &.j-info-input {
+            border: none;
+            background: rgba(41, 43, 50, 0.7);
+          }
+          .ant-input-group {
+            height: 22px;
+          }
+          .ant-input {
+            height: 22px;
+          }
+
+          .ant-input-group-addon {
+            height: 22px;
+            &::after {
+              height: 20px;
+            }
+          }
+
+          .stake-trx {
+            height: 22px;
+            line-height: 22px;
+            background-size: contain;
+          }
+        }
+      }
+      .input-wrap .inputDollar,
+      .stake-input .ant-input::placeholder {
+        color: rgb(255, 255, 255, 0.4);
+        font-weight: 500;
+      }
+
+      .percent {
+        margin-top: 2px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        div {
+          // width: 20%;
+          flex: 1;
+          background: rgba(255, 255, 255, 0.04);
+          border-radius: 2px;
+          font-weight: 500;
+          height: 26px;
+          font-size: 14px;
+          margin-left: 22px;
+          line-height: 26px;
+          color: rgba(255, 255, 255, 0.6);
+          text-align: center;
+          cursor: pointer;
+          transition: all 0.3s;
+
+          &:first-child {
+            margin-left: 0;
+          }
+
+          &:hover,
+          &.selected,
+          &.selected:hover {
+            background: #4b52df;
+            color: #fff;
+          }
+        }
+      }
+      .info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 20px;
+        margin-top: 20px;
+        line-height: 20px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+        position: relative;
+      }
+      .available {
+        padding-right: 56px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: calc(100% - 100px);
+
+        &.second {
+          padding-right: 50px;
+        }
+      }
+      .available,
+      .rate {
+        color: #ffffff;
+      }
+      .trx,
+      .strx {
+        background: url(../../images/v2/liquidity-stake/input-TRX.svg) no-repeat left center;
+        line-height: 20px;
+        background-size: 14px 14px;
+        text-indent: 17px;
+        display: inline-block;
+        margin-left: 6px;
+        width: 44px;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .strx {
+        background: url(../../images/v2/liquidity-stake/input-sTRX.svg) no-repeat left center;
+        background-size: 14px 14px;
+        width: 50px;
+      }
+    }
+    .j-large-btn {
+      position: absolute;
+      bottom: 40px;
+      width: calc(100% - 60px);
+      left: 30px;
+      border-radius: 5px;
+    }
+
+    .j-info-tip {
+      .j-error-img {
+        min-width: 12px;
+        height: 12px;
+        background: url(../../images/v2/liquidity-stake/info-icon.svg) 0 0 no-repeat;
+        background-size: cover;
+      }
+      div {
+        color: #fff;
+      }
+    }
+    .j-error-tip.wallet-reject {
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      height: 36px;
+      > div {
+        line-height: 14px;
+      }
+    }
+  }
+}
+
+.claim-tip {
+  .ant-popover-content {
+    .ant-popover-arrow-content {
+      background: #40414a;
+
+      &::before {
+        background: #40414a;
+      }
+    }
+  }
+  .ant-popover-inner {
+    background: #40414a;
+  }
+  .ant-popover-inner-content {
+    color: rgba(255, 82, 102, 1);
+
+    div {
+      font-weight: 500;
+      font-size: 12px;
+    }
+  }
+
+  .j-error-img {
+    display: inline-block;
+    min-width: 14px;
+    height: 12px;
+    background: url(../../images/v2/warning-icon.svg) 0 0 no-repeat;
+    background-size: 100%;
+    margin-right: 4px;
+    transform: translateY(1px);
+  }
+}
+
+.ant-modal.unlock-modal {
+  background: #282931;
+  border-radius: 2px;
+  min-width: 400px;
+  padding-bottom: 0;
+
+  .ant-modal-content {
+    background: #282931;
+    border-radius: 2px;
+
+    .ant-modal-close-x {
+      position: static !important;
+      width: 56px !important;
+      height: 56px !important;
+      background: none !important;
+    }
+  }
+
+  .ant-modal-header {
+    border-radius: 2px 2px 0 0;
+    background: #282931;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    .ant-modal-title {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: unset;
+      color: #ffffff;
+      text-align: center;
+      display: inline-flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .ant-modal-body {
+    background: #282931;
+    border-radius: 0 0 2px 2px;
+    padding: 20px;
+
+    .unlock-balance {
+      text-align: center;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 17px;
+      color: #fff;
+    }
+    .unlock-detail {
+      max-height: 238px;
+      padding: 16px 15px;
+      background: #22232b;
+      border-radius: 2px;
+
+      .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #fff;
+        line-height: 17px;
+        margin-bottom: 16px;
+        padding-right: 16px;
+
+        > div {
+          font-size: 12px;
+        }
+      }
+
+      .j-tooltip-icon {
+        margin-left: 4px;
+        margin-top: 4px;
+        vertical-align: top;
+      }
+
+      ul {
+        width: 345px;
+        max-height: 189px;
+        overflow-y: auto;
+        margin-bottom: 0;
+
+        &::-webkit-scrollbar {
+          width: 1px;
+          height: 40px;
+          display: none;
+        }
+        &::-webkit-scrollbar-thumb {
+          max-height: 40px;
+          border-radius: 1px;
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        &:hover {
+          border-right: none;
+          &::-webkit-scrollbar {
+            display: block;
+          }
+        }
+      }
+      li {
+        width: 330px;
+        height: 51px;
+        background: #282931;
+        border-radius: 2px;
+        padding: 16px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        span {
+          color: #fff;
+        }
+        .time {
+          color: rgba(255, 255, 255, 0.6);
+          font-size: 12px;
+        }
+        .normal {
+          color: rgba(255, 255, 255, 0.8) !important;
+        }
+      }
+    }
+    .title {
+      font-size: 12px;
+      text-indent: 15px;
+    }
+    .amount {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 22px;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      color: #9195fb;
+      margin-top: 6px;
+      margin-bottom: 20px;
+      .highlight,
+      .normal {
+        font-size: 16px !important;
+      }
+      strong {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        margin-left: 2px;
+      }
+    }
+  }
+
+  &.white {
+    background: #fff;
+
+    .ant-modal-content {
+      background: #fff;
+    }
+
+    .ant-modal-header {
+      background: #fff;
+      border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+      .ant-modal-title {
+        color: #22232b;
+      }
+    }
+
+    .ant-modal-body {
+      background: #fff;
+
+      .unlock-balance {
+        color: #22232b;
+      }
+      .unlock-detail {
+        background: #f8f8fe;
+
+        .top {
+          color: #22232b;
+        }
+
+        .j-tooltip-icon {
+          background-image: url(../../images/v2/white-theme/tooltip-icon.svg);
+        }
+
+        ul {
+          &::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+        }
+        li {
+          background: #fff;
+          span {
+            color: #22232b;
+          }
+          .time {
+            color: rgba(34, 35, 43, 0.6);
+          }
+          .normal {
+            color: rgba(34, 35, 43, 0.8) !important;
+          }
+        }
+      }
+      .amount {
+        color: #4d54ff;
+      }
+    }
+  }
+}
+
+.j-wrapper.white {
+  .j-liquidity-stake-content .stake-box .j-large-btn.j-supply {
+    background: #4d54ff;
+    color: #fff !important;
+    &:hover {
+      background: #9195fb;
+      border: 1px solid #9195fb;
+    }
+  }
+  .j-liquidity-stake-content .apy-box-nostake .j-tooltip-icon {
+    background-image: url(../../images/v2/white-theme/liquidity-stake/tooltip-icon.svg);
+  }
+  .j-liquidity-stake-content .apy-box-stake .column em {
+    background: url(../../images/v2/white-theme/liquidity-stake/income-arrow.png) no-repeat center/100%;
+  }
+  .j-liquidity-stake .top-header {
+    .title,
+    .info .announce a {
+      color: #22232b;
+    }
+    .info .desc {
+      color: rgba(34, 35, 43, 0.6);
+      .learn-more {
+        color: #4d54ff;
+        em {
+          background-image: url(../../images/v2/white-theme/liquidity-stake/unlock-arrow.svg);
+        }
+      }
+    }
+    .info .announce {
+      background: rgba(75, 82, 223, 0.06) url(../../images/v2/white-theme/liquidity-stake/announce.svg) no-repeat 12px
+        10px;
+      em {
+        background: url(../../images/v2/white-theme/liquidity-stake/announce-arrow.svg) no-repeat center;
+      }
+      a:hover {
+        color: #9195fb;
+        em {
+          background: url(../../images/v2/liquidity-stake/arrow-hover.svg) no-repeat center;
+        }
+      }
+    }
+
+    .energy-rent-title {
+      &::before {
+        background: #18c19f;
+      }
+    }
+  }
+  .j-liquidity-stake-content .apy-box-stake .balance-info {
+    .balance-label,
+    .balance {
+      color: #22232b;
+    }
+    .balance-label:hover {
+      color: #4c54ff;
+    }
+    .money {
+      color: rgba(34, 35, 43, 0.6);
+    }
+  }
+  .j-liquidity-stake-content {
+    .apy-box-stake {
+      background: #ffffff url(../../images/v2/white-theme/liquidity-stake/apy-box-stake.svg) no-repeat center;
+      background-size: cover;
+
+      .column {
+        color: #22232b;
+      }
+
+      .apy-only-stake {
+        background: rgba(34, 35, 43, 0.02) url(../../images/v2/liquidity-stake/apy-stake-box-white.png) no-repeat center;
+        color: #22232b;
+      }
+
+      .img-bg {
+        background: url(../../images/v2/white-theme/liquidity-stake/stake-img.svg) no-repeat center;
+      }
+    }
+    .user-stake-info {
+      background-color: rgba(34, 35, 43, 0.03);
+      .withdraw-balance,
+      .withdraw-label {
+        color: #22232b;
+      }
+      .apy-info {
+        border-top: 1px solid rgba(34, 35, 43, 0.1);
+      }
+      .apy-info .column {
+        color: #22232b;
+      }
+      .unlock-bar {
+        background: rgba(75, 82, 223, 0.06);
+        color: rgba(34, 35, 43, 0.6);
+        strong {
+          color: rgba(34, 35, 43, 0.6);
+        }
+
+        &.empty {
+          background: transparent;
+        }
+      }
+      .withdraw {
+        &.disabled {
+          color: rgb(255, 255, 255);
+          background: #d3d3d5;
+        }
+      }
+    }
+    .stake-box {
+      background: #ffffff url(../../images/v2/white-theme/liquidity-stake/stake-box.png) no-repeat center;
+      background-size: cover;
+
+      .tabs {
+        border-bottom: 1px solid rgba(34, 35, 43, 0.1);
+        span {
+          color: rgba(34, 35, 43, 0.4);
+          &.active {
+            color: #22232b;
+          }
+        }
+      }
+      .lock-content {
+        .balance-info {
+          .balance-label {
+            color: #22232b;
+            &:hover {
+              color: #9195fb;
+            }
+          }
+        }
+        .balance {
+          color: rgba(34, 35, 43, 0.6);
+          strong {
+            color: #22232b;
+          }
+        }
+        .input-wrap {
+          .inputDollar {
+            color: rgba(34, 35, 43, 0.6);
+          }
+
+          &.j-error-stake {
+            .j-info-tip {
+              div {
+                color: #22232b;
+              }
+
+              span {
+                color: #4c54ff;
+              }
+              em {
+                background: url(../../images/v2/liquidity-stake/icon-arrow-white.svg) no-repeat center;
+              }
+            }
+          }
+        }
+
+        .stake-input {
+          background-color: rgba(75, 82, 223, 0.06);
+          .ant-input-group-addon {
+            background-color: transparent;
+            border-left: 1px solid rgba($color: #22232b, $alpha: 0.1);
+          }
+          .ant-input-affix-wrapper {
+            background-color: transparent;
+            border: none;
+          }
+        }
+        .input-wrap .inputDollar,
+        .stake-input .ant-input::placeholder {
+          color: rgb(34, 35, 43, 0.4);
+          font-weight: 500;
+        }
+        .percent {
+          div {
+            background: rgba(75, 82, 223, 0.06);
+            color: rgba(34, 35, 43, 0.6);
+
+            &:hover,
+            &.selected,
+            &.selected:hover {
+              background: #4b52df;
+              color: #fff;
+            }
+          }
+        }
+        .info {
+          & > div {
+            color: rgba(34, 35, 43, 0.6);
+          }
+          .available,
+          .rate {
+            color: #22232b;
+            font-weight: 500;
+          }
+        }
+      }
+
+      .j-info-tip {
+        div {
+          color: #22232b;
+        }
+      }
+    }
+    .apy-box-nostake {
+      background: #ffffff url(../../images/v2/white-theme/liquidity-stake/apy-box-nostake.png) no-repeat center;
+      background-size: cover;
+      .apy-title,
+      .apy-value {
+        color: #22232b;
+      }
+      .apy-desc {
+        color: rgba(34, 35, 43, 0.6);
+      }
+      .apy-img {
+        // display: none;
+        background: url(../../images/v2/white-theme/liquidity-stake/apy.png) no-repeat center/contain;
+      }
+      .redeem {
+        background: rgba(34, 35, 43, 0.03) url(../../images/v2/white-theme/liquidity-stake/redeem.svg) no-repeat center;
+        div,
+        p {
+          color: #22232b;
+        }
+        span {
+          color: rgba(34, 35, 43, 0.6);
+        }
+        .value {
+          color: #22232b;
+          .pre {
+            color: #22232b;
+          }
+          .income {
+            color: #22232b;
+          }
+          .postfix {
+            color: #22232b;
+          }
+        }
+      }
+      &.disconnect {
+        background: #ffffff url(../../images/v2/white-theme/liquidity-stake/apy-box-disconnect.png) no-repeat top
+          center/cover;
+      }
+    }
+  }
+  .j-liquidity-stake-content .apy-box-stake .balance-info .balance-label {
+    &:hover {
+      color: #4c54ff;
+      .exchange {
+        background-image: url(../../images/v2/white-theme/liquidity-stake/exchange-hover.svg);
+      }
+    }
+    .exchange {
+      background-image: url(../../images/v2/white-theme/liquidity-stake/exchange.svg);
+    }
+  }
+}
+
+@media screen and (max-width: 798px) {
+  .ant-modal.unlock-modal.white .ant-modal-body .unlock-detail {
+    ul,
+    li {
+      width: unset;
+    }
+  }
+  .j-wrapper.white .j-liquidity-stake-content .user-stake-info .unlock-bar {
+    height: unset;
+    & > span:first-child {
+      margin-right: 6px;
+      display: inline;
+    }
+    .detail {
+      margin-left: 0;
+      display: inline;
+    }
+  }
+  .ant-modal.unlock-modal {
+    min-width: 200px;
+  }
+  .ant-modal.unlock-modal .ant-modal-body .unlock-detail {
+    ul,
+    li {
+      width: unset;
+    }
+    ul {
+      margin-bottom: 0;
+    }
+    .detail {
+      margin-left: 0;
+      display: inline;
+    }
+  }
+  .ant-modal.unlock-modal {
+    min-width: 200px;
+  }
+  .j-liquidity-stake-content .stake-box .j-error-tip.wallet-reject {
+    height: unset;
+    padding-top: 10px;
+  }
+  .j-liquidity-stake-content .apy-box-stake .column em {
+    // transform: translateY(1px);
+    background-image: url(../../images/v2/liquidity-stake/income-arrow-m.png);
+  }
+  .j-liquidity-stake-content .stake-box .lock-content .input-wrap.j-error-stake .j-info-tip {
+    .j-error-text {
+      display: inline;
+      color: #ffffff;
+      margin-right: 4px;
+    }
+    span {
+      margin-left: 0px;
+    }
+  }
+  .j-liquidity-stake-content .stake-box .lock-content .stake-input .ant-input-group-addon::after {
+    top: 15px;
+  }
+  .j-liquidity-stake-content .stake-box .lock-content .input-wrap.j-error-stake .j-error-tip {
+    position: static;
+    padding: 0px 0 0px 0px;
+    margin-bottom: 8px;
+    height: unset;
+  }
+  .j-liquidity-stake-content .stake-box .lock-content .stake-input.j-error-input .ant-input-group-addon::after {
+    height: 40px;
+  }
+  .j-liquidity-stake-content .stake-box .lock-content .input-wrap.j-error-stake .inputDollar {
+    top: 37px;
+    height: 16px;
+    line-height: 16px;
+  }
+  .j-liquidity-stake-content .stake-box .lock-content .input-wrap .inputDollar {
+    top: 37px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    text-align: left;
+    left: 20px;
+    margin-left: 0;
+    text-indent: 0;
+  }
+  .j-liquidity-stake-content .stake-box .lock-content .percent div {
+    margin-left: 13px;
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+  .j-liquidity-stake-content .j-error-tip.wallet-reject {
+    position: static;
+  }
+  .j-liquidity-stake {
+    width: unset;
+    // margin: 0 15px;
+    .top-header {
+      position: relative;
+      margin: 20px auto;
+      .title {
+        font-size: 16px;
+        line-height: 19px;
+        margin-bottom: 6px;
+        &::before {
+          width: 4px;
+          height: 14px;
+          margin-right: 8px;
+          margin-top: -1px;
+        }
+      }
+      .info {
+        flex-direction: column;
+        align-items: flex-start;
+        .desc {
+          margin-bottom: 12px;
+          font-size: 12px;
+          line-height: 17px;
+          padding-left: 12px;
+          .learn-more {
+            position: absolute;
+            right: 0;
+            top: 6px;
+            font-size: 12px;
+            line-height: 17px;
+            em {
+              display: inline-block;
+              width: 7px;
+              height: 17px;
+              margin-left: 4px;
+              background: url(../../images/v2/liquidity-stake/unlock-arrow.svg) no-repeat center;
+              vertical-align: top;
+              transform: translateY(-1px);
+            }
+          }
+        }
+        .announce {
+          padding-left: 12px;
+          background: rgba(255, 255, 255, 0.04) url(../../images/v2/liquidity-stake/announce.svg) no-repeat left 10px;
+          background-position-x: 12px;
+          text-indent: 16px;
+          &::after {
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 0;
+            background: url(../../images/v2/liquidity-stake/arrow-hover.svg) no-repeat center;
+          }
+          a:active {
+            color: #9195fb;
+            em {
+              background: url(../../images/v2/liquidity-stake/arrow-hover.svg) no-repeat center;
+            }
+          }
+          em {
+            margin-left: 6px;
+          }
+        }
+      }
+      .j-announce {
+        padding-left: 12px;
+      }
+    }
+    .j-liquidity-stake-content {
+      flex-direction: column-reverse;
+      .apy-box-stake,
+      .stake-box {
+        width: 100%;
+      }
+
+      .stake-box {
+        height: unset;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        background: #31333a url(../../images/v2/liquidity-stake/stake-box-m.svg) no-repeat top right/cover;
+        .tabs {
+          height: 53px;
+          padding: 20px 0 0 15px;
+
+          span {
+            font-size: 16px;
+            line-height: 22px;
+            font-weight: 500;
+            &.active::after {
+              bottom: -11px;
+              width: 18px;
+            }
+          }
+        }
+        .lock-content {
+          padding: 20px 15px 0;
+          .percent {
+            margin-top: 4px;
+          }
+          .balance-info {
+            margin-bottom: 10px;
+            display: flex;
+          }
+          .balance-label {
+            font-size: 12px;
+            flex: 0 0 auto;
+            overflow: hidden;
+            white-space: pre-line;
+            text-overflow: ellipsis;
+          }
+          .balance {
+            display: flex;
+            flex: 1 0 calc(100% - 150px);
+            max-width: calc(100% - 165px);
+            justify-content: flex-end;
+            .balance-title {
+              flex: 0 0 43px;
+              font-size: 12px;
+            }
+            .balance-value-number {
+              margin-left: 2px;
+              flex: 0 0 auto;
+              overflow: hidden;
+              white-space: pre;
+              text-overflow: ellipsis;
+              max-width: calc(100% - 75px);
+            }
+            .balance-value-postfix {
+              flex: 0 0 auto;
+            }
+          }
+          .stake-input {
+            height: 69px;
+            margin-bottom: 8px;
+            padding-top: 0;
+            .ant-input {
+              padding-top: 0;
+              padding-bottom: 18px;
+              padding-left: 17px;
+              padding-right: 0;
+              font-size: 14px;
+              height: 69px;
+              line-height: 19px;
+            }
+            .stake-trx {
+              font-size: 14px;
+              line-height: 20px;
+              height: 20px;
+              background-size: 20px 20px;
+              text-indent: 24px;
+              width: unset;
+            }
+            .ant-input-affix-wrapper {
+              height: 69px;
+            }
+            .ant-input-group-addon {
+              padding: 0 12px;
+            }
+          }
+
+          .info {
+            & > div {
+              font-weight: 500;
+              font-size: 12px;
+            }
+            .available,
+            .rate {
+              font-size: 14px;
+            }
+          }
+        }
+        .j-supply {
+          display: block;
+          position: relative;
+          top: 0;
+          margin: 21px 15px 0;
+          width: calc(100% - 30px);
+          left: 0;
+          bottom: 0;
+          border-radius: 5px;
+        }
+      }
+
+      .apy-box-stake {
+        padding: 20px 15px;
+        margin-right: 0;
+        height: 418px;
+        background: #31333a url(../../images/v2/liquidity-stake/apy-box-stake-m.svg) no-repeat top right/cover;
+
+        // 没有可提取数量
+        &.no-stake {
+          height: 297px;
+          padding: 20px 15px;
+          background: #31333a url(../../images/v2/liquidity-stake/apy-box-stake-no-stake-m.svg) no-repeat right
+            top/cover;
+          .balance-info {
+            margin-top: 0;
+          }
+          .apy-only-stake {
+            margin-top: 20px;
+            height: 152px;
+            padding: 20px 10px 20px 15px;
+            position: relative;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: unset;
+          }
+        }
+        .balance-info {
+          .balance-label {
+            font-size: 14px;
+            line-height: 20px;
+            height: 20px;
+            .exchange {
+              position: relative;
+              width: 14px;
+              height: 14px;
+              top: -2px;
+            }
+          }
+        }
+        .balance {
+          line-height: 27px;
+          font-size: 20px;
+          margin-bottom: 8px;
+          .postfix {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            margin-left: 4px;
+          }
+        }
+        .money {
+          font-size: 12px;
+        }
+        .user-stake-info {
+          width: unset;
+          height: 273px;
+          position: relative;
+          margin-top: 20px;
+          left: 0px;
+          bottom: 0;
+          padding: 20px 10px 20px 15px;
+
+          .withdraw-balance {
+            strong {
+              font-size: 16px;
+            }
+          }
+          .withdraw {
+            padding: 6px 0;
+            line-height: 18px;
+            top: 27px;
+          }
+          .apy-info {
+            margin-top: 20px;
+            padding-top: 20px;
+            .column {
+              width: 50%;
+              margin-bottom: 20px;
+              & > div {
+                line-height: 20px;
+              }
+              strong {
+                font-size: 16px;
+                line-height: 22px;
+                .income {
+                  font-weight: 700;
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+
+          .reject-info {
+            top: 7px;
+          }
+        }
+        .img-bg {
+          width: 85px;
+          height: 73px;
+          top: 26px;
+          right: 6px;
+          background: url(../../images/v2/liquidity-stake/stake-img-m.png) no-repeat center/contain;
+        }
+
+        .column {
+          width: 50%;
+          margin-bottom: 20px;
+
+          strong {
+            .income {
+              font-weight: 700;
+              font-size: 16px;
+            }
+          }
+        }
+        .title {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 20px;
+          margin-bottom: 4px;
+        }
+        .value {
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 22px;
+          margin-top: 4px;
+          .postfix {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
+            margin-left: 4px;
+          }
+        }
+      }
+      .apy-box-nostake {
+        width: 100%;
+        padding: 20px 15px;
+        margin-right: 0;
+        height: 304px;
+        // todo 第二个
+        background: url(../../images/v2/liquidity-stake/apy-box-nostake-m.svg) no-repeat top right/cover;
+        // url(../../images/v2/liquidity-stake/apy-box-nostake-m2.svg) no-repeat top right/cover;
+        background-color: #31333a;
+
+        .apy-title {
+          font-size: 14px;
+          line-height: 20px;
+          margin-bottom: 8px;
+        }
+        .apy-value {
+          font-size: 24px;
+          line-height: 33px;
+          margin-bottom: 27px;
+        }
+        .apy-img {
+          top: 20px;
+          right: 15px;
+          width: 80px;
+          height: 68px;
+          background: url(../../images/v2/liquidity-stake/APY-m.png) no-repeat center/contain;
+        }
+        .redeem {
+          position: relative;
+          width: unset;
+          height: 111px;
+          left: 0;
+          bottom: 0;
+          margin-top: 17px;
+          padding: 20px 10px 20px 15px;
+          background-size: 100%;
+          background-clip: border-box;
+          background-position: 100% 100%;
+          background: hsla(0, 0%, 100%, 0.06) url(../../images/v2/liquidity-stake/redeem-m.png) no-repeat center/cover;
+
+          p {
+            margin-top: 1px;
+            font-weight: 400;
+            font-size: 16px;
+          }
+          p strong {
+            margin-right: 4px;
+            font-weight: 600;
+            font-size: 16px;
+          }
+          .tooltip-text {
+            margin-bottom: 0;
+          }
+          .value {
+            font-weight: 700;
+            font-size: 16px;
+            .income {
+              font-weight: 700;
+              font-size: 16px;
+              line-height: 25px;
+            }
+            .postfix {
+              font-size: 12px;
+              line-height: 16px;
+              margin-left: 4px;
+            }
+          }
+        }
+
+        // 钱包未连接
+        &.disconnect {
+          height: 196px;
+          padding: 34px 15px;
+          background: #31333a url(../../images/v2/liquidity-stake/apy-box-disconnect-m.svg) no-repeat center/cover;
+          // url(../../images/v2/liquidity-stake/apy-box-disconnect-m2.svg) no-repeat center top;
+          .apy-value {
+            margin-bottom: 23px;
+          }
+          .connect-btn {
+            display: none;
+            margin-top: 20px;
+            border: 1px solid rgba(145, 149, 251, 0.8);
+            border-radius: 2px;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 40px;
+            text-align: center;
+            color: #9195fb;
+          }
+          .img-bg {
+            width: 80px;
+            height: 68px;
+            top: 30px;
+            right: 15px;
+            background: url(../../images/v2/liquidity-stake/APY-disconnect-m.svg) no-repeat center;
+          }
+        }
+        .apy-desc {
+          max-width: calc(100% - 15px);
+        }
+      }
+    }
+  }
+  .j-wrapper.white {
+    .j-liquidity-stake-content .stake-box .lock-content .percent div {
+      &:hover {
+        background: rgba(75, 82, 223, 0.06);
+        color: rgba(34, 35, 43, 0.6);
+      }
+    }
+    .j-liquidity-stake-content .stake-box .lock-content .input-wrap.j-error-stake .j-info-tip .j-error-text {
+      color: #22232b;
+    }
+    .j-liquidity-stake-content .apy-box-stake .column em {
+      background-image: url(../../images/v2/white-theme/liquidity-stake/income-arrow-m.png);
+    }
+    .j-liquidity-stake {
+      .j-liquidity-stake-content {
+        .apy-box-stake {
+          background: #ffffff url(../../images/v2/white-theme/liquidity-stake/apy-box-stake-m.svg) no-repeat
+            center/cover;
+          .img-bg {
+            background: url(../../images/v2/white-theme/liquidity-stake/stake-img-m.png) no-repeat center/contain;
+          }
+        }
+        .apy-box-nostake {
+          .apy-img {
+            background: url(../../images/v2/white-theme/liquidity-stake/APY-m.png) no-repeat center/contain;
+          }
+          &.disconnect {
+            background: #ffffff url(../../images/v2/white-theme/liquidity-stake/apy-box-disconnect-m.svg) no-repeat
+              right top;
+            .connect-btn {
+              display: none;
+              background: rgba(75, 82, 223, 0.1);
+              border: 1px solid #4c54ff;
+              color: #4c54ff;
+            }
+            .apy-img {
+              display: block;
+              background-image: url(../../images/v2/white-theme/liquidity-stake/APY-m.png);
+            }
+          }
+        }
+        .stake-box {
+          background: #ffffff url(../../images/v2/white-theme/liquidity-stake/stake-box-m.jpeg) no-repeat right
+            top/cover;
+        }
+      }
+    }
+
+    .j-liquidity-stake-content .apy-box-stake .balance-info .balance-label .exchange {
+      background-image: url(../../images/v2/white-theme/liquidity-stake/exchange.svg);
+      &:hover {
+        background-image: url(../../images/v2/white-theme/liquidity-stake/exchange.svg);
+      }
+    }
+    .j-liquidity-stake .top-header .info .announce a:hover {
+      color: #4c54ff;
+      em {
+        background: url(../../images/v2/white-theme/liquidity-stake/arrow-hover.svg) no-repeat center;
+      }
+    }
+    .j-liquidity-stake-content .apy-box-nostake .redeem {
+      background: rgba(41, 43, 50, 0.06) url(../../images/v2/white-theme/liquidity-stake/redeem-m.png) no-repeat center
+        bottom/cover;
+    }
+  }
+  .j-wrapper .j-main.j-liquidity-stake {
+    overflow-y: visible;
+    margin: 0 15px;
+  }
+}

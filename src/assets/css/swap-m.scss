@@ -1,0 +1,260 @@
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.c-999 {
+  color: #999 !important;
+}
+
+.c-333 {
+  color: #333 !important;
+}
+
+.pb-10 {
+  padding-bottom: 10px;
+}
+
+.bb-3D56D6 {
+  border-bottom: 1px solid rgba(#3d56d6, 0.1);
+}
+
+@keyframes spin {
+  0% {
+    transform: scaleX(1);
+  }
+
+  25% {
+    transform: scaleX(0);
+  }
+
+  50% {
+    transform: scaleX(-1);
+  }
+
+  75% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .lend-card {
+    width: 90%;
+    margin: 20px 0 0px;
+    height: auto;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    .lendcard-countdown {
+      position: static;
+      margin-top: 20px;
+
+      &.abs {
+        position: static;
+        width: 100%;
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .lend-card .lend-header .lend-header-left .token-logo {
+    width: 10vw;
+    height: 10vw;
+  }
+
+  .lend-card .lend-header .lend-logo {
+    .min-lend,
+    .min-sunold {
+      width: 4.5vw;
+    }
+  }
+
+  .lend-card .lend-header .lend-header-left .title {
+    font-size: 18px;
+  }
+
+  .lend-card .lend-header .lend-header-left .tip {
+    font-size: 12px;
+    transform: scale(0.83);
+    margin-left: -9%;
+    text-align: left;
+    width: 119%;
+  }
+
+  .lend-card .lend-info {
+    margin-top: 10px;
+  }
+
+  .pool-container .prefecture-lend-title {
+    margin-top: 10px;
+  }
+
+  .lend-card .lend-footer {
+    position: static;
+    margin-top: 30px;
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .ant-modal.lend-modal {
+    width: 90% !important;
+  }
+
+  .ant-modal.lend-modal .ant-tabs-tab:first-child {
+    margin-right: 0px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .multiple-claimed-cards .multiple-claimed-card {
+    width: calc((100% - 40px) / 2);
+
+    &:nth-child(3n) {
+      margin-right: 30px;
+    }
+
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .multiple-claimed-cards .multiple-claimed-card {
+    width: 100%;
+    padding: 20px 10px;
+
+    &.light-shadow::after {
+      width: calc(100vw);
+      background-size: 100% 92%;
+      left: -20px;
+    }
+
+    .container .gift-list .gift-item {
+      width: calc(50% - 4px);
+    }
+  }
+
+  .out-date {
+    .multiple-claimed-card {
+      width: 90% !important;
+      margin: 20px auto 0 !important;
+      padding: 20px;
+    }
+  }
+
+  .intro .intro-tag {
+    letter-spacing: 2px;
+    margin-top: 15px;
+    height: 23px;
+    font-size: 12px;
+    line-height: 23px;
+    padding: 0 14px;
+    font-weight: 400;
+  }
+
+  .intro .banner-mobile {
+    .banner-icon {
+      height: 48px;
+      width: 48px;
+      margin: 0 auto;
+    }
+
+    .frs-title {
+      position: absolute;
+      font-size: 32px;
+      top: 12px;
+      left: 0;
+      right: 0;
+    }
+
+    .title-en {
+      font-size: 17px;
+    }
+
+    .title1 {
+      left: -193px;
+    }
+
+    .title1.title-en {
+      left: -165px;
+    }
+
+    .title2 {
+      right: -195px;
+    }
+
+    .title2.title-en {
+      right: -195px;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .sunold-container .intro {
+    height: 280px;
+  }
+
+  .sunold-page-mobile .intro {
+    margin-bottom: 30px;
+    height: 370px;
+  }
+
+  .sunold-container .intro-old {
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .multiple-claimed-cards .multiple-claimed-card .header .img-block img {
+    width: 30px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .lend-card .lend-header .lend-header-left .tip {
+    font-size: 12px;
+    margin-top: 2px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .lend-card .lend-header .lend-header-left .tip {
+    margin-top: 10px;
+  }
+
+  .lend-card .lend-header .lend-logo .min-times {
+    width: 7px;
+    margin: 0 5px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  body .ant-tooltip {
+    max-width: 320px;
+  }
+}

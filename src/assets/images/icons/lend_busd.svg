@@ -1,0 +1,15 @@
+<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="15.3929" cy="15.3929" r="13.3929" fill="white"/>
+<path d="M14.9998 7L16.9818 9.02386L11.9909 14.0002L10.0088 12.0239L14.9998 7Z" fill="#0F134F" stroke="#F0B90B" stroke-width="0.056"/>
+<path d="M18.0087 10.0002L19.9907 12.0241L11.9909 20.0005L10.0088 18.0243L18.0087 10.0002Z" fill="#0F134F" stroke="#F0B90B" stroke-width="0.056"/>
+<path d="M8.98206 12.9998L10.9641 15.0236L8.98206 16.9999L7 15.0236L8.98206 12.9998Z" fill="#0F134F" stroke="#F0B90B" stroke-width="0.056"/>
+<path d="M21.018 12.9998L23 15.0236L15.0001 23L13.0181 21.0238L21.018 12.9998Z" fill="#0F134F" stroke="#F0B90B" stroke-width="0.056"/>
+<path fill-rule="evenodd" clipRule="evenodd" d="M19.3261 1.90452C19.5554 1.36192 20.186 1.10586 20.7346 1.33261C26.1743 3.58072 30 8.89363 30 15.0927C30 23.3258 23.2515 30 14.9267 30C10.6522 30 6.79169 28.2389 4.04984 25.4132C3.63812 24.9889 3.65215 24.3149 4.08118 23.9077C4.51021 23.5005 5.19178 23.5144 5.60349 23.9387C7.95612 26.3633 11.2625 27.8704 14.9267 27.8704C22.0622 27.8704 27.8467 22.1496 27.8467 15.0927C27.8467 9.78232 24.5708 5.22611 19.9044 3.29755C19.3557 3.07081 19.0968 2.44712 19.3261 1.90452Z" fill="url(#paint0_angular_2307_1706)"/>
+<circle cx="15.5359" cy="1.60714" r="1.60714" fill="#3D56D6"/>
+<defs>
+<radialGradient id="paint0_angular_2307_1706" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(18.8825 22.4949) rotate(90) scale(32.2022 17.7661)">
+<stop offset="0.200113" stop-color="#00C2FF"/>
+<stop offset="0.591769" stop-color="#5E4BFF"/>
+</radialGradient>
+</defs>
+</svg>

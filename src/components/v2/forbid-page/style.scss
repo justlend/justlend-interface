@@ -1,0 +1,118 @@
+.forbid {
+  background: #fff;
+  height: 100vh;
+  .content {
+    width: 455px;
+    height: 273px;
+    margin: 0 auto;
+    position: fixed;
+    top: 50%;
+    margin-top: -136px;
+    left: 50%;
+    margin-left: -227px;
+    display: flex;
+    flex-direction: row;
+  }
+  .icon {
+    width: 455px;
+    height: 273px;
+    background: url(./403.png) no-repeat center;
+    background-size: 455px 273px;
+    margin-bottom: 90px;
+  }
+  .text-wrap {
+    width: 700px;
+    padding: 50px 0 0 100px;
+    font-size: 20px;
+
+    .text {
+      color: #22232b;
+      font-size: 20px;
+      font-weight: 600;
+
+      &:nth-child(1) {
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+        border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+      }
+    }
+
+    .en {
+      font-weight: 500;
+    }
+  }
+
+  &.dark {
+    background: #1f2027;
+    .icon {
+      background: url(./403-dark.png) no-repeat center;
+      background-size: 455px 273px;
+    }
+    .text-wrap {
+      .text {
+        color: #fff;
+
+        &:nth-child(1) {
+          border-bottom: 1px solid #3d3f46;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 750px) {
+  .forbid {
+    .content {
+      width: calc(100% - 40px) !important;
+      height: 131px;
+      margin: 0 auto;
+      position: fixed;
+      left: 50%;
+      margin-left: calc(20px - 50vw);
+      top: 50%;
+      margin-top: -65px;
+      flex-direction: column;
+    }
+    .icon {
+      width: 100%;
+      height: 131px;
+      background: url(./m-403.svg) no-repeat center;
+      background-size: 218px 130px;
+      margin-bottom: 40px;
+    }
+    .text-wrap {
+      width: 280px;
+      margin: 0 auto;
+      padding: 0;
+      .text {
+        text-align: center;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+
+        &:nth-child(1) {
+          border-bottom: 0;
+          padding-bottom: 0;
+          margin-bottom: 20px;
+        }
+      }
+      .en {
+        font-weight: 500;
+      }
+    }
+
+    &.dark {
+      .icon {
+        background: url(./m-403-dark.svg) no-repeat center;
+        background-size: 218px 130px;
+      }
+      .text-wrap {
+        .text {
+          &:nth-child(1) {
+            border-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}

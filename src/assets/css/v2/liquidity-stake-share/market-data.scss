@@ -1,0 +1,602 @@
+// 修复全局input hover 出现的边框
+.j-input .ant-input-affix-wrapper .ant-input:hover {
+  border: none;
+}
+.color-primary {
+  color: #ffffff;
+}
+.color-light {
+  color: rgba(255, 255, 255, 0.6);
+}
+.color-lightest {
+  color: rgba(255, 255, 255, 0.4);
+}
+.color-bg {
+  background-color: #31333a;
+}
+.en-US {
+  font-family: 'Avenir Next';
+  span,
+  div {
+    font-family: 'Avenir Next';
+  }
+}
+.postfix {
+  margin-left: 4px;
+}
+.items-center {
+  align-items: center;
+}
+.learn-more {
+  color: #9195fb;
+  &:hover {
+    color: #9195fb;
+    opacity: 0.7;
+  }
+}
+.section-title {
+  position: relative;
+  display: flex;
+  margin: 20px 0;
+  span {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .decoration {
+    display: inline-block;
+    margin: 2px 10px 3px 0;
+    width: 6px;
+    height: 16px;
+    background-color: #4d54ff;
+    border-radius: 1px;
+    &.energy {
+      background-color: #18c19f;
+      // background: linear-gradient(360deg, #c0ea6a 2.78%, #3cffd8 100%);
+    }
+  }
+}
+.market-data-section {
+  position: relative;
+  height: 268px;
+  background: #31333a;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 26px 26px 26px 30px;
+
+  display: flex;
+  justify-content: space-between;
+
+  .divider-v {
+    position: absolute;
+    height: 100%;
+    width: 0px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    mix-blend-mode: normal;
+    border-right: 0.5px dashed rgb(255, 255, 255, 0.06);
+  }
+  .divider-h {
+    height: 1px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    margin: 24px 0;
+  }
+  .data-wrap,
+  .chart-wrap {
+    width: calc(50% - 40px);
+  }
+
+  .data-wrap {
+    display: flex;
+    // flex-direction: column;
+    justify-content: space-between;
+    .summary {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      .title {
+        font-size: 12px;
+        line-height: 22px;
+        margin-bottom: 8px;
+      }
+      .value {
+        .num {
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 27px;
+        }
+        .postfix {
+          font-size: 18px;
+          line-height: 27px;
+          margin-left: 4px;
+        }
+      }
+      .sumary-tip {
+        font-size: 12px;
+      }
+    }
+
+    .info-wrap {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      .info-item {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        .title {
+          font-size: 12px;
+          line-height: 22px;
+          margin-bottom: 8px;
+          font-weight: 500;
+        }
+        .value,
+        span {
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 27px;
+        }
+        .exchange {
+          display: flex;
+          align-items: center;
+
+          .icon {
+            cursor: pointer;
+            margin-left: 6px;
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background: url('../../../images/v2/liquidity-stake/exchange.svg') no-repeat center/contain;
+            &:hover {
+              background-image: url('../../../images/v2/liquidity-stake/exchange-hover.svg');
+            }
+          }
+        }
+      }
+    }
+  }
+  .chart-wrap {
+    .title-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      // margin-bottom: 20px;
+      .title {
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 600;
+      }
+      .desc {
+        display: flex;
+        font-size: 12px;
+        line-height: 16px;
+        .y {
+          margin-left: 10px;
+        }
+      }
+    }
+    .chart {
+      position: relative;
+      .fake-label {
+        position: absolute;
+        font-size: 12px;
+        line-height: 14px;
+        z-index: 2;
+      }
+      .x {
+        left: 0px;
+        bottom: -2px;
+      }
+      .y {
+        top: 20px;
+        left: 0px;
+      }
+    }
+    .tooltip {
+      background-color: #40414a;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      overflow: hidden;
+      width: 310px;
+      &.energy {
+        padding: 15px 0;
+        .item {
+          margin-bottom: 0;
+          padding: 0 15px 0 15px;
+          flex-wrap: wrap;
+        }
+      }
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 10px;
+        padding: 0 10px 0 15px;
+        .value,
+        .title,
+        .value span {
+          font-size: 12px;
+          line-height: 17px;
+        }
+        .value {
+          .num {
+            font-size: 12px;
+            font-weight: 600;
+          }
+          .purple {
+            color: #9195fb;
+          }
+          .green {
+            color: #18c19f;
+          }
+        }
+        .value-wrap {
+          display: flex;
+          flex-direction: column;
+          text-align: right;
+          &:first-child {
+            margin-bottom: 2px;
+          }
+        }
+        .value-extra {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          flex: 0 0 100%;
+        }
+      }
+      .header {
+        height: 42px;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+        .value,
+        .title {
+          font-size: 14px;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+
+  // 能量租赁
+  .energy-data {
+    .summary {
+      // margin-bottom: 26px;
+      .title {
+        font-weight: 500;
+        margin-bottom: 16px;
+        font-size: 16px;
+      }
+      .value {
+        line-height: 36px;
+        .num {
+          font-weight: 700;
+          font-size: 26px;
+        }
+        .postfix {
+          font-size: 14px;
+        }
+      }
+    }
+    .divider-h {
+      // margin: 20px 0 26px;
+    }
+    .info-wrap {
+      .info-item {
+        .title {
+          font-size: 14px;
+          line-height: 20px;
+          font-weight: 500;
+          margin-bottom: 10px;
+          opacity: 0.6;
+        }
+        .value {
+          display: flex;
+          line-height: 27px;
+          .num {
+            font-weight: 600;
+            font-size: 20px;
+          }
+          .postfix {
+            font-weight: 400;
+            font-size: 14px;
+            margin-left: 6px;
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: 800px) {
+  .market-data-section.stake {
+    height: 109px;
+    padding-left: 0;
+    padding-right: 0;
+    background: #31333a url(../../../images/v2/liquidity-stake/market-bg.png) no-repeat bottom right/contain;
+    .data-wrap {
+      width: 100%;
+      display: flex;
+      .summary {
+        padding-left: 30px;
+        width: 25%;
+      }
+      .info-wrap {
+        flex-wrap: nowrap;
+        padding-left: 12%;
+        .info-item {
+          justify-content: center;
+          &:nth-child(-n + 2) {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    .divider-h {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 25%;
+      width: 1px;
+      height: 100%;
+      margin: 0 0 0 0;
+      border-right: 0.5px dashed rgb(255, 255, 255, 0.06);
+      background-color: transparent;
+    }
+  }
+}
+
+.white {
+  .color-primary {
+    color: #22232b;
+  }
+  .color-light {
+    color: rgba(34, 35, 43, 0.6);
+  }
+  .color-lightest {
+    color: rgba(34, 35, 43, 0.4);
+  }
+  .color-bg {
+    background-color: #ffffff;
+  }
+  .section-title {
+    .decoration {
+      &.energy {
+        background-color: #18c19f;
+        // background: linear-gradient(360deg, #c0ea6a 2.78%, #3cffd8 100%);
+      }
+    }
+  }
+  .market-data-section {
+    background-color: #ffffff;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+    .divider-v {
+      border-right: 0.5px dashed rgb(34, 35, 43, 0.1);
+    }
+    .divider-h {
+      background-color: rgba(34, 35, 43, 0.1);
+    }
+    .tooltip {
+      background: #ffffff;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+      .item .value .purple {
+        color: #4d54ff;
+      }
+      .header {
+        border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+      }
+    }
+    .data-wrap .info-wrap .info-item .exchange {
+      .icon {
+        background-color: rgba(75, 82, 223, 0.08);
+        background-image: url(../../../images/v2/white-theme/liquidity-stake/exchange.svg);
+        &:hover {
+          background-image: url(../../../images/v2/white-theme/liquidity-stake/exchange-hover.svg);
+        }
+      }
+    }
+  }
+  @media (min-width: 800px) {
+    .market-data-section.stake {
+      background: #ffffff url(../../../images/v2/white-theme/liquidity-stake/market-bg.png) no-repeat bottom
+        right/contain;
+      .divider-h {
+        border-right: 0.5px dashed rgb(34, 35, 43, 0.1);
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+@media (max-width: 798px) {
+  .tooltip-text-wrap {
+    .j-tooltip-icon {
+      display: none;
+    }
+  }
+  .j-wrapper {
+    // padding-top: 78px;
+    .j-main {
+      overflow-y: hidden;
+    }
+  }
+  .section-title {
+    span {
+      font-size: 14px;
+      line-height: 19px;
+    }
+    .decoration {
+      width: 4px;
+      height: 14px;
+      margin: 2px 8px 3px 0;
+    }
+  }
+  .market-data-section {
+    flex-direction: column;
+    background-color: transparent;
+    border-radius: 0;
+    padding: 0;
+    height: unset;
+
+    .data-wrap,
+    .chart-wrap {
+      width: 100%;
+      background: #31333a;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 20px 15px;
+    }
+    .divider-v {
+      display: none;
+    }
+
+    .data-wrap {
+      margin-bottom: 20px;
+      flex-direction: column;
+      .summary {
+        .title {
+          font-size: 14px;
+          line-height: 20px;
+        }
+        .value {
+          .postfix {
+            font-size: 14px;
+            line-height: 19px;
+          }
+        }
+      }
+      .divider-h {
+        margin: 20px 0;
+      }
+
+      .info-wrap {
+        flex-direction: column;
+        .info-item {
+          flex-direction: row;
+          width: 100%;
+          justify-content: space-between;
+          margin-bottom: 20px;
+          &:nth-child(-n + 2) {
+            margin-bottom: 15px;
+          }
+          &:last-child {
+            margin-bottom: 0;
+          }
+          .title {
+            font-size: 12px;
+            line-height: 17px;
+            margin-bottom: 0;
+          }
+          .value {
+            .num {
+              font-size: 14px;
+              line-height: 19px;
+            }
+            .postfix {
+              font-weight: 400;
+              font-size: 12px;
+              line-height: 17px;
+              margin-left: 4px;
+            }
+          }
+        }
+      }
+    }
+    .data-wrap .info-wrap .info-item .exchange {
+      .icon {
+        transform: translateY(-1px);
+        background-color: rgba(75, 82, 223, 0.08);
+        background-image: url(../../../images/v2/liquidity-stake/exchange.svg);
+        &:hover {
+          background-image: url(../../../images/v2/liquidity-stake/exchange.svg);
+        }
+      }
+    }
+    .energy-data {
+      .summary {
+        // margin-bottom: 14px;
+        .value {
+          line-height: 33px;
+          .num {
+            font-size: 24px;
+            line-height: 33px;
+          }
+          .postfix {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+          }
+        }
+      }
+      .info-wrap {
+        .info-item {
+          margin-bottom: 15px;
+          &:nth-child(-n + 2) {
+            // margin-bottom: 15px;
+          }
+        }
+      }
+      .divider-h {
+        margin: 20px 0 20px;
+      }
+    }
+
+    .chart-wrap {
+      .title-wrap {
+        .title {
+          font-size: 14px;
+          line-height: 20px;
+        }
+      }
+      .tooltip {
+        width: 300px;
+      }
+      .fake-label {
+        display: none;
+      }
+    }
+    .chart-wrap.energy {
+      .title-wrap {
+        .desc {
+          flex-direction: column;
+          justify-content: flex-end;
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  .white {
+    .data-wrap,
+    .chart-wrap {
+      background: #ffffff;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+    }
+    .market-data-section .data-wrap .info-wrap .info-item .exchange {
+      .icon {
+        background-color: rgba(75, 82, 223, 0.08);
+        background-image: url(../../../images/v2/white-theme/liquidity-stake/exchange.svg);
+        &:hover {
+          background-image: url(../../../images/v2/white-theme/liquidity-stake/exchange.svg);
+        }
+      }
+    }
+    .market-data-section {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .market-data-section .chart-wrap .tooltip {
+    width: 270px;
+  }
+}

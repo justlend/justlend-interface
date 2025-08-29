@@ -1,0 +1,312 @@
+.energy-rental-page-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .page-title {
+    display: flex;
+    align-items: center;
+
+    .title-text {
+      color: #ffffff;
+      white-space: nowrap;
+    }
+    .classic-version-link {
+      position: relative;
+      color: #ffffff;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.04);
+
+      opacity: 0.6;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+
+      &::after {
+        content: '';
+        background: url(../../../images/v2/energy-rental/right-arrow-white.svg) 0 0 no-repeat;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-45%);
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .announcement-link {
+    position: relative;
+    color: #ffffff;
+    transition: opacity 0.3s ease-in-out;
+
+    &::before {
+      content: '';
+      background: url(../../../images/v2/energy-rental/announcement.svg) 0 0 no-repeat;
+      position: absolute;
+      top: 48%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+    &::after {
+      content: '';
+      background: url(../../../images/v2/energy-rental/right-arrow-white.svg) 0 0 no-repeat;
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      transform: translateY(-50%);
+    }
+  }
+
+  .energy-top {
+    margin-bottom: 20px;
+    align-items: flex-start;
+    > div {
+      &:nth-child(1) {
+        width: 47%;
+        display: flex;
+        flex-direction: column;
+      }
+      &:nth-child(2) {
+        width: 52%;
+        transform: translateY(4px);
+      }
+    }
+    .j-announce {
+      position: static;
+      max-width: 100%;
+      width: max-content;
+      background: transparent;
+      height: 17px;
+      padding: 1px 0;
+    }
+    .green-line {
+      &:before {
+        content: '';
+        width: 6px;
+        height: 18px;
+        display: inline-block;
+        background: #18c19f;
+        border-radius: 1px;
+        margin-right: 10px;
+        transform: translateY(2px);
+      }
+    }
+  }
+
+  &.wide-layout {
+    .energy-top {
+      > div {
+        &:nth-child(1) {
+          width: 46%;
+        }
+        &:nth-child(2) {
+          width: 52%;
+        }
+      }
+    }
+  }
+}
+
+.j-wrapper.white {
+  .energy-rental-page-header {
+    .page-title {
+      .title-text {
+        color: #22232b;
+      }
+      .classic-version-link {
+        color: #22232b;
+        background-color: rgba(77, 84, 255, 0.1);
+
+        &::after {
+          background: url(../../../images/v2/energy-rental/right-arrow-dark-grey.svg) 0 0 no-repeat;
+        }
+      }
+    }
+
+    .announcement-link {
+      color: #22232b;
+
+      &::before {
+        background: url(../../../images/v2/energy-rental/announcement-white-theme.svg) 0 0 no-repeat;
+      }
+      &::after {
+        background: url(../../../images/v2/energy-rental/right-arrow-dark-grey.svg) 0 0 no-repeat;
+      }
+
+      &:hover {
+        color: #4d54ff;
+
+        &::after {
+          background-image: url(../../../images/v2/energy-rental/right-arrow-purple-white-theme.svg);
+        }
+      }
+    }
+  }
+}
+
+/* Large screen */
+@media screen and (min-width: 799px) {
+  .energy-rental-page-header {
+    margin-top: 40px;
+
+    width: 70%;
+    margin-left: 15%;
+
+    &.wide-layout {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .page-title {
+      margin-bottom: 4px;
+
+      .title-text {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .classic-version-link {
+        margin-left: 10px;
+        padding: 5px 23px 3px 10px;
+
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 17px;
+        vertical-align: middle;
+
+        &::after {
+          right: 10px;
+
+          background-size: 8px 8px;
+          width: 8px;
+          height: 9px;
+        }
+      }
+    }
+
+    .announcement-link {
+      font-size: 12px;
+      font-weight: 400;
+
+      margin-bottom: 20px;
+      padding-left: 16px;
+
+      &::before {
+        margin-right: 6px;
+
+        background-size: 10px 10px;
+        width: 10px;
+        height: 11px;
+      }
+      &::after {
+        margin-left: 6px;
+
+        background-size: 8px 8px;
+        width: 8px;
+        height: 9px;
+      }
+
+      &:hover {
+        color: #9195fb;
+
+        &::after {
+          background-image: url(../../../images/v2/energy-rental/right-arrow-purple.svg);
+        }
+      }
+    }
+  }
+}
+
+/* Small screen */
+@media (max-width: 798px) {
+  .energy-rental-page-header {
+    margin-top: 20px;
+    width: 100%;
+    flex-direction: row;
+
+    .energy-top {
+      flex-direction: column;
+      > div {
+        // width: 100% !important;
+        &:nth-child(1) {
+          width: 100%;
+          align-items: flex-start;
+        }
+
+        &:nth-child(2) {
+          width: 100%;
+          justify-content: flex-start;
+          align-items: flex-start;
+        }
+      }
+      .green-line {
+        &:before {
+          content: '';
+          width: 4px;
+          height: 14px;
+          margin-right: 8px;
+        }
+      }
+    }
+
+    .page-title {
+      margin-bottom: 10px;
+
+      .title-text {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .classic-version-link {
+        margin-left: 10px;
+        padding: 4px 15px 4px 6px;
+
+        font-size: 12px;
+        font-weight: 500;
+        vertical-align: middle;
+
+        &::after {
+          right: 3px;
+
+          background-size: 8px 8px;
+          width: 8px;
+          height: 9px;
+        }
+      }
+    }
+
+    .announcement-link {
+      font-size: 12px;
+      font-weight: 400;
+
+      margin-bottom: 20px;
+      padding-left: 16px;
+      padding-right: 104px;
+
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+
+      &::before {
+        margin-right: 6px;
+
+        background-size: 10px 10px;
+        width: 10px;
+        height: 11px;
+      }
+      &::after {
+        margin-left: 6px;
+
+        background-size: 8px 8px;
+        width: 8px;
+        height: 9px;
+
+        left: calc(100% - 105px);
+      }
+    }
+
+    &.wide-layout .energy-top > div {
+      width: 100% !important;
+    }
+  }
+}

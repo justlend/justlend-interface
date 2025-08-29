@@ -14,11 +14,12 @@ import {
   getMiningRewards,
   renderGain
 } from '../../utils/helper';
-// import { yamApprove, yamDeposit, yamReward, yamWithdraw } from '../../utils/blockchain';
+import { MAX_UINT256 } from '../../utils/blockchain';
 import '../../assets/css/swap.scss';
+import '../../assets/css/swap-m.scss';
 import { ICONS_MAP } from '../../utils/constant';
-const { TabPane } = Tabs;
 import tooltip from '../../assets/images/tooltip.svg';
+const { TabPane } = Tabs;
 
 @inject('network')
 @inject('system')
@@ -41,7 +42,7 @@ class SwapModal extends React.Component {
     };
   }
 
-  componentDidMount = () => { };
+  componentDidMount = () => {};
 
   initModal = () => {
     this.setState({
@@ -87,7 +88,14 @@ class SwapModal extends React.Component {
         };
       }
       this.setState({ isSuccess: false, txID: '' });
-      const txID = await this.props.system.yamReward(cardData, intlObj);
+
+      const contractAddress = cardData.pool;
+      let funcSelector = 'getReward()';
+      let parameters = [];
+      const feeLimit = await this.props.system.getFeeLimitCommon(contractAddress, funcSelector, parameters);
+      const options = { feeLimit };
+
+      const txID = await this.props.system.yamReward(cardData, intlObj, options);
       if (txID) {
         setTimeout(() => {
           this.props.pool.getPoolData();
@@ -105,7 +113,7 @@ class SwapModal extends React.Component {
 
   setMaxWithdraw = async () => {
     let { cardData } = this.props;
-    if (!cardData.staked.gt(0)) return;
+    if (!BigNumber(cardData.staked).gt(0)) return;
 
     const withdrawValue = this.maxNumber(cardData.staked);
     this.setState({ withdrawValue }, () => {
@@ -117,6 +125,14 @@ class SwapModal extends React.Component {
     let { cardData } = this.props;
     const nowTime = Date.now();
     const endTime = cardData.end;
+
+    // window.gtag('event', 'timing_complete', {
+    //   'name': 'supply MAX',
+    //   'value': 1,
+    //   'event_label': 'supply MAX',
+    //   'event_category': 'MAX'
+    // });
+
     if (
       !BigNumber(cardData.tokenBalance).gt(0) ||
       !(cardData.tokenAllowance._toBg().gt(0) && cardData.tokenBalance._toBg().gt(0))
@@ -191,12 +207,26 @@ class SwapModal extends React.Component {
   };
 
   gotojustlend = () => {
+    // window.gtag('event', 'timing_complete', {
+    //   'name': 'withdraw gotojustlend',
+    //   'value': 1,
+    //   'event_label': 'withdraw gotojustlend',
+    //   'event_category': 'withdraw_gotojustlend'
+    // });
   };
 
   toDeposit = async () => {
     const { lockBtnStatus, stakeValue } = this.state;
     let { cardData } = this.props;
 
+    // window.gtag('event', 'timing_complete', {
+    //   'name': 'supply event',
+    //   'value': 1,
+    //   'event_label': 'supply event',
+    //   'event_category': 'supply_event'
+    // });
+
+    // if (Date.now() > cardData.end) return;
     if (!lockBtnStatus) return;
 
     const intlObj = {
@@ -206,11 +236,26 @@ class SwapModal extends React.Component {
         token: `${cardData.lp}-TRX LP`
       }
     };
-    const txID = await this.props.system.yamDeposit(
-      cardData,
-      new BigNumber(stakeValue).times(cardData.precision).toString(),
-      intlObj
-    );
+
+    const contractAddress = cardData.pool;
+    const amount = new BigNumber(stakeValue).times(cardData.precision).toString();
+    let funcSelector = 'stake(uint256)';
+    let parameters = [{ type: 'uint256', value: amount }];
+    let options = {};
+    if (cardData.symbol === 'TRX') {
+      funcSelector = 'stake()';
+      parameters = [];
+      options = { callValue: amount };
+    } else if (cardData.vote === 'sunoldVote') {
+      funcSelector = 'stake(uint256,address)';
+      parameters = [
+        { type: 'uint256', value: amount },
+        { type: 'address', value: cardData.voteAddr }
+      ];
+    }
+    const feeLimit = await this.props.system.getFeeLimitCommon(contractAddress, funcSelector, parameters, options);
+
+    const txID = await this.props.system.yamDeposit(cardData, amount, intlObj, feeLimit);
     if (txID) {
       this.stakeChange('');
 
@@ -236,7 +281,16 @@ class SwapModal extends React.Component {
       }
     };
     try {
-      const txID = await this.props.system.yamApprove(cardData, intlObj);
+      const contractAddress = cardData.token;
+      let funcSelector = 'approve(address,uint256)';
+      let parameters = [
+        { type: 'address', value: cardData.pool },
+        { type: 'uint256', value: MAX_UINT256 }
+      ];
+      const feeLimit = await this.props.system.getFeeLimitCommon(contractAddress, funcSelector, parameters);
+      const options = { feeLimit };
+
+      const txID = await this.props.system.yamApprove(cardData, intlObj, options);
       if (txID) {
         this.setState({ approving: true });
         setTimeout(async () => {
@@ -264,11 +318,15 @@ class SwapModal extends React.Component {
       }
     };
     this.setState({ isSuccess: false, txID: '' });
-    const txID = await this.props.system.yamWithdraw(
-      cardData,
-      new BigNumber(withdrawValue).times(cardData.precision).toString(),
-      intlObj
-    );
+
+    const contractAddress = cardData.pool;
+    let funcSelector = 'withdrawAndGetReward(uint256)';
+    const amount = new BigNumber(withdrawValue).times(cardData.precision).toString();
+    let parameters = [{ type: 'uint256', value: amount }];
+    const feeLimit = await this.props.system.getFeeLimitCommon(contractAddress, funcSelector, parameters);
+    const options = { feeLimit };
+
+    const txID = await this.props.system.yamWithdraw(cardData, amount, intlObj, options);
     if (txID) {
       this.unlockChange('');
 
@@ -467,6 +525,14 @@ class SwapModal extends React.Component {
       );
     });
 
+    // if (giftList && giftList.length > 1) {
+    //   giftList.map((item, index) => {
+    //     // if (index != giftList.length - 1) {
+    //     giftList += '+';
+    //     // }
+    //   });
+    // }
+
     return giftList;
   };
 
@@ -489,12 +555,12 @@ class SwapModal extends React.Component {
     const { visible, cardData } = this.props;
     return (
       <Modal
-        getContainer={() => document.querySelector('.pool-container')}
+        getContainer={() => document.querySelector('.modal-container')}
         visible={visible}
         title={''}
         width={400}
         footer={null}
-        className="lend-modal"
+        className="lend-modal mining-row-modal"
         onCancel={this.cancelModal}
       >
         {cardData.tokenAllowance._toBg().gt(0) ? this.renderDeposit() : this.renderApprove()}

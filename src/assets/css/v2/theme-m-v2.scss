@@ -1,0 +1,122 @@
+.j-wrapper-m.white {
+  .new-switch .switch-line {
+    background: #d0d0d6;
+  }
+
+  .j-home-user-list {
+    background: #fff;
+    &.new-user {
+      background: none;
+    }
+  }
+
+  .j-tooltip-m {
+    color: rgba(34, 35, 43, 0.6);
+    border-bottom: 1px dashed rgba(34, 35, 43, 0.4);
+
+    &:hover {
+      color: #4c54ff;
+      border-bottom-color: #4c54ff;
+    }
+  }
+
+  .j-home-records {
+    background: #ffffff;
+    .j-home-user-list-tabs {
+      border-bottom-color: rgba(34, 35, 43, 0.1);
+      > div {
+        > span {
+          &:first-child {
+            color: rgba(34, 35, 43, 0.4);
+          }
+        }
+
+        &.current {
+          > span:first-child {
+            color: #22232b;
+          }
+          .j-num {
+            color: #fff;
+          }
+        }
+      }
+    }
+    .j-list-content {
+      &.is-all-current {
+        > div {
+          height: 648px !important;
+        }
+      }
+
+      &.no-data,
+      &.is-all-current.no-data {
+        > div {
+          height: auto !important;
+        }
+      }
+
+      > div {
+        height: auto !important;
+        &::-webkit-scrollbar {
+          width: 1px;
+        }
+        &::-webkit-scrollbar-track {
+          background: #fff;
+          border-radius: 2px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: #ccc;
+          border-radius: 13px;
+        }
+      }
+      .linear {
+        background: linear-gradient(180deg, rgba(248, 248, 254, 0) 0%, #eaeaf8 100%);
+      }
+    }
+    .j-warning-tip {
+      background: rgba(75, 82, 223, 0.04);
+      > div {
+        color: rgba(34, 35, 43, 0.6);
+      }
+      .icon {
+        background-image: url(../../images/v2/white-theme/light-yellow.svg);
+      }
+    }
+    .show-more-info {
+      color: #22232b;
+    }
+  }
+
+  .j-home-supply-ele {
+    background: rgba(75, 82, 223, 0.04);
+    .colleteral {
+      color: #22232b;
+    }
+  }
+
+  .j-hse-logo {
+    .j-token {
+      color: #22232b;
+    }
+  }
+
+  .j-hse-position {
+    .main-desc {
+      color: #22232b;
+    }
+    .sub-desc {
+      color: rgba(34, 35, 43, 0.6);
+    }
+  }
+
+  .j-hse:first-child {
+    border-bottom: 1px solid rgba(34, 35, 43, 0.1);
+  }
+
+  .j-wallet-v2 {
+    > span:first-child {
+      color: rgba(34, 35, 43, 0.6) !important;
+    }
+  }
+}
