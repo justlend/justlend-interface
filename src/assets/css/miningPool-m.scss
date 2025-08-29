@@ -1,0 +1,628 @@
+@media screen and (min-width: 1200px) {
+  .pool-container .sunold .hr-sub {
+    transform: scale(1);
+  }
+
+  .pool-container .sunold .tip {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  div.pool-tabs .tabs-fixed {
+    &.tabs-mobile {
+      .ant-tabs-nav {
+        width: 90%;
+      }
+    }
+
+    .ant-tabs-nav {
+      width: 90%;
+    }
+  }
+
+  .pool-container .sunold .sunold-header,
+  .ge-title {
+    height: 60px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .home-container,
+  .sunold-container.sunold-container-old {
+    width: 62.5%;
+  }
+}
+
+@media screen and (min-height: 1000px) {
+  .pool-container {
+    .coming {
+      margin: calc((100vh - 770px - 2.8vw - 14vw + 50px) / 2) 0 0;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .modal-tooltip {
+    width: 75%;
+  }
+
+  .ant-modal.community-modal {
+    top: 25vh;
+    width: 72% !important;
+
+    .ant-modal-close-x {
+      margin-right: 3px;
+
+      .close {
+        margin-top: 3px;
+        transform: scale(0.75);
+      }
+    }
+
+    .ant-modal-content {
+      background: url(../images/community-modal.png) no-repeat;
+      background-size: 100% 100%;
+
+      .ant-modal-body {
+        padding: 4vh 0 1.5vh;
+
+        .to-community {
+          .logo {
+            width: 9vw;
+          }
+
+          .title {
+            margin-top: 1vh;
+            font-family: PingFang HK;
+            font-size: 4vw;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 4vh;
+            letter-spacing: 0px;
+            text-align: left;
+            margin-bottom: 0px;
+            color: #fff;
+            text-align: center;
+            text-shadow: none;
+            height: 7vh;
+          }
+
+          .sec-title {
+            font-family: PingFang HK;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: normal;
+            line-height: 25px;
+            letter-spacing: 0px;
+            text-align: left;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 0px;
+            transform: scale(0.75);
+            width: 125%;
+            margin-left: -12.5%;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .ant-notification {
+    margin-right: 15px;
+  }
+
+  .home-container,
+  .sunold-container {
+    width: 100%;
+
+    &.sunold-container-old {
+      width: 100%;
+
+      .lend-card {
+        width: 100%;
+      }
+    }
+
+    .sunold-dashboard,
+    .pool-tabs {
+      width: 90%;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .sunold-nav {
+      // width: 90%;
+      display: block;
+
+      .mined_amount {
+        white-space: nowrap;
+      }
+
+      a.getLp {
+        margin-top: 10px;
+        display: block;
+      }
+
+      .title {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .home-title {
+    margin: 40px 0 5px;
+  }
+
+  .pool-container {
+    margin-top: 0;
+    justify-content: center;
+
+    .sunold {
+      width: 90%;
+      margin-top: 20px;
+      margin-right: 0;
+      height: auto;
+
+      .bottomFix {
+        position: static;
+        width: 100%;
+        margin-top: 30px;
+      }
+    }
+
+    .sunold {
+      img.tokenLogo {
+        width: 50px;
+      }
+
+      img.sunoldLogo {
+        width: 50px;
+        margin-left: -10px;
+      }
+
+      .header-right {
+        text-align: left;
+        margin-left: 10px;
+      }
+
+      .title {
+        font-size: 20px;
+
+        &.en {
+          font-size: 20px;
+        }
+
+        &.small {
+          font-size: 18px;
+        }
+      }
+
+      .hr-sub {
+        display: flex;
+        align-items: center;
+      }
+
+      .tip {
+        font-family: HelveticaNeue;
+        font-size: 12px;
+      }
+
+      .total {
+        margin: 30px auto 0;
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        transform: scale(0.9);
+        width: 110%;
+
+        .t-num {
+          font-size: 12px;
+        }
+
+        .apy {
+          font-family: HelveticaNeue;
+          font-size: 13px;
+          color: #1ba27a;
+          letter-spacing: 0;
+        }
+      }
+    }
+
+    .announcement {
+      margin-top: 10px;
+    }
+  }
+
+  .mining-container {
+    flex-wrap: wrap;
+    margin-top: 15px;
+
+    .g-mine {
+      .title {
+        flex-wrap: wrap;
+      }
+
+      .m-title {
+        margin-bottom: 20px;
+      }
+    }
+
+    .g-mine,
+    .m-mine,
+    .aboutMining {
+      width: 90%;
+      padding: 20px;
+      margin: 0 auto;
+    }
+
+    .m-mine,
+    .aboutMining {
+      margin-top: 20px;
+    }
+
+    .aboutMining {
+      .rulesLink {
+        top: 20px;
+        right: 20px;
+      }
+    }
+  }
+
+  .sunold-container {
+    position: relative;
+
+    .ant-alert.ant-alert-closable {
+      width: 95%;
+      margin: 0 auto;
+      font-size: 12px;
+      margin-top: 10px;
+      position: fixed;
+      bottom: 10px;
+      top: auto;
+      z-index: 9;
+
+      &.alert-new {
+        left: 2.5%;
+      }
+    }
+
+    .pool-tabs {
+      &.bottom-border {
+        margin-top: 25px;
+        margin-bottom: 100px;
+
+        .ant-tabs-tab:nth-child(2) {
+          margin-right: 0;
+        }
+
+        .ant-tabs-tab {
+          padding: 4px 0;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .sunold-container .intro {
+    height: 240px;
+    padding-top: 20px;
+
+    &.intro-old {
+      height: 260px;
+      margin-bottom: 40px;
+      padding-top: 50px;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 0;
+      line-height: none;
+    }
+
+    h4 {
+      font-size: 12px;
+      margin-top: -3px;
+      letter-spacing: 5px;
+
+      span:first-of-type {
+        margin: 0 15px 0 0px;
+      }
+    }
+
+    h4.sec-title-en {
+      letter-spacing: 0px;
+      font-size: 11px;
+    }
+
+    .sec-title-en {
+      margin-left: 0;
+    }
+  }
+
+  .sunold-container .sunold {
+    width: 90%;
+    margin: 20px auto 0;
+
+    &:nth-child(1) {
+      margin-top: 0;
+    }
+  }
+
+  .sunold-container .sunold .info {
+    width: 100%;
+  }
+
+  .sunold-container .sunold .create_btn {
+    width: 100%;
+  }
+
+  .sunold-container .about {
+    margin-top: 40px;
+  }
+
+  .sunold-container .about ul.bg_white {
+    padding: 0;
+  }
+
+  .lock_and_collect {
+    top: calc(50vh - 265px);
+    width: 90% !important;
+
+    // &.result {
+    //     left: 5%;
+    // }
+    .ant-modal-content {
+      .ant-modal-body {
+        padding: 10px 0 0px;
+
+        .ant-tabs-nav {
+          width: 90%;
+
+          .ant-tabs-nav-list {
+            width: 100%;
+            padding: 8px;
+
+            .ant-tabs-tab {
+              width: 50%;
+              justify-content: center;
+              margin: 0;
+              border-radius: 15px;
+              height: 42px;
+
+              &:nth-child(1) {
+                margin-right: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .w60 {
+      width: 90%;
+    }
+
+    .lock_modal_btn {
+      margin-top: 14px;
+      width: 90%;
+    }
+
+    .claim {
+      margin: 40px auto 0;
+      text-align: center;
+      width: 90%;
+
+      .tip {
+        opacity: 0.5;
+        font-family: HelveticaNeue-Medium;
+        font-size: 22px;
+        color: #1a1a1a;
+        letter-spacing: 0;
+
+        &:nth-child(2) {
+          margin-top: 30px;
+          opacity: 0.5;
+          font-family: HelveticaNeue-Medium;
+          font-size: 14px;
+          color: #1a1a1a;
+          letter-spacing: 0;
+        }
+      }
+    }
+
+    .unlock_modal_btn {
+      padding: 0;
+      width: 90%;
+      margin: 60px auto 0;
+    }
+  }
+
+  .ant-notification-notice.sunold-notifi {
+    background: #ffffff;
+    box-shadow: 0 10px 30px 0 rgba(35, 7, 92, 0.1);
+    border-radius: 20px;
+    padding: 24px 30px;
+    width: 100%;
+    max-width: 375px;
+
+    .ant-notification-notice-message {
+      font-family: HelveticaNeue-Medium;
+      font-size: 14px;
+      color: #333333;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    .trans-notify {
+      .trans-btn-tip {
+        margin-right: 30px;
+
+        &.trans-confirmed {
+          font-family: HelveticaNeue;
+          font-size: 14px;
+          color: #0cc102;
+          letter-spacing: 0;
+        }
+
+        &.trans-failed {
+          font-family: HelveticaNeue;
+          font-size: 14px;
+          color: #f00;
+          letter-spacing: 0;
+        }
+
+        &.trans-pending {
+          font-family: HelveticaNeue;
+          font-size: 14px;
+          color: #333;
+          letter-spacing: 0;
+        }
+      }
+
+      a {
+        font-size: 14px;
+        color: #3d56d6;
+        margin-right: 20px;
+      }
+    }
+  }
+
+  .pools-tab.pools-swap.current::after,
+  .pools-tab.pools-swap-other.current::after,
+  .pools-tab.pools-lend.current::after {
+    bottom: 5px !important;
+  }
+}
+
+@media screen and (max-width: 1921px) {
+  .home-title {
+    margin-top: 180px;
+  }
+}
+
+@media screen and (max-width: 1601px) {
+  .home-title {
+    margin-top: 120px;
+  }
+}
+
+@media screen and (min-width: 1921px) {
+  .home-title {
+    margin-top: 240px;
+  }
+}
+
+@media screen and (min-width: 2400px) {
+  .home-title {
+    color: #fff;
+    margin-top: 120px;
+  }
+
+  .ant-alert.alert-old {
+    width: 76%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .home-title {
+    color: #1f1f1f;
+    margin-top: 60px;
+  }
+
+  .pool-tabs .tabs-fixed {
+    .ant-tabs-nav {
+      top: 76px;
+      width: 90%;
+    }
+  }
+
+  .pool-container {
+    .banner-title {
+      margin-top: 60px;
+
+      .banner-main-title {
+        width: 85%;
+      }
+
+      .banner-main-title-text {
+        font-size: 25px;
+      }
+
+      .banner-sub-title {
+        font-size: 14px;
+        margin: 0;
+
+        a {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .ant-modal-wrap {
+      left: 0;
+    }
+
+    .pool-bg {
+      top: 60px;
+      bottom: 20px;
+      left: 15px;
+      right: 15px;
+      background-size: cover;
+      border-radius: 10px;
+
+      .pool-bg-left {
+        left: 5px;
+        top: 317px;
+        width: 100px;
+        height: 60px;
+      }
+
+      .pool-bg-right {
+        background-image: url(../images/poolBgRight.png);
+        width: 259px;
+        height: 247px;
+        right: -60px;
+        bottom: 0;
+        position: absolute;
+        background-size: 100% 100%;
+      }
+    }
+
+    .multiple-claimed-cards .multiple-claimed-card {
+      transform: scale(0.8);
+      margin-top: -10%;
+    }
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .sunold-container .ant-alert.alert-old {
+    width: 47.5%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .pools-tab.pools-swap,
+  .pools-tab.pools-swap-other,
+  .pools-tab.pools-lend,
+  .pools-tab.outdate {
+    font-size: 12px;
+  }
+
+  .pool-tabs .ant-tabs .pools-swap,
+  .pool-tabs .ant-tabs-tab .pools-swap {
+    margin-right: 0;
+  }
+
+  .pool-tabs .ant-tabs .pools-swap-other,
+  .pool-tabs .ant-tabs-tab .pools-swap-other {
+    margin-right: 5;
+  }
+
+  .pool-tabs .ant-tabs .pools-lend,
+  .pool-tabs .ant-tabs-tab .pools-lend {
+    margin-left: 10px;
+  }
+}

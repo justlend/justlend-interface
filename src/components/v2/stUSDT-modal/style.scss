@@ -1,0 +1,183 @@
+.stUSDT-modal {
+  .ant-modal {
+    width: 80% !important;
+    max-width: 600px !important;
+    margin: auto;
+    top: calc(50vh - 175px);
+    height: 350px;
+    .ant-modal-content {
+      border-radius: 10px;
+      overflow: hidden;
+      .ant-modal-body {
+        padding-bottom: 0px !important;
+        padding: 0 50px;
+        border-radius: 6px;
+        overflow: hidden;
+        height: 350px;
+        padding: 50px 50px 0;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .icon {
+      width: 165px;
+      height: 85px;
+      background: url(./stUSDT.png) no-repeat center/contain;
+      margin: 0 auto 30px;
+    }
+    .text {
+      color: #22232b;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 22px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .btn-wrap {
+      width: 100%;
+      margin: 60px auto 0;
+      display: flex;
+      justify-content: space-between;
+
+      .btn {
+        align-self: stretch;
+        width: 240px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px;
+        background: #4c54ff;
+
+        &:hover {
+          background: #9195fb;
+          transition: all 0.6s;
+        }
+      }
+
+      .disabled,
+      .disabled:hover {
+        background: #d3d3d5;
+        cursor: not-allowed;
+      }
+
+      .cancel {
+        color: #4c54ff;
+        border: 1px solid #4c54ff;
+        background: rgba(76, 84, 255, 0.04);
+
+        &:hover {
+          background: #4c54ff;
+          border: 1px solid #4c54ff;
+          color: #fff;
+        }
+      }
+    }
+  }
+  &.dark {
+    .ant-modal {
+      .ant-modal-content {
+        background-color: #282931;
+        .ant-modal-body {
+          background-color: #282931;
+        }
+      }
+    }
+    .content {
+      .icon {
+        background: url(./stUSDT-dark.png) no-repeat center/contain;
+      }
+      .text {
+        color: #fff;
+      }
+      .btn-wrap {
+        .btn {
+        }
+
+        .disabled,
+        .disabled:hover {
+          background: rgba(83, 84, 90, 0.6);
+          color: rgba(255, 255, 255, 0.6);
+          cursor: not-allowed;
+        }
+
+        .cancel {
+          border: 1px solid rgba(145, 149, 251, 0.8);
+          color: #9195fb;
+          &:hover {
+            background: #4c54ff;
+            border: 1px solid #4c54ff;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 750px) {
+  .stUSDT-modal {
+    .ant-modal {
+      //top: 100px;
+      width: calc(100% - 40px) !important;
+      top: calc(50vh - 154px);
+      padding-top: 0;
+      height: 308px;
+      .ant-modal-content {
+        border-radius: 6px;
+        overflow: hidden;
+        .ant-modal-body {
+          padding-bottom: 0px !important;
+          padding: 0 20px;
+          border-radius: 6px;
+          overflow: hidden;
+          height: 308px;
+        }
+      }
+
+      .content {
+        .icon {
+          width: 132px;
+          height: 68px;
+          background: url(./m-stUSDT.png) no-repeat center/contain;
+          margin: 49px auto 19px;
+        }
+        .text {
+          font-size: 14px;
+          line-height: 20px;
+          width: 100%;
+        }
+        .btn-wrap {
+          width: 100%;
+          margin: 60px auto 0;
+
+          .btn {
+            align-self: stretch;
+            width: 145px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+          }
+
+          .cancel {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    &.dark {
+      .content {
+        .icon {
+          background: url(./m-stUSDT-dark.png) no-repeat center/contain;
+        }
+      }
+    }
+  }
+}

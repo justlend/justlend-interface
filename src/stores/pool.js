@@ -1,26 +1,15 @@
 // Libraries
 import React from 'react';
-import { observable } from 'mobx';
-import { notification } from 'antd';
-import isMobile from 'ismobilejs';
+import { observable, makeObservable } from 'mobx';
 
-import { ACCOUNT_TRONLINK, BigNumber, tronscanTX, cutMiddle, voteFormat, formatNumber } from '../utils/helper';
-import {
-  tokenBalanceOf,
-  loadContracts,
-  getPoolsInfo,
-  getClaimed,
-  getInfoVote,
-  getAPY,
-  getRewardsNew
-} from '../utils/blockchain';
-import { getTokenPrice, getVoteRankList, getTotalVoted, getTronBull, getTronbullish } from '../utils/backend';
-import { initPoolData, calcMineInfo, initVoteList, getStatus, initVoteData, VOTE_STATUS } from '../utils/constant';
+import { BigNumber } from '../utils/helper';
+import { tokenBalanceOf, getPoolsInfo, getRewardsNew } from '../utils/blockchain';
+import { getTokenPrice, getTronBull, getTronbullish } from '../utils/backend';
+import { initPoolData } from '../utils/constant';
 import Config from '../config';
 
 const defaultIntervalSeconds = 60000;
 export default class PoolStore {
-  @observable tronWeb = false;
   @observable poolData = initPoolData();
   @observable totalTrxStake = '--';
   @observable totalUSDTStake = '--';
@@ -42,6 +31,8 @@ export default class PoolStore {
     this.defaultIntervalSec = 60000;
     this.backendPass = 0;
     this.backendPing = 10;
+
+    makeObservable(this);
   }
 
   setData = (obj = {}) => {
@@ -112,7 +103,14 @@ export default class PoolStore {
       const { activeSwaps, contract } = Config;
       const activeSwapsAll = activeSwaps;
       const params = activeSwapsAll.map(item => {
-        return { pool: contract[item].pool, tvl: BigNumber(poolData[item].totalUSD)._toFixed(2) };
+        // console.log(BigNumber(poolData[item].totalUSD)._toFixed(2));
+        return {
+          pool: contract[item].pool,
+          tvl:
+            isNaN(poolData[item].totalUSD) || poolData[item].totalUSD === '--'
+              ? 0
+              : BigNumber(poolData[item].totalUSD)._toFixed(2)
+        };
       });
       const pool = params.map(item => item.pool).join(',');
       const tvl = params.map(item => item.tvl).join(',');
@@ -137,10 +135,12 @@ export default class PoolStore {
           _poolAddresses.push(poolData[id].pool);
         }
       });
+      // get staked, tokenAmount, totalLock, trxAmount
       const getPoolsInfoPromise = getPoolsInfo(address, _poolAddresses);
       const tokenPriceResPromise = getTokenPrice();
 
       const res = await getPoolsInfoPromise;
+      // const trxPriceRes = await trxPricePromise;
       const tokenPriceRes = await tokenPriceResPromise;
       let totalTrxStake = BigNumber(0);
       const { priceBTT, priceTRX, priceWIN, priceNFT, priceJST } = tokenPriceRes;
@@ -163,7 +163,6 @@ export default class PoolStore {
         const { precision, tokenPrecision, lp } = poolData[id];
 
         const _total = BigNumber(totalLock[index]._hex).div(precision);
-        // const _claimed = BigNumber(claimed[index]._hex).div(Config.sunoldPrecision);
         const _staked = BigNumber(staked[index]._hex).div(precision);
         const _trxAmount = BigNumber(trxAmount[index]._hex).div(Config.trxPrecision);
         const _tokenAmount = BigNumber(tokenAmount[index]._hex).div(tokenPrecision);
@@ -197,30 +196,6 @@ export default class PoolStore {
       await this.getTronBull();
     } catch (error) {
       console.error(`getPoolData error: ${error}`);
-    }
-  };
-
-  loadContracts = async () => {
-    try {
-      await loadContracts(Config.contract.poolPoly, 'poly');
-    } catch (error) {
-      setTimeout(this.loadContracts, 2000);
-    }
-  };
-
-  getTotalVoted = async key => {
-    try {
-      let res = await getTotalVoted(Config.voteList[key].pool);
-      let precision = Config.voteList[key].precision;
-      let _totalVoted = BigNumber(0);
-      if (BigNumber(res.data).gt(0)) {
-        _totalVoted = BigNumber(res.data).div(precision);
-      }
-      Object.assign(this.allowanceData[key], {
-        totalVoted: _totalVoted
-      });
-    } catch (error) {
-      console.log('getTotalVoted failed', error);
     }
   };
 

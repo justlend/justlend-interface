@@ -1,6 +1,5 @@
 .canvasBox {
   position: relative;
-  // width: 308px;
   margin: 0 auto;
   height: 190px;
   .ellipse-color {
@@ -19,6 +18,7 @@
       top: 32.5px;
       transform: rotate(-0.25turn);
       transform-origin: 8.5px 73px;
+      transition: all 0.4s ease-in-out;
     }
     .canvas-text {
       margin: 0px auto 0;

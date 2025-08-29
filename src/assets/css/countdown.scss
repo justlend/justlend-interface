@@ -68,7 +68,6 @@
       }
       > img {
         width: 251.31px;
-        // width: 150px;
       }
     }
 
@@ -78,10 +77,7 @@
       font-weight: 300;
       font-size: 12px;
       line-height: 12px;
-      /* identical to box height */
-
       text-align: center;
-      // letter-spacing: 2px;
     }
   }
 
@@ -173,22 +169,15 @@
   .banner {
     background: url(../images/JSTPoolBanner.png) no-repeat;
     background-size: auto 100%;
-    // height: auto;
-    // min-height: 86px;
     overflow-x: scroll;
 
     .title {
       font-size: 16px;
-      // max-width: 70%;
     }
 
     .banner-left {
       min-width: 80%;
     }
-    // .sub-title {
-    //   font-size: 14px;
-    //   transform: scale(0.5);
-    // }
 
     .banner-right.scale {
       margin-left: -60px;

@@ -1,12 +1,22 @@
 import BigNumber from 'bignumber.js';
-const env = process.env.REACT_APP_ENV;
+import packageJson from '../package.json';
+import tokenInfo from './token.js';
+import tokenTest from './token.test.js';
+import tokenQaTest from './token.qaTest.js';
+import tokenNile from './token.test.js';
+
+const env = import.meta.env.VITE_ENV;
 const startTime = 1607344200000; // 2020-12-07 20:30:00 1607344200000
-const realStartTime = 1636135200000; // 2021-11-06 02:00:00
 const endTime = 1643374800000; // 2022-01-28 21:00:00
-const tokenInfo = require(`./token.js`).default;
+
 let devTokenInfo = {};
+
 if (env === 'test') {
-  devTokenInfo = require(`./token.${env}.js`).default;
+  devTokenInfo = tokenTest;
+} else if (env === 'qaTest') {
+  devTokenInfo = tokenQaTest;
+} else if (env === 'nile') {
+  devTokenInfo = tokenNile;
 }
 const TOKENS = Object.assign(tokenInfo, devTokenInfo);
 export const GIFT_KEY = ['trx'];
@@ -30,9 +40,9 @@ export const genContract = newContract => {
   }
 
   const tokenInfo = TOKENS[tokenKey];
-
   const token = tokenInfo.token ? tokenInfo.token : '';
   const tokenAddress = tokenInfo.tokenAddress ? tokenInfo.tokenAddress : '';
+  const jtokenAddress = tokenInfo.jtokenAddress ? tokenInfo.jtokenAddress : '';
   const symbol = tokenInfo.symbol ? tokenInfo.symbol : '';
   const lp = tokenInfo.lp ? tokenInfo.lp : '';
   const decimal = tokenInfo.decimal ? tokenInfo.decimal : 6;
@@ -44,6 +54,7 @@ export const genContract = newContract => {
     pool: '',
     token,
     tokenAddress,
+    jtokenAddress,
     symbol,
     lp,
     decimal,
@@ -81,25 +92,69 @@ export const genContractNew = newContract => {
   return c;
 };
 
+export const getTokenFromAddress = () => {
+  const tokenInfo = Object.values(TOKENS);
+  let tokensWithAddress = {};
+  tokenInfo.map(item => {
+    tokensWithAddress[item.token] = {
+      tokenSymbol: item.symbol
+    };
+  });
+  return tokensWithAddress;
+};
+
 const Config = {
-  realStartTime: realStartTime,
-  version: 'v 1.2.8',
+  rewardbBasePhaseForNewPeriod: 49,
+  miningSymbol: 'USDD',
+  usddV1MiningEndTime: 1737896400000, // 2025-01-26 21:00:00
+  usddV2MiningStartTime: 1738411200000, // 2025-02-01 20:00:00
+  adBannerVisible: true,
+  adLink: 'https://app.usdd.io/',
+  allowAutoConnectInMobile: ['imToken Wallet'],
+  tokenUncutZeroInDetailPage: ['USDDOLD', 'USDD', 'TUSD', 'USDT', 'BUSDOLD'],
+  announcements: 'https://support.justlend.org/hc/en-us/sections/900001080386-%E5%85%AC%E5%91%8A',
+  usddV2MiningAnnoucement:
+    'https://support.justlend.org/hc/en-us/articles/42993620002201-Announcement-on-Launching-the-USDD-V2-0-Market-Supply-Mining-Activity-I',
+  suspensionAnnoucement:
+    'https://support.justlend.org/hc/en-us/articles/37275939067161-Announcement-on-the-Suspension-of-Supply-Mining-Activity',
+  noServiceModalVisible: true,
+  winterThemeVisible: false,
+  nile: false,
+  rentOnlyWhiteList: true,
+  version: `v ${packageJson.version}`,
+  appVersion: `v ${packageJson.appVersion}`,
+  versionForHeader: `v${packageJson.version}`,
+  blockId: '00000000000000001ebf88508a03865c71d452e25f4d51194196a1d22b6653dc', // main chain blockId
   chain: {
     privateKey: '01',
     fullHost: 'https://api.trongrid.io'
   },
   trongrid: {
     host: 'https://api.trongrid.io',
-    key: ''
+    key: 'a4754d8e-ddaa-4322-9a88-80cf84d9b6f2'
   },
   service: {
-    host: 'https://labc.ablesdxd.link',
-    apilistHost: 'https://apilist.tronscan.org',
+    host: 'https://labc.ablesdxd.link', // 'https://lendapi.just.network'
+    stableHost: 'https://abc.ablesdxd.link',
+    stusdtHost: 'https://api.stusdt.org',
+    messageApiHost: 'https://abm.ablesdxd.link',
+    messageApiAccessToken: 'tronsmart',
+    messageApiToken:
+      'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqRCokQFoq3BvisqjxSwt22fs3U4f8WEi5JrsXY/kw8sPbImib2cS0mnGT2VHOvUT6Ua9i500ZBYE4HcPfHua8ie9el9BN5hrQApyliqVgtlvoOZd/vx5aExX2hzjxs/cjzDgkfyhfLk3jauiCX529SPf2TmqEAIDgFPwxrMgTvHNUlqrjb+EhzMIQRQF5sPlI7tx4NfEF9ATnaVZAKt5+L/foOSxEdZx081uIUaNlatLQgP0ONVTWy5hSK+HRruhXjKShkM/yd3imRRcrgJeU7G3MTc9cNe7+I0BTGYA/OwsRxh+MTQz6HI95NTHOJWniM6EOWGPMBEc7TzmC5dOsQIDAQAB',
+    lendApiToken:
+      'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArGp5uWm/L+trG7QVmcF5AySysvyMN4V7FR7zqKB09W6IaCrzV0/VOHctuaajAsDufGm+2a8d93Zvp1JuqM/Clrm5I3IMZQVt6YnuJfSLV/zQDrnw7UfQbV9TjIK1B7MwWT8utZa/5gQiFawXPQbnnikxFORGbSY+tLsCC3cvFB8vU8tDu5MyK+5ypsxMGlwnOG4aIiMDjvqE1mLgwmMr6RjJefI3Jkc8fJ7Ui7wrWv0hJMTzMU+PhPJX/cqk9aPTc84FDxkxyuR3rrMamT1gi4i0v9NQvRgwlF0rpuJZmDGX9pMNDK3+pcoqu1hF1ktem1M1jkqjCl8RBCq0dINdCwIDAQAB',
     marketsPath: '/justlend/markets',
     userPath: '/justlend/account',
     dashboardPath: '/dashboard',
     jtokenDetailsPath: '/jtokenDetails',
     govPath: '/justlend/gov',
+    depositBorrowRecord: '/justlend/record/depositBorrow',
+    strxRecord: '/justlend/record/strx',
+    rentRecord: '/justlend/record/rent',
+    voteRecord: '/justlend/record/vote',
+    liquidateRecord: '/justlend/record/liquidate',
+    cdpRecord: '/justlend/record/cdp',
+    updateLastSeen: '/justlend/record/update-last-seen',
     proposalListPath: '/proposalList',
     voteStatusPath: '/voteStatus',
     basePath: '/defi/baseInfo',
@@ -108,33 +163,77 @@ const Config = {
     yieldInfos: '/justlend/yieldInfos',
     tronBull: '/sunProject/tronbull',
     tronbullish: '/sunProject/tronbullish',
-    defitvl: '/api/defiTvl'
+    multiReward: '/sunProject/getAllUnClaimedAirDrop',
+    allowanceMultiReward: '/strx/rent/getAllUnClaimedAirDrop',
+    rentWhiteList: '/strx/rent/wl',
+    strxDashboard: '/strx/dashboard',
+    strxRentPath: '/strx/rent',
+    strxStakeAccount: '/strx/stake/account',
+    stUsdtDashboardPath: '/stusdt/dashboard',
+    stUsdtAccountPath: '/stusdt/account',
+    stUsdtRebaseHistoryPath: '/stusdt/rebase/history',
+    liquidatePath: '/justlend/liquidate/highRiskAccountList',
+    marketHistory: '/strx/rent/market_history',
+    settingsService: {
+      setLanguagePath: '/notice/language',
+      setSignPath: '/notice/sign',
+      getEmailOtpPath: '/notice/code',
+      verifyEmailOtpPath: '/notice/verify',
+      getEmailBindInfoPath: '/notice/bindInfo',
+      getNotiSettingsPath: '/notice/settings',
+      updateNotiSettingsPath: '/notice/settings/switch'
+    }
   },
-  startTime: startTime,
-  endTime: endTime,
+  feedbackUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSc7KLXJcEaXeGbxrFH7cG0ZhGP5kFjxFL0HGVyf_3TaviT2Ow/viewform',
+  safeValueTRX: 10,
+  estimatedEnergyPerTx: 40000,
+  energyRental: {
+    newOrderMinEnergyValue: 100000,
+    newOrderDefaultEnergyValue: 300000,
+    renewOrderMinEnergyValue: 50000,
+    renewOrderDefaultEnergyValue: 100000
+  },
+  feManualExtensionTime: 604800000, // 7 days
+  oldVoteLastId: 13,
+  tronscanUrl: 'https://tronscan.org/#',
+  tronscanUrlCN: 'https://tronscan.org/#',
+  tronscanUrlEN: 'https://tronscan.org/#',
   sunUrl: 'https://sun.io/',
   whitePaperEn: 'https://www.justlend.link/docs/justlend_whitepaper_en.pdf',
-  whitePaperCn: 'https://www.justlend.link/docs/justlend_whitepaper_cn.pdf',
-  reportEn: '',
-  reportCn: '',
-  noticeEn: 'https://justlendorg.zendesk.com/hc/en-us/articles/4515455230745',
-  noticeCn: 'https://justlendorg.zendesk.com/hc/zh-cn/articles/4515455230745',
-  APIEn: 'https://www.justlend.link/docs/justlend_api_en.pdf',
-  APICn: 'https://www.justlend.link/docs/justlend_api_cn.pdf',
+  whitePaperCn: 'https://www.justlend.link/docs/justlend_whitepaper_en.pdf',
+  whitePaperTc: 'https://www.justlend.link/docs/justlend_whitepaper_en.pdf',
+  docsEn: 'https://docs.justlend.org/',
+  docsCn: 'https://docs.justlend.org/',
+  forum: 'https://forum.justlend.org',
+  github: 'https://github.com/justlend',
+  juststable: 'https://just.tronscan.org',
+  APIEn: 'https://www.justlend.link/docs/JustLend-api-en.pdf',
+  APICn: 'https://www.justlend.link/docs/JustLend-api-cn.pdf',
+  APITc: 'https://www.justlend.link/docs/JustLend-api-tc.pdf',
   helpEn: 'https://justlendorg.zendesk.com/hc/en-us',
   helpCn: 'https://justlendorg.zendesk.com/hc/zh-cn',
+  feedbackCn: 'https://forms.gle/eAgxkxWdJXQjxN7aA',
+  feedbackEn: 'https://forms.gle/5P1RKkcBvQra799L7',
+  auditEn: 'https://www.justlend.link/docs/justlend_audit_en.pdf',
+  bountyLink: 'https://immunefi.com/bounty/justlenddao/',
   twitter: 'http://twitter.com/DeFi_JUST',
+  discord: 'https://discord.com/invite/2KdByBgBA3',
   telegram: 'https://t.me/officialjustlend',
   learnMoreEn: 'https://justlendorg.zendesk.com/hc/en-us/articles/360053116771',
   learnMoreCn: 'https://justlendorg.zendesk.com/hc/zh-cn/articles/360053116771',
   activeSwaps: ['jstlp1'],
   tokenPriceUrl: 'https://c.tronlink.org/v1/cryptocurrency/getprice?symbol=TRX,WBTT,WIN,NFT,JST&convert=USD',
+  tronLinkStatUrl: 'https://list.tronlink.org/api/stat/action',
+  sbfFaqDoc: 'https://docs.justlend.org/getting-started/faq/supply-and-borrow-market',
   contract: {
     unitroller: 'TGjYzgCyPobsNS9n6WcbdLVR9dH7mWqFx7',
     poly: 'TXTXGyhNLhELNZPDXsn5fCnGYLZoLwJvRC',
     JST: 'TCFLL5dx5ZJdKnWuesXxi1VPwjLVmWZZy9',
-    WJSTAddress: 'TCczUFrX1u4v1mzjBVXsiVyehj1vCaNxDt',
-    governorAlphaAddress: 'TH1SVVVU9NF1ans3CRBCJ5kW2yvn4sHP9b',
+    WJSTAddress: 'TXk9LnTnLN7oH96H3sKxJayMxLxR9M4ZD6',
+    governorAlphaAddress: 'TEqiF5JbhDPD77yjEfnEMncGRZNDt2uogD',
+    oldWJSTAddress: 'TCczUFrX1u4v1mzjBVXsiVyehj1vCaNxDt',
+    oldGovernorAlphaAddress: 'TH1SVVVU9NF1ans3CRBCJ5kW2yvn4sHP9b',
+    // justlend period 1，jst lp pool
     jstlp1: genContractNew({
       pool: 'TUp1BWfAZidkNbWkoiCjJcf4ctE4PAR2Rg',
       lp: 'JST',
@@ -142,10 +241,14 @@ const Config = {
       end: endTime,
       rate: '60',
       id: 'jstlp1',
-      giftKey: ['jst']
+      giftKey: ['jst'],
+      subtitle: 'SUNSWAP-JST-TRX'
     }),
     poolPoly: 'THacLGjyfYqb8G2NtfAe8jtxVrAimCDaum',
-    poly2: 'TQAz7fpCMFXUpdWNQ7yAGTHK6wArruJZYm'
+    poly2: 'TQAz7fpCMFXUpdWNQ7yAGTHK6wArruJZYm',
+    sTRXProxyContract: 'TU3kjFuhtEo42tsCBtfYUAZxoqQ4yuSLQ5',
+    marketProxyContract: 'TU2MJ5Veik1LRAgjeSzEdvmDYx7mefJZvd',
+    energyRateModelContract: 'TXA2WjFc5f86deJcZZCdbdpkpUTKTA3VDM'
   },
   yielders: [
     {
@@ -199,6 +302,7 @@ const Config = {
       day: 14
     }
   ],
+  // mining pools，need add jtokenAddress
   yieldersAddsun: [
     {
       pool: 'TE2RzoSV3wFK99w6J9UnnZ4vLfXYoxvRwP',
@@ -264,11 +368,35 @@ const Config = {
       pool: 'TSXv71Fy5XdL3Rh2QfBoUu3NAaM4sMif8R',
       sunSupply: 2100,
       day: 14
+    },
+    {
+      pool: 'TUaUHU9Dy8x5yNi1pKnFYqHWojot61Jfto',
+      sunSupply: 0,
+      day: 14
+    },
+    {
+      pool: 'TX7kybeP6UwTBRHLNPYmswFESHfyjm9bAS',
+      sunSupply: 0,
+      day: 14
+    },
+    {
+      pool: 'TJQ9rbVe9ei3nNtyGgBL22Fuu2xYjZaLAQ', // jstrx
+      sunSupply: 0,
+      day: 14
+    },
+    {
+      pool: 'TKFRELGGoRgiayhwJTNNLqCNjFoLBh3Mnf', // jusdd
+      sunSupply: 0,
+      day: 14
     }
   ],
+  // USDD mining
+  usddMint: [],
+  usddMintForLastMining: ['TX7kybeP6UwTBRHLNPYmswFESHfyjm9bAS'],
   sunSwap: 'https://sunswap.com/',
   zeroAddr: 'T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb',
   defaultAddress: 'T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb',
+  jtrxAddress: 'TE2RzoSV3wFK99w6J9UnnZ4vLfXYoxvRwP',
   blockPerYear: 10512000,
   defaultDecimal: 3,
   defaultDecimalForInput: 6,
@@ -277,14 +405,16 @@ const Config = {
   trxPrecision: 1e6,
   defaultPrecision: 1e6,
   tokenDefaultPrecision: 1e18,
+  oraclePricePrecision: 1e27,
   maxQueryLength: 10,
   maxQueryTimes: 10,
   maxBalanceLength: 4,
+  maxTotalCollateral: 11,
   voteMaxNum: 600000000,
   trxLeft: 40,
   safeMaxRate: 0.8,
   feeLimit: 200000000,
-  ethStartTime: 1608640200000,
+  feeLimitForReturnResourceDefault: 100000000,
   currency: [
     {
       symbol: 'WBTT',
@@ -321,159 +451,674 @@ const Config = {
     {
       symbol: 'YFX',
       name: 'YFX'
+    },
+    {
+      symbol: 'USDDNEW',
+      name: 'Decentralized USD'
     }
   ],
-  centuryRealStart: 1615208400000,
-  startTime1: 1616418000000,
   voteDetailFilePath: 'voteDetailFiles',
   hideHomeBanner: 'hideHomeBannerMintJST',
-  hideMarketMintIcon: ['SUNOLD'],
-  fileLink: 'https://www.justlend.link/docs/'
+  hideMarketList: ['SUNOLD', 'BUSDOLD', 'USDCOLD'],
+  hideMarketMap: {
+    'SUNOLD': 0,
+    'USDCOLD': 1,
+    'BUSDOLD': 2,
+    'ETH': 3
+  },
+  hideMarketMintIcon: [
+    'BTC',
+    'TRX',
+    'sTRX',
+    'SUNOLD',
+    'WBTT',
+    'ETHB',
+    'ETH',
+    'BUSD',
+    'TUSD',
+    'USDC',
+    'USDT',
+    'USDJ',
+    'wstUSDT'
+  ],
+  fileLink: 'https://www.justlend.link/docs/',
+  usddJtoken: 'TKFRELGGoRgiayhwJTNNLqCNjFoLBh3Mnf',
+  usddoldJtoken: 'TX7kybeP6UwTBRHLNPYmswFESHfyjm9bAS',
+  // usdtJtoken: 'TXJgMdjVX5dKiQaUi9QobwNxtSQaFqccvd',
+  // tusdJtoken: 'TSXv71Fy5XdL3Rh2QfBoUu3NAaM4sMif8R',
+  // usdcJtoken: 'TNSBA6KvSvMoTqQcEgpVK7VhHT3z7wifxy',
+  trx: genContractNew({ symbol: 'trx' }),
+  usdd: genContractNew({ symbol: 'usdd' }),
+  usddold: genContractNew({ symbol: 'usddold' }),
+  usdt: genContractNew({ symbol: 'usdt' }),
+  sun: genContractNew({ symbol: 'sun' }),
+  sunold: genContractNew({ symbol: 'sunold' }),
+  btt: genContractNew({ symbol: 'btt' }),
+  nft: genContractNew({ symbol: 'nft' }),
+  jst: genContractNew({ symbol: 'jst' }),
+  win: genContractNew({ symbol: 'win' }),
+  usdj: genContractNew({ symbol: 'usdj' }),
+  usdc: genContractNew({ symbol: 'usdc' }),
+  usdcold: genContractNew({ symbol: 'usdcold' }),
+  tusd: genContractNew({ symbol: 'tusd' }),
+  usd1: genContractNew({ symbol: 'usd1' }),
+  btc: genContractNew({ symbol: 'btc' }),
+  eth: genContractNew({ symbol: 'eth' }),
+  ethb: genContractNew({ symbol: 'ethb' }),
+  ethold: genContractNew({ symbol: 'ethold' }),
+  wbtt: genContractNew({ symbol: 'wbtt' }),
+  busd: genContractNew({ symbol: 'busd' }),
+  // strx: genContractNew({ symbol: 'strx' }),
+  stusdt: genContract({ symbol: 'stusdt' }),
+  wstusdt: genContract({ symbol: 'wstusdt' }),
+  strx: genContract({ symbol: 'strx' }),
+  jwstusdtJtoken: 'TD5SdLw5scR6mXgyMK2xKrFJpauDjpKqrW',
+  portalLink: 'https://portal.justlend.org/',
+  stusdtLink: 'https://stusdt.io/',
+  tokens: getTokenFromAddress(),
+  WalletConnectChainID: 'tron:0x2b6653dc',
+  rewardNum: 3,
+  usdtRewardNum: 100,
+  merkleDistributor: 'TQoiXqruw4SqYPwHAd6QiNZ3ES4rLsejAj',
+  merkleDistributorNEWUSDD: 'TYxJzmeDyxuxFbaGywjivfkft75qLeS485',
+  marketContract: '',
+  network: 'Mainnet',
+  closeTokens: ['SUNOLD'],
+  sTRX: {
+    stakeLimitMin: 0.000001,
+    stakeLimitMax: 10000000000,
+    safeValueMin: 10,
+    merkleDistributor: 'TKQ5VVJPsoZDD7NqQ8ffhFwzeRp45XLSGt'
+  },
+  StUSDTProxy: 'TThzxNRLrW2Brp9DcTQU8i4Wd9udCWEdZ3',
+  UnstUSDTProxy: 'TURYwFtG6gvpEyPSm55FyjJWpgQQ2rDm5e',
+  minterProxy: 'TVh1PF9xr4zC5uAqRcCbxF1By6ucp95G4i',
+  ValuesAggregator: 'TPsypxvELDhdQRE1yGdfLJhowY2qnZEbkc',
+  wstUSDTProxy: 'TGkxzkDKyMeq2T7edKnyjZoFypyzjkkssq',
+  SwapRouter: 'TP4UqDEQqUaf9k8cvyAtp8vbZSXNuMD6hJ',
+  tronsecretkey: 'tronsecretkey',
+  unstakeDetailLinkCN: 'https://support.justlend.org/hc/zh-cn/articles/20134457290777',
+  unstakeDetailLinkEN: 'https://support.justlend.org/hc/en-us/articles/20134457290777',
+  introductionLinkCN: 'https://support.justlend.org/hc/zh-cn/articles/20134645757337',
+  introductionLinkEN: 'https://support.justlend.org/hc/en-us/articles/20134645757337',
+  rentEnergyLink: 'https://app.justlend.org/',
+  howToStakeLinkCN: 'https://support.justlend.org/hc/zh-cn/articles/20134217458585',
+  howToStakeLinkEN: 'https://support.justlend.org/hc/en-us/articles/20134217458585',
+  howToUnstakeLinkCN: 'https://support.justlend.org/hc/zh-cn/articles/20134457290777',
+  howToUnstakeLinkEN: 'https://support.justlend.org/hc/en-us/articles/20134457290777',
+  helpCenterLinkCN: 'https://stusdt.zendesk.com/hc/zh-cn',
+  helpCenterLinkEN: 'https://stusdt.zendesk.com/hc/en-us',
+  announceLinkCN: 'https://stusdt.zendesk.com/hc/zh-cn/articles/20169925464601',
+  announceLinkEN: 'https://stusdt.zendesk.com/hc/en-us/articles/20169925464601',
+  tetherLink: 'https://tether.to/en/transparency',
+  totalDebtTokenArrOnline: [
+    'TRX',
+    'USDD',
+    'USDT',
+    'wstUSDT',
+    'sTRX',
+    'SUN',
+    'BTT',
+    'NFT',
+    'JST',
+    'WIN',
+    'USDCOLD',
+    'TUSD',
+    'BTC',
+    'ETHB',
+    'USDDOLD',
+    'USDJ',
+    'WBTT',
+    'BUSDOLD',
+    'SUNOLD',
+    'ETH'
+  ],
+  totalDebtTokenArrAfterProposal: [
+    'TRX',
+    'USDD',
+    'USDT',
+    'wstUSDT',
+    'sTRX',
+    'SUN',
+    'BTT',
+    'NFT',
+    'JST',
+    'WIN',
+    'USDCOLD',
+    'TUSD',
+    'USD1',
+    'BTC',
+    'ETHB',
+    'USDDOLD',
+    'USDJ',
+    'WBTT',
+    'BUSDOLD',
+    'SUNOLD',
+    'ETH'
+  ],
+  settingsTokenArray1: '[222,221,128,1,192,1,140,232,252,188,147,148,109,13,251,49]',
+  settingsTokenArray2: '[31,250,72,28,110,233,85,232,161,150,52,198,74,219,103,179]',
+  riskMarkets: ['SUNOLD', 'BUSD', 'USDCOLD', 'BUSDOLD'],
+  holdingTokens: ['wstUSDT', 'sTRX'],
+  // https://support.justlend.org/hc/en-us/articles/32539144305305 old
+  announceForUSDDSTRX:
+    'https://medium.com/@usddio/announcement-on-the-launch-of-the-strx-vault-on-usdd-protocol-unlock-enhanced-capital-efficiency-033b8bc7568a',
+  announceForUSDCOLD:
+    'https://support.justlend.org/hc/en-us/articles/37303927145497-Announcement-on-Suspending-the-Supply-and-Borrow-of-USDC-Market',
+  announceLink:
+    'https://www.binance.com/en/support/announcement/binance-encourages-users-to-convert-busd-to-other-stablecoins-prior-to-february-2024-d392843e81fd4bc3a5f7e219aa01f34d',
+  userGuideUrl: 'https://support.justlend.org/hc/en-us/articles/360052662052-How-to-link-a-wallet',
+  readDocUrl: 'https://docs.justlend.org/links/community-resources/wallet-integration-cooperation',
+  // contactUsUrl: 'mailto:support@justlend.org',
+  contactUsUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdjPg-nxz-Lq_zWq7bMBrozYB6YXYruNZ3T9ODGRyIJA5pb2g/viewform',
+  tronlinkWalletUrl:
+    'https://chrome.google.com/webstore/detail/tronlink%EF%BC%88%E6%B3%A2%E5%AE%9D%E9%92%B1%E5%8C%85%EF%BC%89/ibnejdfjmmkpcnlpebklmnkoeoihofec',
+  okxWalletUrl: 'https://www.okx.com/download',
+  tokenPocketWalletUrl: 'https://www.tokenpocket.pro/en/download/app',
+  approveLink: 'https://docs.justlend.org/getting_started/faqs/spending_cap_issue/',
+  binanceWalletUrl: 'https://www.binance.com/en/binancewallet',
+  netAPYLink: 'https://support.justlend.org/hc/en-us/articles/43813165783961-Introduction-to-Net-APY-and-Net-Worth',
+  rentCalculateLink:
+    'https://support.justlend.org/hc/en-us/articles/31228571004569-What-are-the-rules-for-rent-calculation'
 };
 
 let devConfig = {};
+if (env === 'btfs') {
+  devConfig = {
+    trongrid: {
+      host: 'https://api.trongrid.io',
+      key: '18dea628-3042-4962-af06-44c3383a2052'
+    }
+  };
+}
 if (env === 'test') {
   devConfig = {
+    rewardbBasePhaseForNewPeriod: 32,
+    usddV1MiningEndTime: 1737864000000, // 2025-01-26 12:00:00
+    usddV2MiningStartTime: 1737959400000, // 2025-01-27 14:30:00
+    tokenUncutZeroInDetailPage: ['USDDOLD', 'USDD', 'TUSD', 'USDT', 'BUSDOLD', 'BUSDqa1', 'BUSDqa2'],
     chain: {
       privateKey: '01',
       fullHost: 'https://api.nileex.io'
     },
     contract: {
-      unitroller: 'TPdWn5nRLxx8n2WKbBZ3FkBejVdiTUGDVM',
-      poly: 'TBj45kXsnXAr3DeC4Np3J6WDxDtVh9qESs',
-      JST: 'TF17BgPaZYbz8oxbjhriubPDsA7ArKoLX3',
-      WJSTAddress: 'THBZJT3heBUTqYdaDdPbhgasAoitDeojLG',
-      governorAlphaAddress: 'TABdyfNoFcP1vkNoczy9qK8G8RiBf711K8',
+      unitroller: 'TJUCStq3WqfKqZLuZje5v7z6Ua6iBry1P6',
+      poly: 'TFbotxCdaph4U4YheVg2tmCyNGheFEGw4N',
+      JST: 'TJqk3ChKSjmpoNm3gaqSEatNsueD37NGDK',
+      oldWJSTAddress: 'TFYQKuC9N3ibDWATpSDCSAyaBa1kBuUFbQ',
+      oldGovernorAlphaAddress: 'TTQoEH7bdcZYyrCjD6Zg1WiDWXFBQAwPwP',
+      // WJSTAddress: 'TDuQFvoB7cKaA7DGgj5QZFNYSyq2KFMtsr',
+      // governorAlphaAddress: 'TGGGJ223Xcp6gYphkVFAB15Gy5fWfEcL2w',
+      WJSTAddress: 'TCxA1eNhsAV3gvUwLjLtREW9f775V4h1h7',
+      governorAlphaAddress: 'TYCNENqt2oJK7eiwubi6YXXt8RHR1BnzBs',
       jstlp1: genContractNew({
-        pool: 'TLaFULHHf9i8Ttmy2fxJY8E1FMN9z7UYE3',
+        pool: 'TMXkqc9RtGa3KB3Sx46bmrdTy9Xgi2cmTu',
         lp: 'JST',
         start: startTime,
         end: Date.now() + 30000,
         rate: '60',
         id: 'jstlp1',
-        giftKey: ['jst']
+        giftKey: ['jst'],
+        subtitle: 'SUNSWAP-JST-TRX'
       }),
       poolPoly: 'TU6VnkAAkw5DzaYBp5NCKpKP4smob4LLJG',
-      poly2: 'TGFMgRa7FeD1UBShKvmw86156Z3vCWdEcA'
+      poly2: 'TGFMgRa7FeD1UBShKvmw86156Z3vCWdEcA',
+      sTRXProxyContract: 'TZ8du1HkatTWDbS6FLZei4dQfjfpSm9mxp',
+      marketProxyContract: 'TSos1xxjqMrGKBxycVmtgrnFvv9M6FDFUX',
+      energyRateModelContract: 'TFHzFfBCS8hWV19v1psMZPg4TcWNc1W5LB'
     },
     yielders: [
       {
-        pool: 'TDchKqQ8T2BhGfL7m2DfWfxp5eqa1we5hu',
+        pool: 'TKM7w4qFmkXQLEF2MgrQroBYpd5TY7i1pq',
         sunSupply: 8400,
         day: 14
       },
       {
-        pool: 'TTUtHMoRLR97C3kd6gyGPWb1ReCWDcRAyA',
+        pool: 'TT6Qk1qrBM4MgyskYZx5pjeJjvv3fdL2ih',
         sunSupply: 8400,
         day: 14
       },
       {
-        pool: 'TTYKZf1Vv3sKED5LSKGh9Yi2XwJxam9nqj',
+        pool: 'TLBoPBNAfrBPxq3rTQzSKzTXrRjjAqaiJ6',
         sunSupply: 2800,
         day: 14
       },
       {
-        pool: 'TSdWpyV2Z8YdJmsLcwX3udZTTafohxZcVJ',
+        pool: 'TYf16sZLR9uXpm63bXsRCNQMQFvqqvXQ2t',
         sunSupply: 2800,
         day: 14
       },
       {
-        pool: 'TJRXoWa5CiG7ZRf36ncEXDLUoMbEuH3ZJs',
+        pool: 'TZ51C31Zh3qBSRBnTmbcuRX1rqyhzoCe8Q',
         sunSupply: 2800,
         day: 14
       },
       {
-        pool: 'TXjnpsP7FWCGZWzrFbXsQcpgyKd26v45dK',
+        pool: 'TBGCExAC3iRk5EXAVXEer3bwhTi9EN9rht',
         sunSupply: 2800,
         day: 14
       },
       {
-        pool: 'TCby9165NKLydYDJEQ1RTUdJ3VoFXq8VVs',
+        pool: 'TXNg6MoDTDEZKwPzTAdnzdQwfTF4LdU1QW',
         sunSupply: 2800,
         day: 14
       },
       {
-        pool: 'TDYhBGVRwRCyvnfsnLrwtj1xWEsoPKVWKz',
+        pool: 'TAj5XxJtkrEDvTT7mTsS3uqMcvSCp82cnR',
         sunSupply: 2800,
         day: 14
       },
       {
-        pool: 'TJg1msVTDbv5wma5t5wDJKqDHAH4BzC85i',
+        pool: 'TYVr8QECrDkf6EAiKehok5FF3ckWV5Ds7k',
         sunSupply: 2800,
         day: 14
       }
     ],
     yieldersAddsun: [
       {
-        pool: 'TDchKqQ8T2BhGfL7m2DfWfxp5eqa1we5hu',
+        pool: 'TKM7w4qFmkXQLEF2MgrQroBYpd5TY7i1pq', // jtrx
         sunSupply: 8400,
         day: 14
       },
       {
-        pool: 'TTUtHMoRLR97C3kd6gyGPWb1ReCWDcRAyA',
+        pool: 'TT6Qk1qrBM4MgyskYZx5pjeJjvv3fdL2ih', //jusdt
         sunSupply: 8400,
         day: 14
       },
       {
-        pool: 'TTYKZf1Vv3sKED5LSKGh9Yi2XwJxam9nqj',
+        pool: 'TLBoPBNAfrBPxq3rTQzSKzTXrRjjAqaiJ6', //jusdj
         sunSupply: 2800,
         day: 14
       },
       {
-        pool: 'TSdWpyV2Z8YdJmsLcwX3udZTTafohxZcVJ',
+        pool: 'TYf16sZLR9uXpm63bXsRCNQMQFvqqvXQ2t', // jsun
         sunSupply: 2800,
         day: 14
       },
       {
-        pool: 'TJRXoWa5CiG7ZRf36ncEXDLUoMbEuH3ZJs',
+        pool: 'TZ51C31Zh3qBSRBnTmbcuRX1rqyhzoCe8Q', //jwin
         sunSupply: 2800,
         day: 14
       },
       {
-        pool: 'TXjnpsP7FWCGZWzrFbXsQcpgyKd26v45dK',
+        pool: 'TBGCExAC3iRk5EXAVXEer3bwhTi9EN9rht', // jbtc
         sunSupply: 2800,
         day: 14
       },
       {
-        pool: 'TCby9165NKLydYDJEQ1RTUdJ3VoFXq8VVs',
+        pool: 'TXNg6MoDTDEZKwPzTAdnzdQwfTF4LdU1QW', // jjst
         sunSupply: 2800,
         day: 14
       },
       {
-        pool: 'TDYhBGVRwRCyvnfsnLrwtj1xWEsoPKVWKz',
+        pool: 'TAj5XxJtkrEDvTT7mTsS3uqMcvSCp82cnR', // jwbtt
         sunSupply: 2800,
         day: 14
       },
       {
-        pool: 'TJg1msVTDbv5wma5t5wDJKqDHAH4BzC85i',
+        pool: 'TYVr8QECrDkf6EAiKehok5FF3ckWV5Ds7k', // jeth
         sunSupply: 2800,
         day: 14
       },
       {
-        pool: 'TCmJeP41ySJmyehWCyJoeWJuLdZM4bW9KA',
+        pool: 'TQ7JUeFHWAxNru1Yp8YjPP3c7guZSe4e2E', // jSUNOLD
         sunSupply: 0,
         day: 14
       },
       {
-        pool: 'TVjbQ8CbNtibNsmkxdabF2W7sYAAoWR3vk',
+        pool: 'TMsoCkr2yhukcGnvjhVk8Gj541BCQPEHwm', // jusdc
+        sunSupply: 0,
+        day: 14
+      },
+      {
+        pool: 'TPovsintcLMh9udvXgt45jvb1RYQ86imnL', // jbtt
+        sunSupply: 0,
+        day: 14
+      },
+      {
+        pool: 'TRM3faiTDB9D4Vq4mwezUeo5rQLzCDqGSE', // jusddold
+        sunSupply: 0,
+        day: 14
+      },
+      {
+        pool: 'TBUYv5QnyVV4uV2RYjoouHhmsHMGqr8vj7', // jstrx
+        sunSupply: 0,
+        day: 14
+      },
+      {
+        pool: 'TBqtwZhjP49heKsoTHeX5MhKBJMmyuP88b', // jusdd
         sunSupply: 0,
         day: 14
       }
     ],
+    usddMint: [],
+    usddMintForLastMining: ['TRM3faiTDB9D4Vq4mwezUeo5rQLzCDqGSE'],
     tronscanUrl: 'https://nile.tronscan.io/#',
+    tronscanUrlCN: 'https://nile.tronscan.io/#',
+    tronscanUrlEN: 'https://nile.tronscan.org/#',
     sunUrl: 'http://3.20.169.37:18108/',
     sunSwap: 'http://3.20.169.37:18100/',
     service: Object.assign(Config.service, {
-      host: 'http://123.56.166.152:10088'
+      host: 'https://apitest.justlend.org',
+      stableHost: 'https://apidev-v1.justlend.org',
+      stusdtHost: 'https://testapi.stusdt.io',
+      messageApiHost: 'https://qa-message.justlend.org',
+      messageApiAccessToken: 'tronsmart',
+      messageApiToken:
+        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1AhMUvxBZUdc+lr2vIxArNFeIgo7k6v3dTP+aYtV/9AGZRCqwtlvKMthS4DY9ABuUM5Ksfx5civenbpHcrHJ29JCtsRdt0fp+Pr6kk5tmb1y9AKbJHcw1+FJ3Mqk29hpiQsyVU5FS82QWchIIGnrWXyQAOjaLClvtJ/KxIGtBQifxtlvqOiagZm11fuXNGSvSYAW/yIFTL3SVbLitdQ5MPIiYKf3t6HrdptDXjiHNWFVHVuZAoXoQNnwzZIawWv6N0qP68EE4abKvfOJrWAB4KUJhtHcbJLX2QqYi9zOaEKRTS2Q/BqSWcv1QOq3kdCjSD+A7U5zl9TARe6AiCFUywIDAQAB',
+      lendApiToken:
+        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1AhMUvxBZUdc+lr2vIxArNFeIgo7k6v3dTP+aYtV/9AGZRCqwtlvKMthS4DY9ABuUM5Ksfx5civenbpHcrHJ29JCtsRdt0fp+Pr6kk5tmb1y9AKbJHcw1+FJ3Mqk29hpiQsyVU5FS82QWchIIGnrWXyQAOjaLClvtJ/KxIGtBQifxtlvqOiagZm11fuXNGSvSYAW/yIFTL3SVbLitdQ5MPIiYKf3t6HrdptDXjiHNWFVHVuZAoXoQNnwzZIawWv6N0qP68EE4abKvfOJrWAB4KUJhtHcbJLX2QqYi9zOaEKRTS2Q/BqSWcv1QOq3kdCjSD+A7U5zl9TARe6AiCFUywIDAQAB'
     }),
-    startTime: 1607344200000,
-    ethStartTime: 1608640200000,
-    centuryRealStart: Date.now() - 60 * 1000,
-    startTime1: Date.now() + 10000,
+    tronLinkStatUrl: 'https://niletest.tronlink.org/api/stat/action',
+    oldVoteLastId: 2,
     defaultAddress: 'T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb',
+    jtrxAddress: 'TKM7w4qFmkXQLEF2MgrQroBYpd5TY7i1pq',
     activeSwaps: ['jstlp1'],
     voteDetailFilePath: 'testVoteDetailFiles',
-    feeLimit: 200000000
+    feeLimit: 200000000,
+    hideMarketMintIcon: [
+      'BTC',
+      'TRX',
+      'sTRX',
+      'SUNOLD',
+      'WBTT',
+      'ETHB',
+      'ETH',
+      'BUSD',
+      'TUSD',
+      'USDC',
+      'USDT',
+      'USDJ',
+      'wstUSDT'
+    ],
+    usddJtoken: 'TBqtwZhjP49heKsoTHeX5MhKBJMmyuP88b',
+    usddoldJtoken: 'TRM3faiTDB9D4Vq4mwezUeo5rQLzCDqGSE',
+    trx: genContractNew({ symbol: 'trx' }),
+    usdd: genContractNew({ symbol: 'usdd' }),
+    usdt: genContractNew({ symbol: 'usdt' }),
+    sun: genContractNew({ symbol: 'sun' }),
+    sunold: genContractNew({ symbol: 'sunold' }),
+    btt: genContractNew({ symbol: 'btt' }),
+    nft: genContractNew({ symbol: 'nft' }),
+    jst: genContractNew({ symbol: 'jst' }),
+    win: genContractNew({ symbol: 'win' }),
+    usdj: genContractNew({ symbol: 'usdj' }),
+    usdc: genContractNew({ symbol: 'usdc' }),
+    tusd: genContractNew({ symbol: 'tusd' }),
+    usd1: genContractNew({ symbol: 'usd1' }),
+    btc: genContractNew({ symbol: 'btc' }),
+    eth: genContractNew({ symbol: 'eth' }),
+    ethold: genContractNew({ symbol: 'ethold' }),
+    wbtt: genContractNew({ symbol: 'wbtt' }),
+    busd: genContractNew({ symbol: 'busd' }),
+    stusdt: genContract({ symbol: 'stusdt' }),
+    wstusdt: genContract({ symbol: 'wstusdt' }),
+    strx: genContract({ symbol: 'strx' }),
+    jwstusdtJtoken: 'TLxZWG4C9AmTjw5KTF24pDwD8DBt6o7gpP',
+    portalLink: 'http://3.20.169.37:18141/',
+    stusdtLink: 'http://test.stusdt.io/',
+    tokens: getTokenFromAddress(),
+    WalletConnectChainID: 'tron:0xcd8690dc',
+    merkleDistributor: 'TUQb328PQfbredVY3qUD9NZ6DipFxSRZ84',
+    merkleDistributorNEWUSDD: 'TMoWFKhkyKUNtxm7P2pMyM7TsVkX9zB7sm',
+    marketContract: 'TT941BbkFsp2w8gPtiUPZ78u8vkQXMfgED',
+    network: 'Nile', // shasta is 'Shasta',
+    sTRX: {
+      stakeLimitMin: 0.000001,
+      stakeLimitMax: 10000000000,
+      safeValueMin: 10,
+      merkleDistributor: 'TZETgfTfiPdGm1HkoBktAnpWNjNx4c4did'
+    },
+    StUSDTProxy: 'TVUGRzuUBoUmFvuHFfgyrFS39PDtEDHfX9',
+    UnstUSDTProxy: 'TVqzeEEX1qkNr4jxZCo8g3xbSdBForBR7n',
+    minterProxy: 'TJNuCgiy68xssHojMSnjt86RbzFBmFqREr',
+    ValuesAggregator: 'TLDWaSofLrChSjR9ErGyQdRFqHeRg8Ecw7',
+    SwapRouter: 'TUrbVyQLdjXMBRcAECxb5hLTE1wmGv2vey',
+    wstUSDTProxy: 'TQuaRvcTVquWNKWGiA4zVgcy1ChXNX7p54'
   };
 }
-export default Object.assign(Config, devConfig);
+
+if (env === 'nile') {
+  devConfig = {
+    nile: true,
+    chain: {
+      privateKey: '01',
+      fullHost: 'https://api.nileex.io'
+    },
+    contract: {
+      unitroller: 'TJUCStq3WqfKqZLuZje5v7z6Ua6iBry1P6',
+      poly: 'TFbotxCdaph4U4YheVg2tmCyNGheFEGw4N',
+      JST: 'TJqk3ChKSjmpoNm3gaqSEatNsueD37NGDK',
+      oldWJSTAddress: 'TFYQKuC9N3ibDWATpSDCSAyaBa1kBuUFbQ',
+      oldGovernorAlphaAddress: 'TTQoEH7bdcZYyrCjD6Zg1WiDWXFBQAwPwP',
+      WJSTAddress: 'TCxA1eNhsAV3gvUwLjLtREW9f775V4h1h7',
+      governorAlphaAddress: 'TYCNENqt2oJK7eiwubi6YXXt8RHR1BnzBs',
+      jstlp1: genContractNew({
+        pool: 'TMXkqc9RtGa3KB3Sx46bmrdTy9Xgi2cmTu',
+        lp: 'JST',
+        start: startTime,
+        end: Date.now() + 30000,
+        rate: '60',
+        id: 'jstlp1',
+        giftKey: ['jst'],
+        subtitle: 'SUNSWAP-JST-TRX'
+      }),
+      //nile
+      poolPoly: 'TU6VnkAAkw5DzaYBp5NCKpKP4smob4LLJG',
+      poly2: 'TGFMgRa7FeD1UBShKvmw86156Z3vCWdEcA',
+      sTRXProxyContract: 'TJaRfuzcxEKGN8sWrkqRUfg9hARNzNajLS',
+      marketProxyContract: 'TPNcdjfGLjgxh7wVLv6NuLsAcUTzUuEE55',
+      energyRateModelContract: 'TXm1R4t86DR8rL2r535dKVDwifp1eFXPb5'
+    },
+    yielders: [
+      {
+        pool: 'TKM7w4qFmkXQLEF2MgrQroBYpd5TY7i1pq',
+        sunSupply: 8400,
+        day: 14
+      },
+      {
+        pool: 'TT6Qk1qrBM4MgyskYZx5pjeJjvv3fdL2ih',
+        sunSupply: 8400,
+        day: 14
+      },
+      {
+        pool: 'TLBoPBNAfrBPxq3rTQzSKzTXrRjjAqaiJ6',
+        sunSupply: 2800,
+        day: 14
+      },
+      {
+        pool: 'TYf16sZLR9uXpm63bXsRCNQMQFvqqvXQ2t',
+        sunSupply: 2800,
+        day: 14
+      },
+      {
+        pool: 'TZ51C31Zh3qBSRBnTmbcuRX1rqyhzoCe8Q',
+        sunSupply: 2800,
+        day: 14
+      },
+      {
+        pool: 'TBGCExAC3iRk5EXAVXEer3bwhTi9EN9rht',
+        sunSupply: 2800,
+        day: 14
+      },
+      {
+        pool: 'TXNg6MoDTDEZKwPzTAdnzdQwfTF4LdU1QW',
+        sunSupply: 2800,
+        day: 14
+      },
+      {
+        pool: 'TAj5XxJtkrEDvTT7mTsS3uqMcvSCp82cnR',
+        sunSupply: 2800,
+        day: 14
+      },
+      {
+        pool: 'TYVr8QECrDkf6EAiKehok5FF3ckWV5Ds7k',
+        sunSupply: 2800,
+        day: 14
+      }
+    ],
+    yieldersAddsun: [
+      {
+        pool: 'TKM7w4qFmkXQLEF2MgrQroBYpd5TY7i1pq', // jtrx
+        sunSupply: 8400,
+        day: 14
+      },
+      {
+        pool: 'TT6Qk1qrBM4MgyskYZx5pjeJjvv3fdL2ih', //jusdt
+        sunSupply: 8400,
+        day: 14
+      },
+      {
+        pool: 'TLBoPBNAfrBPxq3rTQzSKzTXrRjjAqaiJ6', //jusdj
+        sunSupply: 2800,
+        day: 14
+      },
+      {
+        pool: 'TYf16sZLR9uXpm63bXsRCNQMQFvqqvXQ2t', // jsun
+        sunSupply: 2800,
+        day: 14
+      },
+      {
+        pool: 'TZ51C31Zh3qBSRBnTmbcuRX1rqyhzoCe8Q', //jwin
+        sunSupply: 2800,
+        day: 14
+      },
+      {
+        pool: 'TBGCExAC3iRk5EXAVXEer3bwhTi9EN9rht', // jbtc
+        sunSupply: 2800,
+        day: 14
+      },
+      {
+        pool: 'TXNg6MoDTDEZKwPzTAdnzdQwfTF4LdU1QW', // jjst
+        sunSupply: 2800,
+        day: 14
+      },
+      {
+        pool: 'TAj5XxJtkrEDvTT7mTsS3uqMcvSCp82cnR', // jwbtt
+        sunSupply: 2800,
+        day: 14
+      },
+      {
+        pool: 'TYVr8QECrDkf6EAiKehok5FF3ckWV5Ds7k', // jeth
+        sunSupply: 2800,
+        day: 14
+      },
+      {
+        pool: 'TQ7JUeFHWAxNru1Yp8YjPP3c7guZSe4e2E', // jSUNOLD
+        sunSupply: 0,
+        day: 14
+      },
+      {
+        pool: 'TMsoCkr2yhukcGnvjhVk8Gj541BCQPEHwm', // jusdc
+        sunSupply: 0,
+        day: 14
+      },
+      {
+        pool: 'TPovsintcLMh9udvXgt45jvb1RYQ86imnL', // jbtt
+        sunSupply: 0,
+        day: 14
+      },
+      {
+        pool: 'TRM3faiTDB9D4Vq4mwezUeo5rQLzCDqGSE', // jusdd
+        sunSupply: 0,
+        day: 14
+      },
+      {
+        pool: 'TBUYv5QnyVV4uV2RYjoouHhmsHMGqr8vj7', // jstrx
+        sunSupply: 0,
+        day: 14
+      },
+      {
+        pool: 'TBqtwZhjP49heKsoTHeX5MhKBJMmyuP88b', // jusdd
+        sunSupply: 0,
+        day: 14
+      }
+    ],
+    usddMint: [],
+    usddMintForLastMining: ['TRM3faiTDB9D4Vq4mwezUeo5rQLzCDqGSE'],
+    tronscanUrl: 'https://nile.tronscan.io/#',
+    tronscanUrlCN: 'https://nile.tronscan.io/#',
+    tronscanUrlEN: 'https://nile.tronscan.org/#',
+    sunUrl: 'http://3.20.169.37:18108/',
+    sunSwap: 'http://3.20.169.37:18100/',
+    service: Object.assign(Config.service, {
+      //nile
+      host: 'https://nileapi.justlend.org',
+      //host: 'http://123.56.166.152:10079'
+      stusdtHost: 'https://testapi.stusdt.io'
+    }),
+    feedbackCn: 'https://forms.gle/u2W3CE4ay7Z3izLg6',
+    feedbackEn: 'https://forms.gle/TBEst1yanGWkpzek9',
+    oldVoteLastId: 2,
+    defaultAddress: 'T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb',
+    jtrxAddress: 'TKM7w4qFmkXQLEF2MgrQroBYpd5TY7i1pq',
+    activeSwaps: ['jstlp1'],
+    voteDetailFilePath: 'testVoteDetailFiles',
+    feeLimit: 200000000,
+    hideMarketMintIcon: [
+      'BTC',
+      'TRX',
+      'sTRX',
+      'SUNOLD',
+      'WBTT',
+      'ETHB',
+      'ETH',
+      'BUSD',
+      'TUSD',
+      'USDC',
+      'USDT',
+      'USDJ',
+      'wstUSDT'
+    ],
+    usddJtoken: 'TBqtwZhjP49heKsoTHeX5MhKBJMmyuP88b',
+    usddoldJtoken: 'TRM3faiTDB9D4Vq4mwezUeo5rQLzCDqGSE',
+    trx: genContractNew({ symbol: 'trx' }),
+    usdd: genContractNew({ symbol: 'usdd' }),
+    usdt: genContractNew({ symbol: 'usdt' }),
+    sun: genContractNew({ symbol: 'sun' }),
+    sunold: genContractNew({ symbol: 'sunold' }),
+    btt: genContractNew({ symbol: 'btt' }),
+    nft: genContractNew({ symbol: 'nft' }),
+    jst: genContractNew({ symbol: 'jst' }),
+    win: genContractNew({ symbol: 'win' }),
+    usdj: genContractNew({ symbol: 'usdj' }),
+    usdc: genContractNew({ symbol: 'usdc' }),
+    tusd: genContractNew({ symbol: 'tusd' }),
+    btc: genContractNew({ symbol: 'btc' }),
+    eth: genContractNew({ symbol: 'eth' }),
+    wbtt: genContractNew({ symbol: 'wbtt' }),
+    portalLink: 'http://3.20.169.37:18141/',
+    stusdtLink: 'http://3.20.169.37:18151/',
+    tokens: getTokenFromAddress(),
+    WalletConnectChainID: 'tron:0xcd8690dc',
+    merkleDistributor: 'TUQb328PQfbredVY3qUD9NZ6DipFxSRZ84',
+    merkleDistributorNEWUSDD: 'TMoWFKhkyKUNtxm7P2pMyM7TsVkX9zB7sm',
+    marketContract: 'TT941BbkFsp2w8gPtiUPZ78u8vkQXMfgED',
+    network: 'Nile', // shasta is 'Shasta',
+    sTRX: {
+      stakeLimitMin: 0.000001,
+      stakeLimitMax: 10000000000,
+      safeValueMin: 10,
+      merkleDistributor: 'TZETgfTfiPdGm1HkoBktAnpWNjNx4c4did'
+    }
+  };
+}
+
+if (env === 'backendPro') {
+  devConfig = {
+    service: Object.assign(Config.service, {
+      host: 'https://grey-justlend.ablesdxd.link',
+      stableHost: 'https://grey-defiv1.ablesdxd.link',
+      stusdtHost: 'https://api.stusdt.org',
+      messageApiHost: 'https://grey-message.ablesdxd.link',
+      messageApiAccessToken: 'tronsmart',
+      messageApiToken:
+        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1AhMUvxBZUdc+lr2vIxArNFeIgo7k6v3dTP+aYtV/9AGZRCqwtlvKMthS4DY9ABuUM5Ksfx5civenbpHcrHJ29JCtsRdt0fp+Pr6kk5tmb1y9AKbJHcw1+FJ3Mqk29hpiQsyVU5FS82QWchIIGnrWXyQAOjaLClvtJ/KxIGtBQifxtlvqOiagZm11fuXNGSvSYAW/yIFTL3SVbLitdQ5MPIiYKf3t6HrdptDXjiHNWFVHVuZAoXoQNnwzZIawWv6N0qP68EE4abKvfOJrWAB4KUJhtHcbJLX2QqYi9zOaEKRTS2Q/BqSWcv1QOq3kdCjSD+A7U5zl9TARe6AiCFUywIDAQAB',
+      lendApiToken:
+        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1AhMUvxBZUdc+lr2vIxArNFeIgo7k6v3dTP+aYtV/9AGZRCqwtlvKMthS4DY9ABuUM5Ksfx5civenbpHcrHJ29JCtsRdt0fp+Pr6kk5tmb1y9AKbJHcw1+FJ3Mqk29hpiQsyVU5FS82QWchIIGnrWXyQAOjaLClvtJ/KxIGtBQifxtlvqOiagZm11fuXNGSvSYAW/yIFTL3SVbLitdQ5MPIiYKf3t6HrdptDXjiHNWFVHVuZAoXoQNnwzZIawWv6N0qP68EE4abKvfOJrWAB4KUJhtHcbJLX2QqYi9zOaEKRTS2Q/BqSWcv1QOq3kdCjSD+A7U5zl9TARe6AiCFUywIDAQAB'
+    })
+  };
+}
+const config = Object.assign(Config, devConfig);
+export default config;
+export { config as Config };

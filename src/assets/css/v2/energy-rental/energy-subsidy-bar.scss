@@ -1,0 +1,1022 @@
+.energy-subsidy-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  margin-top: 20px;
+
+  &.hidden {
+    display: none;
+  }
+
+  .notify {
+    width: 12px;
+    transform: translateY(-1px);
+  }
+
+  .value {
+    color: var(--color, #fff);
+    font-size: 12px;
+    font-weight: 600;
+
+    margin-left: 8px;
+
+    span {
+      font-size: 12px;
+    }
+  }
+
+  .bottom {
+    display: none;
+  }
+
+  .top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &.en {
+      .energy-subsidy-discounts {
+        display: flex;
+        flex-direction: column;
+      }
+      .energy-subsidy-discount2 {
+        &::before {
+          display: none;
+        }
+      }
+      .rules {
+        padding-left: 30px;
+      }
+    }
+  }
+
+  &.unclaim {
+    .top {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      height: 50px;
+      padding: 15px 20px;
+      &.en {
+        .energy-subsidy-discounts {
+          display: flex;
+          flex-direction: initial;
+          margin-right: 10px;
+        }
+        .energy-subsidy-discount2::before {
+          display: inline-block;
+        }
+      }
+    }
+
+    .line {
+      height: 1px;
+      background: #4c54ff;
+      width: 100%;
+      opacity: 0.1;
+    }
+
+    .energy-subsidy-discount1 {
+      line-height: 20px;
+      height: 20px;
+      > span {
+        padding-right: 10px;
+        font-size: 14px;
+        line-height: 16px;
+      }
+    }
+
+    .energy-subsidy-discount2 {
+      font-size: 14px;
+      line-height: 20px;
+      &::before {
+        margin-right: 10px;
+        margin-top: 5px;
+      }
+    }
+
+    .num {
+      width: 11px;
+      height: 15px;
+      margin: 0 4px;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .bottom {
+      // padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      // position: relative;
+      // display: block;
+
+      .title {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+        color: #fff;
+        margin-bottom: 4px;
+      }
+
+      .value {
+        span {
+          display: inline-block;
+          line-height: 27px;
+          font-weight: 600;
+          font-size: 20px;
+          line-height: 27px;
+        }
+
+        .postfix {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 19px;
+          margin-right: 10px;
+        }
+
+        .trx {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 16px;
+          color: rgba(255, 255, 255, 0.6);
+
+          &::before {
+            content: '';
+            width: 1px;
+            height: 12px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            margin-right: 10px;
+            margin-top: 2px;
+            vertical-align: top;
+          }
+        }
+      }
+
+      .claim-left {
+      }
+
+      .claim-btn {
+        color: #9195fb;
+        font-size: 12px;
+        font-weight: 500;
+
+        padding-right: 10px;
+        cursor: pointer;
+
+        margin-right: 0;
+
+        &:hover {
+          color: var(--color-hover, #9195fb);
+        }
+
+        &.accruing,
+        &.disabled {
+          color: rgba(255, 255, 255, 0.4);
+          cursor: default;
+          background: url(../../../images/components/arrow-right-default.svg) no-repeat right;
+        }
+        &.disabled:hover {
+          box-shadow: none;
+          cursor: not-allowed;
+        }
+      }
+
+      .j-tooltip-icon {
+        vertical-align: top;
+        background: rgba(255, 255, 255, 0.1) url(../../../images/v2/tooltip-icon.svg) 0 0 no-repeat;
+        transform: translateY(2px);
+      }
+    }
+  }
+
+  .energy-subsidy-discount1 {
+    line-height: 22px;
+    height: 22px;
+    display: inline-block;
+    > span {
+      display: inline-block;
+      padding-right: 12px;
+      font-weight: 400;
+      font-size: 16px;
+      color: #fff;
+      line-height: 22px;
+    }
+  }
+
+  .energy-subsidy-discount2 {
+    font-weight: 400;
+    font-size: 16px;
+    color: #fff;
+    line-height: 22px;
+    &::before {
+      content: '';
+      width: 1px;
+      height: 12px;
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      margin-right: 12px;
+      margin-top: 5px;
+      vertical-align: top;
+    }
+  }
+
+  .num {
+    background: url(../../../images/v2/energy-rent/mining/num.svg) 0 0 no-repeat;
+    background-size: cover;
+    font-size: 0;
+    width: 14px;
+    height: 18px;
+    margin: 0 4px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .rules {
+    width: 91px;
+    height: 23px;
+    float: right;
+    background: url(../../../images/v2/energy-rent/mining/rules-bg.png) 0 0 no-repeat;
+    background-size: cover;
+    padding-left: 24px;
+    white-space: nowrap;
+
+    &.en {
+      padding-left: 30px;
+    }
+
+    a {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 23px;
+      color: #c0ea6a;
+
+      &::after {
+        background: #c0ea6a;
+      }
+    }
+
+    em {
+      background: url(../../../images/v2/energy-rent/mining/rules-arrow.svg) no-repeat center;
+      margin-left: 4px;
+      width: 7px;
+      height: 22px;
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+}
+
+.subsidy-data {
+  background: url(../../../images/v2/energy-rent/mining/subsidy-data.png) left no-repeat;
+  background-size: 255px 61px;
+  position: absolute;
+  width: 350px;
+  height: 61px;
+  top: 30px;
+  left: 177px;
+  padding: 7px 0 0 26px;
+
+  p {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 10px;
+
+    &:nth-child(2) {
+      strong {
+        font-weight: 600;
+        font-size: 18px;
+      }
+    }
+  }
+
+  strong {
+    font-weight: 600;
+    font-size: 14px;
+    background: #4c54ff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    &.yellow {
+      color: #ffee59;
+      -webkit-text-fill-color: unset;
+      background: none;
+    }
+  }
+}
+
+.j-wrapper.white {
+  .energy-subsidy-bar {
+    border-radius: 10px;
+    background: rgba(34, 35, 43, 0.03);
+
+    .value {
+      color: #22232b;
+    }
+
+    .bottom {
+      display: none;
+    }
+
+    .top {
+      &.en {
+        .energy-subsidy-discount2 {
+          &::before {
+            display: none;
+          }
+        }
+      }
+    }
+
+    &.unclaim {
+      .top {
+        &.en {
+          .energy-subsidy-discount2 {
+            &::before {
+              display: inline-block;
+            }
+          }
+        }
+      }
+
+      .line {
+        height: 1px;
+        background: linear-gradient(90deg, #22232b 0%, rgba(60, 255, 216, 0) 81.4%);
+        opacity: 0.08;
+        width: 100%;
+      }
+
+      .energy-subsidy-discount1 {
+        line-height: 20px;
+        height: 20px;
+        > span {
+          padding-right: 10px;
+          font-size: 14px;
+          line-height: 20px;
+        }
+      }
+
+      .energy-subsidy-discount2 {
+        font-size: 14px;
+        line-height: 20px;
+        &::before {
+          margin-right: 10px;
+          margin-top: 5px;
+          background: rgba(34, 35, 43, 0.15);
+        }
+      }
+
+      .num {
+        width: 11px;
+        height: 15px;
+        margin: 2px 4px;
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .bottom {
+        // padding: 10px 20px;
+        position: relative;
+        display: flex;
+
+        .title {
+          color: #22232b;
+        }
+
+        .value {
+          span {
+          }
+
+          .postfix {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 19px;
+            margin-right: 10px;
+          }
+
+          .trx {
+            color: rgba(34, 35, 43, 0.6);
+
+            &::before {
+              background: rgba(34, 35, 43, 0.15);
+            }
+          }
+        }
+
+        .claim-btn {
+          color: #22232b;
+
+          &:hover {
+            color: #4c54ff;
+          }
+          &.accruing,
+          &.disabled {
+            background: url(../../../images/components/arrow-right-default-white.svg) right no-repeat;
+            color: rgba(34, 35, 43, 0.6);
+            cursor: default;
+          }
+          &.disabled:hover {
+            box-shadow: none !important;
+          }
+        }
+
+        .j-tooltip-icon {
+          vertical-align: top;
+          background: rgba(75, 82, 223, 0.1) url(../../../images/v2/white-theme/tooltip-icon.svg) 0 0 no-repeat;
+          transform: translateY(2px);
+        }
+      }
+    }
+
+    .energy-subsidy-discount1 {
+      > span {
+        color: #22232b;
+      }
+    }
+
+    .energy-subsidy-discount2 {
+      color: #22232b;
+      &::before {
+        content: '';
+        width: 1px;
+        height: 12px;
+        display: inline-block;
+        background: rgba(34, 35, 43, 0.15);
+        margin-right: 12px;
+        margin-top: 5px;
+        vertical-align: top;
+      }
+    }
+
+    .num {
+      background: url(../../../images/v2/energy-rent/mining/white-theme/num.svg) 0 0 no-repeat;
+      background-size: cover;
+    }
+
+    .rules {
+      background: url(../../../images/v2/energy-rent/mining/white-theme/rules-bg.png) 0 0 no-repeat;
+      background-size: cover;
+
+      a {
+        color: #fff;
+
+        &::after {
+          background: #fff;
+        }
+      }
+
+      em {
+        background: url(../../../images/v2/energy-rent/mining/white-theme/rules-arrow.svg) no-repeat center;
+        margin-left: 4px;
+        width: 7px;
+        height: 22px;
+        display: inline-block;
+        vertical-align: top;
+      }
+    }
+  }
+
+  .subsidy-data {
+    background: url(../../../images/v2/energy-rent/mining/white-theme/subsidy-data.png) left no-repeat;
+    background-size: 255px 61px;
+
+    p {
+      color: rgba(34, 35, 43, 0.6);
+    }
+
+    strong {
+      background: linear-gradient(90.38deg, #96c438 -47.75%, #11a084 99.67%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+
+      &.yellow {
+        color: #ffa012;
+        -webkit-text-fill-color: unset;
+        background: none;
+      }
+    }
+  }
+}
+
+//Energy Subsidy Styles End
+
+@media (max-width: 798px) {
+  .tooltip-text .rent-label-text {
+    font-size: 12px;
+  }
+  .energy-subsidy-bar {
+    height: 57px;
+    margin-top: 20px;
+    padding: 12px 15px;
+
+    .top {
+      height: 17px;
+      line-height: 17px;
+
+      &.en {
+        .energy-subsidy-discount2 {
+          display: block;
+          &::before {
+            background: none;
+            margin-right: 0;
+          }
+        }
+      }
+    }
+
+    &.unclaim {
+      padding: 12px 15px;
+
+      &.status {
+        height: unset;
+      }
+
+      .top {
+        width: 100%;
+        height: 45px;
+        padding: 14px 10px 14px 15px;
+      }
+
+      .line {
+        height: 1px;
+        background: #4c54ff;
+        width: 100%;
+        opacity: 0.1;
+      }
+
+      .energy-subsidy-discount1 {
+        line-height: 17px;
+        height: 17px;
+        > span {
+          padding-right: 6px;
+          font-size: 12px;
+          line-height: 17px;
+        }
+      }
+
+      .energy-subsidy-discount2 {
+        font-size: 12px;
+        line-height: 17px;
+        &::before {
+          margin-right: 10px;
+          margin-top: 5px;
+        }
+      }
+
+      .num {
+        width: 10px;
+        height: 12px;
+        margin: 2px 4px;
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .bottom {
+        // padding: 10px 15px;
+        position: relative;
+        display: flex;
+
+        .title {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 17px;
+          color: #fff;
+          margin-bottom: 4px;
+
+          .j-tooltip-icon {
+            display: none;
+          }
+        }
+
+        .value {
+          span {
+            display: inline-block;
+            line-height: 27px;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 27px;
+          }
+
+          .postfix {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 19px;
+            margin-right: 10px;
+          }
+
+          .trx {
+            display: block;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
+            color: rgba(255, 255, 255, 0.6);
+
+            &::before {
+              content: '';
+              width: 1px;
+              height: 12px;
+              display: inline-block;
+              background: none;
+              margin-right: 0;
+              margin-top: 2px;
+              vertical-align: top;
+            }
+          }
+        }
+
+        .claim-btn {
+          height: 24px;
+          border-radius: 2px;
+          padding: 2px 10px 2px 0;
+          line-height: 20px;
+          text-align: right;
+
+          em {
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+            background: url(../../../images/v2/energy-rent/mining/jst.svg) no-repeat center;
+            background-size: cover;
+            margin-right: 4px;
+            transform: translateY(2px);
+          }
+
+          &.accruing {
+            background: #26272d;
+            color: rgba(255, 255, 255, 0.4);
+            cursor: default;
+          }
+        }
+
+        .j-tooltip-icon {
+          vertical-align: top;
+          background: rgba(255, 255, 255, 0.1) url(../../../images/v2/tooltip-icon.svg) 0 0 no-repeat;
+          transform: translateY(2px);
+        }
+      }
+    }
+
+    .energy-subsidy-discount1 {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 17px;
+      height: 17px;
+      display: inline-block;
+      > span {
+        display: inline-block;
+        padding-right: 6px;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+        color: #fff;
+      }
+    }
+
+    .energy-subsidy-discount2 {
+      font-weight: 600;
+      font-size: 12px;
+      color: #fff;
+      line-height: 17px;
+      &::before {
+        content: '';
+        width: 1px;
+        height: 12px;
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.15);
+        margin-right: 6px;
+        margin-top: 4px;
+        vertical-align: top;
+      }
+    }
+
+    .num {
+      background: url(../../../images/v2/energy-rent/mining/num.svg) 0 0 no-repeat;
+      background-size: cover;
+      font-size: 0;
+      width: 10px;
+      height: 12px;
+      margin: 2px 4px;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .rules {
+      height: 17px;
+      float: right;
+      background: none;
+      padding-left: 0;
+      text-align: right;
+      width: 60px;
+
+      a {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+        color: #c0ea6a;
+
+        &::after {
+          background: #c0ea6a;
+        }
+      }
+
+      em {
+        background: url(../../../images/v2/energy-rent/mining/rules-arrow.svg) no-repeat center;
+        margin-left: 4px;
+        width: 7px;
+        height: 17px;
+        display: inline-block;
+        vertical-align: top;
+      }
+    }
+  }
+  .subsidy-data {
+    background: url(../../../images/v2/energy-rent/mining/m-subsidy-data.png) left no-repeat;
+    background-size: 315px 62px;
+    position: relative;
+    width: 315px;
+    height: 62px;
+    top: 0;
+    left: 0;
+    padding: 13px 0 0 6px;
+
+    p {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 17px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 8px;
+
+      &:nth-child(2) {
+        strong {
+          font-weight: 600;
+          font-size: 14px;
+        }
+      }
+    }
+
+    strong {
+      font-size: 14px;
+      background: linear-gradient(90.38deg, #96c438 -47.75%, #11a084 99.67%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+
+  .j-wrapper.white {
+    .energy-subsidy-bar {
+      .top {
+        height: 17px;
+        line-height: 17px;
+
+        &.en {
+          .energy-subsidy-discount2 {
+            display: block;
+            &::before {
+              background: none;
+              margin-right: 0;
+            }
+          }
+
+          // .rules {
+          //   margin-top: -28px;
+          // }
+        }
+      }
+
+      &.unclaim {
+        &.status {
+          height: unset;
+        }
+
+        .top {
+          width: 100%;
+          height: 45px;
+          padding: 14px 10px 14px 15px;
+        }
+
+        .line {
+          height: 1px;
+          background: linear-gradient(90deg, #22232b 0%, rgba(60, 255, 216, 0) 100%);
+          width: 100%;
+          opacity: 0.08;
+        }
+
+        .energy-subsidy-discount1 {
+          line-height: 17px;
+          height: 17px;
+          > span {
+            padding-right: 6px;
+            font-size: 12px;
+            line-height: 17px;
+          }
+        }
+
+        .energy-subsidy-discount2 {
+          font-size: 12px;
+          line-height: 17px;
+          &::before {
+            margin-right: 10px;
+            margin-top: 5px;
+          }
+        }
+
+        .num {
+          width: 10px;
+          height: 12px;
+          margin: 2px 4px;
+          display: inline-block;
+          vertical-align: top;
+        }
+
+        .bottom {
+          // padding: 10px 15px;
+          position: relative;
+          display: flex;
+
+          .title {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 17px;
+            color: #22232b;
+            margin-bottom: 4px;
+
+            // .tooltip-text {
+            //   color: #22232b;
+            // }
+
+            .j-tooltip-icon {
+              display: none;
+            }
+          }
+
+          .value {
+            span {
+              display: inline-block;
+              line-height: 27px;
+              font-weight: 600;
+              font-size: 20px;
+              line-height: 27px;
+            }
+
+            .postfix {
+              font-weight: 500;
+              font-size: 14px;
+              line-height: 19px;
+              margin-right: 10px;
+            }
+
+            .trx {
+              display: block;
+              font-weight: 400;
+              font-size: 12px;
+              line-height: 16px;
+              color: rgba(34, 35, 43, 0.6);
+
+              &::before {
+                content: '';
+                width: 1px;
+                height: 12px;
+                display: inline-block;
+                background: none;
+                margin-right: 0;
+                margin-top: 2px;
+                vertical-align: top;
+              }
+            }
+          }
+
+          .claim-btn {
+            height: 24px;
+            border-radius: 2px;
+            padding: 2px 10px 2px 0;
+            line-height: 20px;
+            color: #22232b;
+
+            em {
+              width: 14px;
+              height: 14px;
+              display: inline-block;
+              background: url(../../../images/v2/energy-rent/mining/jst.svg) no-repeat center;
+              background-size: cover;
+              margin-right: 4px;
+              transform: translateY(2px);
+            }
+
+            &:hover {
+              color: #4c54ff;
+            }
+
+            &.accruing,
+            &.disabled {
+              color: #737480;
+              cursor: default;
+            }
+          }
+
+          .j-tooltip-icon {
+            vertical-align: top;
+            background: rgba(255, 255, 255, 0.1) url(../../../images/v2/tooltip-icon.svg) 0 0 no-repeat;
+            transform: translateY(2px);
+          }
+        }
+      }
+
+      .energy-subsidy-discount1 {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+        height: 17px;
+        display: inline-block;
+        > span {
+          display: inline-block;
+          padding-right: 6px;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 17px;
+          color: #22232b;
+        }
+      }
+
+      .energy-subsidy-discount2 {
+        font-weight: 600;
+        font-size: 12px;
+        color: #22232b;
+        line-height: 17px;
+        &::before {
+          content: '';
+          width: 1px;
+          height: 12px;
+          display: inline-block;
+          background: rgba(34, 35, 43, 0.15);
+          margin-right: 6px;
+          margin-top: 4px;
+          vertical-align: top;
+        }
+      }
+
+      .num {
+        background: url(../../../images/v2/energy-rent/mining/white-theme/num.svg) 0 0 no-repeat;
+        background-size: cover;
+        font-size: 0;
+        width: 10px;
+        height: 13px;
+        margin: 2px 4px;
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .rules {
+        height: 17px;
+        float: right;
+        background: none;
+        padding-left: 0;
+        text-align: right;
+        width: 60px;
+
+        a {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 17px;
+          color: #1ca480;
+
+          &::after {
+            background: #1ca480;
+          }
+        }
+
+        em {
+          background: url(../../../images/v2/energy-rent/mining/white-theme/m-rules-arrow.svg) no-repeat center;
+          margin-left: 4px;
+          width: 7px;
+          height: 17px;
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+    }
+    .subsidy-data {
+      background: url(../../../images/v2/energy-rent/mining/white-theme/m-subsidy-data.png) left no-repeat;
+      background-size: 315px 62px;
+
+      p {
+        color: rgba(34, 35, 43, 0.6);
+      }
+
+      strong {
+        background: linear-gradient(90.38deg, #96c438 -47.75%, #11a084 99.67%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    }
+  }
+}

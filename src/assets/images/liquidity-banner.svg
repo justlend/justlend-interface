@@ -11,7 +11,7 @@
 <g mask="url(#mask1)">
 <g opacity="0.5">
 <mask id="mask2" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="-79" width="879" height="261">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0.457292 -79H878.457V181.656H0L0.457292 -79Z" fill="white"/>
+<path fill-rule="evenodd" clipRule="evenodd" d="M0.457292 -79H878.457V181.656H0L0.457292 -79Z" fill="white"/>
 </mask>
 <g mask="url(#mask2)">
 <circle cx="861.081" cy="45.3836" r="0.457512" fill="#F17BDC"/>

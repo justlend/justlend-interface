@@ -1,0 +1,301 @@
+.wst-input-wrap {
+  position: relative;
+  z-index: 4;
+  .ant-input-affix-wrapper {
+    overflow: visible;
+    padding-left: 10px;
+  }
+  .ant-input-affix-wrapper-disabled:hover {
+    border: none;
+  }
+  .ant-input-prefix {
+    margin-right: 10px;
+  }
+  .wst-transfer {
+    display: none;
+    align-items: center;
+    position: absolute;
+    bottom: 20px;
+    left: 138px;
+    z-index: 1;
+    width: 142px;
+    height: 16px;
+    line-height: 16px;
+    text-align: right;
+    white-space: nowrap;
+    .j-tooltip-icon {
+      margin-left: 4px;
+      transform: translateY(-1px);
+    }
+    &:hover {
+      .wst-transfer-unit,
+      .wst-transfer-text {
+        color: #fff;
+      }
+    }
+  }
+  .wst-transfer-unit {
+    color: rgba(255, 255, 255, 0.6);
+    font-family: Avenir Next;
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 2px;
+    transition: all 0.3s ease-in-out;
+  }
+  .wst-transfer-text {
+    display: block;
+    max-width: 80px;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: Avenir Next;
+    font-size: 12px;
+    font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: all 0.3s ease-in-out;
+  }
+  &.j-usdt-input-wrap {
+    .ant-input {
+      position: relative;
+      top: 10px;
+      height: 28px;
+    }
+    .wst-transfer {
+      display: flex;
+    }
+  }
+}
+
+.token-select {
+  width: 116px;
+  position: relative;
+  .token-options {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: -10px;
+    width: 360px;
+    border-radius: 5px;
+    background: #393a41;
+    > div {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  .token-title,
+  .token-list {
+    padding: 10px;
+  }
+  .token-title {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    > div {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 22px;
+    }
+  }
+  .token-list {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &.disabled {
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: transparent;
+      }
+
+      img,
+      .token-list-text,
+      > div:last-child {
+        opacity: 0.4;
+      }
+    }
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+    > div {
+      line-height: 22px;
+      &:first-child {
+        display: flex;
+        align-items: center;
+      }
+      &:last-child {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+  }
+  .token-select-value {
+    position: relative;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding: 4px 26px 4px 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    > span {
+      opacity: 0.6;
+      margin-left: 6px;
+    }
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 11px;
+      top: 15px;
+      width: 12px;
+      height: 8px;
+      background: url(../../../images/wst/arrow-up-white.svg) 0 0 no-repeat;
+      background-size: 100%;
+      opacity: 0.6;
+      transform: rotate(180deg);
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  &.open {
+    .token-options {
+      display: block;
+    }
+    .token-select-value {
+      > span {
+        opacity: 1;
+      }
+      &::after {
+        opacity: 1;
+        transform: rotate(0deg);
+      }
+    }
+  }
+  .token-list-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    margin: 0 10px;
+    & ~ .j-tooltip-icon {
+      margin-left: -4px;
+    }
+  }
+  .selected-icon {
+    display: none;
+    width: 13px;
+    height: 13px;
+    background: url(../../../images/wst/selected.svg) 0 0 no-repeat;
+    background-size: cover;
+    transform: translateY(-2px);
+    &.show {
+      display: block;
+    }
+  }
+}
+
+.j-tab-en {
+  .ant-tabs-tab {
+    &:nth-child(2) {
+      .ant-tabs-tab-btn {
+        text-indent: -11px;
+      }
+    }
+  }
+}
+
+.j-wrapper.white {
+  .token-select {
+    .token-options {
+      background: #f8f8fe;
+    }
+    .token-title {
+      border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+      > div {
+        color: rgba(34, 35, 43, 0.6);
+      }
+    }
+    .token-select-value {
+      border-right: 1px solid rgba(34, 35, 43, 0.1);
+      &::after {
+        background-image: url(../../../images/wst/white-theme/arrow-up-black.svg);
+      }
+    }
+    .token-list {
+      &:hover {
+        background: #4b52df0f;
+      }
+      > div:last-child {
+        color: #22232b;
+      }
+    }
+    .selected-icon {
+      background-image: url(../../../images/wst/white-theme/selected.svg);
+    }
+  }
+
+  .wst-input-wrap {
+    .wst-transfer-unit,
+    .wst-transfer-text {
+      color: rgba(34, 35, 43, 0.6);
+    }
+  }
+  .wst-transfer {
+    &:hover {
+      .wst-transfer-unit,
+      .wst-transfer-text {
+        color: #22232b;
+      }
+    }
+  }
+}
+
+.safe-input {
+  &.safe-input-wstusdt {
+    .j-error-tip {
+      top: 95px;
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .j-modal {
+    .ant-tabs {
+      overflow: visible;
+    }
+    .safe-input,
+    .safe-input-with-wallet {
+      .j-error-tip {
+        top: 68px;
+        bottom: auto;
+      }
+    }
+
+    .safe-input-with-wallet {
+      .j-error-tip {
+        top: 97px;
+      }
+    }
+  }
+  .token-select .token-options {
+    max-width: calc(100vw - 78px);
+  }
+  .wst-input-wrap .wst-transfer-text {
+    max-width: 110px;
+  }
+}
+
+@media (max-width: 600px) {
+  .wst-input-wrap .wst-transfer-text {
+    max-width: 90px;
+  }
+}
+
+@media (max-width: 450px) {
+  .wst-input-wrap .wst-transfer-text {
+    max-width: 70px;
+  }
+}
+
+@media (max-width: 410px) {
+  .wst-input-wrap .wst-transfer-text {
+    max-width: 30px;
+  }
+}
