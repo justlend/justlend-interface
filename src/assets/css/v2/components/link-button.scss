@@ -1,0 +1,73 @@
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  text-decoration: none;
+  .link-button__text {
+    font-family: 'PingFang SC';
+    font-size: 14px;
+    line-height: 16px;
+    font-size: 14px;
+    color: #9195fb;
+    text-wrap: nowrap !important;
+    &.en-US {
+      font-family: 'Avenir Next';
+    }
+  }
+  .link-button__arrow {
+    display: block;
+    margin-left: 4px;
+    width: 7px;
+    height: 16px;
+    background: url(../../../images/components/arrow-right.svg) no-repeat center;
+  }
+
+  &::after {
+    content: '';
+    width: 0;
+    height: 1px;
+    background: #9195fb;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transition: all 0.6s;
+  }
+  &:hover::after {
+    left: 0%;
+    width: 100%;
+  }
+
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.j-wrapper.white {
+  .link-button {
+    .link-button__text {
+      color: #4c54ff;
+    }
+    &.learn-more-btn .link-button__text {
+      color: #9195fb;
+    }
+    .link-button__arrow {
+      background: url(../../../images/components/arrow-right-white.svg) no-repeat center;
+    }
+    &.learn-more-btn .link-button__arrow {
+      background: url(../../../images/components/arrow-right.svg) no-repeat center;
+    }
+    &::after {
+      background-color: #9195fb;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .link-button .link-button__text {
+    font-size: 12px;
+    line-height: 17px;
+  }
+  .link-button .link-button__arrow {
+    height: 17px;
+  }
+}

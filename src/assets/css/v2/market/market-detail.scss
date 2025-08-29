@@ -1,0 +1,1581 @@
+@import url(./common.scss);
+// todo 删掉
+iframe {
+  display: none !important;
+}
+$black: #22232b;
+$black_light: rgba(34, 35, 43, 0.6);
+
+$white: #ffffff;
+$white_light: rgba(255, 255, 255, 0.6);
+
+$section_bg_color: #31333a;
+.arrow-right {
+  display: inline-block;
+  width: 10px;
+  height: 4px;
+  background: none 0 0 no-repeat;
+  position: relative;
+  top: -3px;
+  margin: 0 4px;
+}
+.markey-detail-tooltip {
+  .ant-tooltip-content .ant-tooltip-inner {
+    // background-color: $section_bg_color;
+    padding: 12px;
+    min-width: 80px;
+  }
+  * {
+    color: #fff;
+    font-size: 12px;
+    line-height: 20px;
+    font-family: 'PingFang SC';
+  }
+}
+
+.en-US,
+.en-US span,
+.en-US .label {
+  font-family: 'Avenir Next';
+}
+
+.ant-tooltip-inner .market-detail-tokenop-tooltip {
+  margin: 0 !important;
+  .market-detail-tokenop-item {
+    display: flex;
+    align-items: center;
+    & + .market-detail-tokenop-item {
+      margin-top: 10px;
+    }
+    .icon {
+      display: block;
+      width: 12px;
+      height: 12px;
+    }
+    .text {
+      margin-left: 10px;
+      color: $white_light;
+      font-weight: 400;
+      &:hover {
+        color: $white;
+      }
+    }
+    &.disabled {
+      .text:hover {
+        color: $white_light;
+      }
+    }
+    .toTronscan {
+      width: 16px;
+      height: 12px;
+      background: url(../../../images/v2/market-detail/share.svg) no-repeat center;
+      display: inline-block;
+      position: relative;
+      top: -1px;
+      &.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      // &.white {
+      //   background-image: url(../../../images/v2/white-theme/market-detail/share.svg);
+      // }
+    }
+    .addtoTronLink {
+      width: 16px;
+      height: 13px;
+      background: url(../../../images/mobile/to-tronlink-icon.png) no-repeat 0 0;
+      background-size: cover;
+      display: inline-block;
+      cursor: pointer;
+      margin-bottom: 3px;
+
+      &.disabled {
+        background: url(../../../images/mobile/to-tronlink-icon-disabled.png) no-repeat 0 0;
+        background-size: cover;
+        cursor: default;
+      }
+    }
+  }
+}
+.market-d {
+  background-color: transparent;
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+
+  &.skeleton {
+    .ant-skeleton-content .ant-skeleton-paragraph > li + li {
+      margin-top: 0;
+    }
+
+    .market-d-go-back {
+      min-width: 160px;
+      padding: 0;
+      background-image: none !important;
+      opacity: 1;
+    }
+    .market-d-title {
+      width: 100%;
+    }
+    .market-d-select {
+      padding: 30px;
+      .ant-skeleton {
+        margin-bottom: 30px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+      li {
+        height: 30px !important;
+      }
+    }
+
+    .legend {
+      width: 100%;
+      &.legend-1 {
+        margin: 50px 0 30px;
+      }
+      &.legend-2 {
+        margin: 42px 0 8px;
+      }
+      &.legend-3 {
+        margin-bottom: 10px;
+      }
+    }
+    .market-d-main-content {
+      > div {
+        margin-bottom: 20px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+    .market-d-main-data {
+      > div {
+        margin-bottom: 20px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+      .skeleton-block {
+        > div {
+          margin-bottom: 20px;
+          &:first-child {
+            margin-bottom: 23px;
+          }
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  // utils
+  .color-primary {
+    color: $white;
+  }
+  .color-light {
+    color: $white_light;
+  }
+  .bg-lighter {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+
+  .fs12 {
+    font-size: 12px;
+    line-height: 17px;
+  }
+  .fs14 {
+    font-size: 14px;
+    line-height: 19px;
+  }
+  .fs16 {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  .mt-base {
+    margin-top: 20px;
+  }
+  .ml-base {
+    margin-left: 20px;
+  }
+  .flex {
+    display: flex;
+  }
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // component
+  .section {
+    background-color: $section_bg_color;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    .title-wrap {
+      display: flex;
+      align-items: center;
+    }
+    .title {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 25px;
+      text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+    }
+  }
+  .btn {
+    // width: 100px;
+    font-size: 12px;
+    line-height: 21px;
+    height: 21px;
+    text-align: center;
+    border-radius: 2px;
+    padding: 0 24px;
+    & + .btn {
+      margin-left: 20px;
+    }
+  }
+
+  // 货币价格
+  .main-price {
+    font-family: 'Avenir Next';
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 38px;
+    min-width: 86px;
+  }
+
+  .market-d-head {
+    padding: 30px 0 22px;
+    width: 100%;
+    display: flex;
+  }
+  .market-d-head-mobile {
+    display: none;
+  }
+  .market-d-go-back {
+    width: 160px;
+    line-height: 28px;
+    opacity: 0.6;
+    padding-left: 23px;
+    margin-right: 20px;
+    background: url(../../../images/v2/market-detail/return.svg) no-repeat 0 center / 20px;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .market-d-title {
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      &.add-white-bg {
+        background-color: #fff;
+        border-radius: 100%;
+      }
+    }
+    // 货币名称
+    .market-name {
+      font-family: 'Avenir Next';
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 28px;
+      margin: 0 0 0 6px;
+    }
+    .detail-title-des {
+      margin-left: 6px;
+      color: rgba(255, 255, 255, 0.6);
+      &.white {
+        color: rgba(34, 35, 43, 0.6) !important;
+      }
+    }
+  }
+
+  .market-d-body {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .market-d-select {
+    width: 160px;
+    padding: 16px 0 14px;
+    overflow: hidden;
+    height: 1080px;
+    cursor: pointer;
+    .market-d-select-inner {
+      height: 100%;
+      overflow-y: auto;
+      display: block;
+    }
+    &.disabled {
+      cursor: not-allowed;
+    }
+    &-item {
+      display: flex;
+      box-sizing: border-box;
+      padding: 15px 0 15px 27px;
+      border-left: 3px solid transparent;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+
+      &.active span {
+        font-weight: 600;
+      }
+      &.active,
+      &:hover {
+        border-left-color: #4c54ff;
+        background-color: rgba(255, 255, 255, 0.04);
+        span {
+          color: $white;
+        }
+      }
+      &.ethb img {
+        background-color: #fff;
+        border-radius: 50%;
+      }
+      img {
+        height: 26px;
+        width: 26px;
+        border-radius: 50%;
+      }
+
+      &.eth {
+        img {
+          background: #fff;
+          border-radius: 50%;
+        }
+      }
+
+      span {
+        margin-left: 10px;
+        color: $white-light;
+        line-height: 26px;
+      }
+    }
+  }
+  .market-d-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    .market-d-profile {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 14px 20px 11px 20px;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+      .section-content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        width: auto;
+        justify-content: space-between;
+      }
+
+      .price-wrap {
+        &-inner {
+          display: flex;
+          align-items: center;
+          .number-wrap {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+          }
+        }
+        .price-tooltip {
+          display: flex;
+          align-items: center;
+          // margin-bottom: 5px;
+          &-text {
+            margin-right: 6px;
+          }
+        }
+        .exchange-btn {
+          background: rgba(255, 122, 138, 0.06);
+          border-radius: 2px;
+          color: #ff7a8a;
+          line-height: 21px;
+          padding: 0 13px;
+          margin: 0 15px 0 10px;
+        }
+      }
+
+      // copy from ../market.scss
+      .j-token-info {
+        display: flex;
+        align-items: center;
+        background: #282931;
+        padding: 3px 15px;
+        margin-left: 20px;
+        .token-wrap {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          .token-img {
+            width: 14px;
+            height: 14px;
+            border-radius: 100%;
+          }
+          .eth {
+            background: #fff;
+          }
+          .token-text {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            margin-left: 6px;
+            opacity: 0.4;
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+        .divider {
+          height: 12px;
+          width: 1px;
+          background-color: rgba(255, 255, 255, 0.12);
+          margin: 0 18px;
+        }
+      }
+      .flex-between {
+        padding: 0px;
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        img {
+          width: 16px;
+          height: 16px;
+          vertical-align: top;
+        }
+        .aic {
+          margin-left: 16px;
+        }
+      }
+    }
+    // 中间图表部分
+    &-content {
+      display: flex;
+      flex-direction: column;
+      flex: 4 1 660px;
+
+      // 利率模型
+      .interest-rate-model {
+        padding-bottom: 17px;
+        .chart-tooltip-fake {
+          display: none;
+        }
+        .title-wrap {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          // checkbox
+          .ant-checkbox {
+            font-size: 12px;
+            width: 12px;
+            height: 12px;
+            top: 0.1em;
+            .ant-checkbox-inner {
+              width: 12px;
+              height: 12px;
+            }
+          }
+          .ant-checkbox-checked .ant-checkbox-inner {
+            background-color: #4c54ff;
+            border-color: #4c54ff;
+          }
+
+          .ant-checkbox-checked .ant-checkbox-inner::after {
+            border-width: 1px;
+            transform: rotate(45deg) scale(0.7) translate(-80%, -60%);
+          }
+        }
+        .legend-wrap {
+          display: flex;
+          justify-content: space-between;
+          padding-top: 20px;
+          .legend {
+            .legend-item {
+              align-items: center;
+            }
+            .legend-item + .legend-item {
+              margin-left: 20px;
+            }
+          }
+          .square {
+            display: block;
+            width: 8px;
+            height: 8px;
+            margin-right: 6px;
+          }
+          .deposit {
+            background-color: #9195fb;
+          }
+          .borrow {
+            background-color: #18c19f;
+          }
+        }
+      }
+      .market-detail-echarts-v2 {
+        padding: 0;
+      }
+
+      // tooltip
+      .chart-tooltip {
+        width: 300px;
+        box-sizing: border-box;
+        border-radius: 10px;
+
+        header {
+          display: flex;
+          justify-content: space-between;
+          font-weight: 500;
+          line-height: 20px;
+          padding: 10px 10px 10px 15px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        header .value {
+          font-family: 'Avenir Next';
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 20px;
+        }
+        main {
+          padding: 10px 10px 10px 15px;
+        }
+        .item {
+          display: flex;
+          justify-content: space-between;
+          &.hide-item {
+            display: none;
+          }
+          .label {
+            font-size: 12px;
+            line-height: 17px;
+            display: flex;
+            .icon {
+              display: block;
+              width: 14px;
+              height: 14px;
+              margin-right: 6px;
+              background: none no-repeat center/contain;
+            }
+            .icon-line-chart {
+              background-image: url(../../../images/v2/market-detail/chart-line.svg);
+              &.white {
+                background-image: url(../../../images/v2/white-theme/market-detail/chart-line.svg);
+              }
+            }
+            .icon-bar-chart {
+              background-image: url(../../../images/v2/market-detail/chart-bar.svg);
+              &.white {
+                background-image: url(../../../images/v2/white-theme/market-detail/chart-bar.svg);
+              }
+            }
+
+            &.en-US {
+              display: inline-flex;
+              flex-direction: column;
+            }
+            span {
+              white-space: normal;
+              word-break: break-all;
+            }
+          }
+          .value-wrap {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-family: 'Avenir Next';
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 16px;
+            .deposit {
+              color: #9195fb;
+              display: inline-flex;
+              align-items: center;
+            }
+            .borrow {
+              color: #18c19f;
+            }
+            .detail {
+              white-space: normal;
+              word-break: break-all;
+            }
+            .normal-weight {
+              font-weight: 400;
+            }
+            .compounded-reward-icon {
+              display: inline-block;
+              width: 13px;
+              height: 16px;
+              background: url(../../../images/v2/compounded-reward.png) 0 0 no-repeat;
+              background-size: contain;
+              margin-right: 6px;
+              position: absolute;
+              left: -17px;
+              top: 0;
+              margin-right: 4px;
+            }
+            .fire-icon {
+              display: inline-block;
+              width: 11px;
+              height: 13px;
+              background: url(../../../images/v2/fire.svg) 0 0 no-repeat;
+              background-size: contain;
+              margin-right: 6px;
+              position: absolute;
+              left: -17px;
+              top: 0;
+              margin-right: 4px;
+
+              &.extra-space {
+                left: -31px;
+              }
+            }
+          }
+        }
+        .item + .item {
+          margin-top: 10px;
+        }
+        .item.wst-item + .item.wst-item {
+          margin-top: 3px;
+        }
+        .item.mint-apy-item {
+          margin-top: 0;
+        }
+      }
+    }
+    // 右侧市场数据
+    &-data {
+      box-sizing: border-box;
+      flex: 1 1 340px;
+      // justify-self: flex-end;
+      .mint-info-link {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+      }
+      .mint-apy-info,
+      .wstusdt-apy-info {
+        padding: 10px 11px;
+        margin-top: 10px;
+        background-color: rgba(255, 255, 255, 0.04);
+        border-radius: 5px;
+        .item .value {
+          font-size: 12px;
+          line-height: 16px;
+        }
+        .item + .item {
+          margin-top: 10px;
+        }
+        & + .item {
+          margin-top: 10px;
+        }
+      }
+
+      .item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        & + .item {
+          margin-top: 20px;
+        }
+        .label {
+          display: flex;
+          align-items: center;
+          &,
+          & span {
+            font-size: 12px;
+            line-height: 17px;
+          }
+          .icon {
+            margin-left: 6px;
+          }
+        }
+        .value {
+          display: flex;
+          align-items: center;
+
+          font-family: 'Avenir Next';
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 19px;
+          text-align: right;
+          &.strong {
+            font-size: 16px;
+            line-height: 22px;
+          }
+          &.deposit {
+            color: #9195fb;
+            .icon {
+              margin-right: 6px;
+              margin-bottom: 2px;
+            }
+          }
+          &.borrow {
+            color: #18c19f;
+          }
+          &.reward {
+            color: #e9b361;
+          }
+        }
+        &.mint-reward-item {
+          margin-top: 10px;
+        }
+      }
+      .fire-icon {
+        display: inline-block;
+        flex: 0 0 auto;
+        width: 12px;
+        height: 14px;
+        background: url(../../../images/mobile/fire.svg) no-repeat center/contain;
+      }
+      .compounded-reward-icon {
+        display: inline-block;
+        flex: 0 0 auto;
+        width: 13px;
+        height: 16px;
+        background: url(../../../images/v2/compounded-reward.png) no-repeat center/contain;
+      }
+      .notice {
+        padding: 13px 20px;
+        margin: 20px -20px 0 -20px;
+        background-color: rgba(255, 255, 255, 0.04);
+        display: flex;
+        align-items: flex-start;
+        font-weight: 500;
+        span {
+          margin-left: 5px;
+          line-height: 20px;
+        }
+        .fire-icon {
+          height: 20px;
+        }
+      }
+      .divider-h {
+        height: 1px;
+        background-color: $white_light;
+        opacity: 0.1;
+      }
+    }
+  }
+}
+// question-icon
+.question-icon {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: url(../../../images/v2/tooltip-icon.svg) no-repeat center/contain;
+  opacity: 0.6;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+    // background-image: url(../../../images/v2/tooltip-icon-hover.svg);
+  }
+}
+
+.market-head-tips {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 9px 20px;
+  background: rgba(245, 135, 33, 0.1);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  &.usdd-update {
+    background: #31333a;
+  }
+  > em {
+    margin-right: 6px;
+  }
+  span {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  a {
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
+// 白色主题
+.j-wrapper.white {
+  .market-head-tips {
+    background: #fef3e9;
+    span {
+      color: #22232b;
+    }
+  }
+
+  .market-d {
+    // background-color: #f0f2f7;
+
+    .color-primary {
+      color: $black;
+    }
+    .color-light {
+      color: $black_light;
+    }
+    .section {
+      background-color: #ffffff;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+      .title {
+        text-shadow: none;
+      }
+    }
+  }
+  .market-d .market-d-go-back {
+    background-image: url(../../../images/v2/white-theme/market-detail/return.svg);
+  }
+  .question-icon {
+    background-image: url(../../../images/v2/white-theme/market-detail/tooltip-icon.svg);
+  }
+
+  .notice {
+    background-color: rgba(77, 84, 255, 0.06);
+  }
+  .market-d .market-d-main-data {
+    .mint-apy-info,
+    .wstusdt-apy-info {
+      background-color: rgba(77, 84, 255, 0.06);
+    }
+    .item .value.deposit {
+      color: #4b52df;
+    }
+    .compounded-reward-icon {
+      background-image: url(../../../images/v2/compounded-reward-white.png);
+    }
+  }
+  .market-d .market-d-main-data .divider-h {
+    background-color: rgba(34, 35, 43, 0.6);
+  }
+  .market-d .market-d-main .market-d-profile .j-token-info {
+    background-color: rgb(75, 82, 223, 0.06);
+    .divider {
+      background-color: rgba(34, 35, 43, 0.1);
+    }
+
+    .token-wrap .eth {
+      background: transparent;
+    }
+  }
+
+  .btn-wrap {
+    .j-btn.j-supply {
+      color: #4d54ff;
+      background-color: rgb(77, 84, 255, 0.06);
+      border: 1px solid #4d54ff;
+      &:hover {
+        background: #4d54ff;
+      }
+    }
+    .j-btn.j-borrow {
+      background-color: rgb(24, 193, 159, 0.06);
+      border: 1px solid #18c19f;
+      &:hover {
+        background: #18c19f;
+      }
+    }
+  }
+
+  // 左侧选择
+  .market-d-select {
+    &-item {
+      &.active,
+      &:hover {
+        background-color: rgba(76, 84, 255, 0.1);
+        span {
+          color: $black;
+        }
+      }
+      span {
+        color: $black_light;
+      }
+    }
+  }
+
+  .market-d .market-d-main-content .chart-tooltip {
+    box-shadow: 0px 8px 20px rgba(15, 19, 79, 0.06);
+    border-radius: 10px;
+    header {
+      border-bottom-color: rgba(0, 0, 0, 0.05);
+    }
+    .item .value-wrap {
+      .deposit {
+        color: #4d54ff;
+      }
+      .compounded-reward-icon {
+        background-image: url(../../../images/v2/compounded-reward-white.png);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 798px) {
+  // .j-wrapper {
+  //   padding-top: 78px;
+  // }
+  .market-d {
+    width: 100%;
+    padding: 20px 15px 0;
+
+    &.skeleton {
+      .market-d-body .market-d-main {
+        margin-top: 0;
+      }
+      .market-d-main-content {
+        margin-top: 20px;
+      }
+      .market-d-main-data {
+        flex: auto;
+        .skeleton-block > div {
+          margin-bottom: 15px;
+        }
+      }
+      .md-fir {
+        border-radius: 10px 10px 0 0;
+        margin-bottom: 0 !important;
+      }
+      .md-sec {
+        border-radius: 0 0 0 0;
+        margin-top: 0 !important;
+      }
+      .md-thi {
+        border-radius: 0 0 10px 10px;
+      }
+      .skeleton-space-block {
+        margin: 0 !important;
+      }
+    }
+    .market-d-select .market-d-select-inner {
+      display: flex;
+    }
+    .ml-base {
+      margin-top: 15px;
+      margin-left: 0;
+    }
+    .mt-base {
+      margin-top: 0;
+    }
+    .market-d-main-content .chart-tooltip .item .label.en-US {
+      flex-direction: row;
+    }
+
+    & .section {
+      background-color: transparent;
+      padding: 0;
+      margin-top: 20px;
+      .title {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+      }
+      .section-content {
+        padding: 13px 15px 15px;
+        margin-top: 10px;
+        background: #31333a;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+    }
+    & &-head {
+      display: none;
+    }
+    & &-head-mobile {
+      display: flex;
+      flex-direction: column;
+
+      .market-d-go-back {
+        position: relative;
+        line-height: 17px;
+        padding-left: 18px;
+        background: none;
+
+        &::before {
+          content: '';
+          background: url(../../../images/v2/market-detail/return-mobile.svg) 0 0 no-repeat;
+          width: 10px;
+          height: 6px;
+          background-size: 10px 6px;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+        }
+
+        &:hover {
+          opacity: 1;
+          span {
+            color: #9195fb;
+            opacity: 1;
+          }
+          &::before {
+            background-image: url(../../../images/v2/market-detail/return-purple.svg);
+          }
+        }
+      }
+
+      .market-d-head-mobile-title {
+        display: flex;
+        align-items: center;
+        margin: 20px 0 10px;
+        .indicator {
+          width: 5px;
+          height: 13px;
+          background-color: #4d54ff;
+          border-radius: 1px;
+          margin-top: -1px;
+        }
+        .text {
+          margin-left: 10px;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 22px;
+          &.en-US {
+            font-family: 'Avenir Next';
+          }
+        }
+      }
+    }
+    &-body {
+      flex-direction: column;
+    }
+    & &-select {
+      display: flex;
+      width: 100%;
+      overflow-x: auto;
+      padding: 0;
+      background-color: #31333a;
+      margin-top: 0;
+      height: auto;
+
+      &-inner {
+        width: 100%;
+        display: flex;
+      }
+      &-item {
+        flex-direction: column;
+        align-items: center;
+        padding: 14px 0 15px;
+        width: 65px;
+        flex: 0 0 65px;
+        border-top: 1px solid transparent;
+        border-left-width: 0;
+
+        span {
+          margin: 10px 0 0;
+          line-height: 19px;
+          font-size: 12px;
+        }
+
+        &:hover {
+          border-top: 1px solid transparent;
+          border-left: none;
+          background-color: transparent;
+        }
+
+        &.active,
+        &.active:hover {
+          border-left: none;
+          border-top: 1px solid #4c54ff;
+          background-color: rgba(255, 255, 255, 0.04);
+        }
+
+        img {
+          border-radius: 50%;
+        }
+      }
+    }
+    & &-main {
+      margin-top: 20px;
+      & .market-d-profile {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0px;
+        margin-top: 0;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        .section-content {
+          margin-top: 0;
+          flex-direction: column;
+          align-items: stretch;
+          padding: 0;
+        }
+        .price-wrap {
+          .flex {
+            flex-direction: column;
+          }
+          .price-wrap-inner {
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            width: 100%;
+            height: 50px;
+
+            .number-wrap {
+              flex: 1;
+              margin-left: 10px;
+              display: flex;
+              justify-content: space-between;
+              .main-price {
+                font-weight: 600;
+                font-size: 18px;
+                line-height: 25px;
+              }
+            }
+            .exchange-btn {
+              margin: 0;
+            }
+          }
+          .price-tooltip {
+            margin: 0;
+            .price-tooltip-text {
+              margin: 0;
+            }
+          }
+          .j-token-info {
+            flex-direction: row;
+            height: 36px;
+            align-items: center;
+            width: 100%;
+            margin: 0;
+            background-color: transparent;
+            padding: 10px 0;
+
+            .divider {
+              display: none;
+            }
+            .flex-between {
+              flex: 1 1 50%;
+              justify-content: space-between;
+              margin: 0 15px;
+              align-items: center;
+
+              .token-wrap {
+                .token-img {
+                  width: 16px;
+                  height: 16px;
+                }
+
+                .token-text {
+                  font-weight: 600;
+                  font-size: 12px;
+                  line-height: 16px;
+                  margin-left: 4px;
+                  opacity: 1;
+                  margin-top: 1px;
+                }
+              }
+              .aic {
+                flex-direction: row;
+              }
+
+              .to-tronscan-icon {
+                display: block;
+                margin-top: 1px;
+                min-width: 12px;
+                width: 12px;
+                height: 12px;
+                background: url(../../../images/v2/market-detail/share.svg) 0 0 no-repeat;
+                opacity: 0.6;
+                cursor: pointer;
+                &:hover {
+                  opacity: 1;
+                }
+                &.disabled {
+                  cursor: not-allowed;
+                }
+                &.white {
+                  background-image: url(../../../images/v2/white-theme/market-detail/share.svg);
+                }
+              }
+            }
+          }
+        }
+        .btn-wrap {
+          margin-top: 0px;
+          justify-content: center;
+          padding: 0 0 15px;
+          .btn {
+            flex: 1;
+            height: 30px;
+            margin: 0 15px;
+          }
+        }
+      }
+      .market-d-main-content-wrap {
+        flex-direction: column-reverse;
+        .market-d-main-data {
+          margin-top: 0;
+          .market-parameter-section {
+            height: auto !important;
+          }
+          .section-content {
+            padding-top: 0;
+            overflow: hidden;
+            & > .mt-base,
+            .notice {
+              margin-top: 15px;
+              padding: 9px 20px;
+              span {
+                font-size: 10px;
+              }
+            }
+            & > .mt-base {
+              padding: 0 20px 0;
+            }
+            .item + .item {
+              margin-top: 12px;
+            }
+            .item {
+              padding-left: 0;
+              padding-right: 0;
+
+              .value {
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 16px;
+
+                &.strong {
+                  font-size: 14px;
+                  line-height: 19px;
+                }
+                &.reward.strong {
+                  font-size: 16px;
+                  line-height: 22px;
+                }
+              }
+            }
+            .divider-h {
+              padding: 0;
+            }
+            .divider-h,
+            .divider-h + .item {
+              margin-top: 15px;
+            }
+            .mint-reward-item {
+              margin-top: 15px;
+            }
+            .mint-apy-info,
+            .wstusdt-apy-info {
+              background-color: transparent;
+              padding: 0;
+              margin-top: 12px;
+
+              .item + .item {
+                margin-top: 12px;
+              }
+
+              & + .item {
+                margin-top: 12px;
+              }
+            }
+            .wstusdt-apy-info {
+              background-color: rgba(255, 255, 255, 0.04);
+              padding: 10px 15px;
+            }
+          }
+        }
+
+        .interest-rate-model {
+          padding-bottom: 0;
+          box-shadow: none;
+
+          .title-wrap {
+            .ant-checkbox {
+              .ant-checkbox-inner {
+                border: 0;
+                background-color: rgba(255, 255, 255, 0.1);
+              }
+
+              &.ant-checkbox-checked {
+                .ant-checkbox-inner {
+                  background-color: #3d56d6;
+
+                  &::after {
+                    border-width: 1px;
+                    transform: rotate(45deg) scale(0.7) translate(-80%, -75%);
+                  }
+                }
+
+                &::after {
+                  border: none;
+                }
+              }
+            }
+          }
+
+          .show-current {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            z-index: 2;
+
+            display: flex;
+            padding: 5px;
+            cursor: pointer;
+
+            .reset-icon {
+              background: url(../../../images/v2/market-detail/reset.svg) 0 0 no-repeat;
+              width: 9.5px;
+              height: 9.5px;
+              background-size: 9.5px;
+              margin-right: 5px;
+              margin-top: 2px;
+            }
+            .reset-text {
+              color: #ffffff;
+              font-size: 10px;
+              line-height: 14px;
+            }
+            &:active {
+              .reset-icon {
+                background-image: url(../../../images/v2/market-detail/reset-hover.svg);
+              }
+              .reset-text {
+                color: #9195fb;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .market-d-body {
+      .market-d-main {
+        width: 100%;
+      }
+    }
+  }
+
+  // 利率模型
+  .interest-rate-model.section .section-content {
+    padding: 0;
+    .chart-tooltip {
+      width: auto;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-shadow: none;
+
+      header,
+      main {
+        padding-left: 0;
+        padding-right: 0;
+      }
+      header {
+        padding: 15px 0px 15px 0;
+      }
+      .item + .item {
+        margin-top: 12px;
+      }
+      .item.mint-apy-item {
+        margin-top: 0;
+      }
+
+      .wstusdt-apy-detail {
+        border-radius: 5px;
+        margin: 10px 0;
+        padding: 10px 15px;
+        background: rgba(255, 255, 255, 0.04);
+
+        .item + .item {
+          margin-top: 10px;
+        }
+      }
+    }
+    .chart-tooltip-fake {
+      display: block;
+      padding: 0;
+      header,
+      main {
+        padding: 15px;
+      }
+    }
+    .market-detail-echarts-v2 {
+      margin-top: 0;
+    }
+    .legend-wrap {
+      padding: 10px 15px 10px;
+      background-color: rgba(255, 255, 255, 0.06);
+      .fs12 {
+        font-size: 10px;
+        line-height: 14px;
+      }
+    }
+  }
+
+  .tooltip-text.active {
+    .color-light {
+      color: #9195fb;
+    }
+  }
+
+  .link-button {
+    .link-button__arrow {
+      margin-left: 5px;
+      width: 5px;
+      height: 7px;
+      background-size: 5px 7px;
+    }
+  }
+
+  .j-wrapper.white {
+    .market-d {
+      .section {
+        background-color: transparent;
+        .section-content {
+          background-color: #ffffff;
+          box-shadow: none;
+        }
+
+        &.mt-base {
+          box-shadow: none;
+        }
+      }
+      .market-d-select {
+        background-color: #ffffff;
+
+        .market-d-select-item {
+          &:hover {
+            border-top: 1px solid transparent;
+            border-left: none;
+            background-color: transparent;
+          }
+
+          &.active,
+          &.active:hover {
+            border-top: 1px solid #4c54ff;
+            background-color: rgba(76, 84, 255, 0.1);
+          }
+        }
+      }
+      .market-d-main .market-d-profile .price-wrap-inner {
+        border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+      }
+      .market-d-main .chart-tooltip {
+        box-shadow: none;
+
+        .wstusdt-apy-detail {
+          background: rgba(77, 84, 255, 0.06);
+        }
+      }
+      .market-d-main .market-d-profile .j-token-info {
+        background-color: transparent;
+      }
+
+      .market-d-main .market-d-main-content-wrap .interest-rate-model {
+        .title-wrap {
+          .ant-checkbox {
+            .ant-checkbox-inner {
+              background-color: #e6e8f6;
+            }
+
+            &.ant-checkbox-checked {
+              .ant-checkbox-inner {
+                background-color: #4b52df;
+              }
+            }
+          }
+        }
+        &.section {
+          .section-content {
+            background-color: rgba(250, 251, 255, 0.8);
+
+            .legend-wrap {
+              background-color: rgba(255, 255, 255);
+            }
+          }
+        }
+        .show-current {
+          .reset-icon {
+            background-image: url(../../../images/v2/white-theme/market-detail/reset.svg);
+          }
+          .reset-text {
+            color: #22232b;
+          }
+          &:active {
+            .reset-icon {
+              background-image: url(../../../images/v2/white-theme/market-detail/reset-hover.svg);
+            }
+            .reset-text {
+              color: #4b52df;
+            }
+          }
+        }
+      }
+      .market-d-go-back {
+        background-image: none;
+        color: #22232b;
+
+        &::before {
+          background-image: url(../../../images/v2/white-theme/market-detail/return-mobile.svg);
+        }
+
+        &:hover {
+          span {
+            color: #4d54ff;
+          }
+          &::before {
+            background-image: url(../../../images/v2/white-theme/market-detail/return-purple.svg);
+          }
+        }
+      }
+      .market-d-main-content {
+        .item .value-wrap .deposit {
+          color: #4b52df;
+        }
+        .interest-rate-model .legend-wrap .deposit {
+          background-color: #4b52df;
+        }
+      }
+
+      .market-d-main-content-wrap .market-d-main-data .section-content .wstusdt-apy-info {
+        background-color: rgba(77, 84, 255, 0.06);
+      }
+    }
+
+    .link-button {
+      .link-button__arrow {
+        margin-left: 5px;
+        width: 5px;
+        height: 7px;
+        background-size: 5px 7px;
+      }
+    }
+
+    .tooltip-text.active {
+      .color-light {
+        color: #4d54ff;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 799px) {
+  .mobile-only {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1700px) {
+  .market-d {
+    max-width: 1440px;
+  }
+}

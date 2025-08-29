@@ -1,0 +1,68 @@
+.market-tooltip-overlay {
+  .ant-tooltip-arrow {
+    .ant-tooltip-arrow-content {
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(35px);
+    }
+  }
+
+  .ant-tooltip-content .ant-tooltip-inner {
+    font-size: 12px;
+    // line-height: 20px;
+    color: #ffffff;
+    padding: 12px;
+    background: #40414a;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    min-width: 341px;
+    .j-tooltip-special {
+      margin: 0;
+    }
+    p {
+      font-size: 12px;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    span,
+    .info-tooltip,
+    div {
+      font-size: 12px;
+    }
+
+    .text-title {
+      font-size: 12px;
+      line-height: 20px;
+      font-weight: 400;
+      text-align: left;
+      margin-top: 0;
+    }
+    .with-point {
+      background: url(../../../images/v2/market/point.svg) left 7px no-repeat;
+      background-size: 4px;
+      padding-left: 12px;
+      text-align: left;
+      line-height: 20px;
+      margin-bottom: 0;
+    }
+  }
+
+  &.short {
+    .ant-tooltip-inner {
+      min-width: unset;
+    }
+
+    &.right.ant-tooltip-placement-bottomRight .ant-tooltip-arrow {
+      right: 23px;
+    }
+  }
+
+  .ant-tooltip-arrow .ant-tooltip-arrow-content {
+    // background: rgba(255, 255, 255, 0.08);
+    background: #40414a;
+    // backdrop-filter: blur(35px);
+  }
+}

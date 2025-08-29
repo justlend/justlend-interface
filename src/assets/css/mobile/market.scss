@@ -1,0 +1,88 @@
+.market-m {
+  .title-m {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    color: #0f134f;
+    padding-top: 10px;
+    padding-left: 15px;
+    margin-bottom: 10px;
+  }
+}
+
+.scale-element {
+  border-radius: 8px;
+
+  .scale-top {
+    padding: 15px;
+    border-bottom: 1px solid rgba(15, 19, 79, 0.05);
+  }
+  .scale-bottom {
+    padding: 20px 15px;
+  }
+  .top-title {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #0f134f;
+    margin-right: 20px;
+  }
+  .top-value {
+    font-family: 'Rubik-Medium';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: right;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+  }
+  .bottom-title {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: #545669;
+    margin-bottom: 4px;
+  }
+  .bottom-value {
+    font-family: 'Rubik-Medium';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #0f134f;
+  }
+
+  &.deposit-scale {
+    background: rgba(61, 86, 214, 0.1);
+    .top-value {
+      color: #3d56d6;
+    }
+  }
+  &.lend-scale {
+    margin-top: 10px;
+    background: rgba(24, 193, 159, 0.1);
+    .top-value {
+      color: #18c19f;
+    }
+  }
+}
+
+.all-market {
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: #0f134f;
+  padding-left: 15px;
+}
+
+.msl-title {
+  margin: 20px 0 10px;
+}

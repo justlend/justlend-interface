@@ -4,7 +4,7 @@ import { BigNumber, randomSleep } from './helper';
 const { service, yielders } = Config;
 const {
   host,
-  apilistHost,
+  stusdtHost,
   marketsPath,
   userPath,
   dashboardPath,
@@ -18,8 +18,18 @@ const {
   yieldInfos,
   tronBull,
   tronbullish,
-  defitvl
+  multiReward,
+  allowanceMultiReward,
+  rentWhiteList,
+  strxDashboard,
+  strxStakeAccount,
+  stUsdtDashboardPath,
+  stUsdtAccountPath,
+  stUsdtRebaseHistoryPath,
+  strxRentPath,
+  liquidatePath
 } = service;
+
 export const getTrxPrice = async () => {
   try {
     let url = `${Config.trxPriceUrl}`;
@@ -53,6 +63,9 @@ export const getMarketData = async () => {
   }
 };
 
+/**
+ * @returns {{ farmRewardUSD24h: number } & Record<string, any>}
+ */
 export const getMarketDashboardData = async () => {
   try {
     let url = `${host}${marketsPath}${dashboardPath}`;
@@ -80,21 +93,6 @@ export const getJTokenDetails = async jtokenAddr => {
     console.log(error);
     await randomSleep();
     return await getJTokenDetails();
-  }
-};
-
-export const getTotalVoted = async contractAddr => {
-  try {
-    let url = `${backend.host}${backend.vote}`;
-    let { data } = await axios.get(url, { params: { contractAddr } });
-    return {
-      success: !!data.data.collateralSymbol,
-      data: data.data
-    };
-  } catch (error) {
-    return {
-      success: false
-    };
   }
 };
 
@@ -246,21 +244,6 @@ export const getTronbullish = async (pool, addr) => {
   }
 };
 
-export const getDefiTVL = async () => {
-  try {
-    const url = `${apilistHost}${defitvl}`;
-    let { data } = await axios.get(url, { params: {} });
-
-    return {
-      success: !!data,
-      data: data
-    };
-  } catch (error) {
-    console.log(`getDefiTVL error: ${error}`);
-    return { success: false };
-  }
-};
-
 export const getTokenPrice = async () => {
   try {
     const url = `${Config.tokenPriceUrl}`;
@@ -282,6 +265,277 @@ export const getTokenPrice = async () => {
     };
   } catch (error) {
     await randomSleep();
-    return await getTrxPrice();
+    return await getTokenPrice();
+  }
+};
+
+export const getAnnoucements = async ({ perPageCount = 3, lang } = { perPageCount: 3 }) => {
+  lang = lang || window.localStorage.getItem('lang') || 'en-us';
+  lang = lang.toLowerCase();
+  const urlCn = `https://justlendorg.zendesk.com/api/v2/help_center/zh-cn/categories/900001436023/articles.json?sort_by=created_at&sort_order=desc&per_page=${perPageCount}`;
+  const urlEn = `https://justlendorg.zendesk.com/api/v2/help_center/en-us/categories/900001436023/articles.json?sort_by=created_at&sort_order=desc&per_page=${perPageCount}`;
+
+  const { data } = await axios.get(lang === 'en-us' ? urlEn : urlCn);
+
+  if (data?.articles && data?.articles.length > 0) {
+    return data.articles.slice(0, perPageCount);
+  }
+  return [];
+};
+
+export const getMultiReward = async addr => {
+  try {
+    const url = `${host}${multiReward}`;
+    let data = await axios.get(url, { params: { addr } });
+
+    return {
+      success: !!data.data.data,
+      data: data.data.data
+    };
+  } catch (error) {
+    console.log(`getMultiReward error: ${error}`);
+    return { success: false };
+  }
+};
+
+export const getAllowanceMultiReward = async addr => {
+  try {
+    const url = `${host}${allowanceMultiReward}`;
+    let data = await axios.get(url, { params: { addr } });
+
+    return {
+      success: !!data.data.data,
+      data: data.data.data
+    };
+  } catch (error) {
+    console.log(`getAllowanceMultiReward error: ${error}`);
+    return { success: false };
+  }
+};
+
+export const getRentWhiteList = async addr => {
+  try {
+    const url = `${host}${rentWhiteList}`;
+    let data = await axios.get(url, { params: { addr } });
+    if (Number(data.data.code) !== 0) {
+      return {
+        success: false
+      };
+    }
+    return {
+      success: true,
+      data: data.data.data
+    };
+  } catch (error) {
+    console.log(`getRentWhiteList error: ${error}`);
+    return { success: false };
+  }
+};
+
+export const getSTrxDashboard = async () => {
+  try {
+    const url = `${host}${strxDashboard}`;
+    let data = await axios.get(url);
+    return {
+      success: data?.data?.code === 0,
+      data: data?.data?.data
+    };
+  } catch (error) {
+    console.error(`getSTrxDashboard error: ${error}`);
+    return { success: false };
+  }
+};
+
+export const getSTrxStakeAccount = async addr => {
+  try {
+    const url = `${host}${strxStakeAccount}`;
+    const data = await axios.get(url, { params: { addr } });
+    return {
+      success: data?.data?.code === 0,
+      data: data?.data?.data
+    };
+  } catch (error) {
+    console.error(`getSTrxStakeAccount error: ${error}`);
+    return { success: false };
+  }
+};
+
+export const postFinanceStat = async (data, options) => {
+  try {
+    const url = `${Config.tronLinkStatUrl}`;
+    await axios.post(url, data, options);
+  } catch (error) {
+    console.error(`postFinanceStat error: ${error}`);
+    return { success: false };
+  }
+};
+
+export const getStUsdtDashboard = async () => {
+  try {
+    let url = `${stusdtHost}${stUsdtDashboardPath}`;
+    let { data } = await axios.get(url);
+    return {
+      success: true,
+      data: data.data
+    };
+  } catch (error) {
+    console.log(error);
+    await randomSleep();
+    return await getStUsdtDashboard();
+  }
+};
+
+export const getStUsdtUserAccount = async address => {
+  try {
+    const url = `${stusdtHost}${stUsdtAccountPath}`;
+    const data = await axios.get(url, { params: { address } });
+    return {
+      success: data?.data?.code === 0,
+      data: data?.data?.data
+    };
+  } catch (error) {
+    console.error(`getStUsdtUserAccount error: ${error}`);
+    return { success: false };
+  }
+};
+
+// export const getStUSDTRebaseHistory = async () => {
+//   try {
+//     let url = `${stusdtHost}${rebaseHistoryPath}`;
+//     let { data } = await axios.get(url);
+//     return {
+//       success: data?.code === 0,
+//       data: data?.data
+//     };
+//   } catch (error) {
+//     console.error(`getRebaseHistory error: ${error}`);
+//     return { success: false };
+//   }
+// };
+
+export const getStUsdtRebaseCharts = async () => {
+  try {
+    let url = `${stusdtHost}${stUsdtRebaseHistoryPath}`;
+    let { data } = await axios.get(url, { params: { lineChat: true } });
+    return {
+      success: data?.code === 0,
+      data: data?.data
+    };
+  } catch (error) {
+    console.error(`getStUsdtRebaseCharts error: ${error}`);
+    return { success: false };
+  }
+};
+
+export const getRiojCheck = async () => {
+  try {
+    let url = 'https://rioj.ablesdxd.link/?time=' + Date.now();
+    const data = await axios.get(url);
+    if (data.status >= 200 && data.status < 400) {
+      return {
+        success: true
+      };
+    } else {
+      return {
+        success: false
+      };
+    }
+  } catch (error) {
+    console.error(`getRiojCheck error: ${error}`);
+    return { success: false };
+  }
+};
+
+export const getLiquidateInfo = async () => {
+  try {
+    let url = `${host}${liquidatePath}`;
+    let isAll = window.location.search.indexOf('liquidate=all') > 0;
+    let { data } = await axios.get(url, { params: { all: !!isAll } });
+    return {
+      success: data?.code === 0,
+      data: data?.data
+    };
+  } catch (error) {
+    console.error(`getLiquidateInfo error: ${error}`);
+    return { success: false };
+  }
+};
+
+export const getStrxRentAllOrderList = async ({
+  renter,
+  receiver,
+  rentType = 1,
+  orderBy = 0,
+  page = 0,
+  pageSize = 10
+}) => {
+  try {
+    const url = `${host}${strxRentPath}/allOrderList`;
+    let { data } = await axios.get(url, { params: { renter, receiver, rentType, orderBy, page, pageSize } });
+
+    if (data?.data?.orders) {
+      data.data.orders = data?.data?.orders.map((order, i) => ({ ...order, key: new Date() + i }));
+    }
+    return {
+      success: true,
+      data: data.data
+    };
+  } catch (error) {
+    return {
+      success: false
+    };
+  }
+};
+
+export const getReturnRentInfo = async (renter, receiver, rentType = 1) => {
+  try {
+    const url = `${host}${strxRentPath}/quit`;
+    let { data } = await axios.get(url, { params: { renter, receiver, rentType } });
+
+    return {
+      success: true,
+      data: data.data
+    };
+  } catch (error) {
+    return {
+      success: false
+    };
+  }
+};
+
+export const getBetaInfo = async address => {
+  try {
+    const url = `${host}/justlend/wl/g`;
+    let { data } = await axios.get(url, { params: { addr: address } });
+    return {
+      success: data?.code === 0,
+      data: data?.data
+    };
+  } catch (error) {
+    return {
+      success: false
+    };
+  }
+};
+
+export const updateBetaInfo = async data => {
+  try {
+    const url = `${host}/justlend/wl/s`;
+    await axios.post(url, data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getApplicationInfo = async () => {
+  try {
+    const url = `${host}/justlend/config`;
+    let { data } = await axios.get(url);
+    return {
+      success: data?.code === 0,
+      data: data?.data
+    };
+  } catch (error) {
+    console.log(error);
   }
 };

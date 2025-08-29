@@ -1,0 +1,12 @@
+.j-tooltip-m {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.6);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.6);
+
+  &:hover {
+    color: #9195fb;
+    border-bottom-color: #9195fb;
+  }
+}

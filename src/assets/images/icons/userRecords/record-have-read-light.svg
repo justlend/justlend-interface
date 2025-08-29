@@ -1,0 +1,10 @@
+<svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 1321319593">
+<path id="Subtract" fill-rule="evenodd" clipRule="evenodd" d="M3 0C1.34315 0 0 1.34315 0 3V13C0 14.6569 1.34315 16 3 16H7.64584C6.93328 15.2039 6.5 14.1525 6.5 13C6.5 10.5147 8.51472 8.5 11 8.5C12.1525 8.5 13.2039 8.93328 14 9.64584V3C14 1.34315 12.6569 0 11 0H3Z" fill="#FFF"/>
+<rect id="Rectangle 4098" x="2" y="5" width="5" height="1.5" rx="0.75" fill="#1F2027"/>
+<rect id="Rectangle 4100" x="8" y="5" width="4" height="1.5" rx="0.75" fill="#1F2027"/>
+<rect id="Rectangle 4099" x="2" y="9.5" width="2" height="1.5" rx="0.75" fill="#1F2027"/>
+<rect id="Rectangle 4101" x="5" y="9.5" width="4" height="1.5" rx="0.75" fill="#1F2027"/>
+<path id="Subtract_2" fill-rule="evenodd" clipRule="evenodd" d="M11 10C9.34315 10 8 11.3431 8 13C8 14.6569 9.34315 16 11 16C12.6569 16 14 14.6569 14 13C14 11.3431 12.6569 10 11 10ZM11 14C10.7239 14 10.5 13.7761 10.5 13.5V12C10.5 11.7239 10.7239 11.5 11 11.5C11.2761 11.5 11.5 11.7239 11.5 12V13H12.5C12.7761 13 13 13.2239 13 13.5C13 13.7761 12.7761 14 12.5 14H11Z" fill="#FFF"/>
+</g>
+</svg>

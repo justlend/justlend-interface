@@ -1,19 +1,31 @@
+/* eslint-disable no-extend-native */
 import React, { lazy, Suspense } from 'react';
 import { Provider } from 'mobx-react';
-import { Switch, Route, HashRouter, Redirect } from 'react-router-dom';
+import { Switch, Route, HashRouter, Redirect, BrowserRouter } from 'react-router-dom';
 import intl from 'react-intl-universal';
 import _ from 'lodash';
+import Config from '../config';
 
 import Stores from '../stores';
 
-import { SUPPOER_LOCALES, BigNumber } from '../utils/helper';
+import { SUPPORT_LOCALES, BigNumber } from '../utils/helper';
 
-const Home = lazy(() => import('./Home'));
-const Vote = lazy(() => import('./Vote'));
-const Market = lazy(() => import('./Market'));
-const MarketDetail = lazy(() => import('./MarketDetail'));
-const VoteDetail = lazy(() => import('./VoteDetail'));
-const MiningPool = lazy(() => import('./MiningPool'));
+import UserRecords from '../pages/userRecords';
+import Settings from '../pages/settings';
+
+import MarketDetailV2 from './v2/MarketDetail.jsx';
+
+const HomeNew = lazy(() => import('./v2/Home'));
+const MarketNew = lazy(() => import('./v2/Market'));
+const VoteNew = lazy(() => import('./v2/Vote'));
+const VoteDetailV2 = lazy(() => import('./v2/VoteDetail'));
+const EnergyRent = lazy(() => import('./v2/EnergyRent'));
+const EnergyRentOrderList = lazy(() => import('./v2/EnergyRentOrderList'));
+const EnergyRental = lazy(() => import('./v2/EnergyRental'));
+const LiquidityStake = lazy(() => import('./v2/LiquidityStake'));
+const Forbid = lazy(() => import('./v2/Forbid'));
+const Liquidate = lazy(() => import('./v2/Liquidate'));
+const Application = lazy(() => import('./v2/Application'));
 
 const locales = {
   'en-US': require('../locales/en-US.json'),
@@ -41,13 +53,13 @@ Date.prototype.format = function (format) {
     'S+': this.getMilliseconds()
   };
   if (/(y+)/i.test(format)) {
-    format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+    format = format.replace(RegExp.$1, (this.getFullYear() + '')?.substr(4 - RegExp.$1.length));
   }
   for (var k in date) {
     if (new RegExp('(' + k + ')').test(format)) {
       format = format.replace(
         RegExp.$1,
-        RegExp.$1.length == 1 ? date[k] : ('00' + date[k]).substr(('' + date[k]).length)
+        RegExp.$1.length == 1 ? date[k] : ('00' + date[k])?.substr(('' + date[k]).length)
       );
     }
   }
@@ -67,13 +79,17 @@ class App extends React.Component {
       cookieLocaleKey: 'lang'
     });
 
-    currentLocale = window.localStorage.getItem('lang') || 'en-US';
+    const str = window.location.search;
+    if (str.indexOf('lang=') > -1 && str.split('lang=')[1]?.length >= 5) {
+      currentLocale = str.split('lang=')[1]?.slice(0, 5);
+    } else {
+      currentLocale = window.localStorage.getItem('lang') || 'en-US';
+    }
 
-    if (!_.find(SUPPOER_LOCALES, { value: currentLocale })) {
+    if (!_.find(SUPPORT_LOCALES, { value: currentLocale })) {
       currentLocale = 'en-US';
     }
 
-    // let currentLocale = 'en-US'; // later will deleted
     window.localStorage.setItem('lang', currentLocale);
     return intl.init({
       currentLocale,
@@ -82,23 +98,47 @@ class App extends React.Component {
   };
 
   render() {
-    const time = 1;
     const Routes = () => (
-      <HashRouter>
+      <BrowserRouter>
         <div>
-          <Route exact path="/" render={() => <Redirect to="/home" />} />
+          <Route exact path="/" render={() => <Redirect to={Config.nile ? '/strx' : '/homeNew'} />} />
           <Suspense fallback={<div></div>}>
-            <Switch>
-              <Route path="/home" component={Home} />
-              <Route path="/market" component={Market} />
-              <Route path="/vote" component={Vote} />
-              <Route path="/marketDetail" component={MarketDetail} />
-              <Route path="/voteDetail" component={VoteDetail} />
-              <Route path="/miningPool" component={MiningPool} />
-            </Switch>
+            {Config.nile ? (
+              <Switch>
+                <Route path="/energy" component={EnergyRent} />
+                <Route path="/energyRentalOrderList" component={EnergyRentOrderList} />
+                <Route path="/energyRental" component={EnergyRental} />
+                <Route path="/strx" component={LiquidityStake} />
+                <Redirect path="*" to="/strx" />
+              </Switch>
+            ) : (
+              <Switch>
+                <Route path="/home" component={HomeNew} />
+                <Route path="/homeNew" component={HomeNew} />
+                <Route path="/userRecords" component={UserRecords} />
+                <Route path="/settings" component={Settings} />
+                <Route path="/marketNew" component={MarketNew} />
+                <Route path="/market" component={MarketNew} />
+                <Route path="/voteNew" component={VoteNew} />
+                <Route path="/vote" component={VoteNew} />
+                {/* <Route path="/vote-old" component={Vote} /> */}
+                <Route path="/marketDetail" component={MarketDetailV2} />
+                <Route path="/marketDetailNew" component={MarketDetailV2} />
+                <Route path="/voteDetail" component={VoteDetailV2} />
+                <Route path="/voteDetailNew" component={VoteDetailV2} />
+                <Route path="/energyRentalOrderList" component={EnergyRentOrderList} />
+                <Route path="/energy" component={EnergyRent} />
+                <Route path="/energyRental" component={EnergyRental} />
+                <Route path="/strx" component={LiquidityStake} />
+                <Route path="/forbid" component={Forbid} />
+                <Route path="/liquidate" component={Liquidate} />
+                <Route path="/application" component={Application} />
+                <Redirect path="*" to="/homeNew" />
+              </Switch>
+            )}
           </Suspense>
         </div>
-      </HashRouter>
+      </BrowserRouter>
     );
     return (
       <Provider {...Stores}>

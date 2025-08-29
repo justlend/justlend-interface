@@ -1,0 +1,68 @@
+.home-m {
+  .header-warning {
+    background: rgba(255, 255, 255, 0.4);
+  }
+  .countup-int {
+    .value-number {
+      font-size: 16px;
+    }
+  }
+  .bg-blue {
+    padding-bottom: 50px;
+    border-radius: 0 0 6px 6px;
+  }
+  .value-intro-m {
+    .value-intro {
+      overflow: hidden;
+    }
+    .value-item {
+      float: left;
+      width: 50%;
+      padding: 14px 0;
+      color: #ffffff;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      .value-name {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 5px;
+      }
+      .value-number {
+        font-family: 'Rubik';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+      }
+      &:nth-child(1) {
+        float: none;
+        width: 100%;
+        padding: 0 15px;
+        .value-name {
+          font-size: 14px;
+          line-height: 20px;
+          margin-bottom: 0;
+        }
+        .value-number {
+          font-family: 'Rubik-bold';
+        }
+      }
+      &:nth-child(2) {
+        padding-left: 15px;
+      }
+      &:nth-child(3) {
+        padding-right: 15px;
+      }
+    }
+  }
+  .ant-tabs-top > .ant-tabs-nav {
+    margin-bottom: 0;
+  }
+}

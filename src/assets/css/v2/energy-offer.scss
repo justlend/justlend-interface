@@ -1,0 +1,596 @@
+//Energy Offer Modal Styles Start
+.energy-offer-modal {
+  background: linear-gradient(to bottom, rgba(40, 41, 49, 0) 0%, rgba(40, 41, 49, 0.1) 30%, rgba(40, 41, 49, 1) 100%);
+  .ant-modal-content {
+    width: 400px;
+    height: 601px;
+    background: url(../../images/v2/energy-rent/offer/energy-offer-modal-bg.png) no-repeat center;
+    background-size: cover;
+    padding-top: 215px;
+    box-shadow: none;
+
+    .ant-modal-body {
+      padding: 0;
+      margin: 0;
+
+      &::before {
+        border: none;
+      }
+    }
+
+    .limited-offer-button {
+      height: 26px;
+      text-align: center;
+      color: #1f2027;
+      margin: 0 auto 20px;
+      span {
+        background: linear-gradient(90deg, #ffd584 0%, #fb6871 88.64%);
+        display: inline-block;
+        padding: 0 16px;
+        border-radius: 5px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 26px;
+      }
+    }
+    .energy-rental {
+      font-weight: 700;
+      font-size: 26px;
+      line-height: 36px;
+      text-align: center;
+      color: #ffffff;
+      height: 36px;
+      margin: 0 auto 25px;
+      background: linear-gradient(147.2deg, #ffffff 0, #ffffff 47.22%, #fb6972 98.66%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .less-gas {
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 41px;
+      height: 41px;
+      text-align: center;
+      background: linear-gradient(147.2deg, #ffffff 0, #ffffff 47.22%, #fb6972 98.66%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0 auto 12px;
+    }
+    .each-transaction {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 19px;
+      color: #fff;
+      text-align: center;
+      margin: 0 auto 10px;
+    }
+    .gas-off-before {
+      width: 100%;
+      height: 30px;
+      margin: 0 auto 8px;
+      text-align: center;
+      .gas-off-text {
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 30px;
+        color: #ffc34e;
+        position: relative;
+
+        em {
+          font-weight: 400;
+          font-size: 20px;
+          font-style: normal;
+        }
+
+        .gas-off-icon {
+          background: url(../../images/v2/energy-rent/offer/gas-off-icon.png) no-repeat center;
+          background-size: cover;
+          width: 57px;
+          height: 18px;
+          display: block;
+          position: absolute;
+          top: 3px;
+          right: -59px;
+        }
+      }
+    }
+    .gas-off-after {
+      width: 100%;
+      height: 19px;
+      text-align: center;
+      margin: 0 auto 40px;
+
+      .gas-off-text {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 19px;
+        color: rgba(255, 255, 255, 0.8);
+        display: inline-block;
+        position: relative;
+      }
+      .gas-off-line {
+        background: linear-gradient(
+          to bottom right,
+          transparent 0%,
+          transparent calc(50% - 1px),
+          #d4d4d6 50%,
+          transparent calc(50% + 1px),
+          transparent 100%
+        );
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 6px;
+        height: 10px;
+        display: block;
+      }
+    }
+    .spend-less-gas {
+      border-top: 1px solid rgba(255, 255, 255, 0.6);
+      width: 286px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 19px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 10px auto 28px;
+      padding-top: 10px;
+    }
+    .gas-off-rule {
+      width: 100%;
+      height: 16px;
+      margin: 0 auto 40px;
+      text-align: center;
+
+      .link-button__text {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        text-align: center;
+        color: #9195fb;
+      }
+    }
+    .go-rent {
+      background: #ffc34e url(../../images/v2/energy-rent/offer/go-rent.png) no-repeat center;
+      background-size: cover;
+      border-radius: 2px;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 40px;
+      width: 360px;
+      height: 40px;
+      color: #703f07;
+      margin: 0 auto;
+      display: block;
+      text-align: center;
+      position: relative;
+
+      &:hover {
+        background: #ffd583 url(../../images/v2/energy-rent/offer/go-rent.png) no-repeat center;
+        background-size: cover;
+      }
+    }
+    .gas-off-checkbox {
+      margin: 12px auto 0;
+      text-align: center;
+
+      // .ant-checkbox-inner {
+      //   width: 12px;
+      //   height: 12px;
+      //   background: rgba(255, 255, 255, 0.1);
+      //   border: none;
+      //   top: -1px;
+
+      //   &::after {
+      //     width: 5.142857139px;
+      //     height: 8.228571426px;
+      //   }
+      // }
+
+      // .ant-checkbox-wrapper .ant-checkbox-checked .ant-checkbox-inner,
+      // .ant-checkbox-checked .ant-checkbox-inner {
+      //   background: #4d54ff;
+      //   border-radius: 1px;
+      //   border-color: #4d54ff !important;
+      // }
+
+      span {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+    .close {
+      width: 32px;
+      height: 32px;
+      background: url(../../images/v2/energy-rent/offer/close.png) no-repeat center;
+      position: absolute;
+      top: 62px;
+      right: 0;
+      background-size: 32px 32px;
+      cursor: pointer;
+    }
+
+    // .gas-off-tip {
+    //   min-width: 80px;
+    //   padding: 0 5px;
+    //   height: 27px;
+    //   background: linear-gradient(12.75deg, #ff5958 5%, #ffa24d 92.94%);
+    //   box-shadow: 0px 1.35px 4.05px rgba(191, 101, 89, 0.34);
+    //   position: absolute;
+    //   border-radius: 5px 0 5px 0;
+    //   top: -13px;
+    //   left: 50%;
+    //   margin-left: 32px;
+
+    //   span {
+    //     font-weight: 400;
+    //     font-size: 12px;
+    //     line-height: 27px;
+    //     color: #fff;
+    //     height: 27px;
+    //     display: inline-block;
+    //     vertical-align: top;
+    //   }
+
+    //   .num {
+    //     background: url(../../images/v2/energy-rent/offer/btn-num1.png) 0 0 no-repeat;
+    //     background-size: cover;
+    //     font-size: 0;
+    //     width: 11px;
+    //     height: 16px;
+    //     margin-top: 3px;
+    //     display: inline-block;
+    //     vertical-align: top;
+    //   }
+    // }
+  }
+  &.limited-benefits-modal {
+    background: transparent;
+    .ant-modal-content {
+      width: 750px;
+      height: 800px;
+      padding-top: 326px;
+      background-image: url(../../images/v2/energy-rent/offer/limited-benefits-modal-bg.png);
+      background-position: 12px center;
+      background-size: cover;
+      .close {
+        top: 140px;
+        right: 140px;
+      }
+      .energy-rental {
+        height: auto;
+        background: none;
+        background-clip: initial;
+        -webkit-text-fill-color: #eba96c;
+        margin-bottom: 30px;
+        .benefits-main-title,
+        .benefits-main-title > span {
+          font-weight: 600;
+          font-size: 50px;
+          line-height: 60px;
+          background: linear-gradient(186.56deg, #ffffff -21.68%, #ffffff 37.87%, #3bd087 128.06%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          text-fill-color: transparent;
+        }
+
+        .benefits-subtitle {
+          > span {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+          }
+          .benefits-main-title,
+          .benefits-main-title > span {
+            font-size: 44px;
+          }
+
+          &.en {
+            margin-top: 10px;
+            .benefits-main-title {
+              font-weight: 600;
+              font-size: 26px;
+              line-height: 34px;
+            }
+            .benefits-special-title {
+              font-weight: 600;
+              font-size: 40px;
+              margin: 0 8px;
+            }
+          }
+        }
+
+        .benefits-special-title {
+          line-height: 58px;
+          font-size: 44px;
+          color: #eba96c;
+        }
+      }
+      .each-transaction {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 6px;
+
+        > span {
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 25px;
+          color: #ffffff;
+          > span {
+            font-size: 24px;
+            margin: 0 2px;
+          }
+        }
+      }
+      .least-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        > span {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 20px;
+          color: #ffffff;
+          > em {
+            display: inline-block;
+            font-style: italic;
+            font-weight: 700;
+            font-size: 36px;
+            line-height: 49px;
+            margin: 0 4px;
+            color: #bfeb6c;
+            transform: translateY(2px);
+          }
+        }
+      }
+      .go-rent {
+        width: 282px;
+        height: 50px;
+        line-height: 50px;
+        background: linear-gradient(132.73deg, #c0ea6a 21.18%, #41ffd5 120.84%);
+        border-radius: 5px;
+        margin-top: 70px;
+        font-weight: 600;
+        font-size: 18px;
+        color: #000000;
+        &:hover {
+          background: linear-gradient(90deg, #dff5b5 0%, #9fffeb 100%);
+        }
+      }
+      .gas-off-rule {
+        margin-top: 18px;
+        margin-bottom: 54px;
+        .link-button {
+          &::after {
+            background-color: #9affe7;
+          }
+        }
+        .link-button__text {
+          font-weight: 500;
+          font-size: 12px;
+          color: #9affe7;
+        }
+        .link-button__arrow {
+          background-image: url(../../images/v2/energy-rent/offer/arrow-right-green.svg);
+        }
+      }
+      .gas-off-checkbox span {
+        font-weight: 500;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    &.en {
+      .ant-modal-content {
+        padding-top: 330px;
+        background-image: url(../../images/v2/energy-rent/offer/limited-benefits-modal-en-bg.png);
+
+        .energy-rental {
+          margin-bottom: 35px;
+          .benefits-main-title,
+          .benefits-main-title span {
+            display: inline-block;
+            // font-size: 38px;
+            // line-height: 44px;
+            font-weight: 500;
+          }
+          .benefits-special-title {
+            display: block;
+            font-size: 40px;
+            line-height: 40px;
+            letter-spacing: -2px;
+          }
+        }
+
+        .go-rent {
+          margin-top: 75px;
+        }
+      }
+    }
+
+    &.tc {
+      .ant-modal-content {
+        background-image: url(../../images/v2/energy-rent/offer/limited-benefits-modal-tc-bg.png);
+      }
+    }
+  }
+}
+//Energy Offer Modal Styles End
+
+@media (max-width: 798px) {
+  .energy-offer-modal {
+    .ant-modal-content {
+      width: 336px;
+      height: 594px;
+      background: url(../../images/v2/energy-rent/offer/energy-offer-modal-m-bg.png) no-repeat center;
+      background-size: cover;
+      padding-top: 215px;
+
+      .energy-rental {
+        font-size: 26px;
+        line-height: 36px;
+        height: 36px;
+      }
+      .less-gas {
+        font-size: 26px;
+        line-height: 36px;
+        height: 36px;
+      }
+      .go-rent {
+        width: 305px;
+      }
+      .gas-off-checkbox {
+        margin: 12px auto 0;
+      }
+    }
+    &.limited-benefits-modal {
+      width: calc(100% - 16px) !important;
+      // height: calc(100% - 60px) !important;
+
+      .ant-modal-content {
+        width: 375px;
+        height: 450px;
+        padding-top: 36px;
+        background-image: url(../../images/v2/energy-rent/offer/limited-benefits-modal-m-bg.png);
+      }
+      &.en {
+        .ant-modal-content {
+          padding-top: 80px;
+          background-image: url(../../images/v2/energy-rent/offer/limited-benefits-modal-m-en-bg.png);
+        }
+      }
+      &.tc {
+        .ant-modal-content {
+          background-image: url(../../images/v2/energy-rent/offer/limited-benefits-modal-m-tc-bg.png);
+        }
+      }
+
+      .ant-modal-content,
+      &.en .ant-modal-content,
+      &.tc .ant-modal-content {
+        margin: 0 auto;
+        background-position: center center;
+        .close {
+          width: 18px;
+          height: 18px;
+          top: 22px;
+          right: 40px;
+          background-size: 18px 18px;
+        }
+        .energy-rental {
+          margin-top: 110px;
+          margin-bottom: 20px;
+          .benefits-main-title,
+          .benefits-main-title span,
+          .benefits-special-title {
+            line-height: 40px;
+            font-size: 28px;
+            font-weight: 600;
+          }
+          .benefits-subtitle {
+            .benefits-main-title,
+            .benefits-main-title span {
+              font-size: 26px;
+            }
+          }
+        }
+        .least-text {
+          height: 30px;
+          > span {
+            display: inline-flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 12px;
+            > em {
+              font-weight: 700;
+              font-size: 25px;
+              transform: translateY(-1px);
+              // margin: 0 4px;
+            }
+          }
+        }
+        .go-rent {
+          max-width: 240px;
+          height: 42px;
+          line-height: 42px;
+          margin-top: 40px;
+          font-size: 14px;
+        }
+        .gas-off-rule {
+          margin-top: 2px;
+          margin-bottom: 30px;
+          .link-button {
+            transform: scale(0.83);
+          }
+        }
+        .gas-off-checkbox {
+          transform: scale(0.83);
+        }
+        .each-transaction {
+          margin-bottom: 0;
+          > span {
+            font-weight: 500;
+            font-size: 15px;
+            > span {
+              font-weight: 600;
+              font-size: 20px;
+            }
+          }
+        }
+      }
+
+      &.en .ant-modal-content {
+        .energy-rental {
+          margin-top: 70px;
+          margin-bottom: 16px;
+          .benefits-main-title,
+          .benefits-main-title span,
+          .benefits-special-title {
+            height: 44px;
+            line-height: 38px;
+            font-size: 42px;
+            font-weight: 600;
+          }
+          .benefits-special-title {
+            font-weight: 600;
+            font-size: 28px;
+            line-height: 30px;
+          }
+          .benefits-subtitle {
+            margin-top: 2px;
+            &.en {
+              .benefits-special-title {
+                font-size: 30px;
+                margin: 0 6px;
+              }
+              .benefits-main-title {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+        .gas-off-before {
+          height: 20px;
+        }
+        .least-text,
+        .least-text > span {
+          height: 26px;
+        }
+        .gas-off-rule {
+          margin-top: 6px;
+        }
+        .go-rent {
+          margin-top: 40px;
+        }
+      }
+    }
+  }
+}

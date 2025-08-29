@@ -1,10 +1,33 @@
 export default {
   trx: {
-    token: 'T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb', 
+    token: 'T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb',
     tokenAddress: '',
     symbol: 'TRX',
     decimal: 6,
     tokenDecimal: 6
+  },
+  sun: {
+    token: 'TSSMHYeV2uE9qYH95DqyoCuNCzEL1NvU3S',
+    symbol: 'SUN',
+    decimal: 18
+  },
+  usdc: {
+    token: 'TEkxiTehnzSmSe2XqrBj4w32RUN966rdz8',
+    jtokenAddress: 'TNSBA6KvSvMoTqQcEgpVK7VhHT3z7wifxy',
+    symbol: 'USDC',
+    decimal: 6
+  },
+  usdcold: {
+    token: 'TEkxiTehnzSmSe2XqrBj4w32RUN966rdz8',
+    jtokenAddress: 'TNSBA6KvSvMoTqQcEgpVK7VhHT3z7wifxy',
+    symbol: 'USDCOLD',
+    decimal: 6
+  },
+  ethb: {
+    token: 'TRFe3hT5oYhjSZ6f3ji5FJ7YCfrkWnHRvh',
+    jtokenAddress: 'TWBxQMb6RD3qmkXUXpNwVCYbL8SHNreru6',
+    symbol: 'ETHB',
+    decimal: 6
   },
   sunold: {
     token: 'TKkeiboTkxXKJpbmVFbv4a8ov5rAfRDMf9',
@@ -22,7 +45,14 @@ export default {
   },
   jst: {
     token: 'TCFLL5dx5ZJdKnWuesXxi1VPwjLVmWZZy9',
+    jtokenAddress: 'TWQhCXaWz4eHK4Kd1ErSDHjMFPoPc9czts',
     symbol: 'JST',
+    decimal: 18
+  },
+  strx: {
+    token: 'TU3kjFuhtEo42tsCBtfYUAZxoqQ4yuSLQ5',
+    jtokenAddress: 'TJQ9rbVe9ei3nNtyGgBL22Fuu2xYjZaLAQ',
+    symbol: 'sTRX',
     decimal: 18
   },
   jstlp: {
@@ -35,6 +65,7 @@ export default {
   },
   usdt: {
     token: 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t',
+    jtokenAddress: 'TXJgMdjVX5dKiQaUi9QobwNxtSQaFqccvd',
     symbol: 'USDT',
     decimal: 6
   },
@@ -64,6 +95,18 @@ export default {
     symbol: 'USDJ',
     decimal: 18
   },
+  usdd: {
+    token: 'TXDk8mbtRbXeYuMNS83CfKPaYYT8XWv9Hz',
+    jtokenAddress: 'TKFRELGGoRgiayhwJTNNLqCNjFoLBh3Mnf',
+    symbol: 'USDD',
+    decimal: 18
+  },
+  usddold: {
+    token: 'TPYmHEhy5n8TCEfYGqW2rPxsghSfzghPDn',
+    jtokenAddress: 'TX7kybeP6UwTBRHLNPYmswFESHfyjm9bAS',
+    symbol: 'USDDOLD',
+    decimal: 18
+  },
   usdjlp: {
     token: 'TQcia2H2TU3WrFk9sKtdK9qCfkW8XirfPQ',
     tokenAddress: 'TMwFHYXLJaRUPeW6421aqXL4ZEzPRFGkGT',
@@ -73,13 +116,13 @@ export default {
     tokenDecimal: 18
   },
   ht: {
-    token: 'TDyvndWuvX5xTBwHPYJi7J3Yq8pq8yh62h', 
+    token: 'TDyvndWuvX5xTBwHPYJi7J3Yq8pq8yh62h', // ht20
     symbol: 'HT',
     decimal: 18
   },
   htlp: {
-    token: 'TLLBBiX3HqVZZsUQTBXgurA3pdw317PmjM', 
-    tokenAddress: 'TDyvndWuvX5xTBwHPYJi7J3Yq8pq8yh62h', 
+    token: 'TLLBBiX3HqVZZsUQTBXgurA3pdw317PmjM', // lp20
+    tokenAddress: 'TDyvndWuvX5xTBwHPYJi7J3Yq8pq8yh62h', // ht20
     symbol: 'HT-TRX LP',
     lp: 'HT',
     decimal: 6,
@@ -125,9 +168,9 @@ export default {
     tokenDecimal: 18
   },
   btt: {
-    decimal: 6,
-    tokenDecimal: 6,
-    symbol: 'BTT'
+    token: 'TAFjULxiVgT4qWk6UZwjqwZXTSaGaqnVp4',
+    symbol: 'BTT',
+    decimal: 18
   },
   btcst: {
     token: 'TFVge5Nb6or8cpdtdwPuXSGqLHpj3PM9Rp',
@@ -161,8 +204,8 @@ export default {
     decimal: 18
   },
   yfxlp: {
-    token: 'TGUNGNndGwB4QahAaHk3p2UCqy5zezLvPQ', 
-    tokenAddress: 'TAP7qf8Ao26ZAKYS5E6SGozUNoSLvBHsGa', 
+    token: 'TGUNGNndGwB4QahAaHk3p2UCqy5zezLvPQ', // lp address
+    tokenAddress: 'TAP7qf8Ao26ZAKYS5E6SGozUNoSLvBHsGa', // token address
     symbol: 'YFX-TRX LP',
     lp: 'YFX',
     decimal: 6,
@@ -170,6 +213,7 @@ export default {
   },
   tusd: {
     token: 'TUpMhErZL2fhh4sVNULAbNKLokS4GjC1F4',
+    jtokenAddress: 'TSXv71Fy5XdL3Rh2QfBoUu3NAaM4sMif8R',
     symbol: 'TUSD',
     decimal: 18
   },
@@ -180,5 +224,30 @@ export default {
     lp: 'TUSD',
     decimal: 6,
     tokenDecimal: 18
+  },
+  stusdt: {
+    token: 'TThzxNRLrW2Brp9DcTQU8i4Wd9udCWEdZ3',
+    symbol: 'stUSDT',
+    decimal: 18
+  },
+  wstusdt: {
+    token: 'TGkxzkDKyMeq2T7edKnyjZoFypyzjkkssq',
+    symbol: 'wstUSDT',
+    decimal: 18
+  },
+  strx: {
+    token: 'TU3kjFuhtEo42tsCBtfYUAZxoqQ4yuSLQ5',
+    symbol: 'sTRX',
+    decimal: 18
+  },
+  ethold: {
+    token: 'THb4CqiFdwNHsWsQCs4JhzwjMWys4aqCbF',
+    symbol: 'ETHOLD',
+    decimal: 18
+  },
+  busd: {
+    token: 'TMz2SWatiAtZVVcH2ebpsbVtYwUPT9EdjH',
+    symbol: 'BUSD',
+    decimal: 18
   }
 };

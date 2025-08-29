@@ -1,0 +1,91 @@
+.return-resource {
+  padding-top: 60px;
+  .return-icon {
+    width: 66px;
+    height: 66px;
+    margin: 0 auto 20px;
+    background: url(../../images/v2/energy-rent/return-resource-icon.png) 0 0 no-repeat;
+    background-size: 100%;
+  }
+  .rs-title {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #ffffff;
+    text-align: center;
+  }
+  .rs-info {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 2px;
+    margin-top: 40px;
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .rsi-title {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 20px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .rsi-value {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      text-align: right;
+      color: #ffffff;
+    }
+  }
+}
+.rent-paused {
+  padding-top: 60px;
+  .rp-icon {
+    display: block;
+    width: 61px;
+    height: 61px;
+    margin: 0 auto 26px;
+  }
+  .rp-des {
+    > span {
+      display: block;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      text-align: center;
+      color: #ffffff;
+    }
+  }
+}
+
+.j-wrapper.white {
+  .return-resource {
+    .return-icon {
+      background-image: url(../../images/v2/white-theme/energy-rent/return-resource-icon.png);
+    }
+    .rs-title {
+      color: #22232b;
+    }
+    .rs-info {
+      background: rgba(34, 35, 43, 0.04);
+      .rsi-title {
+        color: rgba(34, 35, 43, 0.6);
+      }
+      .rsi-value {
+        color: #22232b;
+      }
+    }
+  }
+  .rent-paused {
+    .rp-des {
+      > span {
+        color: #22232b;
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+.simple-link {
+  width: auto;
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+
+  .link-text {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .link-arrow {
+    width: 7px;
+    height: 16px;
+    display: block;
+    margin-top: 5px;
+    margin-left: 4px;
+    background: url(../../../images/components/arrow-right-default.svg) 0 0 no-repeat;
+  }
+
+  &:hover {
+    .link-text {
+      color: #9195fb;
+    }
+
+    .link-arrow {
+      background: url(../../../images/components/arrow-right.svg) 0 0 no-repeat;
+    }
+  }
+
+  &.white {
+    .link-text {
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    .link-arrow {
+      background: url(../../../images/components/arrow-right-default-white.svg) 0 0 no-repeat;
+    }
+
+    &:hover {
+      .link-text {
+        color: #4d54ff;
+      }
+
+      .link-arrow {
+        background: url(../../../images/components/arrow-right-white.svg) 0 0 no-repeat;
+      }
+    }
+  }
+}
