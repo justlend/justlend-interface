@@ -125,18 +125,18 @@ const Config = {
   },
   trongrid: {
     host: 'https://api.trongrid.io',
-    key: 'a4754d8e-ddaa-4322-9a88-80cf84d9b6f2'
+    key: ''
   },
   service: {
     host: 'https://labc.ablesdxd.link', // 'https://lendapi.just.network'
     stableHost: 'https://abc.ablesdxd.link',
     stusdtHost: 'https://api.stusdt.org',
     messageApiHost: 'https://abm.ablesdxd.link',
-    messageApiAccessToken: 'tronsmart',
+    messageApiAccessToken: '',
     messageApiToken:
-      'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqRCokQFoq3BvisqjxSwt22fs3U4f8WEi5JrsXY/kw8sPbImib2cS0mnGT2VHOvUT6Ua9i500ZBYE4HcPfHua8ie9el9BN5hrQApyliqVgtlvoOZd/vx5aExX2hzjxs/cjzDgkfyhfLk3jauiCX529SPf2TmqEAIDgFPwxrMgTvHNUlqrjb+EhzMIQRQF5sPlI7tx4NfEF9ATnaVZAKt5+L/foOSxEdZx081uIUaNlatLQgP0ONVTWy5hSK+HRruhXjKShkM/yd3imRRcrgJeU7G3MTc9cNe7+I0BTGYA/OwsRxh+MTQz6HI95NTHOJWniM6EOWGPMBEc7TzmC5dOsQIDAQAB',
+      '',
     lendApiToken:
-      'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArGp5uWm/L+trG7QVmcF5AySysvyMN4V7FR7zqKB09W6IaCrzV0/VOHctuaajAsDufGm+2a8d93Zvp1JuqM/Clrm5I3IMZQVt6YnuJfSLV/zQDrnw7UfQbV9TjIK1B7MwWT8utZa/5gQiFawXPQbnnikxFORGbSY+tLsCC3cvFB8vU8tDu5MyK+5ypsxMGlwnOG4aIiMDjvqE1mLgwmMr6RjJefI3Jkc8fJ7Ui7wrWv0hJMTzMU+PhPJX/cqk9aPTc84FDxkxyuR3rrMamT1gi4i0v9NQvRgwlF0rpuJZmDGX9pMNDK3+pcoqu1hF1ktem1M1jkqjCl8RBCq0dINdCwIDAQAB',
+      '',
     marketsPath: '/justlend/markets',
     userPath: '/justlend/account',
     dashboardPath: '/dashboard',
@@ -535,7 +535,7 @@ const Config = {
   ValuesAggregator: 'TPsypxvELDhdQRE1yGdfLJhowY2qnZEbkc',
   wstUSDTProxy: 'TGkxzkDKyMeq2T7edKnyjZoFypyzjkkssq',
   SwapRouter: 'TP4UqDEQqUaf9k8cvyAtp8vbZSXNuMD6hJ',
-  tronsecretkey: 'tronsecretkey', // 用于鉴权
+  tronsecretkey: '', // 用于鉴权
   unstakeDetailLinkCN: 'https://support.justlend.org/hc/zh-cn/articles/20134457290777',
   unstakeDetailLinkEN: 'https://support.justlend.org/hc/en-us/articles/20134457290777',
   introductionLinkCN: 'https://support.justlend.org/hc/zh-cn/articles/20134645757337',
@@ -587,7 +587,7 @@ if (env === 'btfs') {
   devConfig = {
     trongrid: {
       host: 'https://api.trongrid.io',
-      key: '18dea628-3042-4962-af06-44c3383a2052'
+      key: ''
     }
   };
 }
@@ -765,11 +765,11 @@ if (env === 'test') {
       // host: 'https://apidev.justlend.org',
       stusdtHost: 'https://testapi.stusdt.io',
       messageApiHost: 'https://qa-message.justlend.org',
-      messageApiAccessToken: 'tronsmart',
+      messageApiAccessToken: '',
       messageApiToken:
-        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1AhMUvxBZUdc+lr2vIxArNFeIgo7k6v3dTP+aYtV/9AGZRCqwtlvKMthS4DY9ABuUM5Ksfx5civenbpHcrHJ29JCtsRdt0fp+Pr6kk5tmb1y9AKbJHcw1+FJ3Mqk29hpiQsyVU5FS82QWchIIGnrWXyQAOjaLClvtJ/KxIGtBQifxtlvqOiagZm11fuXNGSvSYAW/yIFTL3SVbLitdQ5MPIiYKf3t6HrdptDXjiHNWFVHVuZAoXoQNnwzZIawWv6N0qP68EE4abKvfOJrWAB4KUJhtHcbJLX2QqYi9zOaEKRTS2Q/BqSWcv1QOq3kdCjSD+A7U5zl9TARe6AiCFUywIDAQAB',
+        '',
       lendApiToken:
-        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1AhMUvxBZUdc+lr2vIxArNFeIgo7k6v3dTP+aYtV/9AGZRCqwtlvKMthS4DY9ABuUM5Ksfx5civenbpHcrHJ29JCtsRdt0fp+Pr6kk5tmb1y9AKbJHcw1+FJ3Mqk29hpiQsyVU5FS82QWchIIGnrWXyQAOjaLClvtJ/KxIGtBQifxtlvqOiagZm11fuXNGSvSYAW/yIFTL3SVbLitdQ5MPIiYKf3t6HrdptDXjiHNWFVHVuZAoXoQNnwzZIawWv6N0qP68EE4abKvfOJrWAB4KUJhtHcbJLX2QqYi9zOaEKRTS2Q/BqSWcv1QOq3kdCjSD+A7U5zl9TARe6AiCFUywIDAQAB'
+        ''
     }),
     tronLinkStatUrl: 'https://niletest.tronlink.org/api/stat/action',
     oldVoteLastId: 2,
@@ -1081,11 +1081,11 @@ if (env === 'backendPro') {
       stableHost: 'https://grey-defiv1.ablesdxd.link',
       stusdtHost: 'https://api.stusdt.org',
       messageApiHost: 'https://grey-message.ablesdxd.link',
-      messageApiAccessToken: 'tronsmart',
+      messageApiAccessToken: '',
       messageApiToken:
-        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1AhMUvxBZUdc+lr2vIxArNFeIgo7k6v3dTP+aYtV/9AGZRCqwtlvKMthS4DY9ABuUM5Ksfx5civenbpHcrHJ29JCtsRdt0fp+Pr6kk5tmb1y9AKbJHcw1+FJ3Mqk29hpiQsyVU5FS82QWchIIGnrWXyQAOjaLClvtJ/KxIGtBQifxtlvqOiagZm11fuXNGSvSYAW/yIFTL3SVbLitdQ5MPIiYKf3t6HrdptDXjiHNWFVHVuZAoXoQNnwzZIawWv6N0qP68EE4abKvfOJrWAB4KUJhtHcbJLX2QqYi9zOaEKRTS2Q/BqSWcv1QOq3kdCjSD+A7U5zl9TARe6AiCFUywIDAQAB',
+        '',
       lendApiToken:
-        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1AhMUvxBZUdc+lr2vIxArNFeIgo7k6v3dTP+aYtV/9AGZRCqwtlvKMthS4DY9ABuUM5Ksfx5civenbpHcrHJ29JCtsRdt0fp+Pr6kk5tmb1y9AKbJHcw1+FJ3Mqk29hpiQsyVU5FS82QWchIIGnrWXyQAOjaLClvtJ/KxIGtBQifxtlvqOiagZm11fuXNGSvSYAW/yIFTL3SVbLitdQ5MPIiYKf3t6HrdptDXjiHNWFVHVuZAoXoQNnwzZIawWv6N0qP68EE4abKvfOJrWAB4KUJhtHcbJLX2QqYi9zOaEKRTS2Q/BqSWcv1QOq3kdCjSD+A7U5zl9TARe6AiCFUywIDAQAB'
+        ''
     })
   };
 }
