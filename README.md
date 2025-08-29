@@ -26,9 +26,9 @@ Welcome to the JustLend DAO Interface project! This guide aims to provide clear 
 
 
 
-The **JustLend Protocol** is a decentralized liquidity protocol deployed on the TRON network, forming the "backend" and rules layer of the entire market.
+The **JustLend Protocol** is a decentralized liquidity protocol deployed on the TRON network, forming the bedrock and rules layer of the entire market.
 
-This open-source project, the **JustLend DAO Interface** (`app.justlend.org`), is a frontend user interface built for it. It aims to provide users with a safe and intuitive portal to interact with the protocol. As one of many ways to access the protocol, this interface is a fully open, community-driven public good. Its goal is to collaboratively build and maintain a secure, stable, and user-friendly frontend application.
+This open-source project, the **JustLend DAO Interface** (`app.justlend.org`), is a frontend user interface that aims to provide users with a safe and intuitive portal to interact with the protocol. As one of many ways to access the protocol, this interface is a fully open, community-driven public good. Its goal is to collaboratively build and maintain a secure, stable, and user-friendly frontend application.
 
 
 
@@ -44,13 +44,8 @@ This interface enables users to:
 
 Additionally, the interface supports several of the JustLend Protocol's core mechanics:
 
-- Energy Rental
-
-  All transactions on JustLend DAO require Energy, which can only be acquired through staking or burning TRX. This process involves high costs and lengthy procedures. In response, JustLend DAO introduces the Energy Rental service, allowing users to rent Energy at a significantly reduced price compared to staking or burning TRX. The contract EnergyRental is used to set up the Energy Rental service.
-
-- Liquidation
-
-  Liquidation is determined by Risk Value, which is a critical metric within the JustLend DAO Protocol that measures the safety of a borrow position. Liquidation will be triggered when the risk value of your positions hits 100. The liquidator will settle the debt (in the borrowed token), take away the supplied asset (in the corresponding jToken), and earn a liquidation reward equal to 8% of the repaid debt value. It should be noted that each liquidation can only cover the debt of one token.
+- **Energy Rental**: All transactions on JustLend DAO require Energy, which can only be acquired through staking or burning TRX. This process involves high costs and lengthy procedures. In response, JustLend DAO introduces the Energy Rental service, allowing users to rent Energy at a significantly reduced price compared to staking or burning TRX. The contract EnergyRental is used to set up the Energy Rental service.
+- **Liquidation**: Liquidation is determined by Risk Value, which is a critical metric within the JustLend DAO Protocol that measures the safety of a borrow position. Liquidation will be triggered when the risk value of your positions hits 100. The liquidator will settle the debt (in the borrowed token), take away the supplied asset (in the corresponding jToken), and earn a liquidation reward equal to 8% of the repaid debt value. It should be noted that each liquidation can only cover the debt of one token.
 
 ------
 
@@ -191,7 +186,7 @@ If you encounter access issues, you can also try the fallback domain: `https://j
 
 
 
-If you would like to support a new language, please open an issue on GitHub and add the `i18n` label. Feel free to reach out to us on our **Discord** to become a valued translator!
+If you would like to support a new language, please open an issue on GitHub and add the `i18n` label. Feel free to reach out to us on our **[Discord](https://discord.com/invite/2KdByBgBA3)** to become a valued translator!
 
 ------
 
