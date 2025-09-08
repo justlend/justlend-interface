@@ -1,0 +1,1043 @@
+.ant-modal-root .ant-modal.connect-modal-v2 {
+  width: 90% !important;
+  background: #282931;
+  border-radius: 10px;
+  padding-bottom: 0 !important;
+
+  .ant-modal-content {
+    background: #282931;
+    border-radius: 10px;
+  }
+
+  .ant-modal-header {
+    background: #282931;
+    height: 62px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 18px 24px 14px;
+    border-radius: 10px 10px 0 0;
+
+    .ant-modal-title {
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      text-align: center;
+      color: #fff;
+    }
+  }
+
+  .ant-modal-close-icon {
+    color: #fff;
+    width: 12px;
+    height: 12px;
+    background: url(../../images/v2/modal-close.svg) 0 0 no-repeat;
+    background-size: 100%;
+    > svg {
+      display: none;
+    }
+  }
+
+  .ant-modal-close-x {
+    position: static !important;
+    width: 56px !important;
+    height: 56px !important;
+    background: none !important;
+  }
+
+  &.white {
+    background: #fff;
+
+    .ant-modal-content {
+      background: #fff;
+    }
+
+    .ant-modal-header {
+      background: #fff;
+      border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+
+      .ant-modal-title {
+        color: #22232b;
+      }
+    }
+
+    .ant-modal-close-icon {
+      color: #22232b;
+      background-image: url(../../images/v2/white-theme/modal-close.svg);
+    }
+
+    .wallet-beta-list {
+      background: rgba(77, 84, 255, 0.06);
+      .wbl-title {
+        border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+        > span {
+          color: #737480 !important;
+          &.ant-tooltip-open {
+            color: #4d54ff !important;
+          }
+        }
+        .h-9195fb .light {
+          color: #22232b;
+        }
+        .h-9195fb:hover {
+          color: #4d54ff;
+          .light {
+            color: #4d54ff;
+          }
+        }
+        svg {
+          transform: translateY(-0.5px);
+        }
+      }
+
+      .bl-main {
+        color: #22232b !important;
+      }
+    }
+  }
+}
+
+.ant-modal-root .ant-modal .wallet-beta-list {
+  margin-top: 20px;
+  padding-bottom: 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    margin-top: 16px;
+  }
+  .wbl-title {
+    height: 44px;
+    line-height: 14px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-top: 0;
+    padding: 0 16px;
+    > span {
+      color: #b3b4b7 !important;
+      font-size: 14px !important;
+      font-weight: 400 !important;
+      white-space: nowrap !important;
+      margin-left: 0 !important;
+    }
+    .h-9195fb {
+      margin-right: 6px;
+      border-bottom: 1px dashed #b3b4b7;
+      .light {
+        color: #fff;
+        margin-left: 0;
+      }
+    }
+    .h-9195fb:hover {
+      color: #9195fb;
+      border-bottom: 1px dashed #9195fb;
+      .light {
+        color: #9195fb;
+      }
+    }
+    .ant-tooltip-open {
+      color: #9195fb !important;
+    }
+  }
+  .bl-main {
+    color: #fff !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    cursor: default !important;
+    margin-left: 0 !important;
+  }
+  .bl-img {
+    width: 37px !important;
+    height: 16px !important;
+    margin: 0 0 0 6px !important;
+  }
+  .bl-link {
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    min-width: 80px;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 10px;
+    text-align: center;
+    border-radius: 5px;
+    background: #4d54ff;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      background: #9195fb;
+    }
+  }
+}
+
+.j-tooltip-dropdown.b-272931 {
+  .ant-tooltip-arrow-content,
+  .ant-tooltip-inner {
+    background: #272931;
+    color: #b3b4b7;
+    box-shadow: none;
+  }
+  .ant-tooltip-arrow {
+    background: url(../../images/connect/bottomTriangle.svg) 0 0 no-repeat;
+    transform: rotate(180deg) translateY(-0.5px);
+    .ant-tooltip-arrow-content {
+      display: none;
+    }
+  }
+}
+
+.connect-element-v2 {
+  padding: 30px 0 0;
+}
+
+.entry-modal-v2 {
+  max-width: 400px !important;
+
+  .ant-modal-body {
+    padding: 0 10px 30px;
+  }
+
+  .top-tip {
+    font-family: 'Avenir Next';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+
+  .bottom-tip {
+    // display: flex;
+    // justify-content: center;
+    //align-items: center;
+    text-align: center;
+
+    > a,
+    > span {
+      // display: inline-block;
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 3px;
+      line-height: 17px;
+    }
+
+    > span {
+      color: rgba(255, 255, 255, 0.6);
+      display: block;
+    }
+
+    > a {
+      color: #9195fb;
+      margin: 0 10px;
+      position: relative;
+
+      em {
+        background: url(../../images/v2/wallet-link-arrow.svg) no-repeat center;
+        display: inline-block;
+        width: 5px;
+        height: 7px;
+        margin-left: 6px;
+      }
+
+      // &::after {
+      //   content: '';
+      //   width: 0;
+      //   height: 1px;
+      //   background: #9195fb;
+      //   position: absolute;
+      //   top: 100%;
+      //   left: 50%;
+      //   transition: all 0.6s;
+      // }
+
+      // &:hover::after {
+      //   left: 0%;
+      //   width: 100%;
+      // }
+    }
+  }
+
+  .entry-logos {
+    margin-bottom: 10px;
+
+    .entry-logo {
+      width: 300px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 2px;
+      cursor: pointer;
+      padding: 15px 20px;
+      margin: 0 auto 20px;
+      position: relative;
+      background: rgba(255, 255, 255, 0.04);
+      transition: background-color 0.3s ease-in-out;
+
+      &:hover {
+        background: rgba(19, 93, 205, 0.1) url(../../images/v2/connect-arrow.svg) no-repeat right 25px center;
+      }
+
+      &.disabled {
+        cursor: default;
+        background: rgba(19, 93, 205, 0.1);
+      }
+    }
+
+    .entry-logo {
+      > img {
+        width: 30px;
+        height: 30px;
+        margin-bottom: 10px;
+      }
+
+      > span {
+        font-family: 'Avenir Next';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 30px;
+        text-align: center;
+        color: #ffffff;
+        margin-left: 14px;
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .loading {
+        width: 20px;
+        height: 20px;
+        transform: rotate(360deg);
+        animation: rotation 2s linear infinite;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+    }
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  &.white {
+    .top-tip {
+      color: #22232b;
+    }
+
+    .bottom-tip {
+      > span {
+        color: rgba(34, 35, 43, 0.8);
+      }
+
+      > a {
+        color: #4c54ff;
+
+        &::after {
+          background: #4c54ff;
+        }
+      }
+    }
+
+    .entry-logos {
+      .entry-logo {
+        background: rgba(75, 82, 223, 0.04);
+
+        &:hover {
+          background: rgba(19, 93, 205, 0.1) url(../../images/v2/connect-arrow-dark.svg) no-repeat right 25px center;
+        }
+
+        &.disabled {
+          cursor: default;
+          background: rgba(15, 19, 79, 0.05);
+        }
+      }
+
+      .entry-logo {
+        > span {
+          color: #22232b;
+        }
+      }
+    }
+  }
+}
+
+.fireblocks-modal-v2 {
+  max-width: 480px !important;
+  position: relative;
+
+  .ant-modal-body {
+    padding: 0 20px 20px;
+  }
+
+  p {
+    font-family: 'Avenir Next';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .top-tip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: rgba(90, 94, 137, 0.8);
+    margin-bottom: 20px;
+    white-space: nowrap;
+
+    > img {
+      width: 14px;
+      height: 14px;
+      margin: -1px 5px 0;
+    }
+
+    span {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    strong {
+      font-size: 12px;
+      font-weight: 400;
+      color: #fff;
+      margin-right: 3px;
+    }
+  }
+
+  .fireblocks-code {
+    text-align: center;
+    margin-bottom: 20px;
+
+    > img {
+      max-width: 390px;
+      width: 100%;
+      box-shadow: 0px 0px 20px rgba(15, 19, 79, 0.05);
+      border-radius: 8px;
+    }
+  }
+
+  .bottom-tip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Avenir Next';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+
+    > span {
+      color: #9195fb;
+      cursor: pointer;
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 20px;
+      margin-left: 6px;
+      // border-bottom: 1px solid transparent;
+      position: relative;
+
+      em {
+        background: url(../../images/v2/wallet-link-arrow.svg) no-repeat center;
+        display: inline-block;
+        width: 5px;
+        height: 7px;
+        margin-left: 6px;
+      }
+
+      &::after {
+        content: '';
+        width: 0;
+        height: 1px;
+        background: #9195fb;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transition: all 0.6s;
+      }
+
+      &:hover::after {
+        left: 0%;
+        width: 100%;
+      }
+    }
+  }
+
+  &.white {
+    p {
+      color: #22232b;
+    }
+
+    .top-tip {
+      span {
+        color: rgba(34, 35, 43, 0.6);
+      }
+
+      strong {
+        color: #22232b;
+      }
+    }
+    .bottom-tip {
+      color: rgba(34, 35, 43, 0.6);
+
+      > span {
+        color: #4c54ff;
+
+        &::after {
+          background: #4c54ff;
+        }
+      }
+    }
+
+    .copied-v2 {
+      background: #fff;
+      color: #22232b;
+    }
+  }
+}
+
+// .entry-logos > div,
+// .entry-ele-v2 .bottm-tip > a {
+//   transition: all 0.3s ease-in-out;
+// }
+
+.loading-modal-v2 {
+  max-width: 400px !important;
+
+  .ant-modal-content {
+    height: 340px;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  img {
+    width: 60px;
+    height: 60px;
+    margin: 10px auto 20px;
+    display: block;
+    transform: rotate(360deg);
+    animation: rotation 2s linear infinite;
+  }
+
+  .title {
+    font-family: 'Avenir Next';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .desc {
+    font-family: 'Avenir Next';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .tips {
+    font-family: 'Avenir Next';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    color: rgba(90, 94, 137, 0.5);
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 48px);
+    text-align: center;
+
+    span {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    a {
+      color: #9195fb;
+      font-size: 12px;
+      position: relative;
+      margin-left: 6px;
+
+      em {
+        background: url(../../images/v2/wallet-link-arrow.svg) no-repeat center;
+        display: inline-block;
+        width: 5px;
+        height: 7px;
+        margin-left: 6px;
+      }
+
+      &::after {
+        content: '';
+        width: 0;
+        height: 1px;
+        background: #9195fb;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transition: all 0.8s;
+      }
+
+      &:hover::after {
+        left: 0%;
+        width: 100%;
+      }
+    }
+  }
+
+  &.white {
+    .title {
+      color: #22232b;
+    }
+
+    .desc {
+      color: rgba(34, 35, 43, 0.8);
+    }
+
+    .tips {
+      span {
+        color: rgba(34, 35, 43, 0.8);
+      }
+
+      a {
+        color: #4c54ff;
+
+        &::after {
+          background: #4c54ff;
+        }
+      }
+    }
+  }
+}
+
+.ant-modal.account-modal-v2 {
+  max-width: 400px !important;
+  border-radius: 10px;
+
+  .ant-modal-body {
+    padding: 0 20px 50px;
+  }
+
+  img {
+    width: 66px;
+    height: 66px;
+    margin: 20px auto;
+    display: block;
+    border-radius: 10px;
+  }
+
+  .bl-img {
+    border-radius: unset;
+  }
+
+  .desc {
+    font-family: 'Avenir Next';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .account-info-v2 {
+    width: 100%;
+    // height: 99px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    // padding: 14px 8px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 22px;
+    color: #0f134f;
+    // margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+
+    &.beta-info {
+      height: auto;
+      margin-top: -10px;
+      background: none;
+      span {
+        height: auto;
+        padding: 0;
+        border-bottom: none;
+        font-size: 12px;
+        color: #b3b4b7;
+      }
+    }
+
+    // &:hover {
+    //   background: rgba(61, 86, 214, 0.1);
+    //   cursor: pointer;
+
+    //   span {
+    //     color: #9195fb;
+    //   }
+    // }
+
+    span {
+      width: 100%;
+      height: 50px;
+      display: block;
+      padding: 14px 0;
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+      text-align: center;
+      color: #b3b4b7;
+      // border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      mix-blend-mode: normal;
+      margin: 0;
+    }
+
+    p {
+      width: 100%;
+      height: 48px;
+      padding: 14px 0;
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 20px;
+
+      em {
+        color: #9195fb;
+        cursor: pointer;
+        position: relative;
+        font-style: normal;
+        font-size: 12px;
+
+        &:hover {
+          color: rgba(145, 149, 251, 0.6);
+        }
+
+        em {
+          background: url(../../images/v2/wallet-link-arrow.svg) no-repeat center;
+          display: inline-block;
+          width: 5px;
+          height: 7px;
+          margin-left: 6px;
+        }
+
+        // &::after {
+        //   content: '';
+        //   width: 0;
+        //   height: 1px;
+        //   background: #9195fb;
+        //   position: absolute;
+        //   top: 100%;
+        //   left: 50%;
+        //   transition: all 0.6s;
+        // }
+
+        // &:hover::after {
+        //   left: 0%;
+        //   width: 100%;
+        // }
+      }
+    }
+  }
+
+  .disconnect {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+
+    span {
+      color: #9195fb;
+      cursor: pointer;
+      position: relative;
+
+      em {
+        background: url(../../images/v2/wallet-link-arrow.svg) no-repeat center;
+        display: inline-block;
+        width: 5px;
+        height: 7px;
+        margin-left: 6px;
+      }
+
+      &::after {
+        content: '';
+        width: 0;
+        height: 1px;
+        background: #9195fb;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transition: all 0.6s;
+      }
+
+      &:hover::after {
+        left: 0%;
+        width: 100%;
+      }
+    }
+  }
+
+  span {
+    font-weight: 400;
+    font-size: 12px;
+    color: #b3b4b7;
+    margin-left: 6px;
+    cursor: pointer;
+    // &:hover {
+    //   color: #9195fb;
+    // }
+  }
+
+  &.white {
+    .desc {
+      color: #22232b;
+    }
+
+    .account-info-v2 {
+      background: rgba(77, 84, 255, 0.04);
+
+      // &:hover {
+      //   span {
+      //     color: #4c54ff;
+      //   }
+      // }
+      &.beta-info {
+        background: none;
+        span {
+          color: #737480;
+          border-bottom: none;
+        }
+      }
+
+      span {
+        color: #22232b;
+        // border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+      }
+
+      p {
+        color: #4c54ff;
+
+        em {
+          color: #4c54ff;
+
+          &:hover {
+            color: rgba(76, 84, 255, 0.6);
+          }
+
+          // &::after {
+          //   background: #4c54ff;
+          // }
+        }
+      }
+    }
+
+    .disconnect {
+      span {
+        color: #4c54ff;
+
+        &::after {
+          background: #4c54ff;
+        }
+      }
+    }
+
+    .copied-v2 {
+      background: #fff;
+      color: #282931;
+    }
+  }
+}
+
+.failure-modal-v2 {
+  max-width: 400px !important;
+
+  .ant-modal-body {
+    padding: 20px;
+  }
+
+  .ant-modal-content {
+    height: 388px;
+  }
+
+  img {
+    width: 61px;
+    height: 61px;
+    margin: 10px auto 20px;
+    display: block;
+  }
+
+  .title {
+    font-family: 'Avenir Next';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    text-align: center;
+    color: #fff;
+    height: 25px;
+    margin-bottom: 10px;
+  }
+
+  .desc {
+    font-family: 'Avenir Next';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+  }
+
+  .reconnect {
+    position: absolute;
+    bottom: 40px;
+    width: 360px;
+    height: 40px;
+    background: #4c54ff;
+    border-radius: 2px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+    color: #ffffff;
+    cursor: pointer;
+
+    &:hover {
+      background: #9195fb;
+    }
+  }
+
+  &.white {
+    .title {
+      color: #22232b;
+    }
+
+    .desc {
+      color: rgba(34, 35, 43, 0.8);
+    }
+
+    .reconnect {
+      background: #4c54ff;
+
+      &:hover {
+        background: #9195fb;
+      }
+    }
+  }
+}
+
+.copied-v2 {
+  position: absolute;
+  left: 0;
+  bottom: -50px;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background: #282931;
+  border-radius: 8px;
+  font-family: 'Avenir Next';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+  animation: copied-animation 1s;
+
+  em {
+    background: url(../../images/v2/copied.svg) no-repeat center;
+    width: 16px;
+    display: inline-block;
+    margin-right: 6px;
+    height: 40px;
+    vertical-align: top;
+  }
+}
+
+.account-link {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+@keyframes copied-animation {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.accountTooltip {
+  margin-top: 26px;
+
+  .ant-tooltip {
+    .ant-tooltip-inner {
+      padding: 10px 16px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .ant-modal.account-modal-v2 .account-info-v2 {
+    height: unset;
+  }
+  .ant-modal.account-modal-v2 .account-info-v2 span {
+    height: unset;
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .wallet-beta-list {
+    .wbl-title > span,
+    .bl-main {
+      font-size: 12px;
+    }
+  }
+}

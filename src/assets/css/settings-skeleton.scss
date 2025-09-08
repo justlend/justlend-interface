@@ -1,0 +1,197 @@
+/* Large screen */
+@media screen and (min-width: 799px) {
+  .settings-nav-bar-skeleton-container {
+    width: 65%;
+    .ant-skeleton {
+      padding-bottom: 20px;
+
+      &:first-child {
+        padding-bottom: 30px;
+      }
+      .ant-skeleton-paragraph > li {
+        height: 20px;
+      }
+    }
+  }
+
+  .settings-content-skeleton-container {
+    padding: 30px 50px;
+
+    .settings-content-header-skeleton-container {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+      .ant-skeleton {
+        margin-bottom: 20px;
+        .ant-skeleton-paragraph > li {
+          height: 20px;
+        }
+
+        &:first-child {
+          position: relative;
+          width: 15%;
+          padding-left: 16px;
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 16px;
+            background-color: #4d54ff;
+          }
+        }
+        &:last-child {
+          width: 35%;
+        }
+      }
+    }
+
+    .settings-content-option-skeleton-container {
+      margin-top: 35px;
+      margin-left: 13px;
+
+      .ant-skeleton {
+        padding-bottom: 35px;
+
+        .ant-skeleton-paragraph > li {
+          height: 40px;
+          border-radius: 5px !important;
+        }
+      }
+    }
+  }
+
+  .settings-content-mobile-skeleton-container {
+    display: none;
+  }
+
+  .white {
+    .settings-content-skeleton-container {
+      .settings-content-header-skeleton-container {
+        border-color: rgba(34, 35, 43, 0.1);
+      }
+    }
+  }
+}
+
+/* Small screen */
+@media (max-width: 798px) {
+  .settings-nav-bar-skeleton-container,
+  .settings-content-skeleton-container {
+    display: none;
+  }
+
+  .settings-content-mobile-skeleton-container {
+    padding: 0 0 20px 0;
+
+    .settings-content-header-skeleton-container {
+      margin-top: -20px;
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+      .ant-skeleton {
+        margin-bottom: 20px;
+
+        &:first-child {
+          position: relative;
+          margin-bottom: 10px;
+
+          .ant-skeleton-paragraph > li {
+            height: 16px;
+          }
+        }
+        &:last-child {
+          .ant-skeleton-paragraph > li {
+            height: 20px;
+          }
+        }
+      }
+    }
+
+    .settings-content-option-skeleton-container {
+      margin-top: 20px;
+
+      .ant-skeleton {
+        .ant-skeleton-paragraph > li {
+          height: 16px;
+        }
+      }
+
+      .settings-content-mobile-option-skeleton {
+        margin-top: 20px;
+
+        display: flex;
+        align-items: center;
+
+        .settings-content-mobile-option-icon-skeleton {
+          width: 30px;
+          height: 30px;
+          border-radius: 15px;
+          background: rgba(255, 255, 255, 0.06);
+
+          margin-right: 8px;
+        }
+        .settings-content-mobile-option-text-skeleton {
+          margin-right: 8px;
+          flex-grow: 1;
+
+          .ant-skeleton-paragraph > li {
+            margin-top: 3px;
+            margin-bottom: 3px;
+            height: 16px;
+          }
+        }
+
+        .new-switch {
+          cursor: default;
+          width: 30px;
+          height: 15px;
+
+          .switch-line {
+            top: 50%;
+            width: 30px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+
+            transform: translateY(-50%);
+          }
+          .switch-circle {
+            width: 15px;
+            height: 15px;
+            background-color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  .white {
+    .settings-content-mobile-skeleton-container {
+      .settings-content-header-skeleton-container {
+        border-color: rgba(34, 35, 43, 0.1);
+      }
+
+      .settings-content-option-skeleton-container {
+        .settings-content-mobile-option-skeleton {
+          .settings-content-mobile-option-icon-skeleton {
+            background: rgba(75, 82, 223, 0.1);
+          }
+
+          .new-switch {
+            .switch-line {
+              background-color: rgba(#141631, 0.1);
+            }
+            .switch-circle {
+              background-color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

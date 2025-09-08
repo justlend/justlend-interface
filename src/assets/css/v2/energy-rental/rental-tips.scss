@@ -1,0 +1,237 @@
+.rental-tips {
+  position: relative;
+
+  .section-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .title {
+      position: relative;
+
+      &::before {
+        content: '';
+        background: url(../../../images/v2/energy-rental/tips.svg) 0 0 no-repeat;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+    }
+
+    .section-divider {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0.57%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    .purple-link-btn {
+      margin-right: 0;
+    }
+  }
+
+  .tips-container {
+    margin-top: 15px;
+    padding-left: 4px;
+    display: flex;
+
+    .tips-item {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        background-color: #b3b4b7;
+      }
+
+      .tips-content {
+        color: #b3b4b7;
+      }
+    }
+  }
+
+  .tips-bg {
+    position: absolute;
+    background: url(../../../images/v2/energy-rental/tips-bg.svg) 0 0 no-repeat;
+    background-size: 100%;
+  }
+}
+
+/* White theme */
+.j-wrapper.white {
+  .rental-tips {
+    .section-header {
+      .title {
+        &::before {
+          background-image: url(../../../images/v2/energy-rental/tips-white-theme.svg);
+        }
+      }
+
+      .section-divider {
+        background: #f2f2f2;
+      }
+    }
+
+    .tips-container {
+      .tips-item {
+        &::before {
+          background-color: #737480;
+        }
+
+        .tips-content {
+          color: #737480;
+        }
+      }
+    }
+
+    .tips-bg {
+      background: url(../../../images/v2/energy-rental/tips-bg-white-theme.svg);
+      background-size: 100%;
+    }
+  }
+}
+
+/* Large screen */
+@media screen and (min-width: 799px) {
+  .rental-tips {
+    padding: 15px 30px;
+    margin-top: 20px;
+
+    .section-header {
+      padding-bottom: 15px;
+
+      .title {
+        font-size: 12px;
+        font-weight: 500;
+
+        padding-left: 20px;
+
+        &::before {
+          background-size: 12px 12px;
+          width: 12px;
+          height: 12px;
+        }
+      }
+
+      .section-divider {
+        margin-right: -30px;
+      }
+    }
+    .tips-container {
+      flex-wrap: wrap;
+
+      .tips-item {
+        flex-basis: 50%;
+
+        padding-left: 16px;
+        padding-right: 12px;
+
+        line-height: 18px;
+
+        &:nth-child(n + 3) {
+          margin-top: 10px;
+        }
+
+        &::before {
+          top: 7px;
+
+          height: 4px;
+          width: 4px;
+          border-radius: 1px;
+        }
+
+        .tips-content {
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 18px;
+
+          &.with-link {
+            margin-right: 4px;
+          }
+        }
+      }
+    }
+
+    .tips-bg {
+      top: 22px;
+      right: -100px;
+      width: 260px;
+      height: 260px;
+    }
+  }
+}
+
+/* Small screen */
+@media (max-width: 798px) {
+  .rental-tips {
+    padding: 15px;
+    margin-top: 20px;
+
+    .section-header {
+      padding-bottom: 15px;
+
+      .title {
+        font-size: 12px;
+        font-weight: 500;
+
+        padding-left: 20px;
+
+        &::before {
+          background-size: 12px 12px;
+          width: 12px;
+          height: 12px;
+        }
+      }
+
+      .section-divider {
+        background: #3d3f46;
+      }
+    }
+    .tips-container {
+      flex-direction: column;
+
+      .tips-item {
+        flex-basis: 100%;
+
+        padding-left: 16px;
+        padding-right: 12px;
+
+        line-height: 18px;
+
+        &:not(:first-child) {
+          margin-top: 8px;
+        }
+
+        &::before {
+          top: 7px;
+
+          height: 4px;
+          width: 4px;
+          border-radius: 1px;
+        }
+
+        .tips-content {
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 18px;
+
+          &.with-link {
+            margin-right: 4px;
+          }
+        }
+      }
+    }
+
+    .tips-bg {
+      top: 80px;
+      right: -136px;
+      width: 260px;
+      height: 260px;
+    }
+  }
+}

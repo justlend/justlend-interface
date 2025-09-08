@@ -1,17 +1,23 @@
 import React from 'react';
 import { observable } from 'mobx';
 import { notification } from 'antd';
-import isMobile from 'ismobilejs';
 import intl from 'react-intl-universal';
+import axios from 'axios';
+import TronWeb from 'tronweb';
 import Config from '../config';
-import { tronscanTX } from '../utils/helper';
+import { getWalletTronWeb, tronscanTX } from '../utils/helper';
 import Tip from '../components/Tip';
-import { getTimeNow } from '../utils/backend';
-import { getTrxBalance, getTransactionInfo, tronObj } from '../utils/blockchain';
+import { getTimeNow, getRentWhiteList } from '../utils/backend';
+import { getTransactionInfo, tronObj } from '../utils/blockchain';
+import { TronLinkAdapter } from '@tronweb3/tronwallet-adapters';
+import { AdapterState } from '@tronweb3/tronwallet-abstract-adapter';
+import { EventEmitter } from 'eventemitter3';
 export default class NetworkStore {
-  @observable tronWeb = false;
+  @observable walletTronWeb = null;
   @observable defaultAccount = null;
   @observable isConnected = null;
+  @observable initConnection = null;
+  @observable finishedWalletInit = false;
   @observable routeName = '';
   @observable lang = '';
   @observable loginModalVisible = false;
@@ -22,13 +28,100 @@ export default class NetworkStore {
   @observable multyStart = true;
   @observable multyRealStart = true;
   @observable btcstStart = null;
+  @observable isMainNetwork = null;
+  @observable isRightChain = null;
+  @observable accountSlideDown = true;
+  @observable isDepositShowMore = false;
+  @observable isLendShowMore = false;
+  @observable rewardModalShow = false;
+  @observable userSupplyModalShow = false;
+  @observable userBorrowModalShow = false;
+  @observable client = null; //WalletConnect Client
+  @observable session = null; //WalletConnect Session
+  @observable isWalletConnected = null; // WalletConnect Connect Status
+  @observable wsModalVisible = false; // WalletConnect Modal
+  @observable wsFailureModal = false; // WalletConnect Failure Modal
+  @observable wsURI = ''; // WalletConnect URI
+  @observable wsSRC = ''; // WalletConnect QR Image SRC
+  @observable loginModalVisibleV2 = false;
+  @observable loginModalStepV2 = 1;
+  @observable networkErrorModalVisible = false;
+  @observable rewardVisible = false;
+  @observable allowanceVisible = false;
+  @observable miningRewardVisible = false;
+
+  @observable tronLinkAdapter = null;
+  @observable isLedgerConnected = false;
+  @observable showTabsBar = true;
+  @observable isShowMoreV2 = false;
+  @observable switchChainName = '';
+  @observable newRentVisible = false;
+  @observable browserType = 1;
+  @observable okxConnected = false;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
+    this.emitter = new EventEmitter();
+
+    const closedNoServiceModalAll = window.localStorage.getItem('closedNoServiceModalAll');
+    const lastClosed = closedNoServiceModalAll ? Number(closedNoServiceModalAll) : 0;
+    const now = Date.now();
+    if (Config.noServiceModalVisible) {
+      this.getTipStatus().then(res => {
+        if (res) {
+          if (now - lastClosed > 24 * 60 * 60 * 1000) {
+            const serviceStatus = window.localStorage.getItem('serviceStatus');
+            if (!serviceStatus || serviceStatus !== 'disabled') {
+              this.rootStore.lend.setData({
+                noServiceModalAllVisible: res
+              });
+            } else {
+              this.closeConnect();
+              this.rootStore.lend.setData({
+                serviceInnerStatus: 'disabled'
+              });
+            }
+          } else {
+            window.localStorage.setItem('serviceStatus', 'continue');
+            this.rootStore.lend.setData({ serviceInnerStatus: 'continue' });
+            setTimeout(() => {
+              this.initWalletConnectionAndEvent();
+            }, 500);
+          }
+        } else {
+          window.localStorage.setItem('serviceStatus', 'normal');
+          this.rootStore.lend.setData({ serviceInnerStatus: 'normal' });
+          setTimeout(() => {
+            this.initWalletConnectionAndEvent();
+          }, 500);
+        }
+      });
+    } else {
+      window.localStorage.removeItem('serviceStatus');
+      // this.rootStore.lend.setData({ serviceInnerStatus: 'normal' });
+      setTimeout(() => {
+        this.initWalletConnectionAndEvent();
+      }, 500);
+    }
   }
 
+  instance = axios.create({
+    validateStatus: function (status) {
+      return status >= 200 && status < 300; // default
+    }
+  });
+
+  getTipStatus = async () => {
+    try {
+      await this.instance.get('https://rioj.ablesdxd.link/?time=' + Date.now());
+    } catch (error) {
+      if (error.code) {
+        return true;
+      }
+    }
+  };
+
   getDescription = (type, item, text) => {
-    // console.log('description type: ', type);
     const { tx, title, status } = item;
     let className = '';
     switch (type) {
@@ -44,91 +137,93 @@ export default class NetworkStore {
     }
     return (
       <div className={'trans-notify'}>
-        <span>{tronscanTX(intl.get('view_on_tronscan'), tx)}</span>
-        {type === 3 ? (
+        <span className="hover">{tronscanTX(intl.get('view_on_tronscan'), tx, true)}</span>
+        <span className={'trans-btn-tip ' + className}>{text}</span>
+        {/* {type === 3 ? (
           <Tip tip={intl.getHTML('toast.faild_reason')} left>
             <span className={'trans-btn-tip ' + className}>{text}</span>
           </Tip>
         ) : (
           <span className={'trans-btn-tip ' + className}>{text}</span>
-        )}
+        )} */}
       </div>
     );
   };
 
-  checkPendingTransactions = () => {
+  checkPendingTransactions = async () => {
     let data = window.localStorage.getItem(window.defaultAccount) || '[]';
     const transactions = JSON.parse(data);
 
-    transactions.map(item => {
+    const pendingTransactions = [];
+
+    for (const item of transactions) {
       const { tx, status, showPending } = item;
+
       if (Number(status) === 1) {
         if (showPending) {
           this.logTransactionPending(item);
         }
         item.checkCnt++;
-        getTransactionInfo(tx)
-          .then(r => {
-            if (r) {
-              if (r && r.ret && r.ret[0].contractRet === 'SUCCESS') {
-                this.logTransactionConfirmed(item);
-              } else if (r && r.ret && r.ret[0].contractRet && r.ret[0].contractRet != 'SUCCESS') {
-                this.logTransactionFailed(item);
-              } else {
-                if (item.checkCnt != undefined && item.checkCnt < 30) {
-                  setTimeout(this.checkPendingTransactions, 3000);
-                } else {
-                  this.logTransactionFailed(item, true);
-                }
-              }
-            }
-          })
-          .catch(ex => {
-            // setTimeout(this.checkPendingTransactions, 5000);
-            console.error(ex);
-          });
+
+        const r = await getTransactionInfo(tx);
+        if (r && r.ret && r.ret[0].contractRet === 'SUCCESS') {
+          this.logTransactionConfirmed(item);
+          continue;
+        } else if (r && r.ret && r.ret[0].contractRet !== 'SUCCESS') {
+          this.logTransactionFailed(item);
+          continue;
+        } else if (item.checkCnt < 300) {
+          pendingTransactions.push(item);
+        } else {
+          this.logTransactionFailed(item, true);
+        }
       }
-      return false;
-    });
+    }
+
+    window.localStorage.setItem(window.defaultAccount, JSON.stringify(pendingTransactions));
   };
 
   logTransactionPending = item => {
     item.showPending = false;
     const { tx, intlObj } = item;
-    notification.open({
-      key: tx,
-      message: intl.get(intlObj.title, intlObj.obj),
-      description: this.getDescription(1, item, intl.get('trans_status.pending'))
-    });
-    this.saveTransactions(item);
+    if (intlObj?.title && intlObj?.obj) {
+      notification.open({
+        key: tx,
+        message: intlObj.title && intlObj.obj ? intl.get(intlObj.title, intlObj.obj) : '',
+        description: this.getDescription(1, item, intl.get('trans_status.pending'))
+      });
+      this.saveTransactions(item);
+    }
   };
 
   logTransactionConfirmed = item => {
     item.status = 2;
     const { tx, intlObj } = item;
-    notification.open({
-      key: tx,
-      message: intl.get(intlObj && intlObj.title4 ? intlObj.title4 : intlObj.title, intlObj.obj),
-      description: this.getDescription(2, item, intl.get('trans_status.confirmed'))
-    });
-    this.saveTransactions(item);
+    if (intlObj?.title || intlObj?.title4) {
+      notification.open({
+        key: tx,
+        message: intl.get(intlObj && intlObj.title4 ? intlObj.title4 : intlObj.title, intlObj.obj),
+        description: this.getDescription(2, item, intl.get('trans_status.confirmed'))
+      });
+      this.saveTransactions(item);
+    }
     if (intlObj.needCallAgain && intlObj.needCallAgain === 'getVoteDetail') {
       this.rootStore.lend.getVoteDetail(intlObj.obj.token);
     }
-
   };
 
   logTransactionFailed = (item, needDelete = false) => {
     item.status = 3;
     const { tx, intlObj } = item;
-    notification.open({
-      key: tx,
-      message: intl.get(intlObj && intlObj.title3 ? intlObj.title3 : intlObj.title, intlObj.obj),
-      description: this.getDescription(3, item, intl.get('trans_status.failed')),
-      duration: 30
-    });
-    this.saveTransactions(item, needDelete);
-
+    if (intlObj?.title || intlObj?.title3) {
+      notification.open({
+        key: tx,
+        message: intl.get(intlObj && intlObj.title3 ? intlObj.title3 : intlObj.title, intlObj.obj),
+        description: this.getDescription(3, item, intl.get('trans_status.failed')),
+        duration: 30
+      });
+      this.saveTransactions(item, needDelete);
+    }
   };
 
   saveTransactions = (record, needDelete) => {
@@ -198,10 +293,20 @@ export default class NetworkStore {
     }
   };
 
-  getCountTime = async () => {
-    if (this.btcstStart) {
-      return;
+  getNewRentVisible = async () => {
+    this.setData({ newRentVisible: false });
+    if (Config.rentOnlyWhiteList) {
+      if (!this.defaultAccount) return;
+      const { success, data } = await getRentWhiteList(this.defaultAccount);
+      if (success && data) this.setData({ newRentVisible: true });
+    } else {
+      this.setData({ newRentVisible: true });
     }
+  };
+
+  getCountTime = async () => {
+    let { btcstStart } = this;
+    if (btcstStart) return;
     if (this.nowTime === null) {
       await this.getNowTime();
     } else {
@@ -227,131 +332,94 @@ export default class NetworkStore {
     }, 1000);
   };
 
-  checkLogin = () => {
-    if (!this.tronWeb || !this.tronWeb.defaultAddress.base58) {
-      return false;
-    }
-    if (!this.defaultAccount) {
-      return false;
-    }
-    return true;
-  };
-
-  initTronWeb = (tronWeb, cb) => {
-    if (process.env.REACT_APP_ENV === 'test' || process.env.REACT_APP_ENV === 'qaTest') {
-      tronWeb.setFullNode(Config.chain.fullHost);
-      tronWeb.setSolidityNode(Config.chain.fullHost);
+  initTronWeb = async (tronWeb, { isOKX = false } = {}) => {
+    const walletTronWeb = tronWeb
+      ? tronWeb
+      : window?.playWrightTronWebParam
+      ? new TronWeb(window?.playWrightTronWebParam)
+      : getWalletTronWeb();
+    if (
+      process.env.REACT_APP_ENV === 'test' ||
+      process.env.REACT_APP_ENV === 'qaTest' ||
+      process.env.REACT_APP_ENV === 'nile'
+    ) {
+      walletTronWeb.setFullNode(Config.chain.fullHost);
+      walletTronWeb.setSolidityNode(Config.chain.fullHost);
     }
     const { trongrid } = Config;
-    const self = this;
-    if (trongrid && tronWeb.setHeader && tronWeb.fullNode.host === trongrid.host) {
-      tronWeb.setHeader({ 'TRON-PRO-API-KEY': trongrid.key });
+    if (trongrid && walletTronWeb.setHeader && walletTronWeb.fullNode.host === trongrid.host) {
+      walletTronWeb.setHeader({ 'TRON-PRO-API-KEY': trongrid.key });
     }
-    tronObj.tronWeb = this.tronWeb = tronWeb;
-    this.defaultAccount = this.tronWeb.defaultAddress.base58;
-    window.defaultAccount = this.defaultAccount;
+    tronObj.walletTronWeb = this.walletTronWeb = walletTronWeb;
+    window.defaultAccount = this.defaultAccount = this.walletTronWeb.defaultAddress.base58;
+
+    if (window?.playWrightTronWebParam || window?.okxwallet?.tronLink?.ready) {
+      this.emitter.emit('connect');
+    }
+
     this.isConnected = true;
-    cb && cb();
+    window.gtag('event', 'loading', { 'event_category': 'connect', 'event_label': 'yes', 'value': 'yes' });
+    this.isMainNetwork = await this.isMainnet();
+    this.isRightChain = await this._isRightChain(isOKX);
+    // console.log('chain result: ', this.isRightChain)
     this.setVariablesInterval();
   };
 
   closeConnect = () => {
-    this.tronWeb = false;
+    this.isConnected = false;
+    this.initConnection = false;
+    this.walletTronWeb = false;
     window.defaultAccount = this.defaultAccount = false;
+    tronObj.walletTronWeb = null;
   };
 
-  handleTronWallet = async (tron, cb, pop, cbn = false) => {
-    if (!tron) {
-      this.closeConnect();
-      cbn && cbn();
-      console.log('no wallet installed');
-      return;
-    }
-    if (tron && tron.defaultAddress && tron.defaultAddress.base58) {
-      this.initTronWeb(tron, cb);
-      // cb && cb();
-      return;
-    }
-    const tronLink = tron;
-    if (tronLink.ready) {
-      // Access the decentralized web!
-      const tronWeb = tronLink.tronWeb;
-      tronWeb && this.initTronWeb(tronWeb, cb);
-      this.loginModalVisible = false;
+  checkWalletConnect = async () => {
+    // console.log(window.localStorage['wc@2:client:0.3//session']);
+    if (
+      !window.localStorage['wc@2:client:0.3//session'] ||
+      window.localStorage['wc@2:client:0.3//session'] === '[]' ||
+      this.walletTronWeb
+    ) {
+      const _this = this;
+      const request = window.indexedDB.open('WALLET_CONNECT_V2_INDEXED_DB');
+      request.onsuccess = async event => {
+        const db = event.target.result;
+        const cursorGetData = async (db, storeName) => {
+          try {
+            let store = db.transaction(storeName, 'readwrite').objectStore(storeName);
+            let cursorRequest = store.openCursor();
+            cursorRequest.onsuccess = async e => {
+              let cursor = e.target.result;
+              if (cursor) {
+                if (cursor.key !== 'wc@2:client:0.3:session') {
+                  cursor.continue();
+                } else if (cursor.value !== '[]') {
+                  await _this.rootStore.connect.init();
+                  await _this.rootStore.connect.connect();
+                }
+              }
+            };
+          } catch (error) {
+            window.indexedDB.deleteDatabase('WALLET_CONNECT_V2_INDEXED_DB');
+            return false;
+          }
+        };
+        cursorGetData(db, 'keyvaluestorage');
+      };
     } else {
-      if (pop) {
-        const res = await tronLink.request({ method: 'tron_requestAccounts' });
-        // console.log(res);
-        if (res.code === 200) {
-          const tronWeb = tronLink.tronWeb;
-          tronWeb && this.initTronWeb(tronWeb, cb);
-          this.loginModalVisible = false;
-          return;
-        }
-        this.rootStore.network.setData({ loginModalStep: 1 });
-        this.closeConnect();
-        console.log('Please install TronLink-Extension!');
-      }
+      await this.rootStore.connect.init();
+      await this.rootStore.connect.connect();
+      return true;
     }
   };
 
-  initTronLinkWallet = (cb = false, cbn = false, pop = true) => {
-    try {
-      const self = this;
-
-      const tronlinkPromise = new Promise(reslove => {
-        if (window.tronLink) {
-          window.tronLink.gg = 'gg';
-          return reslove(window.tronLink);
-        } else {
-          window.addEventListener(
-            'tronLink#initialized',
-            async () => {
-              return reslove(window.tronLink || tronObj.tronWeb);
-            },
-            {
-              once: true
-            }
-          );
-
-          setTimeout(() => {
-            if (window.tronLink) {
-              return reslove(window.tronLink);
-            }
-          }, 3000);
-        }
-      });
-
-      const appPromise = new Promise(resolve => {
-        let timeCount = 0;
-        // const self = this;
-        const tmpTimer1 = setInterval(() => {
-          timeCount++;
-          if (timeCount > 8) {
-            // self.isConnected = false;
-            cbn && cbn();
-            clearInterval(tmpTimer1);
-            return resolve(false);
-          }
-          if (window.tronLink) {
-            clearInterval(tmpTimer1);
-            if (window.tronLink.ready) {
-              return resolve(window.tronLink);
-            }
-          } else if (window.tronWeb && window.tronWeb.defaultAddress && window.tronWeb.defaultAddress.base58) {
-            clearInterval(tmpTimer1);
-            return resolve(window.tronWeb);
-          }
-        }, 1000);
-      });
-
-      Promise.race([tronlinkPromise, appPromise]).then(tron => {
-        // console.log(tron);
-        self.handleTronWallet(tron, cb, pop, cbn);
-      });
-    } catch (e) {
-      console.log(e);
+  checkLedger = async () => {
+    this.rootStore.ledger.listenLogEvent();
+    if (window.localStorage.getItem('justlend:ledger')) {
+      await this.rootStore.ledger.reconnect();
+      return true;
     }
+    return false;
   };
 
   connectWallet = async () => {
@@ -361,39 +429,270 @@ export default class NetworkStore {
     });
   };
 
-  listenTronLink = () => {
-    window.addEventListener('message', res => {
-      if (res.data.message && res.data.message.action == 'accountsChanged') {
-        return window.location.reload();
-      }
-      if (res.data.message && res.data.message.action == 'setAccount') {
-        if (window.tronWeb && !window.tronLink && res.data.message.data.address !== this.defaultAccount) {
-          return window.location.reload();
-        }
-      }
-      if (res.data.message && res.data.message.action == 'setNode') {
-        window.location.reload();
-        return;
-      }
-      // disconnectWebsite
-      if (res.data.message && res.data.message.action == 'disconnectWeb') {
-        console.log(res.data, res.data.message, 'tronlink message');
-
-        window.location.reload();
-        return;
-      }
-      // connectWebsite
-      if (res.data.message && res.data.message.action == 'connectWeb') {
-        console.log(res.data, res.data.message, 'tronlink message');
-
-        window.location.reload();
-      }
-    });
-  };
-
   changeMenuWidth = () => {
     this.setData({
       menuFlag: !this.menuFlag
     });
   };
+
+  isMainnet = async () => {
+    try {
+      let res = await this.walletTronWeb.trx.getBlock(0);
+      if (Config.chain.fullHost === 'https://api.trongrid.io' && res.blockID) {
+        if (res.blockID === Config.blockId) return 1; // online & mainnet
+        return 0; // online & not mainnet
+      } else {
+        return -1; // not online
+      }
+    } catch (e) {
+      console.log('isMainnet: ', e);
+    }
+  };
+
+  _isRightChain = async isOKX => {
+    // console.log('isOKX: ', isOKX);
+    try {
+      if (this.tronLinkAdapter.readyState === 'Found' || window?.okxwallet?.tronLink?.ready) {
+        let walletTronWeb = getWalletTronWeb();
+        if (window?.okxwallet?.tronLink?.ready && isOKX) {
+          walletTronWeb = getWalletTronWeb(window?.okxwallet?.tronLink.tronWeb);
+          return 1;
+        }
+        const { trongrid } = Config;
+        if (
+          (process.env.REACT_APP_ENV === 'test' ||
+            process.env.REACT_APP_ENV === 'qaTest' ||
+            process.env.REACT_APP_ENV === 'nile') &&
+          walletTronWeb &&
+          walletTronWeb.fullNode.host === trongrid.host
+        ) {
+          return 0;
+        } else if (
+          process.env.REACT_APP_ENV !== 'test' &&
+          process.env.REACT_APP_ENV !== 'qaTest' &&
+          process.env.REACT_APP_ENV !== 'nile' &&
+          walletTronWeb &&
+          walletTronWeb.fullNode.host === 'https://api.nileex.io'
+        ) {
+          return 0;
+        }
+        return 1;
+      }
+    } catch (e) {
+      console.log('isRightChain: ', e);
+    }
+  };
+
+  changeChain = async () => {
+    try {
+      if (this.tronLinkAdapter.readyState === 'Found') {
+        const walletTronWeb = getWalletTronWeb();
+
+        const { trongrid } = Config;
+        if (
+          (process.env.REACT_APP_ENV === 'test' ||
+            process.env.REACT_APP_ENV === 'qaTest' ||
+            process.env.REACT_APP_ENV === 'nile') &&
+          walletTronWeb.fullNode.host === trongrid.host
+        ) {
+          try {
+            await this.tronLinkAdapter.switchChain('0xcd8690dc');
+          } catch (error) {
+            this.setData({
+              'switchChainName': 'Nile'
+            });
+          }
+        } else if (
+          process.env.REACT_APP_ENV !== 'test' &&
+          process.env.REACT_APP_ENV !== 'qaTest' &&
+          process.env.REACT_APP_ENV !== 'nile' &&
+          walletTronWeb.fullNode.host === 'https://api.nileex.io'
+        ) {
+          try {
+            await this.tronLinkAdapter.switchChain('0x2b6653dc');
+          } catch (error) {
+            this.setData({
+              'switchChainName': 'Mainnet'
+            });
+          }
+        }
+      }
+    } catch (e) {
+      console.log('isMainnet: ', e);
+    }
+  };
+
+  connectWalletV2 = async () => {
+    this.setData({
+      loginModalVisibleV2: true,
+      loginModalStepV2: 1
+    });
+  };
+
+  showNetworkErrorModal = () => {
+    this.setData({
+      networkErrorModalVisible: true
+    });
+  };
+  closeNetworkErrorModal = () => {
+    this.setData({
+      networkErrorModalVisible: false
+    });
+  };
+
+  async initWalletConnectionAndEvent() {
+    this.initConnection = true;
+    const adapter = (this.tronLinkAdapter = new TronLinkAdapter());
+    this.listenTronLineEvent();
+    const lastLoginInfo = window.localStorage.getItem('lastLoginInfo');
+    let lastLoginWallet = '';
+    let lastLoginTime = '';
+    const infos = lastLoginInfo?.split('_');
+    if (infos) {
+      lastLoginWallet = infos[0];
+      lastLoginTime = infos[1];
+    }
+    const adapterConnected = adapter.connected && (!lastLoginWallet || lastLoginWallet === 'tronlink');
+
+    const okxConnected = window?.okxwallet?.tronLink?.ready && lastLoginWallet === 'okx';
+    if (adapterConnected) {
+      console.log('initWalletConnection, connected: ', adapter.connected);
+      window.gtag('event', 'login', { 'event_category': 'PC_V1.5', 'event_label': 'login' });
+      window.gtag('event', 'conwallet_connected', {
+        'event_category': 'tronlink',
+        'event_label': 'conwallet_connected'
+      });
+      await this.initTronWeb();
+      this.emitter.emit('connect');
+      return;
+    } else if (okxConnected) {
+      await this.initTronWeb(window.okxwallet.tronLink.tronWeb, { isOKX: true });
+      this.emitter.emit('connect');
+      this.okxConnected = true;
+      return;
+    }
+    let connected = await this.checkWalletConnect();
+    if (connected) {
+      this.emitter.emit('connect');
+      window.gtag('event', 'conwallet_connected', {
+        'event_category': 'walletconnect',
+        'event_label': 'conwallet_connected'
+      });
+      return;
+    }
+    connected = await this.checkLedger();
+    if (connected) {
+      this.emitter.emit('connect');
+      window.gtag('event', 'conwallet_connected', { 'event_category': 'ledger', 'event_label': 'conwallet_connected' });
+    }
+    this.finishedWalletInit = true;
+    this.emitter.emit('finishedWalletInit');
+  }
+
+  listenTronLineEvent() {
+    const adapter = this.tronLinkAdapter;
+    const onConnect = async () => {
+      const lastLoginInfo = window.localStorage.getItem('lastLoginInfo');
+      let lastLoginWallet = '';
+      let lastLoginTime = '';
+      const infos = lastLoginInfo?.split('_');
+      if (infos) {
+        lastLoginWallet = infos[0];
+        lastLoginTime = infos[1];
+      }
+      const okxConnected = window?.okxwallet?.tronLink?.ready && lastLoginWallet === 'okx';
+      if (okxConnected) return;
+      if (this.isWalletConnected || this.isLedgerConnected) {
+        window.location.reload();
+        return;
+      }
+      window.localStorage.removeItem('justlend:ledger');
+      window.localStorage.removeItem('wc@2:client:0.3//session');
+      await this.initTronWeb();
+      this.loginModalVisible = false;
+      this.loginModalVisibleV2 = false;
+      this.emitter.emit('connect');
+    };
+    adapter.on('readyStateChanged', () => {
+      if (adapter.readyState === 'Found' && !adapter.connected) {
+        window.gtag('event', 'loading', { 'event_category': 'connect', 'event_label': 'no', 'value': 'no' });
+        window.gtag('event', 'not_login', { 'event_category': 'PC_V1.5', 'event_label': 'not_login' });
+      }
+    });
+
+    adapter.on('connect', () => {
+      onConnect();
+    });
+    adapter.on('disconnect', () => {
+      console.log('TronLink disconnect: ');
+      window.localStorage.removeItem('justlend:ledger');
+      window.localStorage.removeItem('wc@2:client:0.3//session');
+      window.location.reload();
+    });
+
+    adapter.on('accountsChanged', (address, preAddress) => {
+      if (address && preAddress && address !== preAddress) {
+        onConnect();
+        this.emitter.emit('accountsChanged');
+      }
+    });
+    adapter.on('chainChanged', async () => {
+      if (!this.isConnected) {
+        return;
+      }
+      this.isMainNetwork = await this.isMainnet();
+      this.isRightChain = await this._isRightChain();
+      this.emitter.emit('chainChanged');
+    });
+  }
+
+  connectTronLink = async () => {
+    try {
+      if (!window?.playWrightTronWebParam) {
+        const adapter = new TronLinkAdapter({
+          openUrlWhenWalletNotFound: false,
+          openTronLinkAppOnMobile: false,
+          checkTimeout: 10 * 1000
+        });
+        await adapter.connect();
+      }
+      this.initTronWeb();
+      this.loginModalVisible = false;
+      this.loginModalVisibleV2 = false;
+      window.localStorage.setItem('lastLoginInfo', 'tronlink_' + Date.now());
+    } catch (e) {
+      console.error('Connect Error: ', e);
+      this.rootStore.network.setData({ loginModalStep: 1, loginModalStepV2: 1 });
+      this.closeConnect();
+      throw e;
+    }
+  };
+
+  connectOKX = async () => {
+    try {
+      const provider = window.okxwallet;
+      const result = await provider.tronLink.request({ method: 'tron_requestAccounts' });
+      if (result?.code === 200) {
+        console.log('okx connected: ', provider.tronLink);
+        this.loginModalVisible = false;
+        this.loginModalVisibleV2 = false;
+
+        this.initTronWeb(provider.tronLink.tronWeb, { isOKX: true });
+        this.okxConnected = true;
+        window.localStorage.setItem('lastLoginInfo', 'okx_' + Date.now());
+      }
+    } catch (e) {
+      console.error('okx Connect Error: ', e);
+      this.rootStore.network.setData({ loginModalStep: 1, loginModalStepV2: 1 });
+      this.closeConnect();
+      throw e;
+    }
+  };
+
+  on(...args) {
+    this.emitter.on(...args);
+  }
+  off(...args) {
+    this.emitter.off(...args);
+  }
 }

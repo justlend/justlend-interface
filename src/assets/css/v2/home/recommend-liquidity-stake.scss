@@ -1,0 +1,282 @@
+.recommend-liquidity-stake {
+  &.usdd-update {
+    cursor: auto;
+    &.en-US {
+      background: url(../../../images/v2/account/usdd-update-banner-us.svg) no-repeat;
+    }
+    &.zh-TC {
+      background: url(../../../images/v2/account/usdd-update-banner-tc.svg) no-repeat;
+    }
+    &.zh-CN {
+      background: url(../../../images/v2/account/usdd-update-banner-cn.svg) no-repeat;
+    }
+    .bg,
+    .title,
+    .text {
+      display: none;
+    }
+  }
+  position: relative;
+  width: 790px;
+  height: 89px;
+  display: flex;
+  align-items: center;
+  padding: 35px 30px;
+  margin-top: 20px;
+  background: linear-gradient(
+      89.94deg,
+      rgba(76, 84, 255, 0) 23.94%,
+      rgba(33, 36, 255, 0.114) 63.1%,
+      rgba(63, 255, 216, 0.6) 99.96%
+    ),
+    #31333a;
+  border-radius: 10px;
+  cursor: pointer;
+
+  .icon {
+    display: block;
+    width: 40px;
+    height: 20px;
+    margin-right: 8px;
+    background: linear-gradient(104.18deg, #9da2ff 2.65%, #83ffa5 95.17%);
+    border-radius: 2px;
+    padding: 0 6px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 22px;
+    color: #1e1f25;
+    z-index: 1;
+  }
+  .title {
+    display: flex;
+    font-weight: 500;
+  }
+  .title.en-US,
+  .text.en-US {
+    font-family: 'DM Sans';
+  }
+  .text span {
+    strong,
+    .stake-tips {
+      font-weight: 500;
+    }
+  }
+  p {
+    z-index: 1;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 0;
+    letter-spacing: 1px;
+    .title {
+      opacity: 0.8;
+    }
+    .highlight {
+      background: linear-gradient(90deg, #9ea2ff 0%, #83ffa7 88.64%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+
+      text-transform: capitalize;
+    }
+  }
+  .close {
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    right: 13px;
+    top: 8px;
+    width: 20px;
+    height: 20px;
+    background: none no-repeat center/8px 8px;
+    background-image: url('../../../images/v2/userlist/stake-close.svg');
+  }
+  .bg {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 50px;
+    width: 194px;
+    background: none no-repeat center/contain;
+    background-image: url('../../../images/v2/userlist/stake-bg.png');
+  }
+
+  &.white {
+    &.usdd-update {
+      &.en-US {
+        background: url(../../../images/v2/account/usdd-update-banner-us-for-light.svg) no-repeat;
+      }
+      &.zh-TC {
+        background: url(../../../images/v2/account/usdd-update-banner-tc-for-light.svg) no-repeat;
+      }
+      &.zh-CN {
+        background: url(../../../images/v2/account/usdd-update-banner-cn-for-light.svg) no-repeat;
+      }
+    }
+    background: linear-gradient(
+        90deg,
+        rgba(76, 84, 255, 0) 0%,
+        rgba(33, 43, 255, 0.175) 76.35%,
+        rgba(63, 255, 216, 0.5) 105.57%
+      ),
+      #ffffff;
+    p {
+      color: #22232b;
+    }
+    .icon {
+      color: #ffffff;
+    }
+    .highlight {
+      background: linear-gradient(90deg, #2e3cff 0%, #1db590 88.64%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      &::selection {
+        color: #ffffff;
+        -webkit-text-fill-color: #ffffff;
+      }
+    }
+    .close {
+      background-image: url('../../../images/v2/white-theme/userlist/stake-close.svg');
+    }
+    &.usdd-update {
+      .close {
+        background-image: url('../../../images/v2/userlist/stake-close.svg');
+      }
+    }
+    .bg {
+      background-image: url('../../../images/v2/white-theme/userlist/stake-bg.png');
+    }
+  }
+}
+@media screen and (min-width: 1700px) {
+  .recommend-liquidity-stake {
+    // max-width: 1030px;
+    width: 100%;
+    &.usdd-update {
+      &.en-US {
+        background: url(../../../images/v2/uub-long-en.svg) no-repeat;
+        background-size: 100%;
+        &.white {
+          background: url(../../../images/v2/uub-long-en-for-light.svg) no-repeat;
+          background-size: 100%;
+        }
+      }
+      &.zh-TC {
+        background: url(../../../images/v2/uub-long-tc.svg) no-repeat;
+        background-size: 100%;
+        &.white {
+          background: url(../../../images/v2/uub-long-tc-for-light.svg) no-repeat;
+          background-size: 100%;
+        }
+      }
+      &.zh-CN {
+        background: url(../../../images/v2/uub-long-cn.svg) no-repeat;
+        background-size: 100%;
+        &.white {
+          background: url(../../../images/v2/uub-long-cn-for-light.svg) no-repeat;
+          background-size: 100%;
+        }
+      }
+      .bg,
+      .title,
+      .text {
+        display: none;
+      }
+    }
+  }
+}
+@media screen and (max-width: 798px) {
+  .recommend-liquidity-stake {
+    width: unset;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    padding-right: 0;
+
+    border-radius: 10px;
+
+    &.usdd-update {
+      height: 100px;
+      &.en-US {
+        background: url(../../../images/v2/uub-mobile-en.svg) no-repeat;
+        background-size: 100% auto;
+        &.white {
+          background: url(../../../images/v2/uub-mobile-en-for-light.svg) no-repeat;
+          background-size: 100% auto;
+        }
+      }
+      &.zh-TC {
+        background: url(../../../images/v2/uub-mobile-tc.svg) no-repeat;
+        background-size: 100% auto;
+        &.white {
+          background: url(../../../images/v2/uub-mobile-tc-for-light.svg) no-repeat;
+          background-size: 100% auto;
+        }
+      }
+      &.zh-CN {
+        background: url(../../../images/v2/uub-mobile-cn.svg) no-repeat;
+        background-size: 100% auto;
+        &.white {
+          background: url(../../../images/v2/uub-mobile-cn-for-light.svg) no-repeat;
+          background-size: 100% auto;
+        }
+      }
+      &.top {
+        margin: 5px 15px 15px;
+      }
+      .bg,
+      .title,
+      .text {
+        display: none;
+      }
+    }
+    .icon {
+      line-height: 23px;
+    }
+    .text {
+      font-weight: 400;
+    }
+    strong {
+      font-weight: 600;
+    }
+    p {
+      text-align: center;
+    }
+    .title {
+      margin-bottom: 12px;
+    }
+    &.usdd-update .close {
+      top: 5px;
+    }
+    .close {
+      width: 30px;
+      height: 30px;
+      top: 15px;
+      right: 5px;
+      background-position: center center;
+      background-size: 10px 10px;
+    }
+    .bg {
+      width: 191px;
+      height: 79px;
+      left: 0;
+      right: 0;
+      bottom: 15px;
+      margin: auto;
+      top: unset;
+    }
+  }
+  .recommend-liquidity-stake.white {
+    background: linear-gradient(
+        179.62deg,
+        rgba(76, 84, 255, 0) 25.74%,
+        rgba(33, 43, 255, 0.175) 67.4%,
+        rgba(63, 255, 216, 0.5) 106.61%
+      ),
+      #ffffff;
+  }
+}

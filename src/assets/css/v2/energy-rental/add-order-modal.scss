@@ -1,0 +1,1018 @@
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.add-order-modal {
+  &.ant-modal.j-modal .ant-modal-header {
+    padding: 0 20px;
+  }
+
+  .ant-modal-content .ant-modal-header .ant-modal-title {
+    height: auto;
+  }
+
+  .modal-title-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    &.have-subtitle {
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: normal;
+    }
+    .modal-subtitle {
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: normal;
+
+      span {
+        margin-left: 4px;
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+
+    .back-btn {
+      position: absolute;
+      display: block;
+
+      color: #ffffff;
+      opacity: 0.6;
+      transition: none;
+
+      background-color: transparent;
+
+      &::after {
+        content: '';
+        background: url(../../../images/v2/vote-detail/arrow-left-white.svg) 0 0 no-repeat;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+
+      &:hover {
+        color: #9195fb;
+        opacity: 1;
+
+        &::after {
+          background-image: url(../../../images/v2/vote-detail/arrow-left-purple.svg);
+        }
+      }
+    }
+    .back-btn {
+      height: 20px;
+      width: 20px;
+      // padding-left: 20px;
+
+      font-weight: 500;
+      font-size: 15px;
+
+      &::after {
+        width: 14px;
+        height: 9px;
+      }
+    }
+  }
+
+  .add-order-modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .content-icon {
+      margin: 50px auto 0;
+      width: 80px;
+      height: 80px;
+      background: url(../../../images/v2/energy-rental/renew-existing-hint-icon.png) 0 0 no-repeat;
+      background-size: 100%;
+
+      &.loading-icon,
+      &.succeed-icon,
+      &.failed-icon {
+        width: 66px;
+        height: 66px;
+      }
+    }
+    .content-title {
+      margin-top: 20px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      text-align: center;
+
+      &.light-weight {
+        font-weight: 400;
+      }
+    }
+
+    .rental-order-detail {
+      padding: 10px 16px;
+      background: #22232b;
+      border-radius: 10px;
+      margin-top: 30px;
+
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+
+        &:not(:first-child) {
+          margin-top: 10px;
+        }
+
+        .row-title {
+          color: #b3b4b7;
+          font-size: 12px;
+          font-weight: 400;
+
+          flex-shrink: 0;
+          align-self: flex-start;
+
+          display: flex;
+          align-items: center;
+
+          .title-part {
+            color: #b3b4b7;
+            font-size: 12px;
+            font-weight: 400;
+          }
+
+          .j-tooltip-icon {
+            margin-left: 4px;
+            margin-bottom: 2px;
+          }
+        }
+        .row-value {
+          display: flex;
+          align-items: center;
+          text-align: right;
+
+          margin-left: 16px;
+          color: #fff;
+          font-size: 12px;
+          font-weight: 500;
+
+          &.address-row-value {
+            display: inline;
+            word-break: break-all;
+
+            span {
+              font-size: 12px;
+              font-weight: 500;
+            }
+            .second-part {
+              display: inline-block;
+            }
+            .inline-address {
+              display: inline;
+              font-size: 12px;
+            }
+          }
+          &.prepaid-row-value {
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            text-align: right;
+          }
+
+          .j-tooltip-icon {
+            margin-left: 6px;
+            margin-bottom: 2px;
+          }
+        }
+        .row-suffix {
+          padding-left: 4px;
+          color: #fff;
+          font-size: 12px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .action-btns {
+      display: flex;
+      padding: 130px 0 0;
+
+      .action-btn {
+        flex-basis: 50%;
+        &.confirm-btn {
+          margin-left: 10px;
+        }
+        &.close-btn {
+          margin-right: 10px;
+        }
+      }
+    }
+    .action-btn {
+      flex-grow: 1;
+      height: 40px;
+      transition: all 0.3s ease;
+
+      &.confirm-btn,
+      &.close-btn {
+        padding: 3px 12px;
+        border-radius: 5px;
+
+        font-size: 14px;
+        font-weight: 500;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &.confirm-btn {
+        background-color: #4d54ff;
+        color: #ffffff;
+
+        &:hover {
+          background: #9195fb;
+        }
+        &.is-signing {
+          background-color: #53545a;
+          color: rgba(255, 255, 253, 0.6);
+        }
+      }
+      &.close-btn {
+        border: 1px solid #9195fb;
+
+        background-color: transparent;
+        color: #9195fb;
+
+        &:hover {
+          color: #fff;
+          background: #4d54ff;
+          border-color: #4d54ff;
+        }
+      }
+
+      &.single-action-btn {
+        margin-top: 80px;
+        width: 100%;
+      }
+      &.have-hint-above {
+        margin-top: 20px;
+      }
+
+      &:disabled,
+      &:disabled:hover {
+        color: rgba(255, 255, 255, 0.6) !important;
+        background: #53545a !important;
+        cursor: not-allowed;
+      }
+    }
+
+    .typo-text-link {
+      margin-top: 8px;
+
+      align-self: center;
+
+      color: #9195fb;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    &.existing-order-hint {
+      .content-icon {
+        background-image: url(../../../images/v2/energy-rental/renew-existing-hint-icon.png);
+      }
+
+      .action-btn {
+        &.single-action-btn {
+          margin-top: 130px;
+        }
+      }
+    }
+    &.renew-form {
+      .action-btn {
+        &.single-action-btn {
+          margin-top: 20px;
+        }
+        &.have-hint-above {
+          margin-top: 10px;
+        }
+      }
+
+      .field-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .title-text {
+          color: #ffffff;
+
+          display: flex;
+          align-items: center;
+
+          .new-switch {
+            width: 26px;
+            height: 13px;
+            margin-left: 6px;
+
+            .switch-line {
+              width: 26px;
+              height: 9px;
+              background-color: rgba(255, 255, 255, 0.1);
+            }
+            .switch-circle {
+              width: 13px;
+              height: 13px;
+              background-color: #fff;
+            }
+            .switch-line,
+            .switch-circle {
+              transition: all 0.3s ease;
+            }
+            &.switch-on {
+              .switch-line {
+                background-color: #4c54ff;
+              }
+              .switch-circle {
+                background-color: #fff;
+                left: 0;
+                transform: translateX(13px);
+              }
+            }
+            &.disabled {
+              cursor: not-allowed;
+              .switch-line {
+                background-color: #53545a;
+              }
+              .switch-circle {
+                background-color: #b6b7be;
+              }
+            }
+          }
+        }
+
+        .available-amount-title {
+          color: #b3b4b7;
+        }
+        .available-amount-value,
+        .available-amount-suffix {
+          color: #fff;
+        }
+      }
+
+      .field-title {
+        margin: 20px 0 10px;
+        .title-text {
+          font-size: 14px;
+          font-weight: 400;
+        }
+        .available-amount-title {
+          text-align: right;
+          margin-left: 10px;
+          margin-right: 4px;
+
+          font-size: 12px;
+          font-weight: 500;
+        }
+        .available-amount-value,
+        .available-amount-suffix {
+          font-size: 12px;
+          font-weight: 500;
+        }
+        .available-amount-value {
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .available-amount-suffix {
+          padding-left: 4px;
+        }
+
+        .title-text {
+          flex-grow: 0;
+          flex-shrink: 0;
+        }
+        .available-amount-title {
+          flex-grow: 1;
+          flex-shrink: 0;
+        }
+        .available-amount-value {
+          flex-grow: 0;
+          flex-shrink: 1;
+        }
+        .available-amount-suffix {
+          flex-grow: 0;
+          flex-shrink: 0;
+        }
+      }
+
+      .energy-amount-input-group,
+      .duration-input-group {
+        .j-input,
+        .ant-input-wrapper,
+        .ant-input-group-addon,
+        .ant-input-affix-wrapper {
+          background-color: #22232b;
+          border-radius: 5px;
+          border: none;
+          transition: all 0.3s ease;
+          margin: 0;
+        }
+
+        .ant-input-group {
+          display: flex;
+        }
+        .ant-input-affix-wrapper {
+          padding: 0;
+        }
+        .ant-input-group-addon {
+          width: auto;
+          padding: 0 8px 0 16px;
+          display: flex;
+          align-items: center;
+        }
+
+        .energy-amount-input,
+        .duration-input {
+          .ant-input {
+            font-weight: 600;
+            font-size: 18px;
+            &::-webkit-input-placeholder {
+              font-size: 13px;
+              font-weight: 500;
+            }
+          }
+
+          .energy-logo,
+          .time-logo {
+            width: 18px;
+            height: 18px;
+            background: url(../../../images/v2/energy-rental/energy-amount-field-icon.png) 0 0 no-repeat;
+            background-size: 100%;
+          }
+
+          .time-logo {
+            background-image: url(../../../images/v2/energy-rental/duration-field-icon.png);
+          }
+
+          .switch-unit-button {
+            position: relative;
+            padding-right: 34px;
+
+            color: #ffffff;
+            cursor: pointer;
+            opacity: 0.6;
+
+            transition: all 0.3s ease;
+
+            font-size: 12px;
+            font-weight: 500;
+
+            &:hover {
+              opacity: 1;
+            }
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: 50%;
+              right: 8px;
+              transform: translateY(-50%);
+              background: url(../../../images/v2/energy-rental/switch.svg) 0 0 no-repeat;
+              background-size: 100%;
+
+              background-size: 16px 16px;
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
+
+        .energy-amount-input {
+          &.enabled-input {
+            .ant-input {
+              &::-webkit-input-placeholder {
+                color: #fff;
+                opacity: 0.4;
+                font-weight: 600;
+                font-size: 18px;
+              }
+            }
+          }
+        }
+
+        &.input-group-disabled {
+          .j-input,
+          .ant-input-wrapper,
+          .ant-input-group-addon,
+          .ant-input-affix-wrapper {
+            background-color: #53545a;
+          }
+
+          .duration-input {
+            .switch-unit-button {
+              cursor: not-allowed;
+
+              &:hover {
+                opacity: 0.6;
+              }
+            }
+          }
+        }
+
+        &.input-group-always-disabled {
+          .ant-input-suffix,
+          .ant-input-group-addon:not(:first-child) {
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+
+      .j-error-tip {
+        display: flex;
+        background-color: #393a41;
+        border-radius: 5px;
+        padding: 12px 20px;
+        top: 68px;
+      }
+
+      .after-renew-detail {
+        background: rgba(255, 255, 255, 0.04);
+        padding: 10px 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+
+        .duration-box {
+          padding-top: 10px;
+          margin-top: 10px;
+          // padding-bottom: 10px;
+          &.warning {
+            background: rgba(245, 135, 33, 0.06);
+            border-radius: 5px;
+          }
+        }
+
+        .detail-row {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          padding: 0 6px 0 20px;
+          margin-left: 6px;
+
+          &:not(:first-child) {
+            margin-top: 10px;
+          }
+
+          &.energy-icon-prefix,
+          &.duration-icon-prefix {
+            &::before {
+              content: '';
+              position: absolute;
+              top: 9px;
+              left: -1px;
+              transform: translateY(-55%);
+              background: url(../../../images/v2/energy-rental/energy-grey.svg) 0 0 no-repeat;
+              background-size: 100%;
+
+              background-size: 14px 14px;
+              width: 14px;
+              height: 14px;
+            }
+          }
+          &.duration-icon-prefix {
+            &::before {
+              background-image: url(../../../images/v2/energy-rental/duration-grey.svg);
+            }
+          }
+
+          .row-title {
+            color: #fff;
+            font-size: 12px;
+            font-weight: 400;
+          }
+          .row-value {
+            margin-top: 4px;
+            color: #b3b4b7;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+          }
+
+          .pretty-short-warning {
+            color: #f58721;
+            margin-left: -20px;
+            display: flex;
+            svg {
+              min-width: 12px;
+              transform: translateY(3px);
+            }
+            span {
+              font-size: 12px;
+              font-weight: 400;
+              padding-bottom: 10px;
+            }
+          }
+        }
+      }
+
+      .rental-order-detail {
+        margin-top: 20px;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .high-rental-price-hint,
+      .safe-max-hint,
+      .short-rental-hint {
+        position: relative;
+        color: #b3b4b7;
+        margin-top: 10px;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-60%);
+          background: url(../../../images/v2/energy-rental/light-bulb.svg) 0 0 no-repeat;
+          background-size: 100%;
+        }
+      }
+      .safe-max-hint {
+        &::before {
+          background-image: url(../../../images/v2/energy-rental/alert-orange.svg);
+        }
+
+        .safe-max-btn {
+          color: #9195fb;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .high-rental-price-hint,
+      .safe-max-hint,
+      .short-rental-hint {
+        margin-bottom: 10px;
+
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 20px;
+
+        padding-left: 18px;
+
+        &::before {
+          background-size: 12px 12px;
+          width: 12px;
+          height: 12px;
+        }
+      }
+      .safe-max-hint {
+        .safe-max-btn {
+          margin-left: 4px;
+          margin-right: 4px;
+
+          font-size: 12px;
+          font-weight: 400;
+        }
+      }
+    }
+    &.confirm-detail {
+      .content-icon {
+        background-image: url(../../../images/v2/energy-rental/confirm-order-icon.png);
+        &.loading-icon {
+          transform: rotate(360deg);
+          animation: rotation 2s infinite linear;
+          background-image: url(../../../images/v2/energy-rental/loading.png);
+        }
+        &.succeed-icon {
+          background-image: url(../../../images/v2/energy-rental/success.png);
+        }
+        &.failed-icon {
+          background-image: url(../../../images/v2/energy-rental/fail.png);
+        }
+      }
+    }
+  }
+}
+
+.j-wrapper.white {
+  .add-order-modal {
+    .add-order-modal-content {
+      &.existing-order-hint {
+        .content-icon {
+          background-image: url(../../../images/v2/energy-rental/renew-existing-hint-icon-white-theme.png);
+        }
+      }
+      &.renew-form {
+        .after-renew-detail {
+          .detail-row {
+            &.energy-icon-prefix {
+              &::before {
+                background-image: url(../../../images/v2/energy-rental/energy-grey-white-theme.svg);
+              }
+            }
+            &.duration-icon-prefix {
+              &::before {
+                background-image: url(../../../images/v2/energy-rental/duration-grey-white-theme.svg);
+              }
+            }
+          }
+        }
+      }
+      &.confirm-detail {
+        .content-icon {
+          background-image: url(../../../images/v2/energy-rental/confirm-order-icon-white-theme.png);
+          &.loading-icon {
+            background-image: url(../../../images/v2/energy-rental/loading-white-theme.png);
+          }
+          &.succeed-icon {
+            background-image: url(../../../images/v2/energy-rental/success-white-theme.png);
+          }
+          &.failed-icon {
+            background-image: url(../../../images/v2/energy-rental/fail-white-theme.png);
+          }
+        }
+      }
+    }
+
+    .modal-title-container {
+      .back-btn {
+        &::after {
+          background-image: url(../../../images/v2/vote-detail/arrow-left-grey.svg);
+        }
+
+        &:hover {
+          &::after {
+            background-image: url(../../../images/v2/vote-detail/arrow-left-purple-white.svg);
+          }
+        }
+      }
+    }
+  }
+
+  .add-order-modal {
+    .add-order-modal-content {
+      .content-title {
+        color: #22232b;
+      }
+
+      .rental-order-detail {
+        background: rgba(34, 35, 43, 0.03);
+
+        .detail-row {
+          .row-title,
+          .row-title .title-part {
+            color: #737480;
+          }
+          .row-value,
+          .row-suffix {
+            color: #22232b;
+          }
+        }
+      }
+
+      .action-btn {
+        &.confirm-btn {
+          background-color: #4d54ff;
+          color: #ffffff;
+
+          &:hover {
+            background: #9195fb;
+          }
+          &.is-signing {
+            background-color: #d3d3d5;
+            color: #fff;
+          }
+        }
+        &.close-btn {
+          border: 1px solid #4d54ff;
+          background: rgba(77, 84, 255, 0.06);
+          color: #4d54ff;
+
+          &:hover {
+            background: #4d54ff;
+            color: #fff;
+          }
+        }
+
+        &:disabled,
+        &:disabled:hover {
+          color: #fff !important;
+          background: #d3d3d5 !important;
+        }
+      }
+
+      .typo-text-link {
+        color: #4d54ff;
+      }
+
+      &.renew-form {
+        .field-title {
+          .title-text {
+            color: #22232b;
+
+            .new-switch {
+              .switch-line {
+                background-color: #d0d0d6;
+              }
+              .switch-circle {
+                background-color: #ffffff;
+                box-shadow: 0px 0px 6px 0px rgba(20, 22, 49, 0.3);
+              }
+
+              &.switch-on {
+                .switch-line {
+                  background-color: #4c54ff;
+                }
+                .switch-circle {
+                  background-color: #ffffff;
+                }
+              }
+              &.disabled {
+                .switch-line {
+                  background-color: #d3d3d5;
+                }
+                .switch-circle {
+                  background-color: #e8e8e8;
+                  box-shadow: none;
+                }
+              }
+            }
+          }
+
+          .available-amount-title {
+            color: #737480;
+          }
+          .available-amount-value,
+          .available-amount-suffix {
+            color: #22232b;
+          }
+        }
+
+        .energy-amount-input-group,
+        .duration-input-group {
+          .j-input {
+            background-color: rgba(77, 84, 255, 0.06);
+          }
+
+          .ant-input-wrapper,
+          .ant-input-group-addon,
+          .ant-input-affix-wrapper {
+            background-color: transparent;
+          }
+
+          .energy-amount-input,
+          .duration-input {
+            .energy-logo {
+              background-image: url(../../../images/v2/energy-rental/energy-amount-field-icon-white-theme.png);
+              background-size: 100%;
+            }
+
+            .time-logo {
+              background-image: url(../../../images/v2/energy-rental/duration-field-icon-white-theme.png);
+              background-size: 100%;
+            }
+
+            .switch-unit-button {
+              color: #22232b;
+
+              &::after {
+                background-image: url(../../../images/v2/energy-rental/switch-white-theme.svg);
+                background-size: 100%;
+              }
+            }
+          }
+
+          &.input-group-disabled {
+            .j-input,
+            .ant-input-wrapper,
+            .ant-input-group-addon,
+            .ant-input-affix-wrapper {
+              background-color: #d3d3d5;
+            }
+          }
+        }
+
+        .j-error-tip {
+          background-color: #f8f8ff;
+        }
+
+        .after-renew-detail {
+          background: rgba(34, 35, 43, 0.03);
+
+          .detail-row {
+            &.energy-icon-prefix,
+            &.duration-icon-prefix {
+              &::before {
+                background-image: url(../../../images/v2/energy-rental/energy-grey-white-theme.svg);
+                background-size: 100%;
+              }
+            }
+            &.duration-icon-prefix {
+              &::before {
+                background-image: url(../../../images/v2/energy-rental/duration-grey-white-theme.svg);
+                background-size: 100%;
+              }
+            }
+
+            .row-title {
+              color: #22232b;
+            }
+            .row-value {
+              color: #737480;
+            }
+          }
+        }
+
+        .rental-order-detail {
+          background: rgba(34, 35, 43, 0.03);
+        }
+
+        .high-rental-price-hint,
+        .safe-max-hint,
+        .short-rental-hint {
+          color: #737480;
+        }
+      }
+    }
+  }
+}
+
+/* Small screen */
+@media (max-width: 798px) {
+  .add-order-modal {
+    .add-order-modal-content {
+      .action-btns {
+        padding-top: 30px;
+        margin-bottom: 40px;
+      }
+      .action-btn {
+        &.single-action-btn {
+          margin-bottom: 40px;
+          margin-top: 30px;
+
+          &.extra-top-margin {
+            margin-top: 60px;
+          }
+        }
+      }
+
+      .content-icon {
+        width: 70px;
+        height: 70px;
+        &.loading-icon,
+        &.succeed-icon,
+        &.failed-icon {
+          width: 56px;
+          height: 56px;
+        }
+      }
+      .content-title {
+        margin-top: 15px;
+      }
+
+      &.renew-form {
+        .energy-amount-input-group,
+        .duration-input-group {
+          .j-input,
+          .ant-input,
+          .ant-input-wrapper,
+          .ant-input-group-addon,
+          .ant-input-affix-wrapper {
+            height: 50px;
+          }
+
+          .j-error-tip {
+            top: 56px;
+          }
+
+          .energy-amount-input,
+          .duration-input {
+            .ant-input {
+              &::-webkit-input-placeholder {
+                font-size: 11px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

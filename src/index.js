@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './assets/css/index.scss';
+import './assets/css/common.scss';
+import './assets/css/v2/common.scss';
 import App from './routes/index.js';
 import * as serviceWorker from './serviceWorker';
 
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

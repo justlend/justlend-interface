@@ -1,0 +1,318 @@
+.rental-market-data {
+  display: flex;
+  flex-direction: column;
+
+  .price-and-chart {
+    display: flex;
+
+    .price-info {
+      flex-basis: 50%;
+
+      .title {
+        color: #fff;
+      }
+      .price {
+        .value {
+          color: #fff;
+        }
+        .suffix {
+          color: #fff;
+        }
+      }
+      .price-hint {
+        color: #b3b4b7;
+      }
+      .estimated-transaction-count-hint {
+        color: #b3b4b7;
+      }
+    }
+
+    .chart-wrap {
+      flex-basis: 50%;
+
+      .chart {
+        position: relative;
+      }
+      .chart-tooltip {
+        background-color: #40414a;
+        border-radius: 5px;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+
+        overflow: hidden;
+        padding: 10px;
+
+        display: flex;
+
+        .stat {
+          &:not(:first-child) {
+            padding-left: 20px;
+          }
+          .stat-title {
+            color: #b3b4b7;
+            font-size: 12px;
+            font-weight: 400;
+          }
+          .stat-value {
+            color: #ffffff;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            &.green-color {
+              color: #18c19f;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .market-stat {
+    display: flex;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+    .stat {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .grey-dot {
+        background-color: #b3b4b7;
+        width: 4px;
+        height: 4px;
+        border-radius: 1px;
+      }
+      .stat-title {
+        color: #b3b4b7;
+      }
+      .stat-value {
+        color: #fff;
+      }
+    }
+  }
+}
+
+/* White theme */
+.j-wrapper.white {
+  .rental-market-data {
+    .price-and-chart {
+      .price-info {
+        .title {
+          color: #22232b;
+        }
+        .price {
+          .value {
+            color: #22232b;
+          }
+          .suffix {
+            color: #22232b;
+          }
+        }
+        .price-hint {
+          color: #737480;
+        }
+        .estimated-transaction-count-hint {
+          color: #737480;
+        }
+      }
+      .chart-wrap {
+        .chart-tooltip {
+          background-color: #fff;
+          box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+
+          .stat {
+            .stat-title {
+              color: #737480;
+            }
+            .stat-value {
+              color: #22232b;
+
+              &.green-color {
+                color: #18c19f;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .market-stat {
+      border-top: 1px solid #f2f2f2;
+
+      .stat {
+        .grey-dot {
+          background-color: #9c9daa;
+        }
+        .stat-title {
+          color: #737480;
+        }
+        .stat-value {
+          color: #22232b;
+        }
+      }
+    }
+  }
+}
+
+/* Large screen */
+@media screen and (min-width: 799px) {
+  .rental-market-data {
+    margin-top: 20px;
+    padding: 25px 30px;
+
+    .price-and-chart {
+      flex-direction: row;
+      align-items: center;
+
+      padding-bottom: 26px;
+
+      .price-info {
+        padding-right: 15px;
+
+        .title {
+          margin-bottom: 10px;
+
+          font-size: 16px;
+          font-weight: 500;
+        }
+        .price {
+          .value {
+            font-size: 26px;
+            font-weight: 700;
+          }
+          .suffix {
+            margin-left: 8px;
+            font-size: 14px;
+            font-weight: 400;
+          }
+        }
+        .price-hint {
+          margin-top: 10px;
+
+          font-size: 12px;
+          font-weight: 400;
+        }
+        .estimated-transaction-count-hint {
+          margin-bottom: 10px;
+
+          font-size: 12px;
+          font-weight: 400;
+        }
+      }
+      .chart-wrap {
+        padding-left: 15px;
+      }
+    }
+
+    .market-stat {
+      padding-top: 28px;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .stat {
+        max-width: 33%;
+        flex-grow: 0;
+        flex-shrink: 1;
+
+        &:not(:first-child) {
+          padding-left: 6px;
+        }
+
+        .stat-title {
+          padding-left: 16px;
+          font-size: 14px;
+          font-weight: 500;
+          white-space: nowrap;
+        }
+        .stat-value {
+          margin-left: 8px;
+          font-size: 18px;
+          font-weight: 600;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+/* Small screen */
+@media (max-width: 798px) {
+  .rental-market-data {
+    margin-top: 20px;
+    padding: 20px 15px;
+
+    .price-and-chart {
+      flex-direction: column;
+      padding-bottom: 20px;
+
+      .price-info {
+        margin-bottom: 15px;
+        .title {
+          margin-bottom: 10px;
+
+          font-size: 16px;
+          font-weight: 500;
+        }
+        .price {
+          .value {
+            font-size: 24px;
+            font-weight: 700;
+          }
+          .suffix {
+            margin-left: 6px;
+            font-size: 14px;
+            font-weight: 400;
+          }
+        }
+        .price-hint {
+          margin-top: 10px;
+
+          font-size: 12px;
+          font-weight: 400;
+        }
+        .estimated-transaction-count-hint {
+          margin-bottom: 10px;
+
+          font-size: 12px;
+          font-weight: 400;
+        }
+      }
+      .chart-wrap {
+        width: 100%;
+      }
+    }
+
+    .market-stat {
+      padding-top: 20px;
+      padding-left: 4px;
+      flex-direction: column;
+
+      .stat {
+        display: flex;
+
+        &:not(:first-child) {
+          margin-top: 10px;
+        }
+
+        .stat-title {
+          // flex-basis: 30%;
+          white-space: nowrap;
+          flex-shrink: 0;
+
+          padding-left: 16px;
+          font-size: 12px;
+          font-weight: 400;
+        }
+        .stat-value {
+          margin-left: 8px;
+          font-size: 14px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

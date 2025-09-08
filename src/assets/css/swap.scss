@@ -1,32 +1,5 @@
-.between {
-  display: flex;
-  justify-content: space-between;
-}
-
-.flex-around {
-  display: flex;
-  justify-content: space-around;
-}
-
-.flex-start {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.c-999 {
-  color: #999 !important;
-}
-
-.pb-10 {
-  padding-bottom: 10px;
-}
-
-.bb-3D56D6 {
-  border-bottom: 1px solid rgba(#3d56d6, 0.1);
-}
-
 body .ant-tooltip {
-  max-width: 330px;
+  max-width: 350px;
 
   .ant-tooltip-inner {
     border-radius: 5px;
@@ -398,16 +371,7 @@ body .ant-tooltip {
   }
 }
 
-.c-333 {
-  color: #333 !important;
-}
-
-// lend card style end
-
-// vote-modal start
-
 .ant-modal.lend-modal {
-  // width: calc((100% - 30px * 2) / 3) !important;
   background: #ffffff;
   box-shadow: 0 20px 40px 0 rgba(148, 148, 148, 0.06);
   border-radius: 15px;
@@ -419,9 +383,8 @@ body .ant-tooltip {
     padding: 18px 30px 20px;
   }
 
-  // left: calc(33.33% - 10px);
-  .ant-tabs-top>.ant-tabs-nav::before,
-  .ant-tabs-top>div>.ant-tabs-nav::before {
+  .ant-tabs-top > .ant-tabs-nav::before,
+  .ant-tabs-top > div > .ant-tabs-nav::before {
     border: none;
   }
 
@@ -451,9 +414,7 @@ body .ant-tooltip {
   .ant-input-affix-wrapper {
     border: 1px solid #3d56d6;
     box-sizing: border-box;
-    // filter: drop-shadow(0px 20px 40px rgba(148, 148, 148, 0.0605605));
     border-radius: 10px;
-    // border-radius: 0;
     height: 50px;
     line-height: 50px;
     margin: 4px 0 2px;
@@ -539,10 +500,6 @@ body .ant-tooltip {
       animation: spin 2s infinite linear;
       cursor: pointer;
     }
-
-    &.mt {
-      // margin-top: 15px;
-    }
   }
 
   .max {
@@ -600,7 +557,6 @@ body .ant-tooltip {
         line-height: 18px;
         transform: scale(0.83);
         text-align: left;
-        // word-break: break-all;
       }
 
       span.red {
@@ -644,110 +600,6 @@ body .ant-tooltip {
   }
 }
 
-@keyframes spin {
-  0% {
-    transform: scaleX(1);
-  }
-
-  25% {
-    transform: scaleX(0);
-  }
-
-  50% {
-    transform: scaleX(-1);
-  }
-
-  75% {
-    transform: scaleX(0);
-  }
-
-  100% {
-    transform: scaleX(1);
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .lend-card {
-    width: 90%;
-    margin: 20px 0 0px;
-    height: auto;
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    .lendcard-countdown {
-      position: static;
-      margin-top: 20px;
-
-      &.abs {
-        position: static;
-        width: 100%;
-        margin-top: 20px;
-      }
-    }
-  }
-
-  .lend-card .lend-header .lend-header-left .token-logo {
-    width: 10vw;
-    height: 10vw;
-  }
-
-  .lend-card .lend-header .lend-logo {
-
-    .min-lend,
-    .min-sunold {
-      width: 4.5vw;
-    }
-  }
-
-  .lend-card .lend-header .lend-header-left .title {
-    font-size: 18px;
-  }
-
-  .lend-card .lend-header .lend-header-left .tip {
-    font-size: 12px;
-    transform: scale(0.83);
-    margin-left: -9%;
-    text-align: left;
-    width: 119%;
-  }
-
-  .lend-card .lend-info {
-    margin-top: 10px;
-  }
-
-  .pool-container .prefecture-lend-title {
-    margin-top: 10px;
-  }
-
-  .lend-card .lend-footer {
-    position: static;
-    margin-top: 30px;
-    width: 100%;
-
-    button {
-      width: 100%;
-    }
-  }
-
-  // mobile lend card end
-
-  // mobile lend modal start
-  .ant-modal.lend-modal {
-    width: 90% !important;
-  }
-
-  // .ant-modal.lend-modal .lend-modal-bottom .tip {
-  //   width: 120%;
-  //   margin-left: -10%;
-  // }
-
-  .ant-modal.lend-modal .ant-tabs-tab:first-child {
-    margin-right: 0px;
-  }
-}
-
 .claim-detail {
   margin-top: 2px;
   padding: 10px 14px;
@@ -767,7 +619,7 @@ body .ant-tooltip {
     color: #999;
     margin-bottom: 10px;
 
-    >span {
+    > span {
       display: inline-block;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -792,9 +644,8 @@ body .ant-tooltip {
         align-items: center;
       }
 
-      >img {
+      > img {
         position: relative;
-        // top: -1px;
         margin-left: 3px;
       }
     }
@@ -809,7 +660,7 @@ body .ant-tooltip {
       margin-bottom: 0;
     }
 
-    >div {
+    > div {
       display: inline-block;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -830,7 +681,7 @@ body .ant-tooltip {
         text-align: right;
       }
 
-      >img {
+      > img {
         width: 18px;
         margin-right: 10px;
       }
@@ -945,7 +796,7 @@ body .ant-tooltip {
       }
 
       .title {
-        >div {
+        > div {
           text-align: left;
 
           &:nth-child(1) {
@@ -957,7 +808,7 @@ body .ant-tooltip {
           }
 
           &:nth-child(2) {
-            >span {
+            > span {
               font-family: PingFang SC;
               font-size: 12px;
               line-height: 17px;
@@ -966,7 +817,7 @@ body .ant-tooltip {
               word-break: keep-all;
               white-space: nowrap;
 
-              >b {
+              > b {
                 display: inline-block;
                 min-width: 26px;
                 height: 20px;
@@ -1002,7 +853,6 @@ body .ant-tooltip {
 
       .swap-apy,
       .lend-apy {
-        // width: 100px;
         text-align: right;
 
         .apy {
@@ -1023,7 +873,7 @@ body .ant-tooltip {
           white-space: nowrap;
         }
 
-        >div {
+        > div {
           &:nth-child(1) {
             font-family: PingFang SC;
             font-size: 12px;
@@ -1055,7 +905,7 @@ body .ant-tooltip {
       border-radius: 10px;
       margin-bottom: 14px;
 
-      >span {
+      > span {
         font-family: PingFang SC;
         font-size: 12px;
         color: #1a1a1a;
@@ -1106,20 +956,20 @@ body .ant-tooltip {
       .container-title {
         align-items: center;
 
-        >span {
+        > span {
           font-family: PingFang SC;
           font-size: 12px;
           line-height: 17px;
           color: #1a1a1a;
 
-          >span {
+          > span {
             font-size: 12px;
             color: rgba(153, 153, 153, 0.6);
             margin-left: 6px;
           }
         }
 
-        >img {
+        > img {
           width: 30px;
         }
       }
@@ -1182,7 +1032,7 @@ body .ant-tooltip {
       font-size: 12px;
       color: #1a1a1a;
 
-      >div {
+      > div {
         margin-bottom: 8px;
 
         &:last-child {
@@ -1238,7 +1088,7 @@ body .ant-tooltip {
         border-radius: 10px;
         cursor: pointer;
 
-        >button {
+        > button {
           width: 100%;
           height: 100%;
           font-family: PingFang SC;
@@ -1299,7 +1149,7 @@ body .ant-tooltip {
 
     .header {
       .title {
-        >div:nth-child(1) {
+        > div:nth-child(1) {
           font-size: 20px;
           margin-top: 4px;
         }
@@ -1333,11 +1183,11 @@ body .ant-tooltip {
       margin: 10px auto 0px;
       padding: 14px 20px;
 
-      >div {
+      > div {
         display: block !important;
         text-align: left;
 
-        >div {
+        > div {
           font-family: HelveticaNeue;
           font-size: 10px;
           color: #666666;
@@ -1358,7 +1208,7 @@ body .ant-tooltip {
             display: flex;
             justify-content: space-between;
 
-            >span {
+            > span {
               &:nth-child(2) {
                 font-family: HelveticaNeue;
                 font-size: 12px;
@@ -1415,140 +1265,4 @@ body .ant-tooltip {
 
 .ant-tabs {
   overflow: visible;
-}
-
-.ellipsis {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-@media screen and (max-width: 1200px) {
-  .multiple-claimed-cards .multiple-claimed-card {
-    width: calc((100% - 40px) / 2);
-
-    &:nth-child(3n) {
-      margin-right: 30px;
-    }
-
-    &:nth-child(2n) {
-      margin-right: 0;
-    }
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .multiple-claimed-cards .multiple-claimed-card {
-    width: 100%;
-    padding: 20px 10px;
-
-    &.light-shadow::after {
-      width: calc(100vw);
-      background-size: 100% 92%;
-      left: -20px;
-    }
-
-    .container .gift-list .gift-item {
-      width: calc(50% - 4px);
-    }
-  }
-
-  .out-date {
-    .multiple-claimed-card {
-      width: 90% !important;
-      margin: 20px auto 0 !important;
-      padding: 20px;
-    }
-  }
-
-  .intro .intro-tag {
-    letter-spacing: 2px;
-    margin-top: 15px;
-    height: 23px;
-    font-size: 12px;
-    line-height: 23px;
-    padding: 0 14px;
-    font-weight: 400;
-  }
-
-  .intro .banner-mobile {
-    .banner-icon {
-      height: 48px;
-      width: 48px;
-      margin: 0 auto;
-    }
-
-    .frs-title {
-      position: absolute;
-      font-size: 32px;
-      top: 12px;
-      left: 0;
-      right: 0;
-    }
-
-    .title-en {
-      font-size: 17px;
-    }
-
-    .title1 {
-      left: -193px;
-    }
-
-    .title1.title-en {
-      left: -165px;
-    }
-
-    .title2 {
-      right: -195px;
-    }
-
-    .title2.title-en {
-      right: -195px;
-    }
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .sunold-container .intro {
-    height: 280px;
-  }
-
-  .sunold-page-mobile .intro {
-    margin-bottom: 30px;
-    height: 370px;
-  }
-
-  .sunold-container .intro-old {
-    height: auto;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .multiple-claimed-cards .multiple-claimed-card .header .img-block img {
-    width: 30px;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .lend-card .lend-header .lend-header-left .tip {
-    font-size: 12px;
-    margin-top: 2px;
-  }
-}
-
-@media screen and (min-width: 1920px) {
-  .lend-card .lend-header .lend-header-left .tip {
-    margin-top: 10px;
-  }
-
-  .lend-card .lend-header .lend-logo .min-times {
-    width: 7px;
-    margin: 0 5px;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  body .ant-tooltip {
-    max-width: 320px;
-  }
 }

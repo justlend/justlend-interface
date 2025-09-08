@@ -1,0 +1,364 @@
+.season-toolbar {
+  background: rgba(245, 135, 33, 0.1);
+  backdrop-filter: blur(50px);
+  min-height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 7px;
+  &::before {
+    content: '';
+    display: inline-flex;
+    width: 12px;
+    min-width: 12px;
+    height: 12px;
+    background: url(../images/season/ex_mark_black.svg) no-repeat;
+    margin-right: 6px;
+    opacity: 0.5;
+  }
+}
+.j-wrapper.white .season-toolbar {
+  background: rgba(245, 135, 33, 0.06);
+  color: #f58721;
+  &::before {
+    content: '';
+    display: inline-flex;
+    width: 12px;
+    min-width: 12px;
+    height: 12px;
+    background: url(../images/season/ex_mark_white.svg) no-repeat;
+    margin-right: 6px;
+    opacity: 1;
+  }
+}
+
+.ant-tooltip.j-tooltip-dropdown.season .ant-tooltip-inner,
+.ant-tooltip.season .ant-tooltip-arrow-content {
+  background: #413a39;
+  color: #fff;
+}
+.ant-tooltip.j-tooltip-dropdown.season .ant-tooltip-inner {
+  background: #413a39 url(../images/season/ex_mark_black.svg) 12px no-repeat;
+  padding: 12px 12px 12px 30px;
+}
+
+.ant-tooltip.j-tooltip-dropdown.season.white .ant-tooltip-inner,
+.ant-tooltip.season.white .ant-tooltip-arrow-content {
+  background: #fef3e9;
+  color: #22232b;
+  box-shadow: none;
+}
+.ant-tooltip.j-tooltip-dropdown.season.white .ant-tooltip-inner {
+  background: #fef3e9 url(../images/season/ex_mark_white.svg) 12px no-repeat;
+}
+
+.ant-tooltip.j-tooltip-dropdown.markey-detail-tooltip.season {
+  .ant-tooltip-inner span {
+    font-weight: 400;
+    font-size: 12px;
+    font-family: 'Avenir Next', 'PingFang SC', 'Rubik', 'Roboto', 'sans-serif';
+  }
+}
+
+.ant-tooltip.j-tooltip-dropdown.markey-detail-tooltip.white.season {
+  .ant-tooltip-inner span {
+    color: #22232b;
+  }
+}
+
+body .ant-tooltip.j-tooltip-dropdown.season-l,
+.j-tooltip-dropdown.season-l {
+  max-width: unset;
+  width: 100%;
+}
+.ant-tooltip.j-tooltip-dropdown.season.season-l .ant-tooltip-inner,
+.ant-tooltip.season.season-l .ant-tooltip-arrow-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: break-spaces;
+}
+.ant-tooltip.j-tooltip-dropdown.season-l .ant-tooltip-inner {
+  background: #413a39 no-repeat;
+  padding: 12px;
+  &::before {
+    content: '';
+    display: inline-flex;
+    width: 12px;
+    min-width: 12px;
+    height: 12px;
+    background: #413a39 url(../images/season/ex_mark_black.svg) no-repeat;
+    margin-right: 6px;
+  }
+  .not-used-icon {
+    display: none;
+  }
+}
+.ant-tooltip.j-tooltip-dropdown.season-l.white .ant-tooltip-inner {
+  background: #fef3e9 no-repeat;
+  &::before {
+    background: #fef3e9 url(../images/season/ex_mark_white.svg) no-repeat;
+  }
+}
+.vote-container .right-panel .my-vote-container .my-vote-btn {
+  position: relative;
+}
+
+.j-wrapper {
+  .season_default_btn {
+    background: #53545a;
+    border-radius: 5px;
+    color: rgba($color: #ffffff, $alpha: 0.6);
+    &:hover {
+      background: #424348;
+      color: rgba($color: #ffffff, $alpha: 0.3);
+    }
+    &.no_hover:hover {
+      background: #53545a;
+      color: rgba($color: #ffffff, $alpha: 0.6);
+    }
+  }
+  .season_outlined_btn {
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid var(--color-hover, #9195fb);
+    color: #9195fb;
+  }
+
+  .account-gauge .canvas-text.season {
+    height: unset;
+  }
+  .j-market-list .stake-tip.usdt {
+    display: none;
+  }
+  .j-market-list .show-stake .stake-tip.season {
+    border-radius: 2px;
+    background: #53545a;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    &:hover {
+      background: #424348;
+      color: rgba(255, 255, 255, 0.3);
+    }
+  }
+  .j-market-list .btn-wrap.season {
+    .j-btn.j-not-used.disabled:hover,
+    .j-btn:hover {
+      cursor: pointer;
+      border: 1px solid #424348;
+      background: #424348;
+      color: rgba(255, 255, 255, 0.3);
+    }
+  }
+  .market-d .j-btn.j-not-used.disabled:hover {
+    cursor: pointer;
+    background: #424348;
+    color: rgba(255, 255, 255, 0.3);
+    border: 1px solid #424348;
+  }
+
+  .j-liquidity-stake-content .stake-box .j-large-btn.season {
+    background: #53545a;
+    color: rgba(255, 255, 255, 0.6);
+    &:hover {
+      background: #424348;
+      color: rgba(255, 255, 255, 0.3);
+    }
+  }
+  .vote-container .right-panel .my-vote-container .my-vote-btn.season {
+    background: #53545a;
+    color: rgba(255, 255, 255, 0.6);
+    &:hover {
+      background: #424348;
+      color: rgba(255, 255, 255, 0.3);
+    }
+  }
+  .vote-detail .connect-wallet-hint-bar .bar-action-btn.season {
+    background: #53545a;
+    color: rgba(255, 255, 255, 0.6);
+    &:hover {
+      background: #424348;
+      color: rgba(255, 255, 255, 0.3);
+    }
+  }
+  .ant-btn.j-large-btn.j-supply.disabled.season,
+  .ant-btn.j-large-btn.j-repay.disabled.season,
+  .ant-btn.j-large-btn.j-borrow.disabled.season,
+  .ant-btn.j-large-btn.j-withdraw.disabled.season {
+    background: #53545a !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    &:hover {
+      background: #424348 !important;
+      color: rgba(255, 255, 255, 0.3) !important;
+    }
+  }
+}
+#root .j-wrapper .j-large-btn.j-supply.gas-less-btn.season .j-tooltip-dropdown.season-l {
+  width: calc(100% - 60px);
+}
+#root .j-wrapper .j-large-btn.j-supply.gas-less-btn.season {
+  background: #53545a;
+  color: rgba(255, 255, 255, 0.6);
+  &:hover {
+    background: #424348;
+    color: rgba(255, 255, 255, 0.3);
+  }
+}
+#root .j-wrapper .energy-max.season {
+  background: #53545a;
+  color: rgba(255, 255, 255, 0.6);
+  &:hover {
+    background: #424348;
+    color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.j-wrapper.white {
+  .season_default_btn {
+    background: #d3d3d5;
+    color: rgba($color: #ffffff, $alpha: 1);
+    &:hover {
+      background: #bebec0;
+      color: rgba($color: #ffffff, $alpha: 0.6);
+    }
+    &.no_hover:hover {
+      background: #d3d3d5;
+      color: rgba($color: #ffffff, $alpha: 1);
+    }
+  }
+  .season_outlined_btn {
+    border: 1px solid var(--color-hover, #4d54ff);
+    color: #4d54ff;
+  }
+
+  .j-market-list .show-stake .stake-tip.season {
+    border-radius: 2px;
+    color: rgba(255, 255, 255, 1);
+    background: #d3d3d5;
+    &:hover {
+      background: #bebec0;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  .j-market-list .btn-wrap.season {
+    .j-btn.j-not-used.disabled:hover,
+    .j-btn.j-supply:disabled,
+    .j-btn.j-supply:disabled:hover,
+    .j-btn:hover {
+      border: 1px solid #bebec0 !important;
+      background: #bebec0 !important;
+      color: rgba(255, 255, 255, 0.6) !important;
+    }
+  }
+  .market-d .j-btn.j-not-used.disabled:hover {
+    cursor: pointer !important;
+    background: #bebec0 !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+  .j-liquidity-stake-content .stake-box .j-large-btn.season {
+    border: 1px solid #d3d3d5;
+    background: #d3d3d5;
+    color: rgba(255, 255, 255, 1);
+    &:hover {
+      border: 1px solid #bebec0;
+      background: #bebec0;
+      opacity: 1;
+      color: rgba(255, 255, 255, 0.6) !important;
+    }
+  }
+  .vote-container .right-panel .my-vote-container .my-vote-btn.season {
+    color: rgba(255, 255, 255, 1);
+    background: #d3d3d5;
+    &:hover {
+      background: #bebec0;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+  .vote-detail .connect-wallet-hint-bar .bar-action-btn.season {
+    color: rgba(255, 255, 255, 1);
+    background: #d3d3d5;
+    &:hover {
+      background: #bebec0;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+  .ant-btn.j-large-btn.j-supply.disabled.season,
+  .ant-btn.j-large-btn.j-borrow.disabled.season,
+  .ant-btn.j-large-btn.j-repay.disabled.season,
+  .ant-btn.j-large-btn.j-withdraw.disabled.season {
+    color: rgba(255, 255, 255, 1) !important;
+    background: #d3d3d5 !important;
+    border: none;
+    &:hover {
+      opacity: 1;
+      background: #bebec0 !important;
+      color: rgba(255, 255, 255, 0.6) !important;
+    }
+  }
+}
+#root .j-wrapper.white .j-large-btn.j-supply.gas-less-btn.season {
+  border: 1px solid #d3d3d5;
+  background: #d3d3d5;
+  color: rgba(255, 255, 255, 1);
+  &:hover {
+    border: 1px solid #bebec0;
+    background: #bebec0;
+    opacity: 1;
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+}
+#root .j-wrapper.white .energy-max.season {
+  color: #fff;
+  background: #d3d3d5;
+  &:hover {
+    background: #bebec0;
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+}
+@media screen and (max-width: 798px) {
+  body .ant-tooltip.j-tooltip-dropdown.season-l,
+  .j-tooltip-dropdown.season-l {
+    max-width: unset !important;
+  }
+  .ant-tooltip.j-tooltip-dropdown.season .ant-tooltip-inner,
+  .ant-tooltip.season .ant-tooltip-arrow-content {
+    display: none;
+  }
+  .ant-tooltip.j-tooltip-dropdown.defaultOpen.season .ant-tooltip-inner,
+  .ant-tooltip.defaultOpen.season .ant-tooltip-arrow-content {
+    display: block !important;
+  }
+  .ant-tooltip.j-tooltip-dropdown.defaultOpen.season {
+    transform: translateX(-50%);
+    left: 50%;
+    margin-top: 5px;
+    .ant-tooltip-arrow {
+      transform: translateY(1px);
+    }
+  }
+  .season-toolbar {
+    padding: 5px 15px;
+    min-height: 58px;
+  }
+  .market-summary-list .market-cards .market-card .stake-tip.usdt {
+    display: none;
+  }
+  .j-wrapper .market-summary-list .market-cards .market-card .stake-tip {
+    border-radius: 2px;
+  }
+  .j-wrapper .market-summary-list .market-cards .market-card .stake-tip.season {
+    background: #53545a;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .j-wrapper.white .market-summary-list .market-cards .market-card .stake-tip.season {
+    background: #d3d3d5;
+    color: rgba(255, 255, 255, 1);
+  }
+}

@@ -2,16 +2,21 @@
   .ant-modal {
     text-align: center;
     .ant-modal-body {
-      min-height: 280px;
+      min-height: 270px;
     }
     .ant-modal-title {
-      font-family: Roboto;
+      font-family: 'Rubik';
       font-style: normal;
-      font-weight: 500;
+      font-weight: 400;
       font-size: 16px;
       img {
         width: 24px;
         margin-right: 8px;
+        vertical-align: top;
+      }
+      div {
+        font-size: 16px;
+        line-height: 24px;
       }
     }
     .ant-modal-header {
@@ -42,7 +47,7 @@
         }
         .approve-tip {
           margin: 0 auto;
-          // margin-bottom: 20px;
+          margin-bottom: 40px;
           // border-bottom: 1px solid #ccc;
           // padding-bottom: 40px;
           > span {
@@ -77,7 +82,7 @@
           width: 8px;
           height: 8px;
           border-radius: 6px;
-          background: #fff;
+          background: #0f134f;
           margin: 0 6px;
           &:nth-child(1) {
             opacity: 1;
@@ -98,8 +103,12 @@
       .ant-modal-header {
         padding: 20px 24px;
       }
+      .ant-modal-body {
+        padding: 0 20px 20px;
+      }
       .mortgage-modal-body {
         .borrow-using {
+          text-align: center;
           img {
             display: block;
             width: 20%;
@@ -117,11 +126,11 @@
             line-height: 40px;
             padding: 0;
             font-size: 14px;
-            color: #fff;
+            // color: #fff;
             text-align: center;
-            border: none;
+            // border: none;
             border-radius: 8px;
-            background: #3d56d6;
+            // background: #3d56d6;
           }
         }
 
@@ -133,7 +142,7 @@
           line-height: 24px;
           /* or 171% */
           text-align: center;
-          color: #84869e;
+          color: #0f134f;
         }
         .content {
           text-align: left;
@@ -156,7 +165,7 @@
           }
         }
         .r2 {
-          margin-top: 16px;
+          margin-top: 6px;
         }
         .morgate-btn {
           cursor: pointer;
@@ -167,7 +176,7 @@
           line-height: 40px;
           font-family: PingFang SC;
           font-style: normal;
-          font-weight: 500;
+          font-weight: 400;
           font-size: 14px;
           text-align: center;
           color: #ffffff;
@@ -204,6 +213,9 @@
         margin: 20px 0 10px;
         color: #84869e;
         font-size: 12px;
+        text-align: left;
+        color: #ff8718;
+        display: flex;
         span {
           display: inline-block;
           width: 18px;
@@ -215,6 +227,8 @@
           line-height: 18px;
           font-size: 12px;
           margin-right: 5px;
+          background: url(../images/modalWarning.svg) no-repeat center;
+          vertical-align: top;
         }
       }
     }
@@ -240,6 +254,19 @@
       }
     }
   }
+  .ant-modal.j-modal {
+    .ant-modal-header {
+      padding: 0;
+      border-radius: 8px 8px 0 0;
+    }
+    .ant-modal-body {
+      border-radius: 0 0 8px 8px;
+    }
+  }
+}
+
+.ant-modal.trans-modal {
+  z-index: 2222;
 }
 
 .ant-modal.trans-modal,
@@ -274,6 +301,71 @@
 .login-modal {
   span.point {
     background-color: #fff;
+  }
+}
+
+.safe-input {
+  position: relative;
+  .safe-tip {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: absolute;
+    bottom: -58px;
+    z-index: 1;
+    width: 100%;
+    padding: 10px 22px 10px 12px;
+    background: #ffffff;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    > div {
+      text-align: left;
+      > span {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+        color: #ee790d;
+      }
+    }
+    > img {
+      width: 16px !important;
+      height: 14px;
+      margin: 0 10px 0 0 !important;
+      position: relative;
+      top: 4px;
+    }
+    .safe-fee {
+      font-family: 'PingFang SC';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 17px;
+      color: #3d56d6;
+      cursor: pointer;
+    }
+  }
+}
+
+.network-error-modal {
+  .network-error {
+    padding: 50px 0;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #5a5e89;
+  }
+  button {
+    display: block;
+    width: calc(100% - 48px);
+    background: #3d56d6 !important;
+    margin: 0 auto;
+    &:hover {
+      background: rgba(61, 86, 214, 0.9) !important;
+    }
   }
 }
 
@@ -338,6 +430,51 @@
   }
 }
 
+.mr-4 {
+  margin-right: 4px;
+}
+
+.aic {
+  align-items: center;
+}
+
+@media screen and (max-width: 798px) {
+  .ant-modal.j-reward-modal {
+    top: 80px;
+    &.j-allowance-modal {
+      top: 50px;
+      margin-bottom: 80px;
+    }
+  }
+  .j-rewards.j-allowance .rewards-lists {
+    // height: 176px;
+  }
+  .j-rewards {
+    .rewards-icon {
+      width: 50px;
+      height: 50px;
+    }
+    .rewards-lists {
+      .rewards-list-top {
+        padding: 15px 10px;
+      }
+      .rewards-list-title {
+        padding: 20px 10px 16px;
+      }
+      .rewards-list-content {
+        padding: 0 10px;
+      }
+    }
+    &.j-allowance {
+      .rewards-lists .rewards-list-top {
+        padding: 10px 10px;
+      }
+    }
+  }
+  .j-mining-reward .j-top {
+    padding-bottom: 10px;
+  }
+}
 @media screen and (max-width: 374px) {
   .main .ant-modal.mortgage-modal .ant-modal-header {
     padding: 20px 2px;

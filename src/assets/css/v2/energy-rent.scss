@@ -1,0 +1,2490 @@
+.j-stake-container {
+  // width: 90%;
+  // max-width: 1440px;
+  // margin: 0 auto;
+  > div {
+    width: 90%;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  // .j-liquidity-stake {
+  //   width: 100%;
+  // }
+  .j-input .ant-input-group-addon {
+    padding: 0 20px;
+  }
+  .market-data-section.column .data-wrap {
+    flex-direction: column;
+  }
+}
+
+.fw600 {
+  font-weight: 600;
+}
+
+.rent-unit {
+  font-size: 16px;
+}
+
+div.energy-consumed {
+  .j-tooltip-icon {
+    transform: translateY(-1px) !important;
+  }
+}
+
+// .learn-more-btn {
+//   margin-left: 4px;
+// }
+
+.energy-max {
+  font-weight: 400;
+  font-size: 12px;
+  color: #fff;
+  padding-right: 20px;
+  margin-left: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  background: #313239;
+  padding: 4px 6px;
+
+  &:hover {
+    color: #9195fb;
+  }
+}
+
+.equal-alike {
+  position: relative;
+  top: -6px;
+  display: inline-block;
+  width: 14px;
+  margin-right: 3px;
+  font-size: 20px;
+  line-height: 55px;
+  color: #ffffff;
+}
+
+.equal-alike-a {
+  font-family: Avenir Next;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 27px;
+  color: #fff;
+  margin-right: 6px;
+}
+
+.j-time-tips {
+  padding: 0 20px;
+}
+.j-time-tips,
+.j-time-tips > span {
+  font-size: 12px;
+  line-height: 17px;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 10px;
+}
+
+.energy-infos {
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 5px;
+}
+
+.ml-18 {
+  margin-left: 18px;
+}
+
+.j-gas-fee {
+  display: inline-block;
+  width: 78px;
+  height: 18px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  color: #1f2027;
+  transform: scale(0.85);
+  text-align: center;
+  position: relative;
+  white-space: nowrap;
+  &::after {
+    content: '';
+    display: block;
+    width: 78px;
+    height: 18px;
+    background: url(../../images/v2/energy-rent/gas-fee-bg.svg) 0 0 no-repeat;
+    background-size: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transform: scale(1.2);
+  }
+}
+
+.energy-used-ignore {
+  font-family: 'Avenir Next';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  // color: rgba(255, 255, 255, 0.6);
+  color: #aeafb2;
+  background: url(../../images/v2/energy-rent/ignore.svg) 0 0 no-repeat;
+  background-size: cover;
+}
+
+.energy-used {
+  font-size: 12px;
+  color: #ffffff;
+  margin-left: 4px;
+}
+
+.energy-used-unit {
+  font-weight: 500;
+  font-size: 12px;
+  color: #ffffff;
+  margin-left: 4px;
+}
+
+// .energy-used,
+// .energy-used-ignore {
+//   transform: translateY(-2px);
+// }
+
+#root .energy-infos-new {
+  padding: 12px 20px;
+  .energy-info {
+    margin-bottom: 0;
+    line-height: 17px;
+    .info-subtitle {
+      font-size: 12px;
+      span {
+        font-size: 12px;
+      }
+    }
+    .pay-amount-sub {
+      line-height: 17px;
+      &.dashed {
+        border-bottom: 1px dashed #fff;
+        &:hover {
+          color: #9195fb;
+          border-bottom: 1px dashed #9195fb;
+        }
+      }
+      span {
+        font-size: 12px;
+      }
+    }
+    &:not(:first-child) {
+      margin-top: 11px;
+    }
+  }
+  .j-tooltip-icon {
+    transform: translateY(2px);
+  }
+}
+
+.j-energy-rent {
+  .ant-input-group.ant-input-group-compact > * {
+    &:first-child {
+      margin-right: 0;
+    }
+    &:nth-child(2) {
+      margin-right: -1px;
+    }
+  }
+  .j-tooltip-icon {
+    // transform: translateY(-1px);
+  }
+  .j-exchange-icon {
+    margin-left: 6px;
+    margin-top: -3px;
+  }
+  .top-header {
+    .desc {
+      .learn-more {
+        em {
+          display: inline-block;
+          width: 7px;
+          height: 20px;
+          margin-left: 4px;
+          background: url(../../images/v2/liquidity-stake/unlock-arrow.svg) no-repeat center;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+}
+
+.j-eles {
+  display: flex;
+  > div {
+    width: 50%;
+    color: #fff;
+    border-radius: 10px;
+    position: relative;
+
+    &:first-child {
+      margin-right: 20px;
+      border-radius: 10px;
+      // background: linear-gradient(18deg, rgba(83, 239, 222, 0.00) 69.54%, rgba(83, 239, 222, 0.00) 81.37%, rgba(83, 239, 222, 0.07) 87.89%, rgba(83, 239, 222, 0.20) 93.83%, rgba(63, 255, 216, 0.50) 101.85%);
+      // mix-blend-mode: exclusion;
+      background: url(../../images/v2/energy-rent/energy-bg.svg) no-repeat center #31333a;
+      background-size: cover;
+    }
+    &:last-child {
+      background: url(../../images/v2/energy-rent/energy-form-bg.png) no-repeat center #31333a;
+      background-size: cover;
+    }
+  }
+}
+
+.my-rent-info {
+  padding: 30px 30px 40px 30px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &.pt40 {
+    padding-top: 40px;
+  }
+  .rent-info-icon {
+    width: 155px;
+    height: 168px;
+    background: url(../../images/v2/energy-rent/energy-icon.svg) 0 0 no-repeat;
+    background-size: cover;
+  }
+  .rent-top-bg {
+    position: absolute;
+    width: 561px;
+    height: 150px;
+    background: url(../../images/v2/energy-rent/mining/energy-bg-top.png) 0 0 no-repeat;
+    background-size: cover;
+    top: -56px;
+    left: -14px;
+    pointer-events: none;
+
+    &.en {
+      background: url(../../images/v2/energy-rent/mining/energy-bg-top-en.png) 0 0 no-repeat;
+      background-size: cover;
+    }
+
+    &.tc {
+      background: url(../../images/v2/energy-rent/mining/energy-bg-top-tc.png) 0 0 no-repeat;
+      background-size: cover;
+    }
+  }
+  .rent-info-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 10px;
+    // margin-top: 40px;
+  }
+
+  .rent-info-content {
+    margin-top: 12px;
+    .rent-info-title {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      color: #ffffff;
+      height: 20px;
+      margin-bottom: 8px;
+
+      span {
+        display: inline-block;
+        background: #4c54ff;
+        border-radius: 2px;
+        padding: 0 6px;
+        font-weight: 400;
+        font-size: 12px;
+        margin-left: 6px;
+        color: #b8ec72;
+      }
+    }
+  }
+
+  .wallet-connect {
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid rgba(145, 149, 251, 0.8);
+    border-radius: 2px;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    color: #9195fb;
+    margin-top: 50px;
+    cursor: pointer;
+    &.hide {
+      visibility: hidden;
+    }
+  }
+  &.login .energy-info {
+    background-image: none;
+    padding: 20px 20px;
+    // margin-top: 35px;
+  }
+  .energy-info {
+    padding: 26px 20px;
+    background: #393b42;
+    margin-top: 10px;
+    border-radius: 10px;
+
+    &.not-login-info {
+      background-image: url(../../images/v2/energy-rent/energy-icon-grey-bg.svg);
+      background-repeat: no-repeat;
+      background-position: right bottom;
+      margin-top: 76px;
+    }
+
+    &.not-login-info.unclaim {
+      margin-top: 10px;
+    }
+
+    .energy-info-top {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #ffffff;
+    }
+    .energy-info-content {
+      display: flex;
+      // justify-content: space-between;
+      margin-top: 26px;
+      &.login {
+        margin-top: 20px;
+
+        .title {
+          margin-top: 0;
+        }
+      }
+      > div {
+        &:nth-child(1) {
+          margin-right: 10px;
+        }
+        &:nth-child(3) {
+          width: 25%;
+        }
+        > div {
+          &:first-child {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 17px;
+            color: #ffffff;
+          }
+
+          &.title,
+          &.title > .title-top {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 17px;
+            color: #ffffff;
+            margin-top: 10px;
+            > span {
+              font-weight: 400;
+              font-size: 14px;
+              margin-left: 4px;
+            }
+          }
+          &.title > .title-top {
+            line-height: 18px;
+            margin-top: 0;
+            margin-left: 0;
+          }
+          &.value {
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 27px;
+            color: #ffffff;
+            margin-top: 10px;
+            > span {
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 22px;
+              color: #ffffff;
+              margin-left: 5px;
+            }
+          }
+
+          &.item-return {
+            margin-top: 6px;
+            .value-return {
+              margin-left: 0;
+              color: #fff;
+              font-size: 18px;
+              font-style: normal;
+              font-weight: 600;
+              line-height: normal;
+              border-bottom: 1px dashed #fff;
+
+              &:hover {
+                color: #9195fb !important;
+                border-bottom: 1px dashed #9195fb;
+              }
+            }
+            .value-symbol {
+              color: var(--color, #fff);
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+              margin-left: 5px;
+            }
+          }
+
+          &.subsidy {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 17px;
+            color: #b8ec72;
+            margin-top: 3px;
+            > span {
+              transform: translateY(2px);
+            }
+          }
+        }
+      }
+      .vertical-line {
+        margin: 0 6px;
+      }
+    }
+    .rent-left {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      // margin-top: 15px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .rent-left-label {
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      cursor: pointer;
+      height: 17px;
+      line-height: 17px;
+    }
+    .rent-left-time,
+    .rent-left-time > span {
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 22px;
+      height: 22px;
+      color: #fff;
+      margin-top: 6px;
+    }
+    .rent-left-time .rent-left-wavyline {
+      font-size: 12px;
+      font-weight: normal;
+      vertical-align: middle;
+    }
+    .rent-back {
+      min-width: 70px;
+      padding: 4px 27px;
+      line-height: 20px;
+      text-align: center;
+      border: 1px solid rgba(145, 149, 251, 0.8);
+      border-radius: 2px;
+      cursor: pointer;
+      background: transparent;
+      span {
+        font-weight: 500;
+        font-size: 12px;
+        color: #9195fb;
+      }
+      &:hover {
+        background: #4c54ff;
+        border: 1px solid #4c54ff;
+        span {
+          color: #fff !important;
+        }
+      }
+    }
+  }
+  .need-stake {
+    width: 50%;
+  }
+  .need-stake,
+  .need-burn {
+    > div {
+      margin-top: 10px;
+      &:first-child {
+        width: 24px;
+        height: 24px;
+        background: url(../../images/v2/energy-rent/need-stake-icon.svg) 0 0 no-repeat;
+        // background: url(../../images/v2/energy-rent/mining/m-need-stake-icon.png) 0 0 no-repeat;
+        background-size: 100%;
+        margin-top: 0;
+      }
+      &:nth-child(2) {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 17px;
+        color: #ffffff;
+      }
+      &:nth-child(3) {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 28px;
+        color: #ffffff;
+        > span {
+          font-family: 'Avenir Next';
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 22px;
+          margin-left: 6px;
+        }
+      }
+    }
+  }
+  .need-burn {
+    > div:first-child {
+      background-image: url(../../images/v2/energy-rent/need-burn-icon.svg);
+      // background-image: url(../../images/v2/energy-rent/mining/m-need-burn-icon.png);
+    }
+  }
+  .rent-energy-amount {
+    height: 55px;
+    .rent-amount {
+      font-weight: 700;
+      font-size: 35px;
+      line-height: 48px;
+      color: #ffffff;
+    }
+    .rent-unit {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 25px;
+      color: #ffffff;
+      margin-left: 5px;
+    }
+    &.not-login {
+      .rent-amount:hover {
+        color: #9195fb;
+        border-bottom-color: #9195fb;
+      }
+    }
+  }
+  .rent-energy-price {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: rgba(255, 255, 255, 0.6);
+
+    .j-tooltip-icon {
+      transform: translateY(2px);
+    }
+  }
+  .rent-delegate-amount {
+    line-height: 17px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 10px;
+
+    span {
+      font-size: 12px;
+    }
+  }
+}
+
+#root .rent-form {
+  position: relative;
+  background: #31333a;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+
+  .j-input {
+    height: 60px;
+    .ant-input {
+      font-weight: 600;
+      font-size: 20px;
+      color: #ffffff;
+    }
+    .ant-input-group-addon::after {
+      display: none;
+    }
+    .ant-input-group-addon > span {
+      font-size: 14px;
+    }
+
+    ::-webkit-input-placeholder {
+      font-weight: 500;
+      font-size: 16px;
+      color: #ffffff;
+      opacity: 0.4;
+    }
+  }
+  .rent-form-tabs {
+    padding: 26px 30px 17px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+    > span {
+      display: inline-block;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 25px;
+      color: #ffffff;
+      position: relative;
+      cursor: pointer;
+      opacity: 0.4;
+      &.current {
+        opacity: 1;
+        font-weight: 600;
+        &::after {
+          content: '';
+          display: block;
+          width: 100%;
+          height: 2px;
+          background: #4c54ff;
+          border-radius: 1px;
+          transform: matrix(1, 0, 0, -1, 0, 0);
+          position: absolute;
+          bottom: -18px;
+        }
+      }
+      &:first-child {
+        margin-right: 40px;
+      }
+      &.single-tab {
+        cursor: default;
+        opacity: 1;
+
+        span {
+          display: inline-block;
+          background: url(../../images/v2/energy-rent/mining/jst-subsidy.png) no-repeat center;
+          background-size: 64px 20px;
+          width: 64px;
+          height: 20px;
+          font-weight: 700;
+          font-size: 14px;
+          color: #000;
+          line-height: 20px;
+          text-align: center;
+          margin-left: 12px;
+          transform: translateY(-3px);
+          &.en {
+            transform: translateY(-2px);
+          }
+        }
+
+        em {
+          font-style: normal;
+          font-size: 12px;
+        }
+
+        .en {
+          // font-style: normal;
+          // transform: scale(0.64);
+          // width: 90px;
+          // display: inline-block;
+          // margin-left: -12px;
+          background: url(../../images/v2/energy-rent/mining/jst-subsidy-en.png) no-repeat center;
+          background-size: 105px 20px;
+          width: 105px;
+        }
+      }
+    }
+  }
+  .rent-content {
+    padding: 0 30px 40px;
+    position: relative;
+    .ant-input-group {
+      display: flex;
+      align-items: center;
+      // justify-content: space-between;
+      background-color: rgba(41, 43, 50, 0.7);
+      border-radius: 5px;
+      .ant-select {
+        min-width: 130px;
+      }
+      .energy-input {
+        width: calc(100% - 110px);
+        margin-top: 0;
+        .ant-input-affix-wrapper {
+          padding: 0 0 0 16px;
+          background-color: transparent;
+        }
+        .ant-input {
+          padding-right: 16px;
+          background-color: transparent;
+          transform: translateY(-1px);
+          // padding-left: 20px;
+        }
+        .ant-input-wrapper {
+          background-color: transparent;
+        }
+      }
+      .ant-input-group-addon {
+        width: auto;
+        display: flex;
+        align-items: center;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        background-color: transparent;
+        .exchange {
+          display: none;
+        }
+      }
+      .j-error-tip {
+        display: flex !important;
+        background: #313239;
+        box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+        .j-safe-text,
+        .j-safe-text > span {
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 20px;
+          color: #ff5266;
+        }
+      }
+    }
+  }
+  .rent-label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 22px;
+    color: #ffffff;
+    margin-top: 20px;
+  }
+  .rent-labels {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px;
+    min-height: 22px;
+    margin-top: 20px;
+    line-height: 22px;
+    .rent-label {
+      margin-top: 0;
+    }
+    .rent-days-title {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 23px;
+      color: rgba(255, 255, 255, 0.6);
+      display: inline-block;
+    }
+    .rent-days-value {
+      display: inline-block;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 23px;
+      color: #ffffff;
+      margin: 0 0 0 4px;
+    }
+    .rent-max {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 17px;
+      color: #9195fb;
+      cursor: pointer;
+    }
+  }
+  .energy-input {
+    margin-top: 10px;
+    margin-bottom: 0;
+    .anticon {
+      > svg {
+        display: none;
+      }
+    }
+  }
+
+  .energy-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // margin-bottom: 20px;
+    .info-subtitle {
+      color: rgba(255, 255, 255, 0.6);
+      border-bottom-color: rgba(255, 255, 255, 0.6);
+      margin-right: 20px;
+      max-width: 290px;
+      &.pre-title {
+        color: #fff;
+      }
+      br {
+        display: none;
+      }
+      &.en-US {
+        br {
+          display: block;
+        }
+      }
+    }
+
+    .rent-info-ellipsis {
+      width: calc((100% - 90px));
+      > div {
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+  .energy-info-pay {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 16px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    .pay-title {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      color: #ffffff;
+    }
+    .pay-amount {
+      display: flex;
+      align-items: center;
+      max-width: calc(100% - 70px);
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 25px;
+      color: #e9b361;
+      margin-left: 6px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      > span {
+        font-weight: 500;
+        font-size: 14px;
+        margin-left: 4px;
+      }
+      &.pay-error {
+        color: #ff5266;
+      }
+    }
+  }
+  .rent-now {
+    border-radius: 5px;
+    margin-top: 15px;
+    &.energy_config_extend {
+      margin-top: 15px;
+    }
+  }
+  .add-after {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 15px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 5px;
+    margin-top: 10px;
+    > div {
+      text-align: center;
+      &:nth-child(1),
+      &:nth-child(3) {
+        width: calc(50% - 23px);
+        > div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+      &:nth-child(1) {
+        padding: 0 15px 0 0px;
+      }
+      &:nth-child(3) {
+        padding: 0 6px 0 15px;
+      }
+    }
+    > div:nth-child(3) > div.append-icon {
+      display: inline-flex;
+      padding-right: 25px;
+      margin-left: 25px;
+      background: url(../../images/v2/energy-rent/append-arrow.svg) right 2px no-repeat;
+    }
+  }
+  .after-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #ffffff;
+
+    .after-title-with-go-up {
+      position: relative;
+      .go-up-icon {
+        position: absolute;
+        left: 100%;
+      }
+    }
+  }
+  .after-subtitle {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    color: #ffffff;
+    opacity: 0.6;
+    margin-top: 4px;
+    &.date > span {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .keep-line {
+      white-space: pre-line;
+      display: inline-block;
+      margin-left: 2px;
+    }
+  }
+}
+
+.j-large-btn.j-supply.gas-less-return {
+  background: #ffc34e url(../../images/v2/energy-rent/offer/btn-360.svg) 0 0 no-repeat;
+  color: #703f07 !important;
+  background-size: cover;
+  position: relative;
+
+  &:hover {
+    background: #ffd583 url(../../images/v2/energy-rent/offer/btn-360.svg) 0 0 no-repeat;
+  }
+}
+
+.go-up-icon {
+  display: inline-block;
+  width: 23px;
+  height: 21px;
+  background: url(../../images/v2/energy-rent/go-up-icon.svg) 0 2px no-repeat;
+  background-size: 100%;
+}
+
+.add-to-icon {
+  display: inline-block;
+  width: 46px;
+  height: 8px;
+  background: url(../../images/v2/energy-rent/add-to-icon.svg) 0 0 no-repeat;
+  background-size: 100%;
+}
+
+.rent-select {
+  height: 60px;
+  &::after {
+    content: '';
+    display: block;
+    height: 36px;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    position: absolute;
+    right: 0;
+    top: 12px;
+    z-index: 1;
+  }
+  .ant-select-selector {
+    height: 60px !important;
+    border: none !important;
+    background: transparent !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+  }
+  .ant-select-arrow {
+    right: 20px;
+  }
+  .ant-select-selection-item {
+    display: flex;
+    align-items: center;
+    padding-right: 34px !important;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #ffffff;
+  }
+  .anticon {
+    display: inline-block;
+    width: 8px;
+    height: 4px;
+    background: url(../../images/v2/energy-rent/up-arrow-white.svg) 0 0 no-repeat;
+    background-size: 100%;
+    transform: rotate(180deg);
+    vertical-align: middle;
+    > svg {
+      display: none;
+    }
+  }
+  &.ant-select-focused {
+    .ant-select-selector {
+      box-shadow: none !important;
+    }
+  }
+  &.ant-select-open {
+    .ant-select-selection-item {
+      color: #fff !important;
+    }
+    .anticon {
+      transform: rotate(0deg);
+    }
+  }
+}
+
+.rent-select-dropdown {
+  background: #2e303d !important;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  padding: 10px 0;
+
+  .ant-select-item-option-content {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+
+    color: #ffffff;
+  }
+  .ant-select-item {
+    padding: 10px 20px !important;
+    &.ant-select-item-option-active {
+      background: #2e303d;
+      .ant-select-item-option-content {
+        color: #9195fb;
+      }
+    }
+    &.ant-select-item-option-selected {
+      background: rgba(145, 149, 251, 0.1);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+
+      .ant-select-item-option-content {
+        color: #9195fb;
+      }
+    }
+  }
+}
+
+.stake-trx {
+  background: url(../../images/v2/liquidity-stake/input-TRX.svg) no-repeat left center;
+  background-size: 22px;
+
+  height: 26px;
+  margin-right: 4px;
+  display: block;
+  text-indent: 32px;
+  line-height: 26px;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.ways-warning {
+  > div {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: #ffffff;
+    .set-max,
+    .set-max > span {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 20px;
+      color: #9195fb;
+      margin-left: 4px;
+      cursor: pointer;
+    }
+  }
+}
+
+.j-subsidy-tip {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  line-height: 17px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  position: relative;
+  > span {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: rgba(255, 255, 255, 0.6);
+    &:first-child {
+      min-width: 12px;
+      width: 12px;
+      height: 12px;
+      background-image: url(../../images/v2/energy-rent/mining/loud-icon.svg);
+      background-size: contain;
+      margin-right: 10px;
+    }
+
+    strong {
+      font-weight: 600;
+      color: #fff;
+      font-size: 12px;
+    }
+  }
+  .link-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    .link-button__text {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .link-button__arrow {
+      background: url(../../images/v2/energy-rent/mining/rule-arrow.svg) no-repeat center;
+      opacity: 0.6;
+    }
+    &::after {
+      background: rgba(255, 255, 255, 0.6);
+    }
+  }
+}
+
+.connect {
+  .gas-off-tip {
+    margin-left: 60px;
+  }
+}
+
+body .ant-tooltip .ant-tooltip-inner {
+  .remain {
+    margin-top: 0;
+  }
+  .rent-money {
+    margin: 10px 0 0;
+  }
+  .remain,
+  .rent-money {
+    .key {
+      color: var(--color, #b3b4b7);
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+    .val {
+      color: var(--color, #fff);
+      text-align: right;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+  }
+}
+
+body .ant-tooltip .ant-tooltip-inner > div.rent-fee-detail {
+  margin-top: 0;
+  margin-bottom: 0;
+  .rent-fee-detail-item {
+    margin-bottom: 10px;
+  }
+  .name {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #b3b4b7;
+  }
+  .value {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-align: right;
+  }
+
+  .return-rule-tip {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 10px;
+    color: var(--color, #b3b4b7);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: left;
+    .return-rule-tip-text {
+      margin-right: 4px;
+    }
+  }
+
+  .learn-more {
+    span.link-button__arrow {
+      margin-left: 4px;
+    }
+  }
+}
+
+#root .j-wrapper.white {
+  .rent-form .rent-content .ant-input-group .energy-input .ant-input {
+    color: #22232b;
+  }
+  .ant-tooltip-inner {
+    .remain,
+    .rent-money {
+      .val {
+        span {
+          color: rgba(255, 255, 255, 1) !important;
+        }
+      }
+    }
+  }
+  .rent-form .rent-form-tabs {
+    .energy-offer span.num {
+      background-image: url(../../images/v2/energy-rent/offer/white-theme/num1.png);
+    }
+    > span.current:after {
+      background: #4c54ff;
+    }
+  }
+  .pay-amount-sub.dashed {
+    border-bottom: 1px dashed rgba(34, 35, 43, 1);
+  }
+  .energy-infos-new .energy-info .pay-amount-sub.dashed:hover {
+    color: #4c54ff;
+    border-bottom: 1px dashed #4c54ff;
+  }
+  .energy-max {
+    border-radius: 5px;
+    background: rgba(75, 82, 223, 0.1);
+    color: #22232b;
+    padding: 4px 6px;
+    border-right: none;
+    font-size: 12px;
+  }
+  .equal-alike-a {
+    color: #22232b;
+  }
+  .j-gas-fee {
+    color: #fff;
+  }
+  .dashed {
+    &:hover {
+      color: #4c54ff;
+      border-bottom: 1px dashed #4c54ff;
+    }
+  }
+  .j-important-tip {
+    > span {
+      color: rgba(34, 35, 43, 0.6);
+    }
+    .energy-used-tip {
+      color: rgba(34, 35, 43, 0.8);
+    }
+  }
+  .energy-used-ignore {
+    // color: rgba(34, 35, 43, 0.6);
+    color: #737480;
+    background: url(../../images/v2/energy-rent/ignore-white.svg) no-repeat;
+    background-size: cover;
+  }
+  .energy-used,
+  .energy-used-unit {
+    color: #22232b;
+  }
+  .equal-alike {
+    color: #22232b;
+  }
+  .energy-infos {
+    background-color: rgba(34, 35, 43, 0.02);
+  }
+  .ways-warning {
+    background-color: #fff !important;
+    > div {
+      color: #22232b;
+      .set-max,
+      .set-max > span {
+        color: #4c54ff;
+      }
+    }
+  }
+  .rent-select .anticon {
+    background-image: url(../../images/v2/white-theme/energy-rent/up-arrow-white.svg);
+  }
+  .my-rent-info {
+    background-color: #ffffff;
+
+    .rent-info-icon {
+      background-image: url(../../images/v2/energy-rent/energy-icon-white.svg);
+    }
+
+    .rent-top-bg {
+      background: url(../../images/v2/energy-rent/mining/white-theme/energy-bg-top.png) 0 0 no-repeat;
+      background-size: cover;
+
+      &.en {
+        background: url(../../images/v2/energy-rent/mining/white-theme/energy-bg-top-en.png) 0 0 no-repeat;
+        background-size: cover;
+      }
+
+      &.tc {
+        background: url(../../images/v2/energy-rent/mining/white-theme/energy-bg-top-tc.png) 0 0 no-repeat;
+        background-size: cover;
+      }
+    }
+
+    .rent-info-content {
+      .rent-info-title {
+        color: #22232b;
+        > span {
+          color: #1aa380;
+          background: rgba(101, 183, 85, 0.2);
+        }
+      }
+    }
+  }
+  .j-eles > div {
+    color: #22232b;
+    &:first-child {
+      background: url(../../images/v2/white-theme/energy-rent/energy-bg.svg) no-repeat center top/cover #ffffff;
+    }
+    &:last-child {
+      background: url(../../images/v2/white-theme/energy-rent/energy-form-bg.svg) no-repeat center top/cover #ffffff;
+    }
+  }
+  .my-rent-info .rent-energy-amount {
+    .rent-unit,
+    .rent-amount {
+      color: #22232b;
+      &:hover {
+        color: #4c54ff;
+        border-bottom-color: #4c54ff;
+      }
+    }
+    // &:hover {
+    //   border-bottom-color: #4c54ff;
+    //   .rent-amount,
+    //   .rent-unit {
+    //     color: #4c54ff;
+    //   }
+    // }
+  }
+  .my-rent-info.login .energy-info {
+    background-image: none;
+  }
+  .my-rent-info .energy-info {
+    // background: url(../../images/v2/white-theme/energy-rent/energy-info-bg-white.png) no-repeat center center/ 100% 100%
+    //   rgba(34, 35, 43, 0.03);
+    background: url(../../images/v2/energy-rent/energy-icon-grey-bg-white.svg) no-repeat right bottom
+      rgba(34, 35, 43, 0.03);
+
+    .energy-info-top {
+      color: #22232b;
+    }
+    .energy-info-content > div {
+      > div:nth-child(2),
+      > div:nth-child(3) {
+        color: #22232b;
+        span {
+          color: #22232b;
+        }
+      }
+
+      div.subsidy {
+        color: #1aa380;
+      }
+
+      > div {
+        &.item-return {
+          .value-return {
+            border-bottom: 1px dashed rgb(34, 35, 43);
+            &:hover {
+              color: #4c54ff !important;
+              border-bottom: 1px dashed #4c54ff;
+            }
+          }
+        }
+      }
+    }
+    .rent-left {
+      border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+    }
+    .rent-left-time,
+    .rent-left-time > span {
+      color: #22232b;
+    }
+  }
+  .my-rent-info {
+    .rent-energy-price {
+      color: rgba(34, 35, 43, 0.6);
+
+      .j-tooltip-icon {
+        transform: translateY(2px);
+      }
+    }
+
+    .rent-delegate-amount {
+      color: rgba(34, 35, 43, 0.6);
+    }
+  }
+
+  .my-rent-info .energy-info {
+    .rent-back {
+      span {
+        color: #4c54ff;
+      }
+      border: 1px solid rgba(76, 84, 255, 0.8);
+    }
+    .energy-info-content {
+      .title,
+      .title > .title-top {
+        color: #22232b;
+      }
+
+      > div div.subsidy {
+        color: #1aa380;
+      }
+    }
+  }
+  .j-subsidy-tip {
+    background: #f5f5f5;
+    > span {
+      color: rgba(34, 35, 43, 0.6);
+      > strong {
+        color: #22232b;
+      }
+      &:first-child {
+        background-image: url(../../images/v2/white-theme/energy-rent/loud-icon.svg);
+      }
+    }
+    .link-button {
+      > span {
+        color: rgba(34, 35, 43, 0.6);
+      }
+    }
+  }
+  .rent-form {
+    background: #ffffff
+      linear-gradient(
+        325.89deg,
+        rgba(76, 212, 255, 0) 76.64%,
+        rgba(16, 139, 114, 0.25) 110.29%,
+        rgba(63, 255, 216, 0.83) 119.81%
+      );
+    .rent-form-tabs {
+      border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+
+      > span {
+        &.single-tab {
+          span {
+            background: url(../../images/v2/energy-rent/mining/white-theme/jst-subsidy.png) no-repeat center;
+            background-size: 64px 20px;
+            color: #fff;
+          }
+
+          em {
+            text-shadow: 0px 1px 2px rgba(34, 35, 43, 0.5);
+          }
+
+          .en {
+            background: url(../../images/v2/energy-rent/mining/white-theme/jst-subsidy-en.png) no-repeat center;
+            background-size: 105px 20px;
+          }
+        }
+      }
+    }
+
+    .rent-label,
+    .rent-form-tabs > span {
+      color: #22232b;
+    }
+    .energy-info {
+      .info-subtitle {
+        color: rgba(34, 35, 43, 0.6);
+        border-bottom-color: rgba(34, 35, 43, 0.6);
+        &.pre-title {
+          color: #22232b;
+        }
+      }
+    }
+    .j-input {
+      ::-webkit-input-placeholder {
+        color: #22232b;
+      }
+    }
+  }
+  .rent-form .rent-labels .rent-days-value,
+  .rent-select .ant-select-selection-item {
+    color: #22232b !important;
+  }
+  .rent-form .rent-labels .rent-days-title {
+    color: rgba(34, 35, 43, 0.6);
+  }
+  .rent-select .ant-select-selector {
+    background-color: transparent;
+  }
+  .rent-form .energy-info-pay {
+    border-top: 1px solid rgba(34, 35, 43, 0.06);
+    .pay-title {
+      color: #22232b;
+    }
+  }
+  .j-large-btn.j-supply.gas-less-btn {
+    background: #4d54ff;
+    color: #fff !important;
+    background-size: cover;
+
+    &:hover {
+      border: 1px solid #9195fb;
+      background: #9195fb;
+    }
+  }
+
+  .j-large-btn.j-supply.gas-less-return {
+    background: #ffc34e url(../../images/v2/energy-rent/offer/btn-360.svg) 0 0 no-repeat;
+    color: #703f07 !important;
+    background-size: cover;
+
+    &:hover {
+      background: #ffd583 url(../../images/v2/energy-rent/offer/btn-360.svg) 0 0 no-repeat;
+      background-size: cover;
+    }
+  }
+
+  .rent-content {
+    .rent-select::after {
+      background-color: rgba(34, 35, 43, 0.1);
+    }
+    .energy-infos .add-after {
+      background: rgba(34, 35, 43, 0.02);
+      .after-title {
+        color: #22232b;
+      }
+      .after-subtitle {
+        color: rgba(34, 35, 43, 0.6);
+      }
+      .add-to-icon {
+        opacity: 0.5;
+        background: url(../../images/v2/white-theme/energy-rent/add-to-icon.svg) 0 0 no-repeat;
+      }
+    }
+    .rent-select-dropdown {
+      background-color: #fff !important;
+      .ant-select-item.ant-select-item-option-active {
+        background-color: rgb(145, 149, 251, 0.1);
+        .ant-select-item-option-content {
+          color: #4c54ff;
+        }
+      }
+      .ant-select-item-option-content {
+        color: #22232b;
+      }
+    }
+  }
+  .rent-content > .ant-input-group {
+    background-color: rgba(75, 82, 223, 0.06);
+  }
+  .ant-input-group .j-error-tip {
+    background: #f8f8fe;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.15);
+  }
+  .my-rent-info .need-stake > div:first-child {
+    background-image: url(../../images/v2/white-theme/energy-rent/need-stake-icon.png);
+    // background-image: url(../../images/v2/energy-rent/mining/white-theme/m-need-stake-icon.png);
+  }
+  .my-rent-info .need-burn > div:first-child {
+    background-image: url(../../images/v2/white-theme/energy-rent/need-burn-icon.png);
+    // background-image: url(../../images/v2/energy-rent/mining/white-theme/m-need-burn-icon.png);
+  }
+
+  .j-subsidy-tip {
+    > span {
+      color: rgba(34, 35, 43, 0.6);
+      &:first-child {
+        background-image: url(../../images/v2/energy-rent/mining/white-theme/loud-icon.svg);
+        background-size: contain;
+      }
+
+      strong {
+        color: #22232b;
+      }
+    }
+    .link-button {
+      .link-button__text {
+        color: rgba(34, 35, 43, 0.6);
+      }
+      .link-button__arrow {
+        background: url(../../images/v2/energy-rent/mining/white-theme/rule-arrow.svg) no-repeat center;
+        opacity: 0.6;
+      }
+      &::after {
+        // background: rgba(255, 255, 255, 0.6);
+      }
+    }
+  }
+}
+.tal {
+  font-weight: normal;
+}
+@media (min-width: 798px) {
+  #root .rent-form .rent-labels-time,
+  .rent-form .rent-labels .rent-label-text {
+    display: none;
+  }
+  .pay-amount {
+    font-size: 16px;
+  }
+  .pay-amount-sub {
+    font-size: 12px;
+  }
+}
+@media (max-width: 798px) {
+  .j-wrapper.white .trans-body .ant-btn.j-large-btn.j-supply,
+  .j-wrapper.white .trans-body .j-large-btn.j-supply {
+    color: #4c54ff !important;
+  }
+  #root .j-wrapper.white .rent-content .energy-infos .add-after .add-to-icon {
+    background: url(../../images/v2/energy-rent/add-to-icon-white.svg) no-repeat;
+  }
+  .my-rent-info .energy-info .rent-back {
+    padding: 4px 4px;
+    max-width: 70px;
+  }
+  #root .j-wrapper.white {
+    .j-stake-container .j-eles .my-rent-info .rent-info-top .rent-info-icon {
+      background: url(../../images/v2/energy-rent/energy-icon-m-white.png) no-repeat;
+      background-size: 90px;
+    }
+  }
+  .energy-max {
+    margin-right: 10px;
+  }
+  .learn-more-btn {
+    margin-left: 0;
+  }
+  #root .energy-infos-new {
+    .energy-info {
+      padding: 0;
+      &:not(:first-child) {
+        margin-top: 14px;
+      }
+      &:first-child {
+        padding: 0px;
+      }
+    }
+  }
+  .j-important-tip {
+    // margin-bottom: 20px;
+    padding: 10px 12px;
+  }
+  .j-gas-fee {
+    display: none;
+  }
+  .j-time-tips {
+    padding: 0 12px;
+  }
+  .j-time-tips,
+  .j-time-tips > span {
+    text-align: left;
+  }
+  .my-rent-info .need-stake > div:first-child {
+    background-image: url(../../images/v2/energy-rent/need-stake-icon-m.png);
+  }
+  .my-rent-info .need-burn > div:first-child {
+    background-image: url(../../images/v2/energy-rent/need-burn-icon-m.png);
+  }
+  .rent-form .after-subtitle.date {
+    > span,
+    .keep-line {
+      font-size: 12px;
+    }
+  }
+  .rent-form .rent-content .j-error-tip > div {
+    line-height: 14px;
+    > span {
+      font-size: 12px;
+      // opacity: 0.6;
+    }
+  }
+  .rent-form .rent-content .rent-way-select + .ant-input-group {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .j-energy-rent .j-exchange-icon {
+    margin-top: -1px;
+  }
+  .j-stake-container .j-eles .rent-form .rent-content .energy-infos .add-after .go-up-icon {
+    background: url(../../images/v2/energy-rent/go-up-icon-m.png) no-repeat center;
+  }
+  .rent-form .after-title .after-title-with-go-up {
+    font-size: 12px;
+  }
+  #root .j-stake-container {
+    width: unset;
+    margin: 0 15px;
+    &.j-energy-rent,
+    &.j-liquidity-stake {
+      padding-top: 20px;
+      > div {
+        width: 100%;
+      }
+    }
+
+    .energy-unit {
+      line-height: 20px;
+      font-size: 14px;
+      font-weight: 400;
+      background: none;
+    }
+    .stake-trx {
+      height: 20px;
+      width: 50px;
+      text-indent: 25px;
+      background-size: contain;
+      line-height: 20px;
+      font-size: 14px;
+    }
+    .j-liquidity-stake {
+      width: unset;
+    }
+    .top-header {
+      margin: 0 0 20px 0;
+    }
+    .j-eles {
+      flex-direction: column-reverse;
+      & > div {
+        width: unset;
+        height: unset;
+
+        // &:first-child {
+        //   background: url(../../images/v2/energy-rent/mining/m-energy-bg.png) no-repeat center #31333a;
+        //   background-size: cover;
+        // }
+      }
+
+      .rent-form {
+        border-radius: 10px;
+        background: linear-gradient(
+            321deg,
+            rgba(90, 76, 255, 0) 81.53%,
+            rgba(18, 187, 167, 0.28) 94.42%,
+            rgba(63, 255, 216, 0.83) 105.82%
+          )
+          #31333a;
+        margin-bottom: 20px;
+        .rent-label {
+          font-size: 12px;
+          line-height: 17px;
+        }
+        .rent-form-tabs {
+          padding: 26px 0 20px 15px;
+          > span {
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 22px;
+            &:first-child {
+              margin-right: 17px;
+            }
+          }
+          .current {
+            &::after {
+              bottom: -21px;
+              width: 40%;
+              left: 0;
+              right: 0;
+              margin: auto;
+            }
+          }
+        }
+        .rent-content {
+          padding: 15px 15px 20px;
+          .go-up-icon {
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            flex: 0 0 auto;
+          }
+          .energy-infos {
+            margin-top: 20px;
+            padding: 12px 14px;
+          }
+          .add-after {
+            padding: 18px 12px 18px 12px;
+            .after-title {
+              display: flex;
+            }
+            .after-subtitle {
+              display: flex;
+              .keep-line {
+                margin-left: 2px;
+              }
+            }
+            & > div {
+              &:nth-child(1),
+              &:nth-child(3) {
+                padding: 0;
+                width: calc(50% - 10px);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+              }
+            }
+            .append-icon {
+              background: none;
+            }
+          }
+          .after-rent {
+            margin-left: 10px;
+            .after-title,
+            .after-subtitle {
+              display: flex;
+              justify-content: flex-start;
+            }
+          }
+          .energy-info {
+            .info-subtitle {
+              font-weight: 500;
+              font-size: 12px;
+              line-height: 20px;
+              margin-right: 0;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start !important;
+              max-width: 50%;
+              .j-tooltip-icon {
+                display: none;
+              }
+              span {
+                font-size: 12px;
+                font-weight: 400;
+              }
+              .learn-more {
+                font-size: 12px;
+                margin-left: 0 !important;
+              }
+            }
+            .rent-info-value,
+            span {
+              font-weight: 500;
+              font-size: 14px;
+              line-height: 20px;
+            }
+          }
+          .add-to-icon {
+            margin-left: 10px;
+            flex: 0 0 20px;
+            width: 20px;
+            background: url('../../images/v2/energy-rent/mobile-arrow-for-append.svg') no-repeat center/cover;
+          }
+          .ant-input-group {
+            .j-select-alike.j-select-alike-energy {
+              display: none !important;
+            }
+            .energy-input {
+              width: 100%;
+              .ant-input-affix-wrapper {
+                padding: 0 12px;
+                background-color: transparent;
+              }
+              .ant-input {
+                font-size: 14px;
+                padding-left: 0;
+                &::placeholder {
+                  color: #9c9daa !important;
+                  font-size: 14px;
+                  font-weight: 400;
+                  opacity: 1;
+                }
+              }
+            }
+            .ant-input-group-addon {
+              display: flex;
+              align-items: center;
+              padding: 0 12px;
+
+              .exchange {
+                margin-left: 10px;
+                // display: block;
+                width: 16px;
+                height: 16px;
+                transform: translateY(-1px);
+                background: url(../../images/v2/liquidity-stake/exchange.svg) no-repeat center/contain;
+              }
+            }
+            .ant-select {
+              display: none;
+            }
+            .rent-way-select {
+              display: block;
+              .exchange {
+                display: none;
+              }
+            }
+            .rent-select .ant-select-selector {
+              padding-left: 12px !important;
+            }
+          }
+          .rent-labels {
+            margin-bottom: 12px;
+            align-items: flex-start;
+            margin-bottom: 2px;
+            justify-content: space-between !important;
+            padding: 0 12px;
+            margin-top: 5px;
+            .rent-label {
+              font-weight: 400;
+              font-size: 12px;
+              line-height: 17px;
+            }
+            &.jce {
+              margin-top: 2px;
+              padding: 0;
+            }
+          }
+          .rent-now {
+            position: relative;
+            left: 0;
+            bottom: 0;
+            margin-top: 0;
+            width: 100%;
+
+            &:disabled {
+              border: none;
+              color: rgba(255, 255, 255, 1) !important;
+            }
+
+            &.gas-less-btn {
+              background-image: url(../../images/v2/energy-rent/mining/m-large-btn.png), #4c54ff;
+              background-size: cover;
+              background-repeat: no-repeat;
+
+              &:hover {
+                background-image: url(../../images/v2/energy-rent/mining/m-large-btn.png),
+                  linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), #4c54ff;
+                background-size: cover;
+                background-repeat: no-repeat;
+                border: none;
+              }
+            }
+          }
+        }
+        .after-title,
+        .after-subtitle {
+          font-size: 12px;
+          line-height: 20px;
+          justify-content: flex-start;
+        }
+        .j-input .ant-input-group-addon::after {
+          display: none;
+        }
+        .energy-info-pay {
+          padding: 12px 0 27px;
+          border-top: 1px solid rgba(34, 35, 43, 0.1);
+          .pay-title {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 20px;
+            color: #ffffff;
+          }
+          .pay-amount {
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 22px;
+          }
+        }
+
+        .gas-off-tip {
+          width: 97px;
+          height: 57px;
+          background-image: url(./../../images/v2/energy-rent/mining/m-button-tip.png);
+          background-size: 97px 57px;
+          margin-left: 40px;
+          top: -29px;
+
+          &.en {
+            background-image: url(./../../images/v2/energy-rent/mining/m-button-tip-en.png);
+            background-size: 97px 60px;
+          }
+
+          &.tc {
+            background-image: url(./../../images/v2/energy-rent/mining/m-button-tip-tc.png);
+            background-size: 97px 57px;
+          }
+        }
+      }
+      .my-rent-info {
+        height: unset;
+        padding: 0px 15px 20px;
+        margin-right: 0;
+        background-clip: border-box;
+        border-radius: 10px;
+        background: linear-gradient(
+            18deg,
+            rgba(83, 239, 222, 0) 69.54%,
+            rgba(83, 239, 222, 0) 81.37%,
+            rgba(83, 239, 222, 0.07) 87.89%,
+            rgba(83, 239, 222, 0.2) 93.83%,
+            rgba(63, 255, 216, 0.5) 101.85%
+          )
+          #31333a;
+
+        .value-return {
+          border-bottom: 1px dashed #fff;
+          &:hover {
+            border-bottom: 1px dashed #9195fb;
+          }
+        }
+
+        &.login {
+          .energy-info {
+            margin-top: 10px;
+            .energy-info-content {
+              margin-top: 20px;
+              // margin-left: -15px;
+              // margin-right: -15px;
+              flex-wrap: wrap;
+              .energy-info-content-item {
+                width: 50%;
+                // padding-left: 15px;
+                &:nth-child(3) {
+                  margin-top: 20px;
+                }
+                .j-tooltip-icon {
+                  display: none;
+                }
+                .title-top {
+                  font-size: 12px;
+                }
+              }
+              .value {
+                margin-top: 10px;
+                font-weight: 600;
+                font-size: 18px;
+                line-height: 25px;
+                span {
+                  font-weight: 400;
+                  font-size: 14px;
+                  line-height: 19px;
+                  margin-left: 4px;
+                }
+              }
+            }
+          }
+        }
+        .rent-info-top {
+          position: relative;
+          margin-top: 40px;
+          .rent-info-content {
+            margin-top: 0;
+            z-index: 8;
+            .rent-info-title {
+              font-weight: 500;
+              font-size: 14px;
+              line-height: 20px;
+              margin-bottom: 0;
+              white-space: nowrap;
+            }
+            .rent-energy-amount {
+              height: unset;
+              margin-top: 5px;
+              .equal-alike {
+                line-height: unset;
+              }
+              .rent-amount {
+                font-size: 24px;
+                line-height: 33px;
+              }
+              .rent-unit {
+                margin-left: 6px;
+                font-size: 14px;
+              }
+            }
+            .rent-delegate-amount {
+              margin-top: 12px;
+              span {
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 20px;
+              }
+              .j-tooltip-icon {
+                display: none;
+              }
+            }
+          }
+          .rent-info-icon {
+            // position: absolute;
+            width: 90px;
+            height: 90px;
+            right: 5px;
+            top: 27px;
+            transform: translate(0px, 0px);
+            background: url(../../images/v2/energy-rent/energy-icon-m.png) no-repeat;
+            background-size: 90px;
+          }
+        }
+        .energy-info {
+          margin-top: 10px;
+          padding: 20px 15px;
+          .energy-info-top {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+          }
+          .energy-info-content {
+            margin-top: 24px;
+            .need-stake,
+            .need-burn {
+              .title {
+                font-size: 12px;
+                line-height: 17px;
+                margin-top: 12px;
+                font-weight: 400;
+              }
+              .value {
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 28px;
+                span {
+                  font-weight: 400;
+                  font-size: 16px;
+                  line-height: 22px;
+                  margin-left: 6px;
+                }
+              }
+            }
+          }
+        }
+        .rent-top-bg {
+          width: 330px;
+          height: 90px;
+          top: -28px;
+          left: -8px;
+          background: url(../../images/v2/energy-rent/mining/m-energy-bg-top.png) 0 0 no-repeat;
+          background-size: 330px 90px;
+
+          &.en {
+            background: url(../../images/v2/energy-rent/mining/m-energy-bg-top-en.png) 0 0 no-repeat;
+            background-size: 330px 90px;
+          }
+
+          &.tc {
+            background: url(../../images/v2/energy-rent/mining/m-energy-bg-top-tc.png) 0 0 no-repeat;
+            background-size: 330px 90px;
+          }
+        }
+        .rent-energy-price {
+          color: rgba(255, 255, 255, 0.6);
+
+          .j-tooltip-icon {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  #root .j-wrapper.white {
+    .j-eles .rent-form .rent-content .ant-input-group .energy-input .ant-input {
+      color: #22232b;
+    }
+    .j-stake-container .j-eles .my-rent-info {
+      .energy-info.not-login-info {
+        background: rgba(34, 35, 43, 0.03) url(../../images/v2/white-theme/energy-rent/energy-info-bg-m.png) no-repeat
+          right bottom;
+        background-size: 110px 130px;
+      }
+
+      .rent-energy-price {
+        color: rgba(34, 35, 43, 0.6);
+      }
+    }
+    .j-stake-container .j-eles .my-rent-info .value-return {
+      border-bottom: 1px solid #292b32;
+    }
+    .j-stake-container {
+      .rent-form .rent-content {
+        .energy-input {
+          .ant-input-group {
+            .ant-input-group-addon {
+              .exchange {
+                background: url(../../images/v2/white-theme/liquidity-stake/exchange.svg) no-repeat center/contain;
+              }
+            }
+          }
+        }
+        .energy-infos .add-after .add-to-icon {
+          background: url('../../images/v2/white-theme/energy-rent/add-to-icon-m.svg') no-repeat center/cover;
+        }
+      }
+      .rent-form .rent-form-tabs {
+        border-bottom: 1px solid rgba(34, 35, 43, 0.1);
+        .current::after {
+          background: #4c54ff;
+        }
+      }
+      .rent-select::after {
+        background: rgba(34, 35, 43, 0.1);
+      }
+    }
+    .j-stake-container .j-eles .rent-form .energy-info-pay .pay-title {
+      color: #22232b;
+    }
+
+    .j-subsidy-tip {
+      .link-button {
+        &::after {
+          background: rgba(34, 35, 43, 0.6);
+        }
+      }
+    }
+  }
+
+  .j-large-btn.j-supply.gas-less-return {
+    background: #ffc34e url(../../images/v2/energy-rent/offer/btn-315.svg) 0 0 no-repeat;
+    color: #703f07 !important;
+    background-size: cover;
+
+    &:hover {
+      background: #ffd583 url(../../images/v2/energy-rent/offer/btn-315.svg) 0 0 no-repeat;
+    }
+  }
+  .j-subsidy-tip {
+    align-items: flex-start;
+    margin-bottom: 0;
+    > span {
+      &:first-child {
+        transform: translateY(1px);
+      }
+    }
+
+    .link-button {
+      position: relative;
+      top: 0;
+      left: 0;
+      right: auto;
+      display: flex;
+      width: 66px;
+    }
+    &.en {
+      .link-button {
+        width: 44px;
+      }
+    }
+  }
+
+  .rent-top-bg {
+    background: url(../../images/v2/energy-rent/mining/white-theme/m-energy-bg-top.png) 0 0 no-repeat;
+    background-size: 330px 90px;
+
+    &.en {
+      background: url(../../images/v2/energy-rent/mining/white-theme/m-energy-bg-top-en.png) 0 0 no-repeat;
+      background-size: 330px 90px;
+    }
+
+    &.tc {
+      background: url(../../images/v2/energy-rent/mining/white-theme/m-energy-bg-top-tc.png) 0 0 no-repeat;
+      background-size: 330px 90px;
+    }
+  }
+}
+
+.j-energy-rent {
+  .top-header {
+    .new-version-link {
+      position: relative;
+
+      border-radius: 5px;
+      color: #18c19f;
+      background: rgba(24, 193, 159, 0.1);
+
+      transition: all 0.3s ease;
+
+      &::after {
+        content: '';
+        background: url(../../images/v2/right-arrow-green.svg) 0 0 no-repeat;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-45%);
+      }
+
+      &:hover {
+        background: rgba(24, 193, 159, 0.2);
+      }
+    }
+
+    .new-version-hint {
+      position: relative;
+      border-radius: 5px;
+      background: #2b2c34;
+      color: rgba(255, 255, 255, 0.6);
+
+      &::before {
+        content: '';
+        position: absolute;
+        background: #2b2c34;
+      }
+
+      .close-btn {
+        cursor: pointer;
+        right: 8px;
+        width: 8px;
+        height: 9px;
+        background: url(../../images/v2/modal-close.svg) 0 0 no-repeat;
+        background-size: 8px 8px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-45%);
+      }
+
+      &.green {
+        color: #18c19f;
+        background-color: rgba(24, 193, 159, 0.1);
+        opacity: 1;
+        &::after {
+          width: 5px;
+          height: 7px;
+          right: 6px;
+          top: calc(50% - 1px);
+          background-size: 100%;
+          background-image: url(../../images/v2/energy-rental/arrow-right-green.svg);
+        }
+        &:hover {
+          background-color: rgba(24, 193, 159, 0.2);
+        }
+      }
+    }
+  }
+}
+
+.j-wrapper.white {
+  .j-energy-rent {
+    .top-header {
+      .new-version-hint {
+        background: #e4e6eb;
+        color: rgba(34, 35, 43, 0.6);
+
+        &::before {
+          background: #e4e6eb;
+        }
+
+        .close-btn {
+          background-image: url(../../images/v2/white-theme/modal-close.svg);
+          background-size: 8px 8px;
+        }
+
+        &.green {
+          color: #18c19f;
+          background-color: rgba(24, 193, 159, 0.1);
+          opacity: 1;
+          &::after {
+            background-image: url(../../images/v2/energy-rental/arrow-right-green.svg);
+          }
+          &:hover {
+            background-color: rgba(24, 193, 159, 0.2);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Large screen */
+@media screen and (min-width: 799px) {
+  .j-energy-rent {
+    .top-header {
+      .new-version-link {
+        margin-bottom: 10px;
+        margin-left: 10px;
+        padding: 5px 18px 3px 10px;
+
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 17px;
+        vertical-align: middle;
+
+        &::after {
+          right: 6px;
+
+          background-size: 8px 8px;
+          width: 8px;
+          height: 9px;
+        }
+      }
+
+      .new-version-hint {
+        margin-bottom: 10px;
+        margin-left: 26px;
+        padding: 5px 24px 3px 10px;
+
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+        vertical-align: middle;
+
+        &::before {
+          right: calc(100% - 1px);
+          top: 50%;
+          transform: translateY(-50%);
+
+          --r: 5px;
+          height: 100%;
+          aspect-ratio: 1/2;
+          -webkit-mask: linear-gradient(90deg, #0000 calc(var(--r) / sqrt(2)), #000 0),
+            radial-gradient(var(--r) at calc(var(--r) * sqrt(2)) 50%, #000 98%, #0000 101%);
+          clip-path: polygon(0 50%, 100% 100%, 100% 0);
+        }
+      }
+    }
+  }
+}
+
+/* Small screen */
+@media (max-width: 798px) {
+  .j-energy-rent {
+    .top-header {
+      .flexA {
+        flex-wrap: wrap;
+      }
+      .new-version-link {
+        margin-bottom: 6px;
+        margin-left: 10px;
+        padding: 4px 15px 4px 6px;
+
+        font-size: 12px;
+        font-weight: 500;
+        vertical-align: middle;
+
+        &::after {
+          right: 3px;
+
+          background-size: 8px 8px;
+          width: 8px;
+          height: 9px;
+        }
+      }
+
+      .new-version-hint {
+        margin-top: 4px;
+        margin-bottom: 6px;
+        padding: 4px 24px 4px 12px;
+
+        font-size: 12px;
+        font-weight: 400;
+        vertical-align: middle;
+
+        min-width: 80%;
+
+        &::before {
+          left: 108px;
+          bottom: calc(100% - 1px);
+
+          --r: 5px;
+          width: 25px;
+          aspect-ratio: 3;
+          -webkit-mask: linear-gradient(#0000 calc(var(--r) / sqrt(2)), #000 0),
+            radial-gradient(var(--r) at 50% calc(var(--r) * sqrt(2)), #000 98%, #0000 101%);
+          clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        }
+
+        &.en {
+          &::before {
+            left: 165px;
+          }
+        }
+      }
+    }
+  }
+}

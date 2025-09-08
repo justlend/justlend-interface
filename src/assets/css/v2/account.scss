@@ -1,0 +1,1420 @@
+@use 'sass:math';
+.flexBA {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flexSTA {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.top-radius {
+  border-radius: 2px 2px 0 0 !important;
+}
+
+.bottom-radius {
+  border-radius: 0 0 2px 2px !important;
+}
+
+.account-v2-container {
+  color: #fff;
+  width: 390px; // 390
+  min-width: 390px;
+  margin-right: 20px;
+
+  .skeleton-loader {
+    background: rgb(49, 51, 58);
+  }
+  .ant-skeleton {
+    padding: 20px 20px;
+    background: rgba(49, 51, 58, 1);
+    border-radius: 10px !important;
+  }
+  .ant-skeleton-thin {
+    padding: 20px 20px 0;
+  }
+  .ant-skeleton-thick {
+    margin-top: 36px;
+
+    .ant-skeleton-paragraph {
+      margin-left: 50% !important;
+      > li {
+        height: 30px;
+        width: 100% !important;
+      }
+    }
+  }
+  .skeleton-chart {
+    display: flex;
+    .circle-bg {
+      width: 100% !important;
+      height: auto;
+      background: url(../../images/v2/white-theme/account/outer-circle-m-default.svg) center center no-repeat;
+      margin-left: 20px;
+
+      .ant-skeleton {
+        margin-top: 40%;
+        margin-left: 20%;
+        width: 60%;
+      }
+    }
+    background: rgb(49, 51, 58);
+  }
+  .skeleton-line {
+    display: flex;
+    width: calc(90%);
+    margin-left: 5%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .account-main-info {
+    height: 251px;
+    padding: 20px 20px 28px;
+    background: #31333a;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); // 0 10 20
+    border-radius: 10px; // 2
+    &.connected {
+      height: 444px;
+    }
+    .rist-value {
+      padding-left: 10px;
+    }
+  }
+
+  .j-reward-btn-icon {
+    margin-right: 5px;
+  }
+
+  .more {
+    height: 88px;
+    padding: 20px; // 20
+    background: #313339 url(../../images/v2/account/reward-bg.png) right -17px bottom -13px no-repeat;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); // 0 10 20
+    border-radius: 10px; // 2
+    margin-top: 20px;
+    position: relative;
+    background-size: 186px 89px;
+
+    .more-bg {
+      background: url(../../images/v2/account/reward-btn.svg) right top 40% no-repeat;
+    }
+
+    .ant-skeleton-more {
+      padding: 0;
+      width: 50%;
+    }
+    &.only-recommend {
+      display: flex;
+      align-items: center;
+      background: url(../../images/v2/recommend/mining.png) no-repeat center;
+      background-size: 390px 89px;
+      padding: 48px 0 20px 20px;
+      &.hide-only-recommend {
+        display: none;
+      }
+    }
+
+    .waiting-reward-icon {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      margin-left: 6px;
+      transition: all 0.1s ease-in-out;
+      &:hover {
+        transform: scale(1.25);
+      }
+    }
+
+    .recommend-tip {
+      background: linear-gradient(90.13deg, #989cff 2.89%, #3fffd8 101.53%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 16px;
+      line-height: 20px;
+      opacity: 0.8;
+    }
+
+    .value {
+      margin-top: 4px;
+    }
+
+    .countup-int {
+      font-size: 18px;
+      .value-number {
+        font-size: 18px;
+      }
+    }
+
+    .countup-decimal {
+      font-size: 14px;
+      .value-number {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .data-info-key {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-family: 'Avenir Next';
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .data-info-value {
+    margin-top: 4px;
+  }
+
+  .countup-int,
+  .countup-int .value-number {
+    font-family: 'Avenir Next';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 19px;
+    color: #ffffff;
+  }
+  .more .countup-int,
+  .more .countup-int .value-number {
+    font-size: 18px;
+  }
+
+  .countup-decimal,
+  .countup-decimal .value-number {
+    font-family: 'Avenir Next';
+    font-style: normal;
+    line-height: 19px;
+    color: #adadb0;
+    font-size: 12px;
+    font-weight: normal;
+  }
+
+  .title {
+    .content {
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 27px; // 27
+
+      color: #ffffff;
+
+      text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5); // 0 2 10
+    }
+  }
+
+  .net-value {
+    margin-left: 6px; // 54
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      img {
+        opacity: 0.6;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    .p {
+      margin-bottom: 4px; // 4
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      span {
+        word-break: break-all;
+        margin-right: 6px;
+      }
+    }
+
+    .gray {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .white {
+      color: #fff;
+    }
+
+    .mt17 {
+      margin-top: 17px; // 17
+    }
+
+    .fz12 {
+      font-size: 12px;
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 500;
+      height: 20px;
+      line-height: 22px;
+    }
+
+    .fz18 {
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-size: 18px; // 18
+      line-height: 25px; // 25
+    }
+
+    .weight {
+      font-weight: 600;
+    }
+  }
+
+  .risk-warning-tip {
+    border-radius: 2px;
+    color: rgba(255, 82, 102, 1);
+    background: rgba(255, 82, 102, 0.1) url(../../images/v2/account/alert.svg) 10px 5px no-repeat;
+    background-size: 12px;
+
+    padding: 2px 10px 2px 28px; // 2 15 2 28
+    margin-top: 6px;
+    margin-left: -10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .text,
+    .text > span {
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 20px;
+      // opacity: 0.7;
+    }
+
+    .close {
+      min-width: 8px;
+      width: 8px;
+      height: 8px;
+      background: url(../../images/v2/account/red-close.svg) no-repeat;
+      background-size: 7px; // 8
+      margin-left: 4px; // 4
+      cursor: pointer;
+    }
+  }
+
+  .risk-warning-tip-line {
+    width: calc(100% + 10px);
+    margin-left: -10px;
+    margin-top: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .countDatas {
+    margin-top: 40px;
+    .btn {
+      width: 80px;
+      height: 30px;
+      line-height: 30px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 2px;
+      font-weight: 500;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        color: rgba(255, 255, 255, 1);
+      }
+    }
+
+    .mt20 {
+      margin-top: 20px;
+    }
+    .flexBA {
+      align-items: flex-end;
+      .btn {
+        position: relative;
+        top: -4px;
+      }
+    }
+  }
+}
+
+.ant-modal.account-invest-modal {
+  background: #282931;
+  border-radius: 2px;
+  min-width: 457px;
+  padding-bottom: 0;
+
+  .table-tips {
+    font-size: 12px;
+    line-height: 17px;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 16px 20px;
+    background: #22232b;
+  }
+
+  .ant-table-thead > tr > th {
+    color: rgba(255, 255, 255, 0.4);
+    background-color: #22232b;
+    border-bottom: none;
+    transition: none;
+  }
+  .ant-modal-content {
+    background: #282931;
+    border-radius: 2px;
+
+    .ant-modal-close-x {
+      position: static !important;
+      width: 56px !important;
+      height: 56px !important;
+      background: none !important;
+    }
+  }
+
+  .ant-modal-header {
+    border-radius: 2px 2px 0 0;
+    background: #282931;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    .ant-modal-title {
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: unset;
+      color: #ffffff;
+      text-align: center;
+      display: inline-flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .table-nodata {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 40px 20px;
+    background: #22232b;
+    border-radius: 2px;
+    margin-top: 20px;
+    img {
+      width: 80px;
+      height: 80px;
+    }
+    p {
+      margin-bottom: 0;
+      margin-top: 20px;
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 19px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  &.reward {
+    &.empty-body .ant-modal-body {
+      padding: 60px 20px;
+    }
+
+    .empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      img {
+        width: 80px;
+        height: 80px;
+      }
+      p {
+        margin-bottom: 0;
+        margin-top: 20px;
+        font-family: 'Avenir Next';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    .ant-modal-header {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .ab-shadow {
+      background: linear-gradient(180deg, rgba(34, 35, 43, 0) 0%, #22232b 100%);
+      border-radius: 2px;
+      width: 100%;
+      height: 20px;
+      position: relative;
+      z-index: 2;
+      margin-top: -19px;
+    }
+
+    .tips {
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 16px;
+      color: rgba(255, 255, 255, 0.4);
+
+      margin-top: 20px;
+      background: url(../../images/v2/account/orange-alert.svg) left top 0px no-repeat;
+      background-size: 12px;
+      padding-left: 18px;
+
+      p {
+        margin-bottom: 6px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .reward-modal-container {
+      max-height: 498px;
+      overflow-y: scroll;
+      border-right: 1px solid #282931;
+      &::-webkit-scrollbar {
+        /*滚动条整体样式*/
+        width: 1px; /*高宽分别对应横竖滚动条的尺寸*/
+        height: 40px;
+        display: none;
+      }
+      &::-webkit-scrollbar-thumb {
+        /*滚动条里面小方块*/
+        max-height: 40px;
+        border-radius: 1px;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      &:hover {
+        border-right: none;
+        &::-webkit-scrollbar {
+          display: block;
+        }
+      }
+    }
+
+    .reward-modal-main {
+      background: #22232b;
+      border-radius: 2px;
+      padding: 15px;
+
+      &:first-child {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+    }
+
+    .current-income {
+      padding-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      background: url(../../images/v2/account/current-bg.svg) right no-repeat;
+    }
+
+    .previous-income {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .current-income-key {
+      &::before {
+        width: 4px;
+        height: 10px;
+        flex-shrink: 0;
+        background: #4d54ff;
+        border-radius: 1px;
+        margin-right: 8px;
+        display: inline-block;
+        content: '';
+      }
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
+      color: #ffffff;
+
+      &:last-child {
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    .current-income-val {
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 27px;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      color: #9195fb;
+      margin-top: 6px;
+      margin-left: 12px;
+    }
+
+    .j-accruing {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 19px;
+      color: #ffffff;
+    }
+
+    .rewards-box {
+      color: #fff;
+      margin-top: 15px;
+      background: #282931;
+      border-radius: 2px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      &:nth-child(2) {
+        margin-top: 0;
+      }
+
+      .rewards-title {
+        font-family: 'Avenir Next';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        color: rgba(255, 255, 255, 0.6);
+        display: inline-flex;
+        align-items: center;
+
+        img {
+          width: 18px;
+          height: 18px;
+          flex-shrink: 0;
+          margin-right: 8px;
+        }
+      }
+
+      .reward-value {
+        font-family: 'Avenir Next';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+        color: #ffffff;
+      }
+    }
+
+    .closure-time {
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 16px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 15px;
+    }
+  }
+
+  .ant-modal-body {
+    background: #282931;
+    border-radius: 0 0 2px 2px;
+    padding: 20px;
+    .user-invest-modal-info {
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+
+      &.no-data {
+        justify-content: space-between;
+        img {
+          width: 100px;
+          height: 100px;
+          flex-shrink: 0;
+        }
+        p {
+          width: calc(100% - 100px);
+          margin-bottom: 0;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: rgba(255, 255, 255, 0.8);
+        }
+      }
+
+      .donut-chart {
+        width: 100px;
+        height: 100px;
+        margin-right: 40px; // 40
+      }
+      .info-content {
+        display: flex;
+        flex-direction: column;
+        font-family: 'Avenir Next', 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 20px;
+        color: rgba(255, 255, 255, 1);
+        span {
+          color: rgba(255, 255, 255, 1);
+          > span {
+            font-family: 'Avenir Next';
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 19px;
+            color: #9195fb;
+          }
+          &:nth-child(3) {
+            color: rgba(255, 255, 255, 0.6);
+          }
+        }
+
+        span.bold {
+          font-family: 'Avenir Next';
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 19px;
+          color: #9195fb;
+        }
+        &.borrow span span.bold {
+          color: #18c19f;
+        }
+      }
+    }
+
+    .ant-table-wrapper {
+      margin-top: 20px;
+      .collateralSymbol {
+        .colorBlock {
+          width: 10px;
+          height: 10px;
+          border-radius: 2px;
+          margin-right: 8px;
+          min-width: 10px;
+          transform: translateY(-1px);
+        }
+      }
+      // 这里原来不知道为啥从2开始
+      tr:nth-child(1) .collateralSymbol .colorBlock {
+        background: #2b31c1;
+      }
+      tr:nth-child(2) .collateralSymbol .colorBlock {
+        background: #735ff6;
+      }
+      tr:nth-child(3) .collateralSymbol .colorBlock {
+        background: #4c54ff;
+      }
+      tr:nth-child(4) .collateralSymbol .colorBlock {
+        background: #9195fb;
+      }
+      tr:nth-child(5) .collateralSymbol .colorBlock {
+        background: #2b31c1;
+      }
+      tr:nth-child(6) .collateralSymbol .colorBlock {
+        background: #363971;
+      }
+      tr:nth-child(7) .collateralSymbol .colorBlock {
+        background: #2f1e96;
+      }
+      tr:nth-child(8) .collateralSymbol .colorBlock {
+        background: #4d0d90;
+      }
+      tr:nth-child(9) .collateralSymbol .colorBlock {
+        background: #6d00c3;
+      }
+      tr:nth-child(10) .collateralSymbol .colorBlock {
+        background: #9031dc;
+      }
+      tr:nth-child(11) .collateralSymbol .colorBlock {
+        background: #9d5ecf;
+      }
+      tr:nth-child(12) .collateralSymbol .colorBlock {
+        background: #ab7ece;
+      }
+      tr:nth-child(13) .collateralSymbol .colorBlock {
+        background: #cba6e9;
+      }
+      tr:nth-child(14) .collateralSymbol .colorBlock {
+        background: #d7b8f1;
+      }
+      tr:nth-child(15) .collateralSymbol .colorBlock {
+        background: #e047bf;
+      }
+      tr:nth-child(16) .collateralSymbol .colorBlock {
+        background: #bf37a1;
+      }
+      tr:nth-child(17) .collateralSymbol .colorBlock {
+        background: #ba6ea9;
+      }
+      tr.gray-row .collateralSymbol .colorBlock {
+        background: #ccc;
+      }
+      tr.gray-row .collateralSymbol .colorBlock {
+        background: #ccc;
+      }
+
+      tr td p {
+        margin-bottom: 0;
+      }
+
+      &.borrow {
+        tr:nth-child(1) .collateralSymbol .colorBlock {
+          background: #81f5de;
+        }
+        tr:nth-child(2) .collateralSymbol .colorBlock {
+          background: #1d443c;
+        }
+        tr:nth-child(3) .collateralSymbol .colorBlock {
+          background: #107a65;
+        }
+        tr:nth-child(4) .collateralSymbol .colorBlock {
+          background: #18c19f;
+        }
+        tr:nth-child(5) .collateralSymbol .colorBlock {
+          background: #81f5de;
+        }
+        tr:nth-child(6) .collateralSymbol .colorBlock {
+          background: #c4fff4;
+        }
+        tr:nth-child(7) .collateralSymbol .colorBlock {
+          background: #e3ffd6;
+        }
+        tr:nth-child(8) .collateralSymbol .colorBlock {
+          background: #ace98f;
+        }
+        tr:nth-child(9) .collateralSymbol .colorBlock {
+          background: #6ca552;
+        }
+        tr:nth-child(10) .collateralSymbol .colorBlock {
+          background: #b6b263;
+        }
+        tr:nth-child(11) .collateralSymbol .colorBlock {
+          background: #8f8a18;
+        }
+        tr:nth-child(12) .collateralSymbol .colorBlock {
+          background: #a4d629;
+        }
+        tr:nth-child(13) .collateralSymbol .colorBlock {
+          background: #4dc215;
+        }
+        tr:nth-child(14) .collateralSymbol .colorBlock {
+          background: #338b09;
+        }
+        tr:nth-child(15) .collateralSymbol .colorBlock {
+          background: #77ba8a;
+        }
+        tr:nth-child(16) .collateralSymbol .colorBlock {
+          background: #147e32;
+        }
+        tr:nth-child(17) .collateralSymbol .colorBlock {
+          background: #1fb84a;
+        }
+        tr:last-child .collateralSymbol .colorBlock {
+          background: #42434a;
+        }
+      }
+    }
+  }
+  .user-invest-modal-overview {
+    color: #fff;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: #22232b;
+    padding: 15px 20px;
+    border-radius: 0 0 2px 2px;
+    p {
+      margin-bottom: 0;
+      font-family: 'Avenir Next';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 20px;
+      text-transform: capitalize;
+    }
+    .overview-key {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .overview-val {
+      color: #fff;
+      font-weight: 600;
+      span {
+        font-size: 12px;
+      }
+    }
+    .right {
+      text-align: right;
+    }
+  }
+
+  .ant-table {
+    border-radius: 2px 2px 0 0;
+  }
+
+  .ant-table-container {
+    background: #22232b;
+    .ant-table-tbody > tr {
+      td {
+        color: #fff;
+        padding: 10px 10px;
+        height: unset;
+        transition: none;
+
+        &:first-child {
+          padding-left: 20px;
+        }
+
+        &:last-child {
+          padding-right: 20px;
+        }
+
+        .white12 {
+          display: block;
+          font-family: 'Avenir Next';
+          font-style: normal;
+          font-size: 12px;
+          line-height: 16px;
+          color: #fff;
+        }
+        .proportion {
+          color: #9195fb;
+          font-family: 'Avenir Next';
+          font-style: normal;
+          font-size: 12px;
+          line-height: 16px;
+          white-space: nowrap;
+
+          &.borrow {
+            color: #18c19f;
+          }
+        }
+        .colleteral {
+          font-family: 'Avenir Next';
+          font-style: normal;
+          font-size: 12px;
+          line-height: 16px;
+          color: rgba(255, 255, 255, 0.6);
+        }
+      }
+    }
+    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+      background-color: transparent;
+    }
+    .ant-table-body .ant-table-row-hover {
+      background: transparent;
+    }
+    .ant-table-body .ant-table-row-hover > td {
+      background: transparent;
+    }
+  }
+  .ant-table-header {
+    background: #22232b;
+    border-radius: 2px 2px 0 0;
+    .ant-table-thead > tr > th {
+      background: #22232b;
+      padding: 10px 10px;
+      font-family: 'Avenir Next';
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 20px;
+      color: rgba(255, 255, 255, 0.4);
+      border-bottom: none;
+      &:first-child {
+        padding-left: 20px;
+      }
+
+      &:nth-child(4) {
+        padding-right: 20px;
+      }
+      div {
+        font-weight: 400;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.modal-info-table-v2 {
+  tr:not(.gray-row) + .gray-row {
+    td {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+  }
+
+  &.borrow {
+    .ant-table-header {
+      .ant-table-thead > tr > th {
+        &:nth-child(3) {
+          padding-right: 20px;
+        }
+      }
+    }
+  }
+
+  tr:hover {
+    background: #313239;
+  }
+}
+
+// 白色背景
+.ant-modal.account-invest-modal.white {
+  background-color: #fff;
+
+  .table-tips {
+    color: rgba(34, 35, 43, 0.6);
+    background: rgba(75, 82, 223, 0.04);
+  }
+
+  .modal-info-table-v2 {
+    tr:not(.gray-row) + .gray-row {
+      td {
+        border-top: 1px solid rgba(34, 35, 43, 0.06);
+      }
+    }
+
+    tr:hover {
+      background: rgba(34, 35, 43, 0.04);
+    }
+  }
+  .ant-table-thead > tr > th {
+    color: rgba(34, 35, 43, 0.4);
+    background-color: #f9f9fe;
+    border-bottom: none;
+  }
+  .reward-modal-container {
+    background-color: #f8f8fe;
+    border-right: 1px solid #f8f8fe;
+    &::-webkit-scrollbar {
+      /*滚动条整体样式*/
+      width: 1px; /*高宽分别对应横竖滚动条的尺寸*/
+      height: 40px;
+      // display: none;
+    }
+    &::-webkit-scrollbar-thumb {
+      /*滚动条里面小方块*/
+      max-height: 40px;
+      border-radius: 1px;
+      background-color: rgba(34, 35, 43, 0.2);
+    }
+
+    &:hover {
+      border-right: none;
+      &::-webkit-scrollbar {
+        display: block;
+      }
+    }
+  }
+  .reward-modal-main {
+    background-color: #f8f8fe;
+    &:first-child {
+      border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+    }
+  }
+  .rewards-box {
+    background-color: #fff;
+    .rewards-title {
+      color: rgba(34, 35, 43, 0.6);
+    }
+    .reward-value {
+      color: #22232b;
+    }
+  }
+  .closure-time {
+    color: rgba(34, 35, 43, 0.6);
+  }
+
+  .current-income {
+    background: url(../../images/v2/white-theme/income-bg.svg) right no-repeat;
+  }
+  .current-income-key {
+    color: #22232b;
+  }
+  .ab-shadow {
+    background: linear-gradient(180deg, rgba(248, 248, 254, 0) 0%, #f8f8fe 100%);
+  }
+  .tips {
+    color: rgba(34, 35, 43, 0.4);
+    background-image: url(../../images/v2/white-theme/light-yellow.svg);
+  }
+  .empty p {
+    color: #22232b;
+  }
+
+  .modal-info-table-v2 {
+    .ant-table-body {
+      &::-webkit-scrollbar {
+        width: 1px;
+      }
+      &::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 2px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba($color: #22232b, $alpha: 0.2);
+        border-radius: 13px;
+      }
+    }
+  }
+  &.reward {
+    .ant-modal-header {
+      border-bottom: none;
+    }
+  }
+  .ant-modal-body .ant-table-wrapper.borrow tr:last-child .collateralSymbol .colorBlock {
+    background: #ccc;
+  }
+}
+
+#root .j-wrapper.white {
+  .net-value {
+    .gray {
+      color: rgba(34, 35, 43, 0.6);
+    }
+
+    .white {
+      color: #22232b;
+    }
+  }
+}
+
+.ant-table-wrapper.borrow {
+  overflow: hidden;
+}
+
+// mobile
+@media screen and (max-width: 798px) {
+  @function vw($size) {
+    @return #{math.div($size, 3.9)}vw;
+  }
+
+  .account-v2-container {
+    width: 100%;
+  }
+
+  .account-v2-container .title .content {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .account-v2-container {
+    .account-main-info {
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+      padding: 20px 15px;
+      margin-bottom: 20px;
+
+      &.connected {
+        height: 404px;
+      }
+
+      .rist-value {
+        overflow: hidden;
+        margin-top: 24px;
+      }
+      .account-gauge {
+        margin: 0 0 0 0;
+
+        .account-dashboard {
+          background: url(../../images/v2/account/inner-dashboard-m.svg) center 15px no-repeat;
+        }
+
+        div.canvas-text {
+          width: 111px;
+          left: 18px;
+          p {
+            &.black {
+              font-size: 28px;
+              line-height: 38px;
+              text-align: center;
+            }
+          }
+        }
+
+        .account-dashboard-pointer {
+          transform-origin: 74px 2px;
+          top: 73px;
+          border-radius: 1px;
+        }
+      }
+      .risk-warning-tip {
+        width: 100%;
+        padding: 0 10px 0 28px;
+        .text,
+        .text > span {
+          font-size: 12px;
+          line-height: 24px;
+        }
+        .close {
+          width: 8px;
+          height: 8px;
+          background-size: contain;
+        }
+      }
+      .risk-warning-tip-line {
+        margin-top: 24px;
+      }
+      .countDatas {
+        margin-top: 27px;
+
+        .j-btn {
+          height: 26px;
+          line-height: 26px;
+          padding: 0 12px;
+          min-width: 63px;
+          margin-bottom: 5px;
+        }
+      }
+      // .countDatas {
+      //   .btn {
+      //     width: 26px;
+      //     height: 26px;
+      //   }
+      // }
+    }
+    .net-value {
+      margin-left: 19px;
+      max-width: calc(100% - 170px);
+      .p {
+        margin-bottom: 4px;
+      }
+      span.fz12 {
+        font-size: 12px;
+        line-height: 20px;
+        margin-right: 0;
+      }
+      .fz18 {
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 153px;
+      }
+      .mt17 {
+        margin-top: 17px;
+      }
+
+      .tooltip-text.active {
+        .fz12 {
+          color: #9195fb;
+        }
+      }
+    }
+    .data-info-key {
+      font-size: 12px;
+      line-height: 20px;
+      margin-bottom: 4px;
+    }
+    .data-info-value {
+      .countup-int {
+        .value-number {
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 22px;
+        }
+      }
+      .countup-decimal {
+        .value-number {
+          font-size: 12px;
+          color: #fff;
+        }
+      }
+    }
+    // 待分配收益
+    .more {
+      padding: 20px 15px;
+      background-size: contain;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      position: relative;
+      height: 86px;
+
+      .waiting-reward-icon {
+        width: 20px;
+        height: 20px;
+        right: 20px;
+        top: 21px;
+      }
+      .value {
+        line-height: 25px;
+      }
+
+      .countup-int {
+        .value-number {
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 22px;
+          color: #fff;
+        }
+      }
+      .countup-decimal {
+        .value-number {
+          font-size: 14px;
+          font-weight: 400;
+          color: #fff;
+        }
+      }
+      .j-reward-unit {
+        font-weight: 400;
+        font-size: 14px;
+        color: #fff;
+      }
+    }
+  }
+
+  .j-wrapper.white .j-reward-unit {
+    color: #22232b;
+  }
+
+  .ant-modal.account-invest-modal {
+    max-width: calc(100% - 40px);
+    min-width: 0;
+
+    .ant-modal-content .ant-modal-close-x {
+      background: none;
+    }
+  }
+
+  .ant-modal.account-invest-modal.reward .current-income-key {
+    font-size: 12px;
+  }
+  .ant-modal.account-invest-modal.reward .current-income-val {
+    font-size: 18px;
+  }
+  .ant-modal.account-invest-modal.reward .tips {
+    p {
+      font-size: 12px;
+    }
+  }
+  .ant-modal.account-invest-modal.reward .rewards-box .rewards-title span {
+    font-size: 12px;
+  }
+  .ant-modal.account-invest-modal.white .closure-time span {
+    font-size: 12px;
+  }
+  .ant-modal.account-invest-modal.white .ant-modal-body .user-invest-modal-info .info-content span {
+    font-size: 12px;
+  }
+}
+
+.modal-info-table-v2 {
+  .ant-table-body {
+    &::-webkit-scrollbar {
+      width: 1px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 13px;
+    }
+  }
+}
+
+.white {
+  .risk-warning-tip-line {
+    border-bottom: 1px solid rgba(34, 35, 43, 0.1);
+  }
+
+  .account-v2-container {
+    .skeleton-loader,
+    .ant-skeleton,
+    .skeleton-chart {
+      background: #ffffff;
+    }
+    .skeleton-line {
+      border-bottom: 1px solid rgba(34, 35, 43, 0.1);
+    }
+    .tooltip-text.active {
+      .fz12 {
+        color: #4d54ff !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 798px) {
+  .tooltip-text-wrap {
+    .j-tooltip-icon {
+      display: none;
+    }
+  }
+  .account-v2-container {
+    min-width: unset;
+  }
+  .ant-modal.account-invest-modal {
+    .modal-info-table-v2 {
+      .ant-table-header .ant-table-thead > tr > th {
+      }
+    }
+    .ant-modal-body {
+      padding: 20px 15px;
+      .user-invest-modal-info {
+        padding: 0 20px 0 5px;
+
+        .donut-chart {
+          margin-right: 20px;
+        }
+      }
+
+      .table-tips {
+        padding: 16px 10px;
+      }
+    }
+    .ant-table-header .ant-table-thead > tr > th:nth-child(1),
+    .ant-table-container .ant-table-tbody > tr td:nth-child(1) {
+      padding-left: 10px;
+    }
+    .ant-table-header .ant-table-thead > tr > th:nth-child(2),
+    .ant-table-container .ant-table-tbody > tr td:nth-child(2) {
+      text-align: left;
+    }
+    .ant-table-header .ant-table-thead > tr > th:last-child,
+    .ant-table-container .ant-table-tbody > tr td:last-child {
+      padding-right: 10px;
+    }
+
+    .user-invest-modal-overview {
+      padding: 15px 10px;
+      .overview-val {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      &.flexBA {
+        > div {
+          width: 50%;
+        }
+      }
+    }
+  }
+}
+
+//iphoneX、iphoneXs
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .ant-modal.account-invest-modal {
+    .ant-modal-body {
+      padding: 20px 10px;
+    }
+  }
+}

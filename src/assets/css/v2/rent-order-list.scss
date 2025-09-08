@@ -1,0 +1,942 @@
+.j-energy-rent {
+  .order-list-header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 35px 0 16px;
+    flex-direction: column;
+    gap: 16px;
+
+    .back-btn {
+      color: #fff;
+      font-weight: 500;
+      opacity: 0.4;
+      transition: all 0.3s ease-in-out;
+      width: 60px;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .title {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 27.32px;
+    }
+  }
+
+  .market-top-mobile {
+    display: flex;
+    justify-content: space-between;
+
+    .j-order-list {
+      width: auto;
+      margin-left: 0;
+    }
+
+    .order-title {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin-right: 15px;
+      white-space: nowrap;
+      &:last-child {
+        margin-right: 0;
+      }
+      &.current {
+        color: #fff;
+        .order-count {
+          background: rgba(76, 84, 255, 0.3);
+        }
+      }
+    }
+
+    .order-count {
+      font-size: 12px;
+      display: inline-flex;
+      justify-content: center;
+      height: 20px;
+      line-height: 20px;
+      min-width: 20px;
+      margin-left: 6px;
+      padding: 0px 4px;
+      border-radius: 1px;
+      color: #9195fb;
+      background: rgba(76, 84, 255, 0.15);
+    }
+  }
+
+  .j-market-list-mobile {
+    margin-bottom: 20px;
+    .skeleton-flex-row {
+      padding-top: 20px;
+    }
+
+    .mobile-cards {
+      .load-more-btn {
+        margin: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        opacity: 0.6;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        &::after {
+          content: '';
+          margin-left: 6px;
+          width: 11px;
+          height: 9px;
+          background: url(../../images/v2/vote/arrow-white.svg) 0 0 no-repeat;
+          background-size: 100%;
+        }
+      }
+    }
+
+    .mobile-card {
+      background: #31333a;
+      border-radius: 10px;
+      margin-top: 10px;
+      padding: 20px 15px;
+      filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.1));
+      min-height: 187px;
+
+      .j-tooltip-icon {
+        transform: translateY(1px);
+      }
+
+      .no-data-icon {
+        position: absolute;
+        left: calc(50% - 30px);
+        margin-top: 30px;
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        background: url(../../images/v2/energy-rent/mining/no-data.svg) center no-repeat;
+      }
+
+      .no-data-text {
+        margin-top: 100px;
+        color: rgba(255, 255, 255, 0.6);
+        text-align: center;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+
+      .btn-wrap {
+        text-align: left;
+        display: flex;
+        // gap: 20px;
+
+        .j-btn,
+        .btn-eles {
+          width: 50%;
+        }
+        .btn-eles .j-btn {
+          width: 100%;
+        }
+      }
+
+      .field {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        overflow: hidden;
+
+        .title {
+          color: rgba(255, 255, 255, 0.6);
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+
+          .active {
+            font-size: 12px;
+            color: #fff;
+          }
+
+          .slash {
+            padding: 0 6px;
+          }
+
+          .inactive {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.3);
+          }
+        }
+
+        .value {
+          color: #fff;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+
+          &.receiver {
+            display: flex;
+            align-items: center;
+
+            &:hover {
+              color: #9195fb;
+            }
+          }
+
+          .expiring {
+            color: #ff5266;
+          }
+
+          .flex-cell {
+            .flex-cell-text {
+              border-bottom: 1px dashed #fff;
+
+              &.red-alert {
+                cursor: pointer;
+                color: #ff5266;
+                border-bottom: 1px dashed #ff5266;
+                &:hover {
+                  color: #cc4252;
+                  border-bottom: 1px dashed #cc4252;
+                }
+              }
+
+              &.yellow-warning {
+                cursor: pointer;
+                color: #f58721;
+                border-bottom: 1px dashed #f58721;
+                &:hover {
+                  color: #c46c1a;
+                  border-bottom: 1px dashed #c46c1a;
+                }
+              }
+
+              &:hover {
+                color: #9195fb;
+                border-bottom: 1px dashed #9195fb;
+              }
+            }
+
+            // .j-tooltip-icon {
+            //   display: none;
+            // }
+
+            .expiring {
+              border-bottom: 1px dashed #ff5266;
+
+              &:hover {
+                color: #b33947;
+                border-bottom: 1px dashed #b33947;
+              }
+            }
+          }
+        }
+
+        .title,
+        .current-receiver {
+          white-space: nowrap;
+        }
+
+        .current-receiver {
+          border-radius: 2px;
+          box-sizing: border-box;
+          display: inline-table;
+        }
+      }
+
+      .skeleton-flex-row:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    }
+
+    .skeleton-flex-row {
+      display: flex;
+      flex-direction: row;
+      gap: 50%;
+
+      &.narrow-gap {
+        gap: 20%;
+      }
+
+      li {
+        height: 20px;
+      }
+    }
+  }
+}
+
+.j-order-list {
+  text-align: right;
+  margin-left: 50px;
+
+  .ant-select-selection-item {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .ant-select-focused,
+  .ant-select-open {
+    .ant-select-selection-item {
+      color: #fff;
+    }
+    .anticon {
+      background-image: url(../../images/v2/lang-up-arrow.svg);
+    }
+  }
+  .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 1);
+  }
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+  }
+  .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .anticon {
+    width: 8px;
+    height: 5px;
+    background: url(../../images/v2/lang-down-arrow.svg) 0 0 no-repeat;
+    background-size: 100%;
+    transform: translateY(3px);
+    > svg {
+      display: none;
+    }
+  }
+
+  .ant-select-arrow {
+    transform: translateY(0px);
+  }
+
+  .ant-select-open {
+    .ant-select-selection-item {
+      opacity: 1;
+      color: #fff;
+    }
+  }
+
+  .anticon {
+    transform: translateY(1px);
+  }
+}
+
+.energyAmount {
+  display: flex;
+  align-items: center;
+}
+
+.order-select {
+  .ant-select-selector {
+    border-bottom: none !important;
+  }
+
+  .ant-select-selection-item {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+}
+
+.ant-select-dropdown {
+  padding: 0;
+  border-radius: 5px;
+  width: fit-content;
+
+  .order-option {
+    background: #40414a;
+    padding: 10px;
+
+    &.ant-select-item {
+      &:hover {
+        background: rgb(255, 255, 255, 0.04);
+      }
+    }
+
+    &.ant-select-item-option {
+      .ant-select-item-option-content {
+        color: #fff;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+    }
+
+    &.ant-select-item-option-selected {
+      color: #fff;
+
+      &::after {
+        content: '';
+        display: block;
+        width: 13px;
+        height: 13px;
+        background: url(../../images/v2/energy-rent/mining/select-tick.svg) 0 0 no-repeat;
+        background-size: 100%;
+        position: absolute;
+        top: 12px;
+        right: 6px;
+      }
+    }
+  }
+
+  .order-option.white {
+    background: #f9fafc;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.06);
+
+    &.ant-select-item {
+      &:hover {
+        background: #f0f2f7;
+      }
+    }
+
+    &.ant-select-item-option {
+      &:hover {
+        background: #f0f2f7;
+      }
+
+      .ant-select-item-option-content {
+        color: #22232b;
+      }
+    }
+
+    &.ant-select-item-option-selected {
+      &::after {
+        background: url(../../images/v2/energy-rent/mining/white-theme/select-tick.svg) 0 0 no-repeat;
+      }
+    }
+  }
+}
+
+.j-wrapper {
+  .j-orders-list {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    .j-nodata {
+      padding: 70px;
+    }
+    .j-tooltip-icon {
+      transform: translateY(0px);
+    }
+    .ant-table-wrapper {
+      min-height: 248px;
+    }
+    .ant-table-thead > tr > th:first-child,
+    .ant-table-tbody > tr > td:first-child {
+      padding-left: 30px;
+    }
+
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+      background: rgba(49, 51, 58, 1);
+      width: 20%;
+      &:nth-child(1) {
+        width: 40%;
+      }
+    }
+
+    .ant-table-thead > tr:first-child {
+      th {
+        height: 40px;
+        line-height: 40px;
+        padding-top: 10px;
+      }
+    }
+    .market-top {
+      padding: 20px 19px 20px 30px;
+    }
+  }
+  .order-cato-title {
+    height: 40px;
+    line-height: 40px;
+    background-color: rgba(31, 32, 39, 0.24);
+    font-weight: 500;
+    font-size: 14px;
+    text-align: left;
+    color: #fff;
+    padding-left: 30px;
+  }
+  .j-rent-refund {
+    margin-right: 20px;
+    border-radius: 5px;
+    width: 84px;
+  }
+
+  .j-rent-renew {
+    color: #fff;
+    width: 84px;
+    border-radius: 5px;
+  }
+  .order-tabs {
+    display: flex;
+  }
+
+  .j-market-list {
+    .market-top {
+      .order-title {
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-right: 30px;
+        color: rgba(255, 255, 255, 0.4);
+        cursor: pointer;
+        &:last-child {
+          margin-right: 0;
+        }
+        &.current {
+          color: #fff;
+          .order-count {
+            background: rgba(76, 84, 255, 0.3);
+          }
+        }
+      }
+
+      .order-count {
+        color: #9195fb;
+        font-size: 12px;
+        font-weight: 600;
+
+        display: inline-flex;
+        margin-left: 6px;
+        padding: 2px 8px;
+        border-radius: 2px;
+        background: rgba(76, 84, 255, 0.15);
+      }
+    }
+
+    .ant-table-wrapper {
+      &.hide-footer {
+        .ant-table-footer {
+          display: none;
+        }
+      }
+    }
+
+    .ant-table-tbody td {
+      text-align: left;
+
+      .expiring {
+        color: #ff5266;
+      }
+    }
+
+    .ant-table-thead th {
+      text-align: left;
+
+      .active {
+        color: #fff;
+      }
+
+      .slash {
+        padding: 0 8px;
+      }
+
+      .inactive {
+        color: rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    .ant-table-cell {
+      .flex-cell {
+        display: flex;
+        align-items: center;
+        line-height: initial;
+        .yellow-warning {
+          cursor: pointer;
+          color: #f58721;
+          border-bottom: 1px dashed #f58721;
+          &:hover {
+            color: #c46c1a;
+            border-bottom: 1px dashed #c46c1a;
+          }
+        }
+        .red-alert {
+          cursor: pointer;
+          color: #ff5266;
+          border-bottom: 1px dashed #ff5266;
+          &:hover {
+            color: #cc4252;
+            border-bottom: 1px dashed #cc4252;
+          }
+        }
+      }
+    }
+  }
+
+  .current-receiver {
+    color: #b3b4b7;
+    background: #ffffff0a;
+    padding: 5px 5px;
+    margin-left: 6px;
+    margin-right: 6px;
+    border-radius: 2px;
+    font-size: 10px !important;
+  }
+
+  .energy-icon {
+    margin-right: 4px;
+    margin-bottom: 1px;
+  }
+
+  .flex-box {
+    // color: rgba(255, 255, 255, 0.60);
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .switch-icon {
+    margin-left: 4px;
+    cursor: pointer;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: url(../../images/v2/energy-rent/mining/switch.svg) center no-repeat;
+
+    &:hover {
+      background: url(../../images/v2/energy-rent/mining/switch-white.svg) center no-repeat;
+    }
+  }
+}
+
+.j-wrapper.white {
+  .j-orders-list {
+    background: #f9fafc !important;
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+      background: #f9fafc !important;
+    }
+  }
+  .order-cato-title {
+    background-color: rgba(240, 242, 247, 1);
+    color: #22232b;
+  }
+
+  .current-receiver {
+    background: #f0f1f4;
+    color: #737480;
+  }
+
+  .order-list-header {
+    .title {
+      color: #22232b;
+    }
+  }
+
+  .j-energy-rent {
+    .order-list-header {
+      .back-btn {
+        color: #22232b;
+      }
+    }
+  }
+
+  .j-rent-renew {
+    color: #fff;
+  }
+
+  .j-rent-refund {
+    background: rgba(77, 84, 255, 0.04);
+    border: 1px solid rgba(77, 84, 255, 0.8);
+    color: #4d54ff;
+
+    &:hover {
+      background: #4d54ff;
+      color: #fff;
+    }
+  }
+
+  .j-market-list {
+    .market-top {
+      .order-title {
+        color: rgba(34, 35, 43, 0.4);
+
+        &.current {
+          color: #22232b;
+          .order-count {
+            background: rgba(77, 84, 255, 0.3);
+          }
+        }
+      }
+      .order-count {
+        background: rgba(77, 84, 255, 0.15);
+        color: #4d5dff;
+      }
+    }
+
+    .ant-table-thead th {
+      // color: #737480;
+
+      .active {
+        color: #22232b;
+      }
+
+      .inactive {
+        color: #22232b;
+        opacity: 0.3;
+      }
+    }
+  }
+
+  .market-top-mobile {
+    .order-title {
+      color: #22232b;
+    }
+
+    .order-count {
+      color: #4d54ff;
+
+      background: rgba(76, 84, 255, 0.2);
+    }
+  }
+
+  .j-market-list-mobile {
+    .mobile-cards {
+      .load-more-btn {
+        color: #737480;
+
+        &::after {
+          background: url(../../images/v2/vote/arrow-black.svg) 0 0 no-repeat;
+        }
+      }
+    }
+
+    .mobile-card {
+      background: #fff;
+
+      .no-data-icon {
+        background: url(../../images/v2/energy-rent/mining/white-theme/no-data.svg) center no-repeat;
+      }
+
+      .no-data-text {
+        color: #22232b;
+      }
+
+      .title {
+        color: #737480;
+
+        .active {
+          color: #22232b;
+        }
+
+        .inactive {
+          color: #22232b;
+          opacity: 0.3;
+        }
+
+        .flex-box {
+          color: #737480;
+        }
+      }
+
+      .value {
+        color: #22232b;
+
+        .expiring {
+          color: #ff5266;
+        }
+
+        .flex-cell {
+          .expiring {
+            border-bottom: 1px dashed #ff5266;
+
+            &:hover {
+              color: #cc4252;
+              border-bottom: 1px dashed #cc4252;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .switch-icon {
+    background: url(../../images/v2/energy-rent/mining/white-theme/switch.svg) center no-repeat;
+
+    &:hover {
+      background: url(../../images/v2/energy-rent/mining/switch-black.svg) center no-repeat;
+    }
+  }
+
+  .j-order-list {
+    .ant-select-selection-item {
+      color: #22232b;
+      opacity: 0.6;
+    }
+    .ant-select-focused,
+    .ant-select-open {
+      .ant-select-selection-item {
+        color: #22232b;
+        opacity: 1;
+        border-bottom: none;
+      }
+      .anticon {
+        background-image: url(../../images/v2/white-theme/lang-down-arrow.svg);
+      }
+    }
+    .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      border-bottom: 1px solid #22232b;
+    }
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      border-bottom: 1px solid rgba(34, 35, 43, 0.1);
+    }
+    .anticon {
+      background: url(../../images/v2/white-theme/lang-up-arrow.svg) 0 0 no-repeat;
+      > svg {
+        display: none;
+      }
+    }
+  }
+}
+
+.order-list-skeleton {
+  margin-bottom: -16px;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: self-start;
+
+  .title-skeleton {
+    li {
+      height: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .j-energy-rent {
+    .order-list-header {
+      padding-top: 0;
+      position: relative;
+      justify-content: center;
+      flex-direction: row;
+      .back-btn {
+        position: absolute;
+        top: 5px;
+        left: 0;
+      }
+    }
+  }
+
+  .j-market-list,
+  .j-market-list-skeleton {
+    display: none;
+  }
+
+  .j-wrapper {
+    .order-cato-title {
+      line-height: 20px;
+      padding: 20px 0 10px;
+      &:first-child {
+        margin-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+    }
+
+    &.white {
+      .order-cato-title {
+        &:first-child {
+          border-top-color: rgba(34, 35, 43, 0.06);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .j-market-list-mobile {
+    display: none;
+  }
+}
+
+.ant-tooltip-inner {
+  .rent-info-tooltip {
+    margin: 0 !important;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 12px 0;
+
+    .detail-row {
+      padding: 0 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &:last-child {
+        flex-direction: column;
+        .row-value {
+          width: 100%;
+        }
+      }
+
+      .row-title {
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        color: #b3b4b7;
+        text-align: left;
+        margin-right: 10px;
+        > div {
+          white-space: nowrap;
+        }
+      }
+      .energy-light {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: flex-start;
+        > em {
+          display: inline-block;
+          min-width: 12px;
+          height: 12px;
+          background: url(../../images/v2/energy-rental/energy-light.svg) 0 0 no-repeat;
+          background-size: 100%;
+          margin-right: 6px;
+          transform: translateY(2px);
+        }
+      }
+
+      .row-title2 {
+        @extend .row-title;
+        font-weight: 500;
+        color: #fff;
+      }
+
+      .row-value {
+        text-align: right;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        color: #b3b4b7;
+        line-height: normal;
+      }
+
+      .row-value2 {
+        @extend .row-value;
+        color: #fff;
+      }
+    }
+
+    .divider-line {
+      margin: 2px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+  }
+}
