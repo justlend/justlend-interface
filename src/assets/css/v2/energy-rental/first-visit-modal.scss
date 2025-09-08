@@ -1,0 +1,168 @@
+.first-visit-modal {
+  &.ant-modal.j-modal .ant-modal-body {
+    border-radius: 10px;
+    padding: 0;
+  }
+
+  .first-visit-modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 400px;
+
+    .first-visit-modal-bg {
+      width: 400px;
+      height: 438px;
+
+      background: url(../../../images/v2/energy-rental/first-visit-bg.png) 0 0 no-repeat;
+      background-size: 100%;
+    }
+
+    .first-visit-modal-title {
+      position: absolute;
+      top: 58px;
+      left: 0px;
+      right: 0px;
+      text-align: center;
+
+      color: #ffffff;
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .first-visit-modal-content-rows {
+      position: absolute;
+
+      top: 198px;
+      left: 40px;
+      right: 40px;
+
+      .first-visit-modal-content-row {
+        position: relative;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 400;
+        padding-bottom: 4px;
+        padding-right: 12px;
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 5px;
+          right: 0;
+          background: url(../../../images/v2/energy-rental/first-visit-tick.png) 0 0 no-repeat;
+          background-size: 100%;
+
+          background-size: 12px 12px;
+          width: 12px;
+          height: 12px;
+        }
+      }
+    }
+
+    .tutorial-link {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .explore-btn {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 40px;
+      border-radius: 5px;
+
+      height: 40px;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      font-weight: 500;
+      background-color: #4d54ff;
+      color: #ffffff;
+
+      &:hover {
+        background: #9195fb;
+      }
+    }
+  }
+
+  &.en-US {
+    .first-visit-modal-content {
+      .first-visit-modal-title {
+        font-size: 22px;
+      }
+
+      .first-visit-modal-content-rows {
+        .first-visit-modal-content-row {
+        }
+      }
+
+      .tutorial-link {
+      }
+
+      .explore-btn {
+      }
+    }
+  }
+}
+
+.j-wrapper.white {
+  .first-visit-modal {
+    .first-visit-modal-content {
+      .first-visit-modal-bg {
+        background-image: url(../../../images/v2/energy-rental/first-visit-bg-white-theme.png);
+        background-size: 100%;
+      }
+
+      .first-visit-modal-title {
+        color: rgba(34, 35, 43, 1);
+      }
+
+      .first-visit-modal-content-rows {
+        .first-visit-modal-content-row {
+          color: rgba(34, 35, 43, 1);
+
+          &::after {
+            background-image: url(../../../images/v2/energy-rental/first-visit-tick-white-theme.png);
+            background-size: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Small screen */
+@media (max-width: 798px) {
+  .first-visit-modal {
+    .first-visit-modal-content {
+      min-width: 335px;
+
+      .first-visit-modal-bg {
+        width: 335px;
+        height: 438px;
+
+        background: url(../../../images/v2/energy-rental/first-visit-bg-mobile.png) 0 0 no-repeat;
+        background-size: 100%;
+      }
+
+      .first-visit-modal-content-rows {
+        left: 35px;
+        right: 35px;
+      }
+    }
+  }
+
+  .j-wrapper.white {
+    .first-visit-modal {
+      .first-visit-modal-content {
+        .first-visit-modal-bg {
+          background: url(../../../images/v2/energy-rental/first-visit-bg-mobile-white-theme.png) 0 0 no-repeat;
+          background-size: 100%;
+        }
+      }
+    }
+  }
+}

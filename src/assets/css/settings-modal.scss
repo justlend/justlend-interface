@@ -1,0 +1,524 @@
+.settings-modal {
+  .settings-modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .content-icon {
+      margin: 50px auto 0;
+      width: 80px;
+      height: 80px;
+      background: url(../images/settings/settings-signature.png) 0 0 no-repeat;
+      background-size: 100%;
+
+      &.loading-icon,
+      &.succeed-icon,
+      &.timeout-icon,
+      &.failed-icon {
+        width: 66px;
+        height: 66px;
+      }
+    }
+    .content-title {
+      margin-top: 20px;
+      margin-left: 20px;
+      margin-right: 20px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+    }
+    .content-subtitle {
+      margin-top: 10px;
+      margin-left: 20px;
+      margin-right: 20px;
+      color: #b3b4b7;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    &.settings-signature-modal-content {
+      .content-icon {
+        background-image: url(../images/settings/settings-signature.png);
+      }
+    }
+    &.bind-email-modal-content {
+      .content-icon {
+        &.loading-icon {
+          transform: rotate(360deg);
+          animation: rotation 2s infinite linear;
+          background-image: url(../images/settings/loading.png);
+        }
+        &.failed-icon {
+          background-image: url(../images/settings/fail.png);
+        }
+        &.succeed-icon {
+          background-image: url(../images/settings/success.png);
+        }
+      }
+    }
+
+    .action-btns {
+      display: flex;
+      padding: 16px 0 0;
+
+      .action-btn {
+        flex-basis: 50%;
+        &.sign-btn,
+        &.link-btn {
+          margin-left: 10px;
+        }
+        &.close-btn {
+          margin-right: 10px;
+        }
+      }
+    }
+    .action-btn {
+      flex-grow: 1;
+      height: 40px;
+      transition: all 0.3s ease;
+
+      &.sign-btn,
+      &.link-btn,
+      &.close-btn {
+        padding: 3px 12px;
+        border-radius: 5px;
+
+        font-size: 14px;
+        font-weight: 500;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &.sign-btn,
+      &.close-btn {
+        margin-top: 80px;
+      }
+      &.link-btn {
+        margin-top: 12px;
+      }
+
+      &.sign-btn,
+      &.link-btn {
+        background-color: #4d54ff;
+        color: #ffffff;
+
+        &:hover {
+          background: #9195fb;
+        }
+        &.is-signing {
+          background-color: #53545a;
+          color: rgba(255, 255, 253, 0.6);
+        }
+      }
+      &.close-btn {
+        border: 1px solid #9195fb;
+
+        background-color: transparent;
+        color: #9195fb;
+
+        &:hover {
+          color: #fff;
+          background: #4d54ff;
+          border-color: #4d54ff;
+        }
+      }
+
+      &:disabled,
+      &:disabled:hover {
+        color: rgba(255, 255, 255, 0.6) !important;
+        background: #53545a !important;
+        cursor: not-allowed;
+      }
+    }
+
+    .input-section {
+      margin-bottom: 10px;
+
+      .field-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .title-text {
+          color: #ffffff;
+
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .field-title {
+        margin: 20px 0 10px;
+        .title-text {
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+
+      .otp-input,
+      .email-input {
+        &.j-input,
+        .ant-input-wrapper,
+        .ant-input-group-addon,
+        .ant-input-affix-wrapper {
+          border: none;
+          margin: 0;
+        }
+
+        .ant-input {
+          font-weight: 500;
+          font-size: 16px;
+
+          &::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 16px;
+            font-weight: 400;
+          }
+        }
+      }
+
+      .otp-input {
+        .ant-input-affix-wrapper {
+          padding-right: 16px;
+        }
+      }
+
+      .j-error-tip {
+        display: flex;
+        background-color: #313239;
+        border-radius: 5px;
+        padding: 12px 16px;
+        top: 68px;
+      }
+
+      .add-on-after-wrapper {
+        height: 36px;
+
+        margin: 12px 0;
+        display: flex;
+        align-items: center;
+      }
+      .send-otp-btn-wrapper {
+        margin: 0;
+        padding: 0 8px 0 18px;
+
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+        display: flex;
+        align-items: center;
+
+        .send-otp-btn {
+          font-size: 16px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.4);
+          cursor: not-allowed;
+
+          &.enabled {
+            cursor: pointer;
+            color: #fff;
+
+            &:hover {
+              color: #9195fb;
+            }
+          }
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+        .seconds-countdown {
+          cursor: pointer;
+          width: 32px;
+
+          color: rgba(255, 255, 255, 0.4);
+          font-size: 16px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .current-email-hint {
+      position: relative;
+      margin-top: 20px;
+      padding-left: 20px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+
+      &::before {
+        content: '';
+        position: absolute;
+
+        left: 0;
+        top: 50%;
+        transform: translateY(-58%);
+        width: 14px;
+        height: 14px;
+
+        background: url(../images/settings/current-email-address.png) 0 0 no-repeat;
+        background-size: 14px 14px;
+      }
+    }
+
+    .otp-sent-hint {
+      position: relative;
+      margin-top: 15px;
+      padding-left: 22px;
+      color: #b3b4b7;
+      font-size: 12px;
+      font-weight: 500;
+      opacity: 0;
+
+      transition: all 0.3s ease;
+
+      &.visible {
+        opacity: 1;
+      }
+
+      &.extra-top-margin {
+        margin-top: 80px;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+
+        left: 0;
+        top: 50%;
+        transform: translateY(-58%);
+        width: 12px;
+        height: 12px;
+
+        background: url(../images/settings/exclaimation-grey.png) 0 0 no-repeat;
+        background-size: 12px 12px;
+      }
+    }
+
+    .other-ways-btn {
+      position: relative;
+      display: inline;
+
+      background-color: transparent;
+      color: #9195fb;
+
+      padding-right: 12px;
+      font-size: 12px;
+      font-weight: 400;
+
+      margin: 20px auto 80px;
+
+      &::before {
+        content: '';
+        position: absolute;
+
+        right: 0;
+        top: 50%;
+        transform: translateY(-56%);
+        width: 8px;
+        height: 8px;
+
+        background: url(../images/settings/arrow-right-purple.svg) 0 0 no-repeat;
+        background-size: 8px 8px;
+      }
+
+      &.zero-bottom-margin {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+body .ant-tooltip.bind-email-otp-countdown-tooltip {
+  .ant-tooltip-inner {
+    max-width: 220px;
+  }
+}
+
+.j-wrapper.white {
+  .settings-modal {
+    .settings-modal-content {
+      .content-title {
+        color: #22232b;
+      }
+      .content-subtitle {
+        color: #737480;
+      }
+
+      &.settings-signature-modal-content {
+        .content-icon {
+          background-image: url(../images/settings/white-theme/settings-signature.png);
+        }
+      }
+      &.bind-email-modal-content {
+        .content-icon {
+          &.loading-icon {
+            background-image: url(../images/settings/white-theme/loading.png);
+          }
+          &.failed-icon {
+            background-image: url(../images/settings/white-theme/fail.png);
+          }
+          &.succeed-icon {
+            background-image: url(../images/settings/white-theme/success.png);
+          }
+        }
+      }
+
+      .action-btn {
+        &.sign-btn,
+        &.link-btn {
+          background-color: #4d54ff;
+          color: #ffffff;
+
+          &:hover {
+            background: #9195fb;
+          }
+          &.is-signing {
+            background-color: #d3d3d5;
+            color: #fff;
+          }
+        }
+        &.close-btn {
+          border: 1px solid #4d54ff;
+          background: rgba(77, 84, 255, 0.06);
+          color: #4d54ff;
+
+          &:hover {
+            background: #4d54ff;
+            color: #fff;
+          }
+        }
+
+        &:disabled,
+        &:disabled:hover {
+          color: #fff !important;
+          background: #d3d3d5 !important;
+        }
+      }
+
+      .field-title {
+        .title-text {
+          color: #22232b;
+        }
+      }
+
+      .input-section {
+        .field-title {
+          .title-text {
+            color: #22232b;
+          }
+        }
+
+        .otp-input,
+        .email-input {
+          .ant-input {
+            &::-webkit-input-placeholder {
+              color: rgba(#22232b, 0.4);
+            }
+          }
+        }
+
+        .j-error-tip {
+          background-color: #f0f2f7;
+        }
+
+        .send-otp-btn-wrapper {
+          border-left: 1px solid rgba(#22232b, 0.1);
+
+          .send-otp-btn {
+            color: rgba(#22232b, 0.4);
+
+            &.enabled {
+              color: #22232b;
+
+              &:hover {
+                color: #4d54ff;
+              }
+            }
+          }
+          .seconds-countdown {
+            color: rgba(#22232b, 0.4);
+          }
+        }
+      }
+
+      .current-email-hint {
+        color: #22232b;
+
+        &::before {
+          background-image: url(../images/settings/white-theme/current-email-address.png);
+        }
+      }
+
+      .otp-sent-hint {
+        color: #737480;
+
+        &::before {
+          background-image: url(../images/settings/white-theme/exclaimation-grey.png);
+        }
+      }
+
+      .other-ways-btn {
+        color: #4d54ff;
+
+        &::before {
+          background-image: url(../images/settings/white-theme/arrow-right-purple.svg);
+        }
+      }
+    }
+  }
+}
+
+/* Small screen */
+@media (max-width: 798px) {
+  .ant-modal.settings-modal {
+    margin-top: -80px;
+
+    &.risk-warning-modal {
+      margin-top: 0;
+    }
+
+    &.j-modal .ant-modal-content .ant-modal-body {
+      padding-bottom: 40px;
+    }
+    .settings-modal-content {
+      .content-icon {
+        width: 70px;
+        height: 70px;
+        &.loading-icon,
+        &.succeed-icon,
+        &.timeout-icon,
+        &.failed-icon {
+          width: 56px;
+          height: 56px;
+        }
+      }
+
+      .content-title {
+        margin-top: 15px;
+      }
+
+      .input-section {
+        .field-title {
+          margin: 10px 0 10px;
+        }
+
+        .send-otp-btn-wrapper {
+          .send-otp-btn {
+            font-size: 14px;
+          }
+          .seconds-countdown {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .current-email-hint {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

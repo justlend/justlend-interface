@@ -3,15 +3,20 @@ import Config from '../config';
 const { contract, activeSwaps, lendContract, activeLends, voteList, activeVoteList } = Config;
 
 export const getIcons = tokenName => {
-  tokenName = tokenName.toLowerCase();
+  tokenName = tokenName?.toLowerCase();
   let icons = '';
   try {
-    icons = require(`../assets/images/icons/${tokenName}.png`);
+    icons = require(`../assets/images/v2/icons/${tokenName}.png`);
   } catch (error) {
     try {
-      icons = require(`../assets/images/icons/${tokenName}.svg`);
+      icons = require(`../assets/images/v2/icons/${tokenName}.svg`);
     } catch (error) {
-      icons = require(`../assets/images/icons/trx.png`);
+      try {
+        icons = require(`../assets/images/v2/icons/${tokenName}.jpeg`);
+      } catch (error) {
+        icons = require(`../assets/images/v2/icons/trx.png`);
+      }
+      icons = require(`../assets/images/v2/icons/trx.png`);
     }
   }
 
@@ -32,15 +37,20 @@ export const ICONS_MAP = {
   btcst: getIcons('btcst'),
   tusd: getIcons('tusd'),
   nft: getIcons('nft'),
-  yfx: getIcons('yfx')
+  yfx: getIcons('yfx'),
+  usdd: getIcons('usdd')
 };
 
-const getLendIcons = tokenName => {
+export const getLendIcons = symbol => {
   let icons = '';
   try {
-    icons = require(`../assets/images/icons/${tokenName.toLowerCase()}.png`);
+    icons = require(`../assets/images/liquidate/icons/${symbol}.png`);
   } catch (error) {
-    icons = require(`../assets/images/icons/default.png`);
+    try {
+      icons = require(`../assets/images/liquidate/icons/${symbol}.svg`);
+    } catch (error) {
+      icons = require(`../assets/images/default.png`);
+    }
   }
   return icons;
 };
@@ -52,7 +62,7 @@ export const calcMineInfo = poolInfo => {
     end = poolInfo.next.end;
     start = poolInfo.next.start;
   }
-  const speed = BigNumber(sunoldSupply).div(BigNumber(end).minus(start)); 
+  const speed = BigNumber(sunoldSupply).div(BigNumber(end).minus(start));
   let mined = BigNumber(new Date().getTime()).minus(start).times(speed);
 
   if (mined.gt(sunoldSupply)) {
@@ -108,9 +118,9 @@ export const initPoolData = () => {
 };
 
 export const VOTE_STATUS = {
-  ws: 1, 
-  s: 2, 
-  e: 3 
+  ws: 1, // will start
+  s: 2, // running
+  e: 3 // ended
 };
 
 export const initVoteData = () => {
@@ -124,13 +134,13 @@ export const initVoteData = () => {
         totalVoted: BigNumber(0),
         voted: BigNumber(0),
         claimed: BigNumber(0),
-        voteFor: '--', 
-        dataList: [], 
-        dataRankList: [], 
-        dataResultList: [], 
+        voteFor: '--',
+        dataList: [],
+        dataRankList: [],
+        dataResultList: [],
         voteStatus: getStatus(voteList[id]),
-        totalRank: 0, 
-        totalResult: 0 
+        totalRank: 0,
+        totalResult: 0
       };
     });
     return voteData;
@@ -173,17 +183,17 @@ export const initLendData = () => {
       const { mined, toBeMined } = calcMineInfo(lendContract[id]);
       lendData[id] = {
         ...lendContract[id],
-        total: '--', 
-        totalUSD: '--', 
-        tokenBalance: '--', 
-        tokenAllowance: '--', 
-        hasJToken: false, 
-        staked: BigNumber(0), 
-        lendApy: '--', 
-        mintApy: '--', 
-        earned: BigNumber(0), 
-        gotSunOld: '--', 
-        toBeGotSunOld: '--', 
+        total: '--', // tvl
+        totalUSD: '--', // usd tvl
+        tokenBalance: '--', // user balance
+        tokenAllowance: '--', // token approve
+        hasJToken: false, // has JToken
+        staked: BigNumber(0), // waiting for withdraw
+        lendApy: '--', // borrow apy
+        mintApy: '--', // mining apy
+        earned: BigNumber(0), // earned
+        gotSunOld: '--', // gained
+        toBeGotSunOld: '--', // to be gained
         mined,
         toBeMined,
         icon: getLendIcons(symbol.toLowerCase())

@@ -1,0 +1,453 @@
+.no-service-modal {
+  .ant-modal {
+    width: 460px !important;
+    margin: auto;
+    top: calc(50vh - 200px);
+    .ant-modal-content {
+      border-radius: 6px;
+      overflow: hidden;
+      .ant-modal-body {
+        padding-bottom: 0px !important;
+        padding: 0 24px;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .icon {
+      width: 60px;
+      height: 60px;
+      background: url(./warn.svg) no-repeat center/contain;
+      margin: 40px auto 30px;
+    }
+    .text {
+      color: #101010;
+      text-align: center;
+      font-size: 16px;
+      line-height: 26px;
+    }
+    .btn {
+      align-self: stretch;
+      margin: 40px auto 40px;
+      width: 360px;
+      text-align: center;
+      line-height: 40px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  &.dark {
+    .ant-modal {
+      .ant-modal-content {
+        background-color: #151f22;
+        .ant-modal-body {
+          background-color: #151f22;
+        }
+      }
+    }
+    .content {
+      .icon {
+        background-image: url(./wran-dark.svg);
+      }
+      .text {
+        color: #fff;
+        & + .text {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
+.no-service-modal-all {
+  .ant-modal {
+    width: 80% !important;
+    max-width: 800px !important;
+    margin: auto;
+    top: calc(50vh - 330px);
+    height: 661px;
+    .ant-modal-content {
+      border-radius: 10px;
+      overflow: hidden;
+      .ant-modal-body {
+        padding-bottom: 0px !important;
+        padding: 0 50px;
+        border-radius: 6px;
+        overflow: hidden;
+        // height: 560px;
+        padding-top: 60px;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .icon {
+      width: 90px;
+      height: 90px;
+      background: url(./icon.png) no-repeat center/contain;
+      margin: 0 auto 40px;
+    }
+    .textWrap {
+      width: 700px;
+      // height: 234px;
+      padding: 0px;
+      border-radius: 10px;
+      background: rgba(75, 82, 223, 0.04);
+      margin-bottom: 30px;
+    }
+    .text {
+      color: #22232b;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 26px;
+      width: calc(100% - 30px);
+      font-size: 18px;
+      padding: 20px 30px 20px 0;
+      margin-left: 30px;
+      margin-bottom: 0;
+
+      &:nth-child(1) {
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+
+        &::before {
+          content: '';
+          width: 4px;
+          height: 18px;
+          display: inline-block;
+          background: #4d54ff;
+          border-radius: 1px;
+          margin-left: -20px;
+          margin-right: 20px;
+          transform: translateY(1px);
+          display: none;
+        }
+      }
+    }
+    .checkbox-wrap {
+      width: 700px;
+      flex-shrink: 0;
+      margin: 0 auto;
+
+      .ant-checkbox {
+        top: 14px;
+
+        & + span {
+          padding-left: 15px;
+          font-size: 14px;
+
+          .en {
+            line-height: 19px;
+            font-size: 14px;
+          }
+        }
+      }
+
+      .ant-checkbox-wrapper {
+        color: #737480;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        .ant-checkbox-inner {
+          border-radius: 2px !important;
+          background: rgba(75, 82, 223, 0.1) !important;
+          border-color: transparent !important;
+        }
+
+        .ant-checkbox-checked {
+          .ant-checkbox-inner {
+            border-radius: 2px !important;
+            background: #4c54ff !important;
+            border-color: #4c54ff !important;
+          }
+
+          &::after {
+            border-color: #4c54ff !important;
+          }
+        }
+      }
+    }
+    .btn-wrap {
+      width: 700px;
+      margin: 24px auto 0;
+      display: flex;
+      .canClick {
+        margin-right: 28px;
+        color: #9195fb;
+        border: 1px solid #9195fb;
+      }
+
+      .btn {
+        align-self: stretch;
+        width: 700px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px;
+        background: #4c54ff;
+        margin-bottom: 50px;
+
+        &:hover {
+          background: #9195fb;
+          transition: all 0.6s;
+        }
+      }
+
+      .disabled,
+      .disabled:hover {
+        background: #d3d3d5;
+        cursor: not-allowed;
+        &.canClick {
+          cursor: pointer;
+          color: #4d54ff;
+          background: rgba(77, 84, 255, 0.06);
+          &:hover {
+            color: #fff;
+            background: #4d54ff;
+            border: 1px solid #4d54ff;
+          }
+        }
+      }
+
+      .exit {
+        color: #4c54ff;
+        text-align: center;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        width: 100%;
+        display: block;
+
+        &:hover {
+          color: #9195fb;
+        }
+      }
+    }
+  }
+  &.dark {
+    .ant-modal {
+      .ant-modal-content {
+        background-color: #282931;
+        .ant-modal-body {
+          background-color: #282931;
+        }
+      }
+    }
+    .content {
+      .icon {
+        background: url(./icon-dark.png) no-repeat center/contain;
+      }
+      .textWrap {
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .text {
+        color: #fff;
+
+        &:nth-child(1) {
+          border-bottom: 1px solid var(--color-bg, #3d3f46);
+        }
+      }
+      .checkbox-wrap {
+        .ant-checkbox {
+        }
+
+        .ant-checkbox-wrapper {
+          color: #b3b4b7;
+          .ant-checkbox-inner {
+            border-radius: 2px !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: transparent !important;
+          }
+
+          .ant-checkbox-checked {
+            .ant-checkbox-inner {
+              border-radius: 2px !important;
+              background: #4c54ff !important;
+              border-color: #4c54ff !important;
+            }
+
+            &::after {
+              border-color: #4c54ff !important;
+            }
+          }
+        }
+      }
+      .btn-wrap {
+        .btn {
+        }
+
+        .disabled,
+        .disabled:hover {
+          background: rgba(83, 84, 90, 0.6);
+          color: rgba(255, 255, 255, 0.6);
+          cursor: not-allowed;
+          &.canClick {
+            cursor: pointer;
+            background: transparent;
+          }
+        }
+        .disabled.canClick {
+          color: #9195fb;
+        }
+        .disabled.canClick:hover {
+          color: #fff;
+          background: #4d54ff;
+          border: 1px solid #4d54ff;
+        }
+
+        .exit {
+          color: #9195fb;
+
+          &:hover {
+            color: #d3d5fd;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 750px) {
+  .no-service-modal {
+    .ant-modal {
+      top: 100px;
+      width: calc(100% - 40px) !important;
+    }
+    .content {
+      .btn {
+        width: 305px;
+        max-width: 100%;
+        margin: 30px auto 32px;
+      }
+    }
+  }
+
+  .no-service-modal-all {
+    .ant-modal {
+      //top: 100px;
+      width: calc(100% - 40px) !important;
+      top: calc(50vh - 250px);
+      padding-top: 0;
+      // height: 560px;
+      .ant-modal-content {
+        border-radius: 6px;
+        overflow: hidden;
+        .ant-modal-body {
+          padding-bottom: 0px !important;
+          padding: 0 15px;
+          border-radius: 6px;
+          overflow: hidden;
+          height: unset;
+          padding-top: 0;
+        }
+      }
+
+      .content {
+        .icon {
+          width: 56px;
+          height: 56px;
+          background-size: 56px 56px;
+          margin: 40px auto 20px;
+        }
+        .textWrap {
+          width: 100%;
+          border-radius: 10px;
+          margin-bottom: 30px;
+        }
+        .text {
+          font-size: 14px;
+          line-height: 24px;
+          width: calc(100% - 24px);
+          margin-left: 24px;
+
+          &:nth-child(1) {
+            padding: 20px 24px 16px 0;
+
+            &::before {
+              content: '';
+              width: 3px;
+              height: 12px;
+              margin-left: -13px;
+              margin-right: 13px;
+            }
+          }
+          &:nth-child(2) {
+            padding: 16px 24px 20px 0;
+          }
+        }
+        .checkbox-wrap {
+          width: 100%;
+          flex-shrink: 0;
+          margin: 0 auto;
+
+          .ant-checkbox {
+            top: 3px;
+            width: 14px;
+            height: 14px;
+
+            .ant-checkbox-inner,
+            .ant-checkbox-input {
+              width: 14px;
+              height: 14px;
+            }
+
+            & + span {
+              padding-left: 10px;
+              font-size: 12px;
+              line-height: 20px;
+
+              .en {
+                line-height: 16px;
+                font-size: 12px;
+              }
+            }
+          }
+
+          .ant-checkbox-wrapper {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            .ant-checkbox {
+              transform: translateY(-2px);
+            }
+          }
+        }
+        .btn-wrap {
+          width: 100%;
+          margin: 24px auto 0;
+          flex-direction: column-reverse;
+
+          .btn {
+            align-self: stretch;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            margin-bottom: 15px;
+
+            &.canClick {
+              margin-right: 0;
+              margin-bottom: 40px;
+            }
+          }
+
+          .exit {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

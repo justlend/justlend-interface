@@ -1,0 +1,209 @@
+.item-m {
+  padding: 15px 0;
+  background-color: #fff;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  &:last-child {
+    border-bottom: none;
+  }
+  &.mining-row-m {
+    &:hover {
+      background: linear-gradient(
+        90deg,
+        rgba(24, 193, 159, 0) 0%,
+        rgba(24, 193, 159, 0.06) 18.58%,
+        rgba(24, 193, 159, 0.06) 76.91%,
+        rgba(24, 193, 159, 0) 99.11%
+      );
+    }
+  }
+  > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: #545669;
+    padding: 0 15px;
+    &.first {
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(15, 19, 79, 0.05);
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .nv-name {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: #0f134f;
+  }
+  .nv-reward {
+    .nv-name {
+      color: #545669;
+    }
+    .number,
+    .symbol {
+      font-family: 'Rubik';
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      color: #0f134f;
+    }
+    .symbol {
+      font-family: 'DM Sans';
+    }
+  }
+
+  .nv-value {
+    text-align: right;
+    margin-bottom: 4px;
+    .number,
+    .symbol {
+      font-family: 'Rubik-Medium';
+      font-size: 16px;
+      line-height: 19px;
+      color: #0f134f;
+    }
+  }
+
+  .nv-token {
+    text-align: right;
+    .number,
+    .symbol {
+      margin-top: 4px;
+      font-family: 'Rubik';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+      color: #545669;
+    }
+    .symbol {
+      font-family: 'DM Sans';
+    }
+  }
+
+  .number {
+    font-family: 'Rubik-Medium';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: #0f134f;
+  }
+  .symbol {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #0f134f;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    font-family: 'DM Sans-Medium';
+    font-style: normal;
+    // font-weight: 500;
+    font-size: 16px;
+    line-height: 21px;
+    color: #0f134f;
+    > img {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+    }
+  }
+  .switch-m {
+    display: flex;
+    align-items: center;
+    > div {
+      > div > span:nth-child(2) {
+        width: 17px;
+      }
+    }
+    > span {
+      margin-right: 10px;
+    }
+  }
+}
+
+.mining-row-m {
+  background: linear-gradient(
+    90deg,
+    rgba(24, 193, 159, 0) 0%,
+    rgba(24, 193, 159, 0.06) 18.58%,
+    rgba(24, 193, 159, 0.06) 76.91%,
+    rgba(24, 193, 159, 0) 99.11%
+  );
+  // opacity: 0.06;
+  border-radius: 6px;
+  border-bottom: none;
+}
+
+.is-over-m {
+  display: inline-block;
+  min-width: 40px;
+  height: 20px;
+  line-height: 20px;
+  margin-left: 4px;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  text-align: center;
+  color: #545669;
+  border: 1px solid rgba(84, 86, 105, 0.2);
+  border-radius: 2px;
+}
+
+.mr-btn {
+  min-width: 80px;
+  height: 26px;
+  line-height: 26px;
+  background: #18c19f;
+  border-radius: 4px;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  padding: 0 10px;
+  text-align: center;
+  color: #ffffff;
+  white-space: nowrap;
+  &:disabled {
+    background: rgb(24 193 159 / 40%);
+  }
+}
+
+.show-more-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0 0;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  color: #545669;
+  img {
+    margin-left: 4px;
+    transition: all 0.3s ease-in-out;
+  }
+  &.active {
+    img {
+      transform: rotate(180deg);
+    }
+  }
+}

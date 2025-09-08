@@ -22,21 +22,45 @@ if (trongrid && mainchain.setHeader && mainchain.fullNode.host === trongrid.host
 }
 
 export const tronObj = {
-  tronWeb: null
+  tronWeb: mainchain,
+  walletTronWeb: null
 };
 
-export const triggerSmartContract = async (address, functionSelector, options = {}, parameters = []) => {
+export const triggerSmartContract = async (
+  address,
+  functionSelector,
+  options = {},
+  parameters = [],
+  issuerAddress = window.defaultAccount,
+  extension
+) => {
   try {
-    // const tronWeb = window.tronWeb;
-    const tronWeb = tronObj.tronWeb;
-    console.log(tronWeb, 'trontron');
-    if (!tronWeb) return;
-    const transaction = await tronWeb.transactionBuilder.triggerSmartContract(
+    let walletTronWeb = tronObj.walletTronWeb;
+    if (!walletTronWeb || walletTronWeb.version < '3.2.6') {
+      walletTronWeb = mainchain; // tronlink connection can only use tronlink.tronweb, other connections use mainchain
+    }
+    if (!window?.tronLink?.ready && window?.okxwallet?.tronLink?.ready) {
+      walletTronWeb = window.okxwallet.tronLink.tronWeb;
+    }
+    if (!walletTronWeb) return;
+    const transaction = await walletTronWeb.transactionBuilder.triggerSmartContract(
       address,
       functionSelector,
       Object.assign({ feeLimit: Config.feeLimit }, options),
-      parameters
+      parameters,
+      issuerAddress
     );
+
+    if (extension) {
+      const payload = transaction.transaction.__payload__;
+      transaction.transaction = await walletTronWeb.transactionBuilder.extendExpiration(
+        transaction.transaction,
+        extension
+      );
+      if (payload) {
+        transaction.transaction.__payload__ = payload;
+      }
+    }
 
     if (!transaction.result || !transaction.result.result) {
       throw new Error('Unknown trigger error: ' + JSON.stringify(transaction.transaction));
@@ -49,10 +73,9 @@ export const triggerSmartContract = async (address, functionSelector, options = 
 
 export const sign = async transaction => {
   try {
-    // const tronWeb = window.tronWeb;
-    const tronWeb = tronObj.tronWeb;
-    if (!tronWeb) return;
-    const signedTransaction = await tronWeb.trx.sign(transaction.transaction);
+    const walletTronWeb = tronObj.walletTronWeb;
+    if (!walletTronWeb) return;
+    const signedTransaction = await walletTronWeb.trx.sign(transaction.transaction);
     return signedTransaction;
   } catch (error) {
     console.log(error, 'signerr');
@@ -62,10 +85,7 @@ export const sign = async transaction => {
 
 export const sendRawTransaction = async signedTransaction => {
   try {
-    // const tronWeb = window.tronWeb;
-    const tronWeb = tronObj.tronWeb;
-    if (!tronWeb) return;
-    const result = await tronWeb.trx.sendRawTransaction(signedTransaction);
+    const result = await tronObj.tronWeb.trx.sendRawTransaction(signedTransaction);
     return result;
   } catch (error) {
     throw new Error(error);
@@ -75,20 +95,21 @@ export const sendRawTransaction = async signedTransaction => {
 export const trigger = async (address, functionSelector, parameters = [], options = {}, intlObj = {}) => {
   try {
     openTransModal(intlObj, { step: 1 });
-    // const tronWeb = window.tronWeb;
     const tronWeb = tronObj.tronWeb;
-    if (!tronWeb) return;
-    const transaction = await tronWeb.transactionBuilder.triggerSmartContract(
+    const walletTronWeb = tronObj.walletTronWeb;
+    if (!walletTronWeb) return;
+    const transaction = await walletTronWeb.transactionBuilder.triggerSmartContract(
       address,
       functionSelector,
       Object.assign({ feeLimit: Config.feeLimit }, options),
-      parameters
+      parameters,
+      window.defaultAccount
     );
     if (!transaction.result || !transaction.result.result) {
       throw new Error('Unknown trigger error: ' + JSON.stringify(transaction.transaction));
     }
 
-    const signedTransaction = await tronWeb.trx.sign(transaction.transaction);
+    const signedTransaction = await walletTronWeb.trx.sign(transaction.transaction);
     const result = await tronWeb.trx.sendRawTransaction(signedTransaction);
     openTransModal(intlObj, { step: 2, txId: result.transaction.txID });
     if (result && result.result) {
@@ -106,11 +127,11 @@ export const trigger = async (address, functionSelector, parameters = [], option
 
 export const view = async (address, functionSelector, parameters = [], isDappTronWeb = true) => {
   try {
-    let tronWeb = mainchain;
-    if (!isDappTronWeb && tronObj.tronWeb && tronObj.tronWeb.defaultAddress && tronObj.tronWeb.defaultAddress.base58) {
-      tronWeb = tronObj.tronWeb;
+    let walletTronWeb = mainchain;
+    if (!isDappTronWeb && tronObj.walletTronWeb?.defaultAddress?.base58) {
+      walletTronWeb = tronObj.walletTronWeb;
     }
-    const result = await tronWeb.transactionBuilder.triggerSmartContract(
+    const result = await walletTronWeb.transactionBuilder.triggerSmartContract(
       address,
       functionSelector,
       { _isConstant: true },
@@ -126,9 +147,6 @@ export const view = async (address, functionSelector, parameters = [], isDappTro
 export const getTrxBalance = async (address, isDappTronWeb = false) => {
   try {
     let tronWeb = mainchain;
-    if (!isDappTronWeb && tronObj.tronWeb && tronObj.tronWeb.defaultAddress && tronObj.tronWeb.defaultAddress.base58) {
-      tronWeb = tronObj.tronWeb;
-    }
     const balance = await tronWeb.trx.getBalance(address);
     return {
       balance: BigNumber(balance).div(Config.defaultPrecision),
@@ -144,7 +162,6 @@ export const getTrxBalance = async (address, isDappTronWeb = false) => {
 };
 
 export const tokenBalanceOf = async (token, userAddress) => {
-  // console.log(token, userAddress);
   const result = await view(Config.contract.poly, 'getBalanceAndApprove2(address,address[],address[])', [
     { type: 'address', value: userAddress },
     { type: 'address[]', value: [token.collateralAddress || token.token] },
@@ -156,8 +173,8 @@ export const tokenBalanceOf = async (token, userAddress) => {
   if (result.length) {
     const data = result[0];
     let dataIndex = 2;
-    balance = new BigNumber(data.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16).div(token.precision);
-    allowance = new BigNumber(data.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+    balance = new BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16).div(token.precision);
+    allowance = new BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
     success = true;
   }
 
@@ -168,17 +185,14 @@ export const tokenBalanceOf = async (token, userAddress) => {
   };
 };
 
-export const getTransactionInfo = tx => {
-  const tronWeb = mainchain;
-  return new Promise((resolve, reject) => {
-    tronWeb.trx.getConfirmedTransaction(tx, (e, r) => {
-      if (!e) {
-        resolve(r);
-      } else {
-        reject(e, null);
-      }
-    });
-  });
+export const getTransactionInfo = async tx => {
+  try {
+    const tronWeb = mainchain;
+    const res = await tronWeb.trx.getConfirmedTransaction(tx);
+    return res;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const getLatestBlockInfo = async () => {
@@ -202,16 +216,21 @@ export const getLatestBlockInfo = async () => {
 };
 
 export const getBalance = async (address, tokens) => {
-  // console.log('params of getbalance: ', address, tokens);
   const result = await view(Config.contract.poly, 'getBalance(address,address[])', [
     { type: 'address', value: address },
     { type: 'address[]', value: tokens }
   ]);
-  // console.log('getBalanceeeeeee result', result);
   return result && result.transaction ? result.transaction.txID : '';
 };
 
-export const getBalanceInfo = async (userAddress = window.defaultAccount, tokens = [], jtokens = [], balanceInfo) => {
+export const getBalanceInfo = async (
+  userAddress = window.defaultAccount,
+  tokens = [],
+  jtokens = [],
+  balanceInfo,
+  prices = [],
+  tokenSymbols = []
+) => {
   if (tokens.length === 0 || jtokens.length === 0) return {};
   jtokens.map(_ => {
     if (!balanceInfo[_]) {
@@ -219,7 +238,7 @@ export const getBalanceInfo = async (userAddress = window.defaultAccount, tokens
     }
   });
   try {
-    const _getBalanceInfo = async (_tokens, _jtokens) => {
+    const _getBalanceInfo = async (_tokens, _jtokens, _prices, _tokenSymbols) => {
       await randomSleep();
       const result = await view(Config.contract.poly, 'getBalanceAndApprove2(address,address[],address[])', [
         { type: 'address', value: userAddress },
@@ -231,9 +250,74 @@ export const getBalanceInfo = async (userAddress = window.defaultAccount, tokens
         const data = result[0];
         let dataIndex = 2;
 
-        _jtokens.forEach(t => {
-          balanceInfo[t].balance = BigNumber(data.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
-          balanceInfo[t].allowance = BigNumber(data.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+        _jtokens.forEach((t, i) => {
+          balanceInfo[t].tokenAddress = _tokens[i];
+          balanceInfo[t].price = _prices[i];
+          balanceInfo[t].tokenSymbol = _tokenSymbols[i];
+          balanceInfo[t].balance = BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+          balanceInfo[t].balanceForTrx = balanceInfo[t].balance.times(_prices[i]);
+          balanceInfo[t].allowance = BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+        });
+
+        return true;
+      }
+    };
+
+    const maxBalanceLength = Config.maxBalanceLength;
+    let promiseFunc = [];
+    for (let i = 0; ; i++) {
+      const _maxTokens = tokens.slice(i * maxBalanceLength, (i + 1) * maxBalanceLength);
+      const _maxJtokens = jtokens.slice(i * maxBalanceLength, (i + 1) * maxBalanceLength);
+      const _maxPrices = prices.slice(i * maxBalanceLength, (i + 1) * maxBalanceLength);
+      const _tokenSymbols = tokenSymbols.slice(i * maxBalanceLength, (i + 1) * maxBalanceLength);
+      if (_maxTokens.length) {
+        promiseFunc.push(_getBalanceInfo(_maxTokens, _maxJtokens, _maxPrices, _tokenSymbols));
+      } else {
+        break;
+      }
+    }
+
+    await Promise.all(promiseFunc);
+    return balanceInfo;
+  } catch (err) {
+    console.log('getBalanceInfo:', err);
+    return balanceInfo;
+  }
+};
+
+export const getBalanceStUsdtInfo = async (
+  userAddress = window.defaultAccount,
+  tokens = [],
+  jtokens = [],
+  balanceInfo = {},
+  prices = [],
+  tokenSymbols = []
+) => {
+  if (tokens.length === 0 || jtokens.length === 0) return {};
+  tokens.map(_ => {
+    if (!balanceInfo[_]) {
+      balanceInfo[_] = {};
+    }
+  });
+  try {
+    const _getBalanceInfo = async (_tokens, _jtokens, _prices, _tokenSymbols) => {
+      await randomSleep();
+      const result = await view(Config.contract.poly, 'getBalanceAndApprove2(address,address[],address[])', [
+        { type: 'address', value: userAddress },
+        { type: 'address[]', value: _tokens },
+        { type: 'address[]', value: _jtokens }
+      ]);
+      if (result.length) {
+        const data = result[0];
+        let dataIndex = 2;
+
+        _tokens.forEach((t, i) => {
+          balanceInfo[t].tokenAddress = _tokens[i];
+          balanceInfo[t].price = _prices[i];
+          balanceInfo[t].tokenSymbol = _tokenSymbols[i];
+          balanceInfo[t].balance = BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+          balanceInfo[t].balanceForTrx = balanceInfo[t].balance.times(_prices[i]);
+          balanceInfo[t].allowance = BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
         });
         return true;
       }
@@ -244,8 +328,10 @@ export const getBalanceInfo = async (userAddress = window.defaultAccount, tokens
     for (let i = 0; ; i++) {
       const _maxTokens = tokens.slice(i * maxBalanceLength, (i + 1) * maxBalanceLength);
       const _maxJtokens = jtokens.slice(i * maxBalanceLength, (i + 1) * maxBalanceLength);
+      const _maxPrices = prices.slice(i * maxBalanceLength, (i + 1) * maxBalanceLength);
+      const _tokenSymbols = tokenSymbols.slice(i * maxBalanceLength, (i + 1) * maxBalanceLength);
       if (_maxTokens.length) {
-        promiseFunc.push(_getBalanceInfo(_maxTokens, _maxJtokens));
+        promiseFunc.push(_getBalanceInfo(_maxTokens, _maxJtokens, _maxPrices, _tokenSymbols));
       } else {
         break;
       }
@@ -254,7 +340,7 @@ export const getBalanceInfo = async (userAddress = window.defaultAccount, tokens
     await Promise.all(promiseFunc);
     return balanceInfo;
   } catch (err) {
-    console.log('getBalanceInfo:', err);
+    console.log('getBalanceStUsdtInfo:', err);
     return balanceInfo;
   }
 };
@@ -437,10 +523,10 @@ export const getClaimed = async (token, userAddress, poolData) => {
     let dataIndex = 2;
     let len = result[0].length / 64;
     if (len == 6) {
-      obj[0] = TronWeb.address.fromHex('41' + data.substr(dataIndex++ * DATA_LEN, DATA_LEN).slice(24));
-      obj[1] = BigNumber(data.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
-      obj[2] = TronWeb.address.fromHex('41' + data.substr(dataIndex++ * DATA_LEN, DATA_LEN).slice(24));
-      obj[3] = BigNumber(data.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+      obj[0] = TronWeb.address.fromHex('41' + data?.substr(dataIndex++ * DATA_LEN, DATA_LEN).slice(24));
+      obj[1] = BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+      obj[2] = TronWeb.address.fromHex('41' + data?.substr(dataIndex++ * DATA_LEN, DATA_LEN).slice(24));
+      obj[3] = BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
       if (obj[0] == Config.defaultAddress) {
         trxClaimed = obj[1].div(defaultPrecision);
         tokenClaimed = obj[3].div(tokenPrecision);
@@ -450,8 +536,8 @@ export const getClaimed = async (token, userAddress, poolData) => {
       }
       // console.log(obj[1].toString(), obj[3].toString())
     } else if (len == 4) {
-      obj[0] = TronWeb.address.fromHex('41' + data.substr(dataIndex++ * DATA_LEN, DATA_LEN).slice(24));
-      obj[1] = BigNumber(data.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+      obj[0] = TronWeb.address.fromHex('41' + data?.substr(dataIndex++ * DATA_LEN, DATA_LEN).slice(24));
+      obj[1] = BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
       if (obj[0] == Config.defaultAddress) {
         trxClaimed = obj[1].div(defaultPrecision);
       } else if (poolData[id].lp === 'JST') {
@@ -461,14 +547,137 @@ export const getClaimed = async (token, userAddress, poolData) => {
     }
     success = true;
   }
+
+  // if (poolData[id].lp === 'JST') {
+  //   console.log(tokenClaimed.toString(), obj);
+  // }
+
   if (success) {
     Object.assign(poolData[id], {
       tokenClaimed,
       trxClaimed
     });
   }
+  // return {
+  //   tokenClaimed,
+  //   trxClaimed,
+  //   success
+  // };
 };
 
-export const loadContracts = async (contractAddress, type) => {
-  abiObj[type] = await mainchain.contract(contractAddress).at(address);
+export const getAmountLimit = async () => {
+  let funcSelector = 'getAmountLimit()';
+  let parameters = [];
+  let options = {};
+
+  const result = await view(Config.ValuesAggregator, funcSelector, parameters, options);
+
+  let minStakeAmount = new BigNumber(0);
+  let minUnstakeAmount = new BigNumber(0);
+  let success = false;
+
+  if (result.length) {
+    const data = result[0];
+    let dataIndex = 0;
+    minStakeAmount = new BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+    minUnstakeAmount = new BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+    success = true;
+  }
+
+  return {
+    minStakeAmount,
+    minUnstakeAmount,
+    success
+  };
+};
+
+export const getFeeRate = async () => {
+  let funcSelector = 'feeRate()';
+  let parameters = [];
+  let options = {};
+
+  const result = await view(Config.UnstUSDTProxy, funcSelector, parameters, options);
+
+  let feeRate = new BigNumber(0);
+  let success = false;
+
+  if (result.length) {
+    const data = result[0];
+    let dataIndex = 0;
+    feeRate = new BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+    success = true;
+  }
+
+  return {
+    feeRate,
+    success
+  };
+};
+
+export const getMintPaused = async () => {
+  let funcSelector = 'mintPaused()';
+  let parameters = [];
+  let options = {};
+
+  const result = await view(Config.StUSDTProxy, funcSelector, parameters, options);
+
+  let mintPaused = new BigNumber(0);
+  let success = false;
+
+  if (result.length) {
+    const data = result[0];
+    let dataIndex = 0;
+    mintPaused = new BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+    success = true;
+  }
+
+  return {
+    mintPaused,
+    success
+  };
+};
+
+export const getPaused = async () => {
+  let funcSelector = 'paused()';
+  let parameters = [];
+  let options = {};
+
+  const result = await view(Config.minterProxy, funcSelector, parameters, options);
+
+  let paused = new BigNumber(0);
+  let success = false;
+
+  if (result.length) {
+    const data = result[0];
+    let dataIndex = 0;
+    paused = new BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+    success = true;
+  }
+  return {
+    paused,
+    success
+  };
+};
+
+export const getWrapRate = async () => {
+  let funcSelector = 'tokensPerStUSDT()';
+  let parameters = [];
+  let options = {};
+
+  const result = await view(Config.wstUSDTProxy, funcSelector, parameters, options);
+
+  let wrapRate = new BigNumber(0);
+  let success = false;
+
+  if (result.length) {
+    const data = result[0];
+    let dataIndex = 0;
+    wrapRate = new BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+    success = true;
+  }
+
+  return {
+    wrapRate,
+    success
+  };
 };

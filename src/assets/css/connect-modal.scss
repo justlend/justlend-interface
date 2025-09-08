@@ -1,0 +1,495 @@
+.ant-modal.connect-modal {
+  width: 90% !important;
+
+  .ant-modal-header {
+    border-bottom: 1px solid rgba(15, 19, 79, 0.05);
+  }
+
+  .ant-modal-close-x {
+    right: 0;
+    top: 0;
+    width: 56px !important;
+    height: 56px !important;
+    background: url(../images/mobile/close-icon.svg) center no-repeat;
+    background-size: 12px 12px;
+  }
+}
+
+.connect-element {
+  padding: 30px 0 0;
+}
+
+.entry-modal {
+  max-width: 345px !important;
+
+  .ant-modal-body {
+    padding: 0 10px 30px;
+  }
+}
+
+.entry-ele {
+  .top-tip {
+    font-family: 'PingFang SC';
+    font-size: 12px;
+    line-height: 20px;
+    color: #0f134f;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .bottom-tip {
+    // display: flex;
+    // justify-content: center;
+    //align-items: center;
+    text-align: center;
+
+    > a,
+    > span {
+      // display: inline-block;
+      font-family: 'PingFang SC';
+      font-weight: 400;
+      font-size: 12px;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 3px;
+      line-height: 17px;
+    }
+
+    > span {
+      color: #5a5e89;
+    }
+
+    > a {
+      color: #3d56d6;
+      margin-left: 4px;
+      position: relative;
+
+      &::after {
+        content: '';
+        width: 0;
+        height: 1px;
+        background: #3d56d6;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transition: all 0.6s;
+      }
+
+      &:hover::after {
+        left: 0%;
+        width: 100%;
+      }
+    }
+  }
+
+  .entry-logos {
+    margin-bottom: 10px;
+
+    .entry-logo {
+      width: 285px;
+      height: 50px;
+      background: rgba(15, 19, 79, 0.05);
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 12px 20px;
+      margin: 0 auto 10px;
+      position: relative;
+
+      &:hover {
+        background: rgba(19, 93, 205, 0.1);
+      }
+
+      &.disabled {
+        cursor: default;
+        background: rgba(15, 19, 79, 0.05);
+      }
+    }
+
+    .entry-logo {
+      > img {
+        width: 26px;
+        height: 26px;
+        margin-bottom: 10px;
+      }
+
+      > span {
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-size: 14px;
+        line-height: 26px;
+        text-align: center;
+        color: #0f134f;
+        margin-left: 14px;
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .loading {
+        width: 20px;
+        height: 20px;
+        transform: rotate(360deg);
+        animation: rotation 2s linear infinite;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+      }
+    }
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.fireblocks-modal {
+  max-width: 480px !important;
+  position: relative;
+
+  .ant-modal-body {
+    padding: 0 20px 20px;
+  }
+
+  p {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #0f134f;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .top-tip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: rgba(90, 94, 137, 0.8);
+    margin-bottom: 20px;
+    white-space: nowrap;
+
+    > img {
+      width: 14px;
+      height: 14px;
+      margin: -1px 5px 0;
+    }
+
+    span {
+      font-size: 12px;
+    }
+
+    strong {
+      font-size: 12px;
+      font-weight: 400;
+    }
+  }
+
+  .fireblocks-code {
+    text-align: center;
+    margin-bottom: 20px;
+
+    > img {
+      max-width: 390px;
+      width: 100%;
+      box-shadow: 0px 0px 20px rgba(15, 19, 79, 0.05);
+      border-radius: 8px;
+    }
+  }
+
+  .bottom-tip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'PingFang SC';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #5a5e89;
+    white-space: nowrap;
+
+    > span {
+      color: #3d56d6;
+      cursor: pointer;
+      margin-left: 2px;
+      border-bottom: 1px solid transparent;
+      position: relative;
+
+      &::after {
+        content: '';
+        width: 0;
+        height: 1px;
+        background: #3d56d6;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transition: all 0.6s;
+      }
+
+      &:hover::after {
+        left: 0%;
+        width: 100%;
+      }
+    }
+  }
+
+  .copied {
+    bottom: -50px;
+  }
+}
+
+// .entry-logos > div,
+// .entry-ele .bottm-tip > a {
+//   transition: all 0.3s ease-in-out;
+// }
+
+.loading-modal {
+  max-width: 345px !important;
+
+  .ant-modal-content {
+    height: 340px;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  img {
+    width: 60px;
+    height: 60px;
+    margin: 10px auto 20px;
+    display: block;
+    transform: rotate(360deg);
+    animation: rotation 2s linear infinite;
+  }
+
+  .title {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    text-align: center;
+    color: #0f134f;
+    height: 25px;
+    margin-bottom: 10px;
+  }
+
+  .desc {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    height: 20px;
+    color: #5a5e89;
+    text-align: center;
+  }
+
+  .tips {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    color: rgba(90, 94, 137, 0.5);
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 48px);
+
+    span {
+      font-size: 12px;
+    }
+
+    a {
+      color: #3d56d6;
+      font-size: 12px;
+      position: relative;
+
+      &::after {
+        content: '';
+        width: 0;
+        height: 1px;
+        background: #3d56d6;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transition: all 0.8s;
+      }
+
+      &:hover::after {
+        left: 0%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.account-modal {
+  max-width: 345px !important;
+
+  .ant-modal-body {
+    padding: 0 20px 20px;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+    margin: 10px auto 16px;
+    display: block;
+    border-radius: 10px;
+  }
+
+  .desc {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    height: 20px;
+    color: #0f134f;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .account-info {
+    width: 100%;
+    height: 54px;
+    background: rgba(61, 86, 214, 0.05);
+    border-radius: 6px;
+    padding: 16px 8px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 22px;
+    color: #0f134f;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+
+    &:hover {
+      background: rgba(61, 86, 214, 0.1);
+      color: #3d56d6;
+      cursor: pointer;
+    }
+  }
+
+  .disconnect {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    color: #3d56d6;
+    cursor: pointer;
+  }
+
+  span {
+    font-weight: 400;
+    font-size: 12px;
+    color: #3d56d6;
+    margin-left: 6px;
+    cursor: pointer;
+  }
+}
+
+.failure-modal {
+  max-width: 345px !important;
+
+  .ant-modal-content {
+    height: 340px;
+  }
+
+  img {
+    width: 60px;
+    height: 60px;
+    margin: 10px auto 20px;
+    display: block;
+  }
+
+  .title {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    text-align: center;
+    color: #0f134f;
+    height: 25px;
+    margin-bottom: 10px;
+  }
+
+  .desc {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    height: 20px;
+    color: #5a5e89;
+    text-align: center;
+  }
+
+  .reconnect {
+    position: absolute;
+    bottom: 20px;
+    width: 305px;
+    height: 40px;
+    background: #3d56d6;
+    border-radius: 8px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+    color: #ffffff;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(61, 86, 214, 0.3);
+    }
+  }
+}
+
+.copied {
+  position: absolute;
+  left: 0;
+  bottom: -30px;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background-color: #fff;
+  border-radius: 8px;
+  font-family: 'PingFang SC';
+  font-size: 14px;
+  text-align: center;
+  color: #5a5e89;
+  animation: copied-animation 1s;
+}
+
+@keyframes copied-animation {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.accountTooltip {
+  margin-top: 26px;
+
+  .ant-tooltip {
+    .ant-tooltip-inner {
+      padding: 10px 16px;
+    }
+  }
+}

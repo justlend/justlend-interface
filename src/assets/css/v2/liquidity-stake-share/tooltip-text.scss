@@ -1,0 +1,24 @@
+@media screen and (max-width: 798px) {
+  .tooltip-text {
+    &.active {
+      color: #9195fb;
+      border-bottom-color: #9195fb;
+    }
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
+    display: inline-block;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+  }
+  .white {
+    .tooltip-text {
+      border-bottom: 1px dashed rgba(34, 35, 43, 0.6);
+      &.active {
+        color: #4d54ff;
+        border-bottom-color: #4d54ff;
+      }
+    }
+  }
+}

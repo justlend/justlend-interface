@@ -1,0 +1,125 @@
+.mining-row {
+  display: flex;
+  //   justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(
+    90deg,
+    rgba(24, 193, 159, 0) 0%,
+    rgba(24, 193, 159, 0.06) 18.58%,
+    rgba(24, 193, 159, 0.06) 76.91%,
+    rgba(24, 193, 159, 0) 99.11%
+  );
+  > div {
+    padding: 12px 0%;
+    &:nth-child(1) {
+      width: 21%;
+      white-space: nowrap;
+    }
+    &:nth-child(2),
+    &:nth-child(3) {
+      width: 21%;
+      padding-right: 10px;
+    }
+    &:nth-child(4) {
+      width: 20%;
+    }
+    &:nth-child(5) {
+      width: 16.5%;
+      padding-right: 6px;
+      text-align: right;
+    }
+    &:nth-child(2),
+    &:nth-child(3),
+    &:nth-child(4) {
+      text-align: right;
+    }
+  }
+  .img-block {
+    margin-right: 12px;
+  }
+  button {
+    min-width: 80px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px !important;
+    background: rgba(24, 193, 159, 0.98);
+    border-radius: 4px;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: #ffffff;
+    &:disabled {
+      cursor: not-allowed !important;
+      color: #b79cef !important;
+      background: #e2d9f6 !important;
+    }
+  }
+  .is-over {
+    display: inline-block;
+    min-width: 52px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 6px;
+    border: 1px solid rgba(84, 86, 105, 0.2);
+    border-radius: 2px;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: #545669;
+    margin-left: 10px;
+  }
+  .row-symbol {
+    > div {
+      font-family: 'DM Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      color: #545669;
+      &:first-child {
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 18px;
+        color: #0f134f;
+        margin-bottom: 2px;
+      }
+    }
+  }
+  .row-bold {
+    font-family: 'Rubik-Medium';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #0f134f;
+  }
+}
+
+.img-block {
+  > img {
+    width: 22px;
+    height: 22px;
+    &:nth-child(n + 2) {
+      position: relative;
+      left: -3px;
+    }
+  }
+}
+
+.mining-row-modal {
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    font-family: HelveticaNeue-Medium;
+    font-size: 14px;
+    color: #3d56d6;
+    letter-spacing: 0;
+    line-height: 20px;
+  }
+  .ant-tabs-nav .ant-tabs-nav-list .ant-tabs-ink-bar {
+    background: #3d56d6;
+    display: block;
+  }
+}
