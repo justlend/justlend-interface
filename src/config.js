@@ -570,8 +570,8 @@ const Config = {
     'SUNOLD',
     'ETH'
   ],
-  settingsTokenArray1: '[222,221,128,1,192,1,140,232,252,188,147,148,109,13,251,49]',
-  settingsTokenArray2: '[31,250,72,28,110,233,85,232,161,150,52,198,74,219,103,179]',
+  settingsTokenArray1: '',
+  settingsTokenArray2: '',
   riskMarkets: ['SUNOLD', 'BUSD', 'USDCOLD', 'BUSDOLD'],
   holdingTokens: ['wstUSDT', 'sTRX'],
   announceForUSDCOLD:
