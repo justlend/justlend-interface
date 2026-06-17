@@ -1,14 +1,15 @@
 // Libraries
 import BigNumber from 'bignumber.js';
 import { debounce } from 'lodash';
-import { observable, toJS } from 'mobx';
+import { observable, toJS, makeObservable } from 'mobx';
 import Config from '../config';
 import {
   getAllowanceMultiReward,
   getSTrxDashboard,
   getSTrxStakeAccount,
   getStrxRentAllOrderList,
-  getReturnRentInfo
+  getReturnRentInfo,
+  getMarketHistory
 } from '../utils/backend';
 import { tronObj } from '../utils/blockchain';
 import { formatNumber, getTrxBalance } from '../utils/helper';
@@ -153,6 +154,17 @@ export default class EnergyRentalStore {
   @observable dealNoteShow = false;
   @observable dealNoteCheckValue = false;
   @observable endOrderType = '';
+  @observable yufuRent = '--';
+  @observable yajinRent = '--';
+  @observable rentEnergyFee = '--';
+  @observable rentSecurityDeposit = '--';
+  @observable rentLiquidatePenalty = '--';
+
+  @observable liquidationFines = '--';
+  @observable marginDeposit = '--';
+  @observable energyFeeForRental = '--';
+
+  @observable usageChargeRatio = '';
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -168,6 +180,8 @@ export default class EnergyRentalStore {
         engeryOfferModalVisible: true
       });
     }
+
+    makeObservable(this);
   }
 
   setVariablesInterval = async () => {
@@ -301,11 +315,26 @@ export default class EnergyRentalStore {
         });
 
         // this.updateNewOrderInfo();
+      } else {
+        console.log('getMarketData：', res);
       }
     } catch (err) {
       console.log('getUserData', err);
     }
   }, 300);
+
+  getUsageChargeRatioData = async () => {
+    try {
+      const res = await this.rootStore.system.getUsageChargeRatio();
+      if (res.success) {
+        this.usageChargeRatio = res.data || null;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
+  };
 
   getUserTrxBalance = async () => {
     this.trxBalance = await getTrxBalance(this.rootStore.network.defaultAccount);
@@ -404,13 +433,13 @@ export default class EnergyRentalStore {
           if (index < Config.rewardNum) {
             defaultValue.push(item);
             choosedTotalReward = BigNumber(choosedTotalReward).plus(
-              BigNumber(parseInt(multiRewardData[item]?.amount)).div(Config.tokenDefaultPrecision)
+              BigNumber(multiRewardData[item]?.amount || 0).div(Config.tokenDefaultPrecision)
             );
           }
         } else {
           defaultValue.push(item);
           choosedTotalReward = BigNumber(choosedTotalReward).plus(
-            BigNumber(parseInt(multiRewardData[item]?.amount)).div(Config.tokenDefaultPrecision)
+            BigNumber(multiRewardData[item]?.amount || 0).div(Config.tokenDefaultPrecision)
           );
         }
       });
@@ -420,7 +449,7 @@ export default class EnergyRentalStore {
     if (totalDataArr?.length > 0) {
       totalDataArr.map(item => {
         totalReward = BigNumber(totalReward).plus(
-          BigNumber(parseInt(multiRewardData[item]?.amount)).div(Config.tokenDefaultPrecision)
+          BigNumber(multiRewardData[item]?.amount || 0).div(Config.tokenDefaultPrecision)
         );
       });
     }
@@ -542,6 +571,12 @@ export default class EnergyRentalStore {
         pageSize: 5
       });
 
+      if (!response.success) {
+        this.setData({
+          isGettingMiniOrderList: false
+        });
+        return;
+      }
       // response.data.orders = response.data.orders.map(item => {
       //   return {
       //     ...item,
@@ -580,13 +615,38 @@ export default class EnergyRentalStore {
   };
 
   getMarketRentalRate = async (amount = 0) => {
-    return await this.rootStore.system.rentalRate(
-      BigNumber(this.totalFrozenOfType).times(Config.trxPrecision).toString(),
-      BigNumber(this.totalDelegatedOfType)
-        .times(Config.trxPrecision)
-        .plus(BigNumber(amount).times(Config.trxPrecision))
-        .toString()
-    );
+    try {
+      let rentalRate = 0;
+      let stableRate = 0;
+      const rentalRateResult = await this.rootStore.system._getRentalRate(
+        BigNumber(amount).times(Config.trxPrecision).toString()
+      );
+      const stableRateResult = await this.rootStore.system._getStableRate();
+      if (rentalRateResult.success) {
+        rentalRate = rentalRateResult.data;
+      }
+      if (stableRateResult.success) {
+        stableRate = stableRateResult.data;
+      }
+      if (rentalRateResult.success || stableRateResult.success) {
+        return {
+          amount: BigNumber.max(rentalRate, stableRate),
+          success: true
+        };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      console.log(`getMarketRentalRate: ${error}`);
+    }
+
+    // return await this.rootStore.system.rentalRate(
+    //   BigNumber(this.totalFrozenOfType).times(Config.trxPrecision).toString(),
+    //   BigNumber(this.totalDelegatedOfType)
+    //     .times(Config.trxPrecision)
+    //     .plus(BigNumber(amount).times(Config.trxPrecision))
+    //     .toString()
+    // );
   };
 
   rentalRate = async (
@@ -615,42 +675,76 @@ export default class EnergyRentalStore {
     durationValueInSeconds = this.newOrderDuration
   ) => {
     const { defaultAccount } = this.rootStore.network;
-
     const trxAmount = BigNumber(energyAmount).div(this.marketData.energyStakePerTrx)._toFixed(0, 0);
-    const rateInfo = await this.getMarketRentalRate(trxAmount);
 
+    let liquidateThreshold = this.liquidateThreshold;
+    if (BigNumber(liquidateThreshold).isNaN()) {
+      const liquidateInfo = await this.rootStore.system.liquidateThreshold();
+      if (liquidateInfo.success) {
+        liquidateThreshold = liquidateInfo.amount;
+        this.setData({ liquidateThreshold });
+      }
+    }
+
+    let rateInfo = await this.getMarketRentalRate(trxAmount);
+    if (!rateInfo.success) {
+      rateInfo = await this.getMarketRentalRate(trxAmount);
+    }
     if (rateInfo.success) {
       let rate = BigNumber(rateInfo.amount).div(Config.tokenDefaultPrecision);
-
       let fee = Math.max(this.minFee, BigNumber(trxAmount).times(this.feeRatio));
 
       let totalPrepayment = BigNumber(
-        BigNumber(trxAmount)
-          .times(rate)
-          .times(BigNumber(durationValueInSeconds).plus(86400).plus(this.liquidateThreshold))
+        BigNumber(trxAmount).times(rate).times(BigNumber(durationValueInSeconds).plus(86400).plus(liquidateThreshold))
       ).plus(fee);
+      let yufuRent = BigNumber(trxAmount)
+        .times(rate)
+        .times(BigNumber(durationValueInSeconds).plus(86400).plus(liquidateThreshold));
+      let yajinRent = fee;
 
-      let halfDayRent = BigNumber(trxAmount).times(rate).times(BigNumber(43200).plus(this.liquidateThreshold));
-      let securityDeposit = BigNumber(halfDayRent).plus(fee).eq(0) ? 0 : BigNumber(halfDayRent).plus(fee);
+      let unUsageChargeRent = BigNumber(trxAmount)
+        .times(rate)
+        .times(BigNumber(86400).times(BigNumber(1).minus(this.usageChargeRatio)).plus(liquidateThreshold));
+      let securityDeposit = BigNumber(unUsageChargeRent).plus(fee).eq(0) ? 0 : BigNumber(unUsageChargeRent).plus(fee);
 
+      yufuRent = BigNumber(yufuRent).minus(unUsageChargeRent);
+      yajinRent = BigNumber(fee).plus(unUsageChargeRent);
+
+      let trxSaveBurningTime = 1 * 24 * 60 * 60;
+      trxSaveBurningTime = this.rentTimeExcution(trxSaveBurningTime);
+
+      // let trxSavedVsBurningPrepayment = BigNumber(
+      //   BigNumber(trxAmount).times(rate).times(BigNumber(trxSaveBurningTime).plus(86400).plus(liquidateThreshold))
+      // ).plus(fee);
+
+      let trxSavedVsBurningPrepaymentNew = BigNumber(
+        BigNumber(trxAmount).times(rate).times(BigNumber(trxSaveBurningTime).plus(liquidateThreshold))
+      );
       let trxSavedVsBurning = BigNumber(energyAmount)
         .div(this.marketData.energyBurnPerTrx)
-        .minus(totalPrepayment)
-        .plus(securityDeposit);
+        .minus(trxSavedVsBurningPrepaymentNew);
       let trxSavedVsStaking = BigNumber(energyAmount).div(this.marketData.energyStakePerTrx);
+
+      let rentEnergyFee = BigNumber(trxAmount)
+        .times(rate)
+        .times(BigNumber(durationValueInSeconds).plus(liquidateThreshold));
+      let rentSecurityDeposit = BigNumber(trxAmount).times(rate).times(86400);
+      let rentLiquidatePenalty = Math.max(this.minFee, BigNumber(trxAmount).times(this.feeRatio));
 
       this.setData({
         newOrderTrxAmount: trxAmount,
         newOrderPrepayment: totalPrepayment,
         newOrderSecurityDeposit: securityDeposit,
         newOrderTrxSavedVsBurning: trxSavedVsBurning,
-        newOrderTrxSavedVsStaking: trxSavedVsStaking
+        newOrderTrxSavedVsStaking: trxSavedVsStaking,
+        yufuRent,
+        yajinRent,
+        rentEnergyFee,
+        rentSecurityDeposit,
+        rentLiquidatePenalty
       });
 
       // Calculate safe value
-      console.log('trxAmount: ' + trxAmount);
-      console.log('totalPrepayment: ' + totalPrepayment);
-
       const energyUsed = await this.rootStore.system.getRentFeeLimit(
         defaultAccount || 'TVNevinkBb9JytBHhK2ZMsnWX5sWqJu9fx',
         BigNumber(trxAmount).times(Config.trxPrecision)._toFixed(0, 1),
@@ -662,7 +756,6 @@ export default class EnergyRentalStore {
         .plus(2)
         .toNumber();
 
-      console.log('renewOrderSafeValue: ' + safeValue);
       this.setData({
         newOrderSafeValue: safeValue
       });
@@ -672,6 +765,13 @@ export default class EnergyRentalStore {
       newOrderEnergyAmount: energyAmount,
       newOrderDuration: durationValueInSeconds
     });
+  };
+
+  rentTimeExcution = seconds => {
+    let time = seconds * 0.1; // 10 percentage
+    let limitTime = 2 * 60 * 60; // 2 hours
+
+    return seconds + (time > limitTime ? limitTime : time);
   };
 
   getExistingRentalOrderInfo = async (
@@ -693,7 +793,6 @@ export default class EnergyRentalStore {
     const rentInfo = await this.rootStore.system.getRentInfo(defaultAccount, 1, receiver);
     const rentalsInfo = await this.rootStore.system.getRentalsInfo(defaultAccount, 1, receiver);
     const rateInfo = await this.getMarketRentalRate(0);
-
     if (rentInfo.success && rentalsInfo.success && rateInfo.success && this.marketData) {
       if (this.renewOrderReceiver === receiver) {
         let rate = BigNumber(rateInfo.amount).div(Config.tokenDefaultPrecision);
@@ -715,7 +814,6 @@ export default class EnergyRentalStore {
           renewOrderExistingRemainingSeconds: currentRentDaysLeftSecs,
           renewOrderExistingRate: rate
         });
-
         if (
           this.addOrderModalVisible &&
           this.addOrderModalIsRenew &&
@@ -753,30 +851,57 @@ export default class EnergyRentalStore {
     if (rateInfo.success) {
       let rate = BigNumber(rateInfo.amount).div(Config.tokenDefaultPrecision);
 
+      let feeBefore = Math.max(this.minFee, BigNumber(totalTrxAmount).minus(trxAmount).times(this.feeRatio));
       let fee = Math.max(this.minFee, BigNumber(totalTrxAmount).times(this.feeRatio));
-
+      let liquidationFines = BigNumber(fee).minus(feeBefore);
+      // let totalSeconds = this.rentTimeExcution(
+      //   BigNumber(this.renewOrderExistingRemainingSeconds).plus(durationValueInSeconds).toNumber()
+      // );
+      let totalSeconds = BigNumber(this.renewOrderExistingRemainingSeconds).plus(durationValueInSeconds);
       let totalPrepayment = BigNumber(
-        BigNumber(totalTrxAmount)
-          .times(rate)
-          .times(
-            BigNumber(this.renewOrderExistingRemainingSeconds)
-              .plus(durationValueInSeconds)
-              .plus(86400)
-              .plus(this.liquidateThreshold)
-          )
+        BigNumber(totalTrxAmount).times(rate).times(BigNumber(totalSeconds).plus(86400).plus(this.liquidateThreshold))
       )
         .plus(fee)
         .minus(this.renewOrderExistingSecurityDeposit);
 
-      let halfDayRent = BigNumber(totalTrxAmount).times(rate).times(BigNumber(43200).plus(this.liquidateThreshold));
-      let securityDeposit = BigNumber(halfDayRent).plus(fee).minus(this.renewOrderExistingSecurityDeposit).lte(0)
+      let securityDepositOld = this.returnRentInfo?.securityDeposit;
+      let unUsageChargeRent = BigNumber(totalTrxAmount)
+        .times(rate)
+        .times(BigNumber(86400).times(BigNumber(1).minus(this.usageChargeRatio)).plus(this.liquidateThreshold));
+      let securityDeposit = BigNumber(unUsageChargeRent).plus(fee).minus(securityDepositOld).lte(0)
         ? 0
-        : BigNumber(halfDayRent).plus(fee).minus(this.renewOrderExistingSecurityDeposit);
+        : BigNumber(unUsageChargeRent).plus(fee).minus(securityDepositOld);
+
+      let yufuRent = BigNumber(trxAmount)
+        .times(rate)
+        .times(BigNumber(durationValueInSeconds).plus(86400).plus(this.liquidateThreshold));
+      // let yajinRent = fee;
+      let yajinRent = energyAmount === 0 ? 0 : securityDeposit;
+      
+      const singleDayRentBefore = BigNumber(securityDepositOld)
+        .minus(feeBefore)
+        .div(BigNumber(1).minus(this.usageChargeRatio));
+      const singleDayRentAfter = BigNumber(totalTrxAmount)
+        .times(rate)
+        .times(BigNumber(86400).plus(this.liquidateThreshold));
+      // marginDeposit = singleDayRentBefore.times(BigNumber(1).minus(this.usageChargeRatio))+fee
+      const marginDeposit = BigNumber(singleDayRentAfter).minus(singleDayRentBefore).gt(0)
+        ? BigNumber(singleDayRentAfter).minus(singleDayRentBefore)
+        : 0;
+      const energyFee = BigNumber(totalPrepayment).minus(liquidationFines).minus(marginDeposit).gt(0)
+        ? BigNumber(totalPrepayment).minus(liquidationFines).minus(marginDeposit)
+        : 0;
 
       this.setData({
         renewOrderTrxAmount: trxAmount,
         renewOrderPrepayment: totalPrepayment,
-        renewOrderSecurityDeposit: securityDeposit
+        // renewOrderSecurityDeposit: securityDeposit,
+        renewOrderSecurityDeposit: BigNumber(unUsageChargeRent).plus(fee),
+        yufuRent: BigNumber(totalPrepayment).minus(yajinRent),
+        yajinRent,
+        liquidationFines,
+        marginDeposit,
+        energyFeeForRental: energyFee
       });
 
       // Calculate safe value
@@ -820,6 +945,20 @@ export default class EnergyRentalStore {
     } else {
       this.setData({ dealNoteCheckValue: true });
       return true;
+    }
+  };
+
+  /**
+   * @description: get market history data
+   * @param {type}
+   * @return {*}
+   */
+  getMarketHistoryData = async params => {
+    const result = await getMarketHistory(params);
+    if (result?.success) {
+      return result.data;
+    } else {
+      return {};
     }
   };
 }

@@ -23,10 +23,8 @@ export class NoServiceModalAll extends React.Component {
     const now = Date.now();
     window.localStorage.setItem('closedNoServiceModalAll', now);
     window.localStorage.setItem('serviceStatus', 'continue');
-    this.props.lend.setData({
-      noServiceModalAllVisible: false,
-      serviceInnerStatus: 'continue'
-    });
+    this.props.lend.setNoServiceModalAllVisible(false);
+    this.props.lend.setServiceInnerStatus('continue');
     setTimeout(() => {
       this.props.network.initWalletConnectionAndEvent();
     }, 500);
@@ -69,10 +67,8 @@ export class NoServiceModalAll extends React.Component {
           <div className="btn-wrap">
             <div
               onClick={() => {
-                this.props.lend.setData({
-                  noServiceModalAllVisible: false,
-                  serviceInnerStatus: 'disabled'
-                });
+                this.props.lend.setNoServiceModalAllVisible(false);
+                this.props.lend.setServiceInnerStatus('disabled');
                 window.localStorage.setItem('serviceStatus', 'disabled');
                 this.props.network.closeConnect();
               }}

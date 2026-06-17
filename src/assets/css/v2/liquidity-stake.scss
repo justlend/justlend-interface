@@ -139,11 +139,47 @@
       transform: translateY(2px);
     }
     .apy-value {
+      display: flex;
+      align-items: center;
       font-weight: 700;
       font-size: 30px;
       line-height: 41px;
       color: #fff;
       margin-bottom: 10px;
+
+      .apy-range {
+        position: relative;
+        padding: 4px 22px 4px 6px;
+        margin-left: 10px;
+        border-radius: 2px;
+        background-color: rgba(255, 255, 255, 0.08);
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 400;
+        cursor: pointer;
+
+        &::after {
+          content: '';
+          display: block;
+          width: 12px;
+          height: 12px;
+          position: absolute;
+          right: 6px;
+          top: 50%;
+          transform: translateY(-50%);
+          background: url(../../images/v2/liquidity-stake/apy-range.svg) no-repeat center;
+          background-size: cover;
+        }
+
+        &:hover {
+          color: #9195fb;
+
+          &::after {
+            background: url(../../images/v2/liquidity-stake/apy-range-hover.svg) no-repeat center;
+            background-size: cover;
+          }
+        }
+      }
     }
     .apy-desc {
       font-weight: 400;
@@ -484,6 +520,48 @@
         height: 17px;
         background: url(../../images/v2/liquidity-stake/income-arrow.png) no-repeat center/100%;
         vertical-align: middle;
+      }
+
+      .apy-value {
+        display: flex;
+        align-items: center;
+        margin-bottom: 6px;
+
+        .value {
+          margin-bottom: 0;
+        }
+
+        .apy-range {
+          position: relative;
+          padding: 2px 16px 2px 3px;
+          margin-left: 4px;
+          border-radius: 2px;
+          background-color: rgba(255, 255, 255, 0.08);
+          font-size: 12px;
+          line-height: 16px;
+          cursor: pointer;
+
+          &::after {
+            content: '';
+            display: block;
+            width: 9px;
+            height: 9px;
+            position: absolute;
+            right: 3px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: url(../../images/v2/liquidity-stake/apy-range.svg) no-repeat center;
+            background-size: cover;
+          }
+
+          &:hover {
+            color: #9195fb;
+            &::after {
+              background: url(../../images/v2/liquidity-stake/apy-range-hover.svg) no-repeat center;
+              background-size: cover;
+            }
+          }
+        }
       }
 
       strong {
@@ -981,6 +1059,7 @@
       width: 56px !important;
       height: 56px !important;
       background: none !important;
+      user-select: none;
     }
   }
 
@@ -1037,7 +1116,6 @@
 
       .j-tooltip-icon {
         margin-left: 4px;
-        margin-top: 4px;
         vertical-align: top;
       }
 
@@ -1248,6 +1326,19 @@
         color: #22232b;
       }
 
+      .apy-value .apy-range {
+        background: rgba(77, 84, 255, 0.08);
+        &::after {
+          background: url(../../images/v2/liquidity-stake/apy-range-white.svg) no-repeat center;
+        }
+        &:hover {
+          color: #4d54ff;
+          &::after {
+            background: url(../../images/v2/liquidity-stake/apy-range-white-hover.svg) no-repeat center;
+          }
+        }
+      }
+
       .img-bg {
         background: url(../../images/v2/white-theme/liquidity-stake/stake-img.svg) no-repeat center;
       }
@@ -1384,6 +1475,21 @@
       .apy-title,
       .apy-value {
         color: #22232b;
+      }
+      .apy-value .apy-range {
+        background: rgba(77, 84, 255, 0.08);
+
+        &::after {
+          background: url(../../images/v2/liquidity-stake/apy-range-white.svg) no-repeat center;
+        }
+
+        &:hover {
+          color: #4d54ff;
+
+          &::after {
+            background: url(../../images/v2/liquidity-stake/apy-range-white-hover.svg) no-repeat center;
+          }
+        }
       }
       .apy-desc {
         color: rgba(34, 35, 43, 0.6);
@@ -1666,9 +1772,12 @@
               padding-bottom: 18px;
               padding-left: 17px;
               padding-right: 0;
-              font-size: 14px;
+              font-size: 16px;
               height: 69px;
               line-height: 19px;
+              &::placeholder {
+                font-size: 16px;
+              }
             }
             .stake-trx {
               font-size: 14px;
@@ -1712,12 +1821,11 @@
       .apy-box-stake {
         padding: 20px 15px;
         margin-right: 0;
-        height: 418px;
+        height: auto;
         background: #31333a url(../../images/v2/liquidity-stake/apy-box-stake-m.svg) no-repeat top right/cover;
 
-        // 没有可提取数量
         &.no-stake {
-          height: 297px;
+          height: auto;
           padding: 20px 15px;
           background: #31333a url(../../images/v2/liquidity-stake/apy-box-stake-no-stake-m.svg) no-repeat right
             top/cover;
@@ -1726,8 +1834,8 @@
           }
           .apy-only-stake {
             margin-top: 20px;
-            height: 152px;
-            padding: 20px 10px 20px 15px;
+            height: auto;
+            padding: 20px 10px 0 15px;
             position: relative;
             left: 0;
             top: 0;
@@ -1765,12 +1873,12 @@
         }
         .user-stake-info {
           width: unset;
-          height: 273px;
+          height: auto;
           position: relative;
           margin-top: 20px;
           left: 0px;
           bottom: 0;
-          padding: 20px 10px 20px 15px;
+          padding: 20px 10px 0 15px;
 
           .withdraw-balance {
             strong {
@@ -1785,6 +1893,7 @@
           .apy-info {
             margin-top: 20px;
             padding-top: 20px;
+            height: auto;
             .column {
               width: 50%;
               margin-bottom: 20px;
@@ -1794,6 +1903,10 @@
               strong {
                 font-size: 16px;
                 line-height: 22px;
+                .pre,
+                .income {
+                  line-height: 22px !important;
+                }
                 .income {
                   font-weight: 700;
                   font-size: 16px;
@@ -1831,11 +1944,17 @@
           line-height: 20px;
           margin-bottom: 4px;
         }
+        .apy-value {
+          margin-bottom: 0;
+        }
         .value {
           font-weight: 700;
           font-size: 16px;
           line-height: 22px;
-          margin-top: 4px;
+          .pre,
+          .income {
+            line-height: 22px;
+          }
           .postfix {
             font-weight: 400;
             font-size: 12px;
@@ -1849,7 +1968,6 @@
         padding: 20px 15px;
         margin-right: 0;
         height: 304px;
-        // todo 第二个
         background: url(../../images/v2/liquidity-stake/apy-box-nostake-m.svg) no-repeat top right/cover;
         // url(../../images/v2/liquidity-stake/apy-box-nostake-m2.svg) no-repeat top right/cover;
         background-color: #31333a;
@@ -1865,10 +1983,10 @@
           margin-bottom: 27px;
         }
         .apy-img {
-          top: 20px;
+          top: 16px;
           right: 15px;
-          width: 80px;
-          height: 68px;
+          width: 84px;
+          height: 86px;
           background: url(../../images/v2/liquidity-stake/APY-m.png) no-repeat center/contain;
         }
         .redeem {
@@ -1913,7 +2031,6 @@
           }
         }
 
-        // 钱包未连接
         &.disconnect {
           height: 196px;
           padding: 34px 15px;

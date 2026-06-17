@@ -10,6 +10,7 @@ import {
   tableClickRowToTransaction,
   BigNumber
 } from '../../../utils/helper';
+import { formatTokenAmount, formatFiatValue } from '../../../utils/formatters';
 import '../../../assets/css/userRecords.scss';
 
 @inject('network')
@@ -27,8 +28,8 @@ class LiquidateRecords extends React.Component {
   getContextFromOpType = (opType, symbol, cdpId) => {
     const actions = {
       '1': intl.get('liquidation_records.recycle_energy'), // plus, trx
-      '2': intl.get('liquidation_records.liquidate_token', { token: symbol || '--' }), // minus, usdt / token, jusdt / token
-      '3': intl.get('liquidation_records.repay_token', { token: symbol || '--' }), // plus, usdd / token
+      '2': intl.get('liquidation_records.liquidate_token'), // minus, usdt / token, jusdt / token
+      '3': intl.get('liquidation_records.repay_token'), // plus, usdd / token
       '4': intl.get('liquidation_records.liquidate_cdp', { number: cdpId || '--' }), // minus, trx / token
       '5': intl.get('liquidation_records.repay_cdp', { number: cdpId || '--' }) // plus, usdj / token
     };
@@ -51,22 +52,11 @@ class LiquidateRecords extends React.Component {
       : '';
 
     return (
-      <div
-        className={
-          'token-amount ' +
-          (whiteColorList.includes(item.opType)
-            ? 'white'
-            : currentSign === '+'
-            ? 'green'
-            : currentSign === '-'
-            ? 'red'
-            : '')
-        }
-      >
+      <div className="token-amount">
         {(!mobile || (item.opType !== 1 && !liquidateTooltip.includes(item.opType))) && (
           <>
-            <span>{currentSign}</span>
-            <span>{formatNumber(item.amount, tokenDecimal, { miniText: '0.000001' })}</span>
+            <span>{formatTokenAmount(item.amount, item.symbol)}</span>
+            {/* <span>{formatNumber(item.amount, tokenDecimal, { miniText: '0.000001' })}</span>
             {BigNumber(item.amount).gt('0.000001') && showEllipsis(item.amount, tokenDecimal) && (
               <Tooltip
                 overlayClassName="user-records-tooltip"
@@ -77,7 +67,7 @@ class LiquidateRecords extends React.Component {
                 {'...'}
               </Tooltip>
             )}
-            <span>{' ' + (item.symbol || '--')}</span>
+            <span>{' ' + (item.symbol || '--')}</span> */}
           </>
         )}
         {/* UI requirements */}
@@ -90,7 +80,6 @@ class LiquidateRecords extends React.Component {
                 arrowPointAtCenter
               >
                 <span className="underline-dashed">
-                  <span>{currentSign}</span>
                   <span>{formatNumber(item.amount, tokenDecimal, { miniText: '0.000001' })}</span>
                   {BigNumber(item.amount).gt('0.000001') && showEllipsis(item.amount, tokenDecimal) && (
                     <Tooltip
@@ -125,7 +114,6 @@ class LiquidateRecords extends React.Component {
                 arrowPointAtCenter
               >
                 <span className="underline-dashed">
-                  <span>{currentSign}</span>
                   <span>{formatNumber(item.amount, tokenDecimal, { miniText: '0.000001' })}</span>
                   {BigNumber(item.amount).gt('0.000001') && showEllipsis(item.amount, tokenDecimal) && (
                     <Tooltip
@@ -159,58 +147,40 @@ class LiquidateRecords extends React.Component {
     const { mobile } = this.state;
     let columns = [
       {
-        title: intl.get('user_records.type'),
-        dataIndex: 'opType',
-        key: '1',
-        ellipsis: true,
-        fixed: 'left',
-        width: '30%',
-        className: 'opType',
-        render: (text, item) => {
-          const showDescriptionList = [1];
-          return (
-            <div className="flex-center">
-              {item?.status && (
-                <span
-                  className={'icon mr-10 ' + (item.status === 1 ? 'loading' : item.status === 2 ? 'success' : '')}
-                ></span>
-              )}
-              <span className="mr-10">{this.getContextFromOpType(text, item?.symbol, item?.cdpId)}</span>
-              {/**
-               * Need to determine whether to trigger platform recycling
-               * Currently, there is no corresponding field in the backend.
-               * The front-end has adjusted it so that tooltips are not displayed uniformly.
-               * TODO:
-               * In the case of tooltip, there is a loading icon on the left. If there are corresponding fields in the backend, they need to be added together.
-               */}
-              {/* {showDescriptionList.includes(item.opType) && item.status === 2 && (
-                <Tooltip
-                  overlayClassName="j-tooltip-dropdown"
-                  title={intl.get('action_records_hover.mandatory_recycling')}
-                  placement="top"
-                  arrowPointAtCenter
-                >
-                  <span className="j-tooltip-icon"></span>
-                </Tooltip>
-              )} */}
-            </div>
-          );
-        }
-      },
-      {
         title: intl.get('user_records.time'),
         dataIndex: 'blockTimestamp',
         align: 'left',
-        width: '30%',
-        key: '2',
+        fixed: 'left',
+        width: '20%',
+        render: (text, item) => {
+          return <div className="time">{text ? new Date(text).format('yyyy-MM-dd h:m:s') : '--'}</div>;
+        }
+      },
+      {
+        title: intl.get('jlv2.record.protocol'),
+        dataIndex: 'opType',
+        align: 'left',
+        width: '16%',
+        render: text => (text === 1 ? 'Energy Rental' : 'SBM V1')
+      },
+      {
+        title: intl.get('jlv2.record.operation'),
+        dataIndex: 'opType',
+        ellipsis: true,
+        width: '25%',
+        className: 'opType',
         render: (text, item) => {
           return (
-            <div className="time">
-              {text
-                ? new Date(text).format('yyyy-MM-dd h:m:s')
-                : item?.blocktimestamp
-                ? new Date(item.blocktimestamp).format('yyyy-MM-dd h:m:s')
-                : '--'}
+            <div className="mobile-card">
+              {mobile && <span>{intl.get('jlv2.record.operation')}</span>}
+              <div className="flex-center">
+                {item?.status && (
+                  <span
+                    className={'icon mr-10 ' + (item.status === 1 ? 'loading' : item.status === 2 ? 'success' : '')}
+                  ></span>
+                )}
+                <span>{this.getContextFromOpType(text, item?.symbol, item?.cdpId)}</span>
+              </div>
             </div>
           );
         }
@@ -219,52 +189,56 @@ class LiquidateRecords extends React.Component {
         title: intl.get('user_records.amount'),
         dataIndex: 'tokenAmount',
         align: 'left',
-        key: '3',
         render: (text, item) => {
           return (
             <div className="mobile-card">
               {mobile && <span>{intl.get('user_records.amount')}</span>}
               <div className="flex-center flex-start">
-                <div className={'detail ' + (mobile ? '' : 'mr-10')}>
+                <div className={mobile ? '' : 'mr-10'}>
                   {this.renderTokenAmount(item)}
                   {item?.opType !== 10 && item?.opType !== 11 && (
-                    <div className="associate-usd">
-                      {formatNumber(item.usd, 2, {
+                    <div className={"associate-usd" + (mobile ? ' tar' : '')}>
+                      {formatFiatValue(item.usd)}
+                      {/* {formatNumber(item.usd, 2, {
                         cutZero: true,
                         needDolar: true,
                         miniText: '0.01'
-                      })}
+                      })} */}
                     </div>
                   )}
                 </div>
-                {/* {item.opType === 1 && (
-                  <Tooltip
-                    overlayClassName="j-tooltip-dropdown"
-                    title={intl.get('action_records_hover.rent_for', { address: item?.receiver })}
-                    placement="top"
-                    arrowPointAtCenter
-                  >
-                    <span className="j-tooltip-icon"></span>
-                  </Tooltip>
-                )} */}
               </div>
             </div>
           );
         }
       },
       {
-        title: '',
+        title: intl.get('jlv2.record.action'),
         dataIndex: 'txId',
-        key: '5',
-        width: 80,
-        render: (text, item) => <span className="link-arrow"></span>
+        width: '12%',
+        // render: (text, item) => <span className="link-arrow"></span>
+        render: (text, item) => (
+          this.state.mobile ? (
+            <span
+              className="records-link"
+              onClick={e => {
+                e.stopPropagation();
+                this.props.userRecords.handleToDetail('Liquidate', item);
+              }}
+            >
+              {intl.get('jlv2.record.details')}
+            </span>
+          ) : (
+            <span className="records-link">{intl.get('jlv2.record.details')}</span>
+          )
+        )
       }
     ];
     return columns;
   };
 
   getPageContent = currentPageNumber => {
-    this.props.userRecords.setData({ currentPageNumber });
+    this.props.userRecords.setOneData('currentPageNumber', currentPageNumber);
     this.props.userRecords.getLiquidityRecordsData();
   };
 
@@ -272,12 +246,13 @@ class LiquidateRecords extends React.Component {
     const { liquidationRecords, liquidationTotalCount, pageSize } = this.props.userRecords;
     return (
       <Table
-        className="user-records-table"
+        className="user-records-table liquidate"
         columns={this.getInfoColumns()}
         onRow={record => {
+          if(this.state.mobile) return ;
           return {
             onClick: () => {
-              tableClickRowToTransaction(record?.txId, 'userRecord');
+              this.props.userRecords.handleToDetail('Liquidate', record);
             }
           };
         }}
@@ -296,7 +271,7 @@ class LiquidateRecords extends React.Component {
         locale={{
           emptyText: emptyReactNodeNew
         }}
-        rowKey={'id'}
+        rowKey={record => record.txId}
       />
     );
   }

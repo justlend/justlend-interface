@@ -78,7 +78,13 @@ class RentalForm extends React.Component {
 
   componentDidMount = async () => {
     const { energyAmountValue, durationValueInSeconds } = this.state;
-    this.props.energyRental.updateNewOrderInfo(energyAmountValue, durationValueInSeconds);
+    let timer = setInterval(() => {
+      if (this.props.energyRental.totalFrozenOfType !== '--') {
+        this.props.energyRental.updateNewOrderInfo(energyAmountValue, durationValueInSeconds);
+        clearTimeout(timer);
+      }
+    }, 1000);
+
     this.initVideo(!this.state.durationIsDayUnitBoolean, true);
   };
 
@@ -288,13 +294,6 @@ class RentalForm extends React.Component {
     }
   };
 
-  // onClickSafeMaxBtn = () => {
-  //   // TODO
-  //   const { maxRentableOfType, marketData } = this.props.energyRental;
-  //   const { energyStakePerTrx } = marketData;
-  //   this.onChangeEnergyAmountInput(BigNumber(maxRentableOfType).times(energyStakePerTrx)._toFixed(0, 1));
-  // };
-
   renderDurationInput = () => {
     const { durationOptionIndex, durationInputError, durationInputValue, durationIsDayUnitBoolean, mobile } =
       this.state;
@@ -379,6 +378,9 @@ class RentalForm extends React.Component {
                 >
                   <div
                     className="switch-unit-button"
+                    onMouseDown={event => {
+                      event.preventDefault();
+                    }}
                     onClick={() => {
                       this.setState({ showBalanceError: true, playStatus: 0 });
                       this.onClickDurationInputUnitSwitch(!durationIsDayUnitBoolean);
@@ -394,6 +396,7 @@ class RentalForm extends React.Component {
                     {mobile ? (
                       <img
                         alt="time-switch-icon"
+                        className={this.state.lang === 'en-US' ? 'ml-4' : ''}
                         src={
                           durationIsDayUnitBoolean
                             ? isWhite
@@ -407,6 +410,7 @@ class RentalForm extends React.Component {
                     ) : (
                       <video
                         id="banner-video"
+                        className={this.state.lang === 'en-US' ? 'ml-4' : ''}
                         muted
                         playsInline
                         ref={ref => {
@@ -578,7 +582,9 @@ class RentalForm extends React.Component {
     });
     this.props.energyRental.updateNewOrderInfo(energyAmountValue, 0);
 
-    this.durationInputRef.focus();
+    if (!mobile && this.durationInputRef) {
+      this.durationInputRef.focus();
+    }
   };
 
   renderOtherAddressInput = () => {
@@ -608,7 +614,7 @@ class RentalForm extends React.Component {
                     isOtherAddressInputActive: true
                   });
                 }
-                window.gtag('event', 'click', {
+                window.gtag('event', 'energyrent_pro_rentforothers_clickBtn', {
                   'event_category': 'energyrent',
                   'event_label': 'energyrent_pro_rentforothers_clickBtn'
                 });
@@ -646,7 +652,7 @@ class RentalForm extends React.Component {
               value={otherAddressInputValue}
               onChange={event => this.onChangeOtherAddressInput(event.target.value)}
               onClick={() => {
-                window.gtag('event', 'click', {
+                window.gtag('event', 'energyrent_pro_rentforothers_clickEnter', {
                   'event_category': 'energyrent',
                   'event_label': 'energyrent_pro_rentforothers_clickEnter'
                 });
@@ -682,7 +688,6 @@ class RentalForm extends React.Component {
     try {
       const accountInfo = await getAccount(value);
 
-      console.log(accountInfo);
       if (accountInfo && Object.keys(accountInfo).length > 0) {
         if (accountInfo?.type === 'Contract') {
           this.setState({
@@ -699,8 +704,7 @@ class RentalForm extends React.Component {
         this.setState({ otherAddressInputError: intl.get('energy_rental.form.others_address_field.inactive_error') });
       }
     } catch (e) {
-      console.log('error: onChangeOtherAddressInput');
-      console.log(e);
+      console.log('error: onChangeOtherAddressInput', e);
       window.gtag('event', 'energyrent_pro_rentforothers_errortips', {
         'event_category': 'energyrent',
         'event_label': 'energyrent_pro_rentforothers_errortips'
@@ -712,13 +716,78 @@ class RentalForm extends React.Component {
 
   renderPrepaidInfoBox = (totalPrepayment, securityDeposit) => {
     const { lang, mobile } = this.state;
+    let { yufuRent, yajinRent, rentEnergyFee, rentSecurityDeposit, rentLiquidatePenalty } = this.props.energyRental;
 
     return (
       <div className="prepaid-info-box">
         <div className="info-row emphazied">
           <div className="row-title">{intl.get('energy_rental.form.prepayment_info.prepayment_title')}</div>
-          <div className="row-value">{formatNumber(totalPrepayment, 2, { miniText: 0.01 })}</div>
-          <div className="row-suffix">TRX</div>
+
+          <Tooltip
+            onMouseEnter={() => {
+              window.gtag('event', 'energyrent_pro_payment_hoverRefund', {
+                'event_category': 'energyrent',
+                'event_label': 'energyrent_pro_payment_hoverRefund'
+              });
+            }}
+            title={() => {
+              return (
+                <div className="rent-fee-detail">
+                  <div className="flexB flexA rent-fee-detail-item">
+                    <div className="name">{intl.get('energy_rental.energy_fee')}</div>
+                    <div className="value ellipsis">
+                      {BigNumber(rentEnergyFee).eq(0) ? 0 : formatNumber(rentEnergyFee, Config.trxDecimal)} TRX
+                    </div>
+                  </div>
+
+                  <div className="flexB flexA rent-fee-detail-item">
+                    <div className="name">{intl.get('energy_rental.security_deposit')}</div>
+                    <div className="value ellipsis">
+                      {BigNumber(rentSecurityDeposit).eq(0)
+                        ? intl.get('renewal.no_extra_sd')
+                        : formatNumber(rentSecurityDeposit, Config.trxDecimal, { miniText: '0.01' }) + ' TRX'}
+                    </div>
+                  </div>
+
+                  <div className="flexB flexA rent-fee-detail-item">
+                    <div className="name">{intl.get('energy_rental.liquidation_penalty')}</div>
+                    <div className="value ellipsis">
+                      {BigNumber(rentLiquidatePenalty).eq(0)
+                        ? intl.get('renewal.no_extra_fines')
+                        : formatNumber(rentLiquidatePenalty, Config.trxDecimal, { miniText: '0.01' }) + ' TRX'}
+                    </div>
+                  </div>
+
+                  <div className="return-rule-tip">
+                    <span className="return-rule-tip-text">{intl.get('new_rent.rent_tips1')}</span>
+                    {/* <span
+                      className="jl-links"
+                      onClick={() => {
+                        const element = document.getElementById('energy-data-container');
+                        if (element) {
+                          this.props.lend.setData({ poolDataTab: '2' });
+                          element.scrollIntoView();
+                        }
+                      }}
+                    >
+                      {intl.get('new_rent.how_to_calculate')}
+                    </span> */}
+                    <a className="jl-links" href={Config.rentCalculateLink} target="rentCalculateLink">
+                      {intl.get('renewal.how_to_calculate')}
+                    </a>
+                  </div>
+                </div>
+              );
+            }}
+            placement={mobile ? 'bottomLeft' : 'bottom'}
+            arrowPointAtCenter
+            overlayClassName="j-tooltip-dropdown prepaid"
+          >
+            <div className="flex tooltip-hover">
+              <div className="row-value">{formatNumber(totalPrepayment, 2, { miniText: 0.01 })}</div>
+              <div className="row-suffix">TRX</div>
+            </div>
+          </Tooltip>
         </div>
         <div className="info-row">
           <div className="row-title">
@@ -947,9 +1016,6 @@ class RentalForm extends React.Component {
                   })}
                 </div>
               )}
-              {/* {showShortRentalHint && (
-                <div className="short-rental-hint">{intl.get('energy_rental.form.hints.short_rental_period')}</div>
-              )} */}
               {showSafeMaxHint && (
                 <div className="safe-max-hint">
                   {intl.get('energy_rental.form.hints.safe_max_hints', { value: formatNumber(newOrderSafeValue, 2) })}
@@ -965,13 +1031,11 @@ class RentalForm extends React.Component {
                   <button
                     className="j-large-btn j-supply rent-action-button"
                     disabled={
-                      this.props.network.isRightChain &&
-                      (!isNewOrderInfoUpdated ||
-                        !isBothValueValid ||
-                        BigNumber(newOrderPrepayment).isNaN() ||
-                        isCheckingIfOrderExist ||
-                        haveAnyInputError ||
-                        (isOtherAddressInputActive && otherAddressVerifiedValue === ''))
+                      !isNewOrderInfoUpdated ||
+                      !isBothValueValid ||
+                      isCheckingIfOrderExist ||
+                      haveAnyInputError ||
+                      (isOtherAddressInputActive && otherAddressVerifiedValue === '')
                     }
                     onClick={() => {
                       this.confirmAddOrder(newOrderPrepayment);
@@ -986,8 +1050,7 @@ class RentalForm extends React.Component {
                       });
                     }}
                   >
-                    {this.props.network.isRightChain &&
-                    (!isNewOrderInfoUpdated || isCheckingIfOrderExist || BigNumber(newOrderPrepayment).isNaN()) &&
+                    {(!isNewOrderInfoUpdated || isCheckingIfOrderExist) &&
                     !(haveAnyInputError || (isOtherAddressInputActive && otherAddressVerifiedValue === '')) ? (
                       <span className="siging-icon"></span>
                     ) : (
@@ -1004,15 +1067,15 @@ class RentalForm extends React.Component {
                 </button>
               )}
             </div>
-
-            <div className="trx-saved-hint">
+            {/* delete this tip for now */}
+            {/* <div className="trx-saved-hint">
               <div className="hint-content">
                 {intl.getHTML('energy_rental.form.hints.trx_saved', {
                   savedValue: formatNumber(newOrderTrxSavedVsBurning, 2, { showNegative: true, miniText: '0.01' }),
                   stakingValue: formatNumber(newOrderTrxSavedVsStaking, 2, { miniText: '0.01' })
                 })}
               </div>
-            </div>
+            </div> */}
 
             {/* <div className="rent-feedback">
             <em></em>

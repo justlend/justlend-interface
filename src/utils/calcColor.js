@@ -11,6 +11,11 @@ function hexToRgb(hex) {
   return rgb;
 }
 
+/**
+ * @param {*} startColor
+ * @param {*} endColor
+ * @param {*} step
+ */
 export function gradient(startColor, endColor, step) {
   var sColor = hexToRgb(startColor),
     eColor = hexToRgb(endColor);

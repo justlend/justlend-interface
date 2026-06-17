@@ -1,19 +1,11 @@
 {
-  "include": [
-    "./src/**/*.jsx",
-    "./src/**/*.ts",
-    "src/components/v2/market-detail/utils.js"
-  ],
+  "include": ["./src/**/*.jsx", "./src/**/*.ts", "src/components/v2/market-detail/utils.js"],
   "compilerOptions": {
     "allowJs": true,
     "noEmit": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,

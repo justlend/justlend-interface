@@ -27,12 +27,16 @@
 
     &.have-subtitle {
       margin-bottom: 10px;
+      > div {
+        text-align: center;
+      }
     }
 
     .modal-title {
       font-size: 16px;
       font-weight: 600;
       line-height: normal;
+      text-align: center;
     }
     .modal-subtitle {
       margin-top: 6px;
@@ -163,7 +167,7 @@
           align-items: center;
           text-align: right;
 
-          margin-left: 16px;
+          // margin-left: 16px;
           color: #fff;
           font-size: 12px;
           font-weight: 500;
@@ -451,7 +455,7 @@
             font-weight: 600;
             font-size: 18px;
             &::-webkit-input-placeholder {
-              font-size: 13px;
+              font-size: 16px;
               font-weight: 500;
             }
           }
@@ -1007,7 +1011,7 @@
           .duration-input {
             .ant-input {
               &::-webkit-input-placeholder {
-                font-size: 11px;
+                font-size: 16px;
               }
             }
           }

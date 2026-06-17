@@ -3,11 +3,13 @@ import intl from 'react-intl-universal';
 import { inject, observer } from 'mobx-react';
 
 @inject('lend')
+@inject('market')
 @observer
 class BorrowDetailMobileTooltip extends React.Component {
   render() {
     const { dataList, getTooltipData } = this.props;
-    const { lang, borrowDetailGraphIndex } = this.props.lend;
+    const { lang } = this.props.lend;
+    const { borrowDetailGraphIndex } = this.props.market;
 
     const dataIndex = dataList.length - 1;
     var params = [{ dataIndex }, { dataIndex }];
@@ -40,7 +42,7 @@ class BorrowDetailMobileTooltip extends React.Component {
           <div className="item">
             <span className="label color-light">{intl.get('market.detail_date')}</span>
             <div className="value-wrap">
-              <span className="value date color-primary fs12">{dateText}</span>
+              <span className="value date color-primary fs12">{dateText} 00:00:00 (UTC)</span>
             </div>
           </div>
           <div className="item">

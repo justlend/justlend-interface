@@ -583,6 +583,10 @@
     }
 
     .vote-detail-info-text {
+      table {
+        max-width: 100%;
+        border-color: rgba(255, 255, 255, 0.3);
+      }
       .c17,
       .c26,
       .c27,
@@ -722,6 +726,10 @@
       }
     }
   }
+}
+
+.white .vote-detail .vote-detail-info-container .vote-detail-info-text table {
+  border-color: rgba(0, 0, 0, 0.3);
 }
 
 @media screen and (min-width: 799px) {

@@ -2,25 +2,73 @@ import { BigNumber } from './helper';
 import Config from '../config';
 const { contract, activeSwaps, lendContract, activeLends, voteList, activeVoteList } = Config;
 
+export const MAIN_NET_FULL_HOST = 'https://api.trongrid.io';
+export const NILE_NET_FULL_HOST = 'https://nile.trongrid.io';
+export const MAIN_NET_CHAIN_ID = '0x2b6653dc';
+
+const iconModules = import.meta.glob('../assets/images/v2/icons/*.{png,svg,jpeg}', {
+  eager: true,
+  import: 'default'
+});
+
+const iconModulesJLv2 = import.meta.glob('../assets/images/JLv2/icons/*.{png,svg,jpeg}', {
+  eager: true,
+  import: 'default'
+});
+
+const lendIconModules = import.meta.glob('../assets/images/liquidate/icons/*.{png,svg}', {
+  eager: true,
+  import: 'default'
+});
+
+const defaultIcon = new URL('../assets/images/default.png', import.meta.url).href;
+const jTokenDefaultIcon = new URL('../assets/images/jtoken-default.svg', import.meta.url).href;
+
+export const WALLET_TYPES = {
+  TRONLINK: 'tronlink',
+  BINANCE: 'binance',
+  OKX: 'okx',
+  TOKENPOCKET: 'tokenpocket',
+  LEDGER: 'ledger',
+  WALLETCONNECT: 'walletconnect',
+  IMTOKEN: 'imToken Wallet'
+};
+
+/**
+ * @description: get token icon
+ * @param {string} tokenName
+ * @return {string} icon url
+ */
 export const getIcons = tokenName => {
+  if (!tokenName) return defaultIcon;
   tokenName = tokenName?.toLowerCase();
-  let icons = '';
-  try {
-    icons = require(`../assets/images/v2/icons/${tokenName}.png`);
-  } catch (error) {
-    try {
-      icons = require(`../assets/images/v2/icons/${tokenName}.svg`);
-    } catch (error) {
-      try {
-        icons = require(`../assets/images/v2/icons/${tokenName}.jpeg`);
-      } catch (error) {
-        icons = require(`../assets/images/v2/icons/trx.png`);
-      }
-      icons = require(`../assets/images/v2/icons/trx.png`);
+  const extensions = ['png', 'svg', 'jpeg'];
+  for (const ext of extensions) {
+    let key = `../assets/images/v2/icons/${tokenName}.${ext}`;
+    if (iconModules[key]) {
+      return iconModules[key];
+    }
+  }
+  // fallback to trx icon
+  return iconModules['../assets/images/v2/icons/trx.png'];
+};
+
+export const getIconsJLv2 = (tokenName, newDefaultLogo = false) => {
+  if (!tokenName) return defaultIcon;
+  tokenName = tokenName?.toLowerCase();
+  const extensions = ['png', 'svg', 'jpeg'];
+  for (const ext of extensions) {
+    const key = `../assets/images/JLv2/icons/${tokenName}.${ext}`;
+    if (iconModulesJLv2[key]) {
+      return iconModulesJLv2[key];
     }
   }
 
-  return icons;
+  if(newDefaultLogo) {
+    return jTokenDefaultIcon;
+  }
+  // fallback to trx icon
+  return iconModulesJLv2['../assets/images/JLv2/icons/trx.png'];
 };
 
 export const ICONS_MAP = {
@@ -41,18 +89,21 @@ export const ICONS_MAP = {
   usdd: getIcons('usdd')
 };
 
-export const getLendIcons = symbol => {
-  let icons = '';
-  try {
-    icons = require(`../assets/images/liquidate/icons/${symbol}.png`);
-  } catch (error) {
-    try {
-      icons = require(`../assets/images/liquidate/icons/${symbol}.svg`);
-    } catch (error) {
-      icons = require(`../assets/images/default.png`);
+export const getLendIcons = (symbol, newDefaultLogo = false) => {
+  if (!symbol) return defaultIcon;
+  if (symbol === 'WTRX') {
+    symbol = 'TRX';
+  }
+
+  const extensions = ['png', 'svg'];
+  for (const ext of extensions) {
+    const key = `../assets/images/liquidate/icons/${symbol}.${ext}`;
+    if (lendIconModules[key]) {
+      return lendIconModules[key];
     }
   }
-  return icons;
+
+  return newDefaultLogo ? jTokenDefaultIcon : defaultIcon;
 };
 
 export const calcMineInfo = poolInfo => {

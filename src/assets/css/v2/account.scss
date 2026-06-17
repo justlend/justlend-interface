@@ -91,7 +91,7 @@
 
   .more {
     height: 88px;
-    padding: 20px; // 20
+    padding: 20px;
     background: #313339 url(../../images/v2/account/reward-bg.png) right -17px bottom -13px no-repeat;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); // 0 10 20
     border-radius: 10px; // 2
@@ -124,8 +124,11 @@
       height: 20px;
       margin-left: 6px;
       transition: all 0.1s ease-in-out;
-      &:hover {
+      &:hover:not(.disabled) {
         transform: scale(1.25);
+      }
+      &:hover.disabled {
+        cursor: not-allowed;
       }
     }
 
@@ -374,6 +377,8 @@
       width: 56px !important;
       height: 56px !important;
       background: none !important;
+      user-select: none;
+      user-select: none;
     }
   }
 
@@ -489,13 +494,11 @@
       overflow-y: scroll;
       border-right: 1px solid #282931;
       &::-webkit-scrollbar {
-        /*滚动条整体样式*/
-        width: 1px; /*高宽分别对应横竖滚动条的尺寸*/
+        width: 1px;
         height: 40px;
         display: none;
       }
       &::-webkit-scrollbar-thumb {
-        /*滚动条里面小方块*/
         max-height: 40px;
         border-radius: 1px;
         background-color: rgba(255, 255, 255, 0.1);
@@ -708,7 +711,6 @@
           transform: translateY(-1px);
         }
       }
-      // 这里原来不知道为啥从2开始
       tr:nth-child(1) .collateralSymbol .colorBlock {
         background: #2b31c1;
       }
@@ -968,7 +970,6 @@
   }
 }
 
-// 白色背景
 .ant-modal.account-invest-modal.white {
   background-color: #fff;
 
@@ -997,13 +998,11 @@
     background-color: #f8f8fe;
     border-right: 1px solid #f8f8fe;
     &::-webkit-scrollbar {
-      /*滚动条整体样式*/
-      width: 1px; /*高宽分别对应横竖滚动条的尺寸*/
+      width: 1px;
       height: 40px;
       // display: none;
     }
     &::-webkit-scrollbar-thumb {
-      /*滚动条里面小方块*/
       max-height: 40px;
       border-radius: 1px;
       background-color: rgba(34, 35, 43, 0.2);
@@ -1236,7 +1235,6 @@
         }
       }
     }
-    // 待分配收益
     .more {
       padding: 20px 15px;
       background-size: contain;
@@ -1288,6 +1286,7 @@
 
     .ant-modal-content .ant-modal-close-x {
       background: none;
+      user-select: none;
     }
   }
 

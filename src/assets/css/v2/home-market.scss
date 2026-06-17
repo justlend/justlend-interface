@@ -139,11 +139,7 @@
     padding: 30px 0 16px;
     display: flex;
     flex-direction: column;
-    .btn-wrap {
-      .j-btn {
-        width: 60px;
-      }
-    }
+
     .stake-tip {
       font-weight: 500;
       font-size: 12px;
@@ -153,8 +149,7 @@
       padding: 0 0px;
       text-align: center;
       background: #4c54ff;
-      border-radius: 2px;
-      width: 132px;
+      border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s;
       span {
@@ -414,6 +409,7 @@
       &::-webkit-input-placeholder {
         color: #76777f;
         font-weight: 500;
+        font-size: 14px;
       }
       color: rgba(34, 35, 43, 1);
     }

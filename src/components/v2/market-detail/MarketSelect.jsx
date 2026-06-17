@@ -7,6 +7,7 @@ import { marketListSort } from '../../../utils/helper';
 import { getLendIcons } from '../../../utils/constant';
 
 @inject('lend')
+@inject('market')
 @observer
 class MarketSelect extends React.Component {
   constructor() {
@@ -41,7 +42,8 @@ class MarketSelect extends React.Component {
   render() {
     const { shouldScrollIntoView } = this.state;
     const { value, onChange, className } = this.props;
-    const { dashboardData, theme } = this.props.lend;
+    const { theme } = this.props.lend;
+    const { dashboardData } = this.props.market;
     let markets = dashboardData?.markets || [];
     let result = marketListSort(markets);
     markets = result.fullMarketList;

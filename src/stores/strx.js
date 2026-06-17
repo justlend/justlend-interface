@@ -1,16 +1,26 @@
 // Libraries
 import BigNumber from 'bignumber.js';
+import { TronWeb } from 'tronweb';
 import { debounce } from 'lodash';
-import { observable } from 'mobx';
+import { observable, makeObservable } from 'mobx';
 import Config from '../config';
 import { getAllowanceMultiReward, getSTrxDashboard, getSTrxStakeAccount, getReturnRentInfo } from '../utils/backend';
-import { tronObj } from '../utils/blockchain';
 import { formatNumber, getTrxBalance } from '../utils/helper';
 
-const { voteDetailFilePath, chain } = Config;
+const { chain } = Config;
+const privateKey = chain.privateKey;
+
+const mainchain = new TronWeb({
+  fullHost: chain.fullHost,
+  privateKey
+});
+
+const tronObj = {
+  tronWeb: mainchain,
+  walletTronWeb: null
+};
 
 const tronWeb = tronObj.tronWeb;
-const DATA_LEN = 64;
 
 const defaultIntervalSeconds = 60000;
 export default class StrxStore {
@@ -106,6 +116,8 @@ export default class StrxStore {
         engeryOfferModalVisible: true
       });
     }
+
+    makeObservable(this);
   }
 
   setVariablesInterval = async () => {
@@ -364,13 +376,13 @@ export default class StrxStore {
           if (index < Config.rewardNum) {
             defaultValue.push(item);
             choosedTotalReward = BigNumber(choosedTotalReward).plus(
-              BigNumber(parseInt(multiRewardData[item]?.amount)).div(Config.tokenDefaultPrecision)
+              BigNumber(multiRewardData[item]?.amount || 0).div(Config.tokenDefaultPrecision)
             );
           }
         } else {
           defaultValue.push(item);
           choosedTotalReward = BigNumber(choosedTotalReward).plus(
-            BigNumber(parseInt(multiRewardData[item]?.amount)).div(Config.tokenDefaultPrecision)
+            BigNumber(multiRewardData[item]?.amount || 0).div(Config.tokenDefaultPrecision)
           );
         }
       });
@@ -380,7 +392,7 @@ export default class StrxStore {
     if (totalDataArr?.length > 0) {
       totalDataArr.map(item => {
         totalReward = BigNumber(totalReward).plus(
-          BigNumber(parseInt(multiRewardData[item]?.amount)).div(Config.tokenDefaultPrecision)
+          BigNumber(multiRewardData[item]?.amount || 0).div(Config.tokenDefaultPrecision)
         );
       });
     }

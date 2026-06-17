@@ -1,8 +1,9 @@
-import TronWeb from 'tronweb';
+import { TronWeb } from 'tronweb';
+import { utils as TronWebUtils } from 'tronweb';
 import Config from '../config';
 import { getBaseInfo } from './backend';
 
-import { BigNumber, openTransModal, setTransactionsData, randomSleep, myLocal } from './helper';
+import { BigNumber, randomSleep } from './helper';
 
 const chain = Config.chain;
 
@@ -32,17 +33,32 @@ export const triggerSmartContract = async (
   options = {},
   parameters = [],
   issuerAddress = window.defaultAccount,
-  extension
+  extension,
+  revertCheck = false
 ) => {
   try {
-    let walletTronWeb = tronObj.walletTronWeb;
-    if (!walletTronWeb || walletTronWeb.version < '3.2.6') {
-      walletTronWeb = mainchain; // tronlink connection can only use tronlink.tronweb, other connections use mainchain
-    }
-    if (!window?.tronLink?.ready && window?.okxwallet?.tronLink?.ready) {
-      walletTronWeb = window.okxwallet.tronLink.tronWeb;
-    }
+    let walletTronWeb = mainchain;
+    // let walletTronWeb = tronObj.walletTronWeb;
+    // if (!walletTronWeb || walletTronWeb.version < '3.2.6') {
+    //   walletTronWeb = mainchain; // tronlink connection can only use tronlink.tronweb, other connections use mainchain
+    // }
     if (!walletTronWeb) return;
+
+    if (revertCheck) {
+      const transaction = await walletTronWeb.transactionBuilder.triggerConstantContract(
+        address,
+        functionSelector,
+        Object.assign({ feeLimit: Config.feeLimit }, options),
+        parameters,
+        issuerAddress
+      );
+
+      const constant_result = transaction?.constant_result && transaction.constant_result[0];
+      if (constant_result && TronWebUtils.bytes.hextoString(constant_result)?.indexOf('REVERT') > -1) {
+        throw new Error('REVERT');
+      }
+    }
+
     const transaction = await walletTronWeb.transactionBuilder.triggerSmartContract(
       address,
       functionSelector,
@@ -92,45 +108,12 @@ export const sendRawTransaction = async signedTransaction => {
   }
 };
 
-export const trigger = async (address, functionSelector, parameters = [], options = {}, intlObj = {}) => {
-  try {
-    openTransModal(intlObj, { step: 1 });
-    const tronWeb = tronObj.tronWeb;
-    const walletTronWeb = tronObj.walletTronWeb;
-    if (!walletTronWeb) return;
-    const transaction = await walletTronWeb.transactionBuilder.triggerSmartContract(
-      address,
-      functionSelector,
-      Object.assign({ feeLimit: Config.feeLimit }, options),
-      parameters,
-      window.defaultAccount
-    );
-    if (!transaction.result || !transaction.result.result) {
-      throw new Error('Unknown trigger error: ' + JSON.stringify(transaction.transaction));
-    }
-
-    const signedTransaction = await walletTronWeb.trx.sign(transaction.transaction);
-    const result = await tronWeb.trx.sendRawTransaction(signedTransaction);
-    openTransModal(intlObj, { step: 2, txId: result.transaction.txID });
-    if (result && result.result) {
-      setTransactionsData(result.transaction.txID, intlObj);
-    }
-    return result;
-  } catch (error) {
-    if (error == 'Confirmation declined by user') {
-      openTransModal(intlObj, { step: 3 });
-    }
-    console.log(`trigger error ${address} - ${functionSelector}`, error.message ? error.message : error);
-    return {};
-  }
-};
-
 export const view = async (address, functionSelector, parameters = [], isDappTronWeb = true) => {
   try {
     let walletTronWeb = mainchain;
-    if (!isDappTronWeb && tronObj.walletTronWeb?.defaultAddress?.base58) {
-      walletTronWeb = tronObj.walletTronWeb;
-    }
+    // if (!isDappTronWeb && tronObj.walletTronWeb?.defaultAddress?.base58) {
+    //   walletTronWeb = tronObj.walletTronWeb;
+    // }
     const result = await walletTronWeb.transactionBuilder.triggerSmartContract(
       address,
       functionSelector,
@@ -139,8 +122,25 @@ export const view = async (address, functionSelector, parameters = [], isDappTro
     );
     return result && result.result ? result.constant_result : [];
   } catch (error) {
-    console.log(`view error ${address} - ${functionSelector}`, error.message ? error.message : error);
+    console.log(`view error`, error.message ? error.message : error);
     return [];
+  }
+};
+
+export const getTrxBalanceQuick = async address => {
+  try {
+    let tronWeb = mainchain;
+    const balance = await tronWeb.trx.getUnconfirmedBalance(address);
+    return {
+      balance: BigNumber(balance).div(Config.defaultPrecision),
+      success: true
+    };
+  } catch (err) {
+    console.log(`getPairBalance: ${err}`, address);
+    return {
+      balance: BigNumber(0),
+      success: false
+    };
   }
 };
 
@@ -153,7 +153,7 @@ export const getTrxBalance = async (address, isDappTronWeb = false) => {
       success: true
     };
   } catch (err) {
-    console.log(`getPairBalance: ${err}`, address);
+    console.log(`getPairBalance: ${err}`);
     return {
       balance: BigNumber(0),
       success: false
@@ -221,6 +221,53 @@ export const getBalance = async (address, tokens) => {
     { type: 'address[]', value: tokens }
   ]);
   return result && result.transaction ? result.transaction.txID : '';
+};
+
+export const getBalanceNew = async (address, tokens) => {
+  if (tokens.length === 0) return {};
+  try {
+    const _getBalance = async _tokens => {
+      await randomSleep();
+
+      const result = await view(Config.contract.poly, 'getBalance(address,address[])', [
+        { type: 'address', value: address },
+        { type: 'address[]', value: tokens }
+      ]);
+
+      if (result.length) {
+        const data = result[0];
+        let dataIndex = 2;
+
+        const balanceInfo = {};
+
+        tokens.forEach((t, i) => {
+          balanceInfo[t] = BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
+        });
+
+        return balanceInfo;
+      }
+    };
+
+    const maxBalanceLength = Config.maxBalanceLength;
+    let promiseFunc = [];
+
+    for (let i = 0; ; i++) {
+      const _maxTokens = tokens.slice(i * maxBalanceLength, (i + 1) * maxBalanceLength);
+
+      if (_maxTokens.length) {
+        promiseFunc.push(_getBalance(_maxTokens));
+      } else {
+        break;
+      }
+    }
+
+    const datas = await Promise.all(promiseFunc);
+
+    return datas.reduce((a, b) => ({ ...a, ...b }), {});
+  } catch (err) {
+    console.log('getBalanceNew: ', err);
+    return {};
+  }
 };
 
 export const getBalanceInfo = async (
@@ -346,7 +393,6 @@ export const getBalanceStUsdtInfo = async (
 };
 
 export const getTRC20Balance = async (tokenAddress, userAddress) => {
-  // console.log('params of getbalance: ', userAddress, tokenAddress);
   const result = await view(tokenAddress, 'balanceOf(address)', [{ type: 'address', value: userAddress }]);
   let value = BigNumber(0);
   let success = false;
@@ -375,61 +421,6 @@ export const getCash = async contractAddr => {
     balance,
     success
   };
-};
-
-export const yamApprove = async (token, intlObj) => {
-  if (token.symbol === 'TRX') {
-    return '';
-  }
-
-  const result = await trigger(
-    token.token,
-    'approve(address,uint256)',
-    [
-      { type: 'address', value: token.pool },
-      { type: 'uint256', value: MAX_UINT256 }
-    ],
-    {},
-    intlObj
-  );
-  return result && result.transaction ? result.transaction.txID : '';
-};
-
-export const yamDeposit = async (token, amount, intlObj) => {
-  let funcSelector = 'stake(uint256)';
-  let parameters = [{ type: 'uint256', value: amount }];
-  let options = {};
-  if (token.symbol === 'TRX') {
-    funcSelector = 'stake()';
-    parameters = [];
-    options = { callValue: amount };
-  } else if (token.vote === 'sunoldVote') {
-    // console.log("asdfasdfasdfsadf", token)
-    funcSelector = 'stake(uint256,address)';
-    parameters = [
-      { type: 'uint256', value: amount },
-      { type: 'address', value: token.voteAddr }
-    ];
-  }
-
-  const result = await trigger(token.pool, funcSelector, parameters, options, intlObj);
-  return result && result.transaction ? result.transaction.txID : '';
-};
-
-export const yamReward = async (token, intlObj) => {
-  const result = await trigger(token.pool, 'getReward()', [], {}, intlObj);
-  return result && result.transaction ? result.transaction.txID : '';
-};
-
-export const yamWithdraw = async (token, amount, intlObj) => {
-  const result = await trigger(
-    token.pool,
-    'withdrawAndGetReward(uint256)',
-    [{ type: 'uint256', value: amount }],
-    {},
-    intlObj
-  );
-  return result && result.transaction ? result.transaction.txID : '';
 };
 
 export const getPoolsInfo = async (userAddress, pools) => {
@@ -495,8 +486,6 @@ export const getPoolsInfo = async (userAddress, pools) => {
     data.trxAmount = [...data.trxAmount, ...r.data.trxAmount];
   });
 
-  // console.log(data, pools);
-
   return { data, success };
 };
 
@@ -534,7 +523,6 @@ export const getClaimed = async (token, userAddress, poolData) => {
         trxClaimed = obj[3].div(defaultPrecision);
         tokenClaimed = obj[1].div(tokenPrecision);
       }
-      // console.log(obj[1].toString(), obj[3].toString())
     } else if (len == 4) {
       obj[0] = TronWeb.address.fromHex('41' + data?.substr(dataIndex++ * DATA_LEN, DATA_LEN).slice(24));
       obj[1] = BigNumber(data?.substr(dataIndex++ * DATA_LEN, DATA_LEN), 16);
@@ -542,15 +530,10 @@ export const getClaimed = async (token, userAddress, poolData) => {
         trxClaimed = obj[1].div(defaultPrecision);
       } else if (poolData[id].lp === 'JST') {
         tokenClaimed = obj[1].div(tokenPrecision);
-        // console.log(tokenClaimed.toString(), obj);
       }
     }
     success = true;
   }
-
-  // if (poolData[id].lp === 'JST') {
-  //   console.log(tokenClaimed.toString(), obj);
-  // }
 
   if (success) {
     Object.assign(poolData[id], {
@@ -558,11 +541,23 @@ export const getClaimed = async (token, userAddress, poolData) => {
       trxClaimed
     });
   }
-  // return {
-  //   tokenClaimed,
-  //   trxClaimed,
-  //   success
-  // };
+};
+
+// v2 vault max deposit
+export const maxDeposit = async (vaultAddress, userAddress) => {
+  const result = await view(vaultAddress, 'maxDeposit(address)', [{ type: 'address', value: userAddress }]);
+  let value = BigNumber(0);
+  let success = false;
+
+  if (result.length) {
+    value = new BigNumber(result[0].slice(0, DATA_LEN), 16);
+    success = true;
+  }
+
+  return {
+    value,
+    success
+  };
 };
 
 export const getAmountLimit = async () => {

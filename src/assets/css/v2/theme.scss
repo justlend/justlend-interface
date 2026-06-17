@@ -11,6 +11,7 @@
     padding-left: 17px;
   }
 }
+
 .j-wrapper.white {
   background: #f1f1f8;
 
@@ -24,6 +25,21 @@
 
   .hover {
     color: #4d54ff !important;
+    &.c-9195fb {
+      color: #9195fb !important;
+      &::after {
+        background: #9195fb !important;
+      }
+    }
+    &::after {
+      background: #4d54ff !important;
+    }
+  }
+
+  .market-head-tips a.right-arrow.hover {
+    color: #4d54ff !important;
+    // background: url(../../images/icon/right-arrow-white.svg) right no-repeat;
+    // background-size: 5px;
     &::after {
       background: #4d54ff !important;
     }
@@ -176,6 +192,9 @@
       > a {
         color: #4c54ff;
       }
+      .approve-wrap span {
+        color: rgba(34, 35, 43, 0.6);
+      }
     }
     &.header-border {
       .ant-modal-header {
@@ -231,7 +250,11 @@
     background-image: url(../../images/v2/white-theme/logo.svg);
   }
   .j-header {
-    background: #fafafa;
+    border-bottom: 1px solid #e8e8e8;
+
+    &.j-header-m {
+      background: transparent !important;
+    }
     .j-feedback {
       color: #4c54ff;
     }
@@ -248,18 +271,44 @@
           }
         }
       }
-      .before-setting-db-box,
-      .after-setting-db-box {
-        background: #fff;
-      }
-      .before-setting-db-box::before,
-      .after-setting-db-box::before {
-        background-color: #fafafa;
-      }
       .wallet-dropdown {
         background: #fff;
         box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.1);
+
+        &.new-wallet-dropdown {
+          .wallet-row {
+            border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+          }
+        }
+
         .row-item {
+          &.wallet-row {
+            .row-title {
+              background-image: url(../../images/s11/white/wallet-tronlink.png);
+              &.okx {
+                background-image: url(../../images/s11/white/wallet-okx.png);
+              }
+              &.walletconnect {
+                background-image: url(../../images/s11/white/wallet-connect.png);
+              }
+              &.ledger {
+                background-image: url(../../images/s11/white/wallet-ledger.png);
+              }
+              &.tokenpocket {
+                background-image: url(../../images/s11/white/wallet-tp.png);
+              }
+              &.binance {
+                background-image: url(../../images/s11/white/wallet-binance.png);
+              }
+              &.imtoken {
+                background-image: url(../../images/s11/wallet-imtoken.svg);
+                background-size: 36px 36px;
+              }
+            }
+            .row-value .row-value-content .value-text {
+              color: #22232b;
+            }
+          }
           &:hover {
             background: #f0f2f7;
           }
@@ -268,7 +317,7 @@
           }
           .row-value {
             .risk-off {
-              color: #22232b;
+              color: #737480;
             }
             .arrow-right-icon {
               background: url(../../images//header/white-theme/arrow-right.svg) 3px 1px no-repeat;
@@ -339,14 +388,9 @@
       }
       &:hover {
         color: #22232b;
-      }
-    }
-    .header-icon {
-      &.j-stake {
-        // background-image: url(../../images/v2/white-theme/hot-stake.svg);
-      }
-      &.j-rent {
-        //background-image: url(../../images/v2/white-theme/hot-rent.svg);
+        > span {
+          color: #22232b;
+        }
       }
     }
     .top-bar {
@@ -359,7 +403,18 @@
       }
     }
   }
-  .j-wallet-info {
+  .experience-new {
+    border: 1px solid #24b887;
+    color: #24b887;
+    background-color: transparent !important;
+    &:hover {
+      border-color: #24b887 !important;
+      background-color: #24b887 !important;
+      color: #fff !important;
+      .j-tooltip-icon {
+        background-image: url(../../images/JLv2/white-theme/tooltip-icon-hover.svg);
+      }
+    }
   }
   .j-subhead {
     .j-title {
@@ -918,8 +973,6 @@
     }
   }
 
-  // 存借款弹窗
-
   .ant-tabs-tab-btn {
     color: rgba(34, 35, 43, 0.4);
   }
@@ -1009,9 +1062,9 @@
     }
     &.j-supply {
       // background: #4c54ff;
-      border: 1px solid #4d54ff;
-      background: rgba(77, 84, 255, 0.06);
-      color: #4c54ff !important;
+      // border: 1px solid #4d54ff;
+      // background: rgba(77, 84, 255, 0.06);
+      // color: #4c54ff !important;
       &.rent-now {
         border: none;
         background: #4c54ff;
@@ -1088,7 +1141,6 @@
     }
   }
 
-  // 借款弹窗
   .ant-select.select-max {
     &.ant-select-open {
       .ant-select-selection-item {
@@ -1174,13 +1226,11 @@
   .scroll-bar {
     border-right-color: #f8f8fe;
     &::-webkit-scrollbar {
-      /*滚动条整体样式*/
-      width: 1px; /*高宽分别对应横竖滚动条的尺寸*/
+      width: 1px;
       height: 40px;
       display: none;
     }
     &::-webkit-scrollbar-thumb {
-      /*滚动条里面小方块*/
       max-height: 40px;
       border-radius: 1px;
       background: #ccc;
@@ -1242,29 +1292,29 @@
       background-image: url(../../images/liquidate/white-theme/refresh.svg);
     }
   }
-  .bs-route {
-    &.ant-popover-open {
-      color: #22232b;
-      &:hover {
-        color: #22232b !important;
+
+  .cannot-open {
+    .new-switch {
+      .switch-circle {
+        background: #b3b4b7;
+        box-shadow: none;
       }
-    }
-    &:hover {
-      color: #22232b;
-    }
-    .bs-arrow {
-      // transform: rotate(180deg);
-      background: url(../../images/liquidate/white-theme/header-select-arrow.svg) 0 0 no-repeat;
-    }
-    &.bs-route-m {
-      .bs-arrow {
-        transform: rotate(180deg);
+      .switch-line {
+        background-color: rgba(208, 208, 214, 0.5);
+      }
+
+      &.switch-on {
+        .switch-line {
+          background-color: rgba(245, 135, 33, 0.6);
+        }
+        .switch-circle {
+          background: #fff;
+          box-shadow: 0px 0px 5px rgba(99, 97, 97, 0.3);
+        }
       }
     }
   }
-  .bs-arrow {
-    background: url(../../images/liquidate/white-theme/header-select-arrow.svg) 0 0 no-repeat;
-  }
+
   .j-user-list {
     &.j-user-list-skeleton {
       background: #fff;
@@ -1310,6 +1360,14 @@
   }
 }
 
+.jlv2-bg.white {
+  .j-refresh {
+    >em {
+      background-image: url(../../images/liquidate/white-theme/refresh.svg);
+    }
+  }
+}
+
 .account-modal-v2.white {
   .j-icons {
     display: inline-block;
@@ -1326,16 +1384,19 @@
 }
 
 .ant-tooltip.j-tooltip-dropdown {
-  &.not-used.white {
-    .ant-tooltip-inner {
-      color: #22232b;
-      background: #fef3e9;
-    }
-    .ant-tooltip-arrow-content {
-      background: #fef3e9;
-      box-shadow: none;
-    }
+  &.not-used .ant-tooltip-inner {
+    color: #fff;
   }
+  // &.not-used.white {
+  //   .ant-tooltip-inner {
+  //     color: #22232b;
+  //     background: #fef3e9;
+  //   }
+  //   .ant-tooltip-arrow-content {
+  //     background: #fef3e9;
+  //     box-shadow: none;
+  //   }
+  // }
 }
 
 .ant-modal.account-invest-modal.white {
@@ -1446,31 +1507,6 @@
 
 .lang-select-v2.white {
   background-color: #dfe5e5;
-}
-
-.header-bs-pop.white {
-  a {
-    color: #22232b;
-    &::after {
-      background-image: url(../../images/liquidate/white-theme/menu-selected.svg);
-    }
-
-    &:hover {
-      background: #f0f2f7;
-    }
-    &.current {
-      // background: rgba(75, 82, 223, 0.1);
-    }
-  }
-  .ant-popover-inner-content {
-    padding: 8px 0;
-  }
-  .ant-popover-inner {
-    background-color: #fff;
-  }
-  .ant-popover-arrow {
-    display: none;
-  }
 }
 
 @media (max-width: 798px) {

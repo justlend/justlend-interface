@@ -1,4 +1,5 @@
 .history
+.vscode
 build
 # Logs
 logs
@@ -7,6 +8,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+localTest
+forTest
+.security-reports
+.claude/*
+!.claude/skills/
+.claude/skills/full-audit.md
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -65,7 +72,7 @@ typings/
 .node_repl_history
 
 # Output of 'npm pack'
-*.tgz
+# *.tgz
 
 # Yarn Integrity file
 .yarn-integrity
@@ -107,3 +114,13 @@ dist
 
 build
 **/.DS_Store
+.claude/settings.local.json
+.mcp.json
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/blob-report/
+/tests/**-snapshots/**-darwin.png
+/localTest
+CLAUDE.*.md
+dc-report/

@@ -1,12 +1,10 @@
 import React from 'react';
 
-import intl from 'react-intl-universal';
 import { inject, observer } from 'mobx-react';
 import classnames from 'classnames';
 import BigNumber from 'bignumber.js';
 import { Skeleton } from 'antd';
-
-import { getQueryObj, goToPage } from '../../../utils/helper';
+import isMobile from 'ismobilejs';
 
 import Header from '../Header';
 import SeasonToolBar from '../season/index';
@@ -24,9 +22,13 @@ import EnergySubsidyBar from './EnergySubsidyBar';
 import RentalTips from './RentalTips';
 import RentalMarketData from './RentalMarketData';
 
-import FirstVisitModal from '../../Modals/v2/energy-rental/FirstVisitModal';
-import DealNoteModal from '../../Modals/v2/energy-rental/DealNote';
+import PriceSkeletonImg from '../../../assets/images/v2/energy-rental/energy-price-skeleton.svg';
+import PriceWhiteSkeletonImg from '../../../assets/images/v2/energy-rental/energy-price-skeleton-white.svg';
+import PoolSkeletonImg from '../../../assets/images/v2/energy-rental/energy-pool-skeleton.svg';
+import PoolWhiteSkeletonImg from '../../../assets/images/v2/energy-rental/energy-pool-skeleton-white.svg';
 
+import DealNoteModal from '../../Modals/v2/energy-rental/DealNote';
+import '../../../assets/css/v2/userlist.scss';
 import '../../../assets/css/v2/energy-rental/energy-rental.scss';
 import '../../../assets/css/v2/theme.scss';
 
@@ -39,8 +41,9 @@ import '../../../assets/css/v2/theme.scss';
 class EnergyRental extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      lang: getQueryObj()?.lang || window.localStorage.getItem('lang') || intl.options.currentLocale
+      mobile: isMobile(window.navigator).any
     };
   }
 
@@ -50,28 +53,20 @@ class EnergyRental extends React.Component {
     const { isConnected } = this.props.network;
 
     await this.props.lend.getLatestBlockInfo();
+    await this.props.energyRental.getUsageChargeRatioData();
     this.props.energyRental.setVariablesInterval();
     document.title = 'Energy Rental - JustLend DAO';
 
     if (isConnected) {
       this.props.energyRental.getMiniOrderList();
     } else {
+      this.props.energyRental.setData({ isGettingMiniOrderList: false });
       this.props.network.on('connect', async () => {
         this.props.energyRental.getMiniOrderList();
       });
     }
     window.gtag('event', 'energyrent_pro_PV', { 'event_category': 'energyrent', 'event_label': 'energyrent_pro_PV' });
     window.gtag('event', 'energyrent_pro_UV', { 'event_category': 'energyrent', 'event_label': 'energyrent_pro_UV' });
-
-    // For public testing period only
-    const didVisitNewRentalPage = window.localStorage.getItem('didVisitNewRentalPage');
-    if (didVisitNewRentalPage == null || didVisitNewRentalPage == 'false') {
-      window.localStorage.setItem('didVisitNewRentalPage', 'true');
-
-      this.props.energyRental.setData({
-        firstVisitModalVisible: true
-      });
-    }
   };
 
   componentWillUnmount() {
@@ -91,14 +86,6 @@ class EnergyRental extends React.Component {
       await this.props.energyRental.getUserData();
       await this.props.energyRental.getMiniOrderList();
     });
-
-    this.props.network.on('chainChanged', async () => {
-      await this.props.energyRental.getUserTrxBalance();
-      await this.props.energyRental.getMultiReward();
-      await this.props.energyRental.getUserData();
-      await this.props.energyRental.getCommonRentInfos();
-      await this.props.energyRental.getMiniOrderList();
-    });
   };
 
   getMarketData = async () => {
@@ -111,8 +98,8 @@ class EnergyRental extends React.Component {
   };
 
   render() {
-    const { isConnected, finishedWalletInit } = this.props.network;
-    const { theme } = this.props.lend;
+    const { mobile } = this.state;
+    const { theme, lang } = this.props.lend;
 
     const { kink, marketData, isGettingMiniOrderList, orderListTotalCount, miniReceiverTotal } =
       this.props.energyRental;
@@ -127,20 +114,19 @@ class EnergyRental extends React.Component {
     const currentItem = marketData && marketData.model && marketData.model.find(x => x.current === true);
     const utilizationRate = currentItem ? currentItem.base * 100 : '--';
     const isUtilizationAboveKink = utilizationRate !== '--' && BigNumber(utilizationRate).gte(kink);
+    const isWhiteTheme = theme === 'white';
 
     return (
       <>
         <div className={'j-wrapper ' + theme}>
           <div className="energy-rental-page-bg"></div>
-
           <Header
             instantActions={this.getMarketData}
             mountedActions={this.getUserData}
             classNames={'transparent-bg'}
           ></Header>
           <SeasonToolBar pageName="energyRental" />
-
-          {!isGettingMiniOrderList || (finishedWalletInit && !isConnected) ? (
+          {!isGettingMiniOrderList ? (
             <div
               className={
                 'j-energy-rental-container modal-appender' +
@@ -165,31 +151,29 @@ class EnergyRental extends React.Component {
           ) : (
             <div className="j-energy-rental-container energy-rental-skeleton">
               <div className="page-title-skeleton-container">
-                <Skeleton title={false} paragraph={{ rows: 1, width: '50%' }} active />
-                <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                <div className="flex-between">
+                  <Skeleton title={false} paragraph={{ rows: 1, width: '30%' }} active />
+                  <Skeleton title={false} paragraph={{ rows: 1, width: '20%' }} active />
+                </div>
+                <div className="flex-between">
+                  <Skeleton title={false} paragraph={{ rows: 1, width: '70%' }} active />
+                  <Skeleton title={false} paragraph={{ rows: 1, width: '50%' }} active />
+                </div>
               </div>
-              <div className="rental-content-skeleton-group">
+              <div className={`rental-content-skeleton-group ${isUtilizationAboveKink ? 'tip-skeleton' : ''}`}>
                 <div className="rental-form-skeleton-container skeleton-container-background">
                   <div className="form-skeleton-bg"></div>
                   <div className="form-title-skeleton-row">
-                    <Skeleton title={false} paragraph={{ rows: 1, width: '45%' }} active />
+                    <Skeleton title={false} paragraph={{ rows: 1, width: '15%' }} active />
                   </div>
                   <div className="form-content-skeleton-group">
-                    <div className="form-content-skeleton-row">
-                      <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
-                      <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
-                    </div>
-
                     <Skeleton
                       title={false}
                       paragraph={{ rows: 1, width: '100%' }}
                       active
                       className="thick-skeleton dark"
                     />
-
-                    <Skeleton title={false} paragraph={{ rows: 1, width: '50%' }} active />
-                    <Skeleton title={false} paragraph={{ rows: 1, width: '50%' }} active />
-
+                    <Skeleton title={false} paragraph={{ rows: 1, width: '10%' }} active />
                     <div className="form-content-skeleton-row tall-row">
                       <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
                       <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
@@ -203,48 +187,20 @@ class EnergyRental extends React.Component {
                       <Skeleton title={false} paragraph={{ rows: 2, width: '100%' }} active />
                       <Skeleton title={false} paragraph={{ rows: 2, width: '100%' }} active />
                     </div>
-
-                    <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active className="thick-skeleton" />
-                    <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active className="thick-skeleton" />
-                  </div>
-                </div>
-
-                <div className="mini-list-skeleton-container skeleton-container-background">
-                  <div className="list-title-skeleton-row">
-                    <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
-                    <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
-                  </div>
-
-                  <div className="order-skeleton-group">
-                    <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
-                    <div className="order-content-skeleton-group">
-                      <Skeleton title={false} paragraph={{ rows: 3, width: '100%' }} active />
-                      <Skeleton title={false} paragraph={{ rows: 3, width: '100%' }} active />
-                    </div>
-                  </div>
-
-                  <div className="order-skeleton-group">
-                    <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
-                    <div className="order-content-skeleton-group">
-                      <Skeleton title={false} paragraph={{ rows: 3, width: '100%' }} active />
-                      <Skeleton title={false} paragraph={{ rows: 3, width: '100%' }} active />
-                    </div>
-                  </div>
-
-                  <div className="list-link-skeleton-row">
-                    <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                    {isUtilizationAboveKink && <Skeleton title={false} paragraph={{ rows: 1, width: '30%' }} active />}
+                    <Skeleton
+                      title={false}
+                      paragraph={{ rows: 1, width: '100%' }}
+                      active
+                      className="thick-skeleton large-btn-skeleton"
+                    />
                   </div>
                 </div>
               </div>
 
-              <div className="subsidies-skeleton-container skeleton-container-background">
-                <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active className="left-skeleton" />
-                <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active className="right-skeleton" />
-              </div>
-
-              <div className="tips-skeleton-container skeleton-container-background">
+              <div className={`tips-skeleton-container skeleton-container-background ${lang === 'en-US' ? 'en' : ''}`}>
                 <div className="tips-title-skeleton-row">
-                  <Skeleton title={false} paragraph={{ rows: 1, width: '45%' }} active />
+                  <Skeleton title={false} paragraph={{ rows: 1, width: '20%' }} active />
                 </div>
 
                 <div className="tips-content-skeleton-group">
@@ -257,19 +213,83 @@ class EnergyRental extends React.Component {
                 </div>
               </div>
               <div className="market-data-skeleton-container skeleton-container-background">
+                <div className="market-data-title-skeleton-row">
+                  <Skeleton title={false} paragraph={{ rows: 1, width: 200 }} active />
+                </div>
                 <div className="price-and-chart-skeleton-group">
                   <div className="left-group">
-                    <Skeleton title={false} paragraph={{ rows: 4, width: '100%' }} active />
+                    <Skeleton title={false} paragraph={{ rows: 3, width: '100%' }} active />
                   </div>
                   <div className="right-group">
-                    <Skeleton title={false} paragraph={{ rows: 2, width: '100%' }} active />
+                    <img src={isWhiteTheme ? PriceWhiteSkeletonImg : PriceSkeletonImg} />
                   </div>
                 </div>
 
                 <div className="market-stat-skeleton">
-                  <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
-                  <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
-                  <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                  {/* <div className="market-stat-skeleton-tabs">
+                    <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                    <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                  </div> */}
+                  <div className="flex-center">
+                    <div className="market-stat-skeleton-left">
+                      <div className="market-stat-skeleton-top">
+                        <div>
+                          <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                          <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                          <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                        </div>
+                        <div className="flex">
+                          <div>
+                            <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                            <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                          </div>
+                          <div>
+                            <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                            <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                          </div>
+                          <div>
+                            <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                            <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="market-stat-skeleton-bottom">
+                        <img src={isWhiteTheme ? PoolWhiteSkeletonImg : PoolSkeletonImg} />
+                        <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                      </div>
+                      {mobile && (
+                        <div className="market-stat-skeleton-legend">
+                          <div className="market-stat-skeleton-legend-item">
+                            <Skeleton title={false} paragraph={{ rows: 1, width: '70%' }} active />
+                            <Skeleton title={false} paragraph={{ rows: 1, width: '90%' }} active />
+                          </div>
+                          <div className="market-stat-skeleton-legend-item">
+                            <Skeleton title={false} paragraph={{ rows: 1, width: '70%' }} active />
+                            <Skeleton title={false} paragraph={{ rows: 1, width: '90%' }} active />
+                          </div>
+                          <div className="market-stat-skeleton-legend-item">
+                            <Skeleton title={false} paragraph={{ rows: 1, width: '70%' }} active />
+                            <Skeleton title={false} paragraph={{ rows: 1, width: '90%' }} active />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    <div className="market-stat-skeleton-right">
+                      <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                      <div className="user-info-skeleton-item">
+                        <div>
+                          <Skeleton.Avatar active shape="square" size={35} />
+                          <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                          <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                        </div>
+                        <div>
+                          <Skeleton.Avatar active shape="square" size={35} />
+                          <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                          <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -286,7 +306,7 @@ class EnergyRental extends React.Component {
         <RentPausedModal />
         <AllowanceModal store="energyRental" />
         {!this.props.energyRental.addOrderModalVisible && <TransactionModal />}
-        <FirstVisitModal />
+        {/* <FirstVisitModal /> */}
         <TabsBar theme={theme} />
 
         <DealNoteModal />

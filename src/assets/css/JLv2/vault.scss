@@ -1,0 +1,676 @@
+// src/assets/css/JLv2/vault.scss
+// Styles for the Vault Page
+
+// --- Variables ---
+$dark-bg: #121212;
+$card-bg: #1e1e1e;
+$border-color: #333;
+$text-primary: #ffffff;
+$text-secondary: #888;
+$highlight-color: #ffcc00;
+$font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$border-radius: 8px;
+$gap: 24px;
+
+body {
+  // background-color: $dark-bg;
+  color: #e0e0e0;
+  font-family: $font-family;
+}
+
+.tabs {
+  border-bottom: 1px solid $border-color;
+  margin-bottom: 16px;
+
+  button {
+    background: none;
+    border: none;
+    color: $text-secondary;
+    padding: 12px 16px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      color: $text-primary;
+    }
+
+    &.active {
+      color: $text-primary;
+      font-weight: 500;
+      border-bottom: 2px solid $text-primary;
+    }
+  }
+}
+
+// General Styles
+.vault-page-container {
+  .common-page-content {
+    position: relative;
+    z-index: 1;
+  }
+  .vault-page-content {
+    padding-top: 42px;
+  }
+  .stats-line {
+    padding-right: 400px;
+
+    .stat-item .value {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+  .chart-current-data .ccd-value {
+    font-weight: 600;
+  }
+  .position-section {
+    margin-bottom: 0;
+  }
+  .mp-action-content {
+    .action-box-panel .input-group {
+      &:hover {
+        background: #040707;
+      }
+      &.has-error {
+        margin-bottom: 40px;
+        background: rgba(255, 82, 102, 0.06);
+      }
+      .input-tips {
+        line-height: 16px;
+      }
+      .box-input.j-input {
+        background-color: transparent !important;
+        border-color: transparent !important;
+      }
+      input {
+        padding-left: 8px;
+        height: 44px !important;
+        line-height: 44px !important;
+        background-color: transparent !important;
+        border: none !important;
+      }
+    }
+
+    .action-box-panel .input-section .fee-suggestion > span:hover {
+      color: #24b887;
+      border-color: #24b887;
+    }
+  }
+  .transaction-modal-v2 {
+    min-height: auto;
+    .step-item {
+      // margin-bottom: 32px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      &::before {
+        top: 31px;
+      }
+    }
+  }
+  .funding-list .list-header > div {
+    font-weight: 400;
+    opacity: 0.6;
+  }
+}
+
+.interaction-panel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+
+  .my-position-panel,
+  .action-box-panel {
+    background-color: $card-bg;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    padding: 24px;
+  }
+}
+
+.action-box-panel {
+  .j-input {
+    &.ant-input-number-focused,
+    &:focus,
+    &:hover {
+      box-shadow: none !important;
+      border-color: #555 !important; // 保持或自定义一个焦点颜色
+    }
+
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type='number'] {
+      -moz-appearance: textfield;
+    }
+
+    .ant-input-number-handler-wrap {
+      display: none !important;
+    }
+  }
+}
+
+.market-allocation-list {
+  .list-header,
+  .list-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+  }
+
+  .list-header {
+    color: $text-secondary;
+    font-size: 14px;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .list-body .list-row:not(:last-child) {
+    border-bottom: 1px solid $border-color;
+  }
+
+  .col-allocation,
+  .col-cap {
+    .fiat-value {
+      font-weight: 500;
+      color: $text-primary;
+    }
+    .token-amount {
+      font-size: 0.85rem;
+      color: $text-secondary;
+    }
+  }
+  .col-market {
+    color: #fff;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .col-percent {
+    font-weight: 500;
+    color: #fff;
+  }
+}
+
+// vault header
+.vault-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .header-content-left {
+    position: relative;
+    width: 800px;
+  }
+
+  .title-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+
+    .title-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+    }
+
+    h1 {
+      margin: 0 0 0 12px;
+      font-size: 28px;
+      line-height: 38px;
+      color: #fff;
+      font-weight: 600;
+    }
+  }
+
+  .info-tag {
+    background-color: $border-color;
+    color: $text-secondary;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+
+    &.v2 {
+      display: inline-block;
+      width: 32px;
+      height: 22px;
+      background: url(../../images/JLv2/v2-icon.svg) 0 0 no-repeat;
+      background-size: 100%;
+    }
+  }
+
+  .description {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  .header-icon-large {
+    img {
+      width: 80px;
+      height: 80px;
+      opacity: 0.2;
+    }
+  }
+}
+
+// Historical Chart Panel
+.vault-historical-chart {
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    h4 {
+      margin: 0;
+    }
+
+    .chart-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      label {
+        color: $text-secondary;
+        font-size: 0.9rem;
+      }
+
+      select {
+        background-color: $card-bg;
+        border: 1px solid $border-color;
+        color: $text-primary;
+        border-radius: 4px;
+        padding: 4px 8px;
+      }
+    }
+  }
+}
+// vault info
+.vault-info {
+  .info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $text-secondary;
+
+    .value {
+      color: $text-primary;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .address-link,
+  .token-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .icon-btn {
+    background: none;
+    border: none;
+    color: $text-secondary;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1rem;
+    text-decoration: none;
+
+    &:hover {
+      color: $text-primary;
+    }
+  }
+}
+
+// vault overview
+.vault-overview-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); // 4 columns
+  padding: 0; // Remove default padding
+
+  .stat-item {
+    padding: 24px;
+    position: relative;
+
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 60%;
+      background-color: $border-color;
+    }
+
+    .label {
+      color: $text-secondary;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .info-icon {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid $text-secondary;
+      color: $text-secondary;
+      text-align: center;
+      line-height: 14px;
+      font-size: 0.7rem;
+      margin-left: 8px;
+      cursor: help;
+    }
+
+    .value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: $text-primary;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+// Spinner and icon styles
+.spinner {
+  /* Add CSS for a loading spinner */
+}
+.checkmark {
+  color: #4caf50;
+  font-weight: bold;
+}
+.crossmark {
+  color: #f44336;
+  font-weight: bold;
+}
+.pending-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #555;
+  border-radius: 50%;
+}
+
+.col-image {
+  display: flex;
+  align-items: center;
+
+  > img {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border-radius: 50%;
+    margin-left: -8px;
+    &:first-child {
+      margin-left: 0;
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+
+.col-tokens {
+  display: flex;
+  align-items: center;
+  > span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    &:last-child {
+      color: rgba(255, 255, 255, 0.6);
+      margin-left: 4px;
+    }
+  }
+}
+
+.common-page-skeleton {
+  .mp-action-content {
+    margin-top: 230px;
+    * {
+      cursor: default !important;
+    }
+  }
+}
+
+.vault-detail-skeletons {
+  width: 780px;
+
+  .skeleton-row {
+    display: flex;
+    flex-direction: column;
+
+    .ant-skeleton {
+      margin-bottom: 16px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .normal-skeleton .ant-skeleton-paragraph li {
+      height: 20px;
+    }
+
+    .title-skeleton .ant-skeleton-paragraph li {
+      height: 46px;
+    }
+
+    &.title-skeleton-row {
+      margin-top: 38px;
+      margin-bottom: 36px;
+    }
+
+    &.data-skeleton-row {
+      margin-bottom: 20px;
+    }
+  }
+
+  .content-skeleton-row {
+    padding: 20px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 15px;
+
+    &.big-content-skeleton-row {
+      .normal-skeleton {
+        margin-bottom: 10px;
+
+        .ant-skeleton-paragraph > li + li {
+          margin-top: 30px;
+        }
+      }
+    }
+  }
+
+  .content-title-skeleton {
+    width: 210px;
+
+    .ant-skeleton-paragraph li {
+      height: 20px;
+    }
+  }
+
+  .border-line {
+    width: 100%;
+    height: 1px;
+    margin: 5px 0 20px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .chart-skeleton {
+    margin-top: 100px;
+  }
+}
+
+.white .vault-detail-skeletons .content-skeleton-row {
+  background: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .vault-page-container {
+    .vault-token-pic {
+      display: none;
+    }
+    .vault-header {
+      margin: 30px 0;
+
+      .header-content-left {
+        width: 100%;
+      }
+
+      .title-line {
+        flex-wrap: wrap;
+        margin-bottom: 0;
+
+        h1 {
+          font-size: 20px;
+          margin: 0 -1px 0 7px;
+        }
+      }
+
+      .description {
+        margin-top: 16px;
+      }
+
+      .info-tag.v2 {
+        width: 28px;
+        height: 18px;
+      }
+    }
+    .vault-page-content {
+      padding-top: 20px;
+    }
+    .stats-line {
+      padding-right: 0;
+      align-items: stretch;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      .stat-item {
+        width: calc(50% - 4px) !important;
+        margin-bottom: 20px !important;
+
+        .value {
+          font-size: 20px;
+          margin-top: 8px;
+        }
+      }
+    }
+
+    .common-page-content {
+      flex-direction: column;
+
+      .mp-action-content {
+        order: 1;
+        width: 100%;
+        margin: 0;
+      }
+
+      &.common-page-skeleton .mp-action-content {
+        margin: 30px 0 !important;
+      }
+
+      .mp-content {
+        order: 2;
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .position-section {
+      grid-template-columns: 1fr;
+
+      > div:last-child {
+        text-align: left;
+      }
+    }
+
+    .panel-v2 {
+      .panel-title {
+        font-size: 18px;
+      }
+
+      .panel-subtitle > span {
+        font-size: 12px;
+      }
+    }
+
+    .vault-historical-chart .panel-subtitle {
+      display: block;
+    }
+
+    .chart-controls {
+      top: 0;
+      right: 0;
+      width: auto;
+    }
+
+    .chart-current-data {
+      flex-direction: column;
+      align-items: flex-start !important;
+      gap: 16px;
+
+      > div:last-child {
+        text-align: left !important;
+      }
+
+      .ccd-value {
+        margin-top: 8px;
+      }
+    }
+
+    .mobile-list-wrap {
+      overflow: auto;
+
+      .list-header,
+      .list-body {
+        width: 740px;
+      }
+    }
+
+    .content-grid .param-row {
+      height: auto;
+      min-height: 20px;
+
+      .label {
+        margin-right: 20px;
+      }
+      .value {
+        flex-grow: 1;
+        text-align: right;
+        justify-content: flex-end;
+      }
+    }
+  }
+  .vault-detail-skeletons {
+    width: 100%;
+    .chart-skeleton {
+      margin-top: 50px;
+    }
+  }
+}

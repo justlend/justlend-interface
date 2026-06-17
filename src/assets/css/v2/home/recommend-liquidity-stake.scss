@@ -2,13 +2,16 @@
   &.usdd-update {
     cursor: auto;
     &.en-US {
-      background: url(../../../images/v2/account/usdd-update-banner-us.svg) no-repeat;
+      background: url(../../../images/v2/usdd/Mining-default.png) no-repeat;
+      background-size: 100%;
     }
     &.zh-TC {
-      background: url(../../../images/v2/account/usdd-update-banner-tc.svg) no-repeat;
+      background: url(../../../images/v2/usdd/Mining-default.png) no-repeat;
+      background-size: 100%;
     }
     &.zh-CN {
-      background: url(../../../images/v2/account/usdd-update-banner-cn.svg) no-repeat;
+      background: url(../../../images/v2/usdd/Mining-default.png) no-repeat;
+      background-size: 100%;
     }
     .bg,
     .title,
@@ -105,13 +108,16 @@
   &.white {
     &.usdd-update {
       &.en-US {
-        background: url(../../../images/v2/account/usdd-update-banner-us-for-light.svg) no-repeat;
+        background: url(../../../images/v2/usdd/Mining-white.png) no-repeat;
+        background-size: 100%;
       }
       &.zh-TC {
-        background: url(../../../images/v2/account/usdd-update-banner-tc-for-light.svg) no-repeat;
+        background: url(../../../images/v2/usdd/Mining-white.png) no-repeat;
+        background-size: 100%;
       }
       &.zh-CN {
-        background: url(../../../images/v2/account/usdd-update-banner-cn-for-light.svg) no-repeat;
+        background: url(../../../images/v2/usdd/Mining-white.png) no-repeat;
+        background-size: 100%;
       }
     }
     background: linear-gradient(
@@ -156,26 +162,26 @@
     width: 100%;
     &.usdd-update {
       &.en-US {
-        background: url(../../../images/v2/uub-long-en.svg) no-repeat;
+        background: url(../../../images/v2/usdd/Mining-default-long.png) no-repeat;
         background-size: 100%;
         &.white {
-          background: url(../../../images/v2/uub-long-en-for-light.svg) no-repeat;
+          background: url(../../../images/v2/usdd/Mining-white-long.png) no-repeat;
           background-size: 100%;
         }
       }
       &.zh-TC {
-        background: url(../../../images/v2/uub-long-tc.svg) no-repeat;
+        background: url(../../../images/v2/usdd/Mining-default-long.png) no-repeat;
         background-size: 100%;
         &.white {
-          background: url(../../../images/v2/uub-long-tc-for-light.svg) no-repeat;
+          background: url(../../../images/v2/usdd/Mining-white-long.png) no-repeat;
           background-size: 100%;
         }
       }
       &.zh-CN {
-        background: url(../../../images/v2/uub-long-cn.svg) no-repeat;
+        background: url(../../../images/v2/usdd/Mining-default-long.png) no-repeat;
         background-size: 100%;
         &.white {
-          background: url(../../../images/v2/uub-long-cn-for-light.svg) no-repeat;
+          background: url(../../../images/v2/usdd/Mining-white-long.png) no-repeat;
           background-size: 100%;
         }
       }
@@ -202,26 +208,26 @@
     &.usdd-update {
       height: 100px;
       &.en-US {
-        background: url(../../../images/v2/uub-mobile-en.svg) no-repeat;
+        background: url(../../../images/v2/usdd/Mining-default-mobile.png) no-repeat;
         background-size: 100% auto;
         &.white {
-          background: url(../../../images/v2/uub-mobile-en-for-light.svg) no-repeat;
+          background: url(../../../images/v2/usdd/Mining-white-mobile.png) no-repeat;
           background-size: 100% auto;
         }
       }
       &.zh-TC {
-        background: url(../../../images/v2/uub-mobile-tc.svg) no-repeat;
+        background: url(../../../images/v2/usdd/Mining-default-mobile.png) no-repeat;
         background-size: 100% auto;
         &.white {
-          background: url(../../../images/v2/uub-mobile-tc-for-light.svg) no-repeat;
+          background: url(../../../images/v2/usdd/Mining-white-mobile.png) no-repeat;
           background-size: 100% auto;
         }
       }
       &.zh-CN {
-        background: url(../../../images/v2/uub-mobile-cn.svg) no-repeat;
+        background: url(../../../images/v2/usdd/Mining-default-mobile.png) no-repeat;
         background-size: 100% auto;
         &.white {
-          background: url(../../../images/v2/uub-mobile-cn-for-light.svg) no-repeat;
+          background: url(../../../images/v2/usdd/Mining-white-mobile.png) no-repeat;
           background-size: 100% auto;
         }
       }

@@ -77,7 +77,7 @@
       max-width: 100%;
       width: max-content;
       background: transparent;
-      height: 17px;
+      height: 18px;
       padding: 1px 0;
     }
     .green-line {
@@ -149,9 +149,7 @@
 @media screen and (min-width: 799px) {
   .energy-rental-page-header {
     margin-top: 40px;
-
-    width: 70%;
-    margin-left: 15%;
+    width: 100%;
 
     &.wide-layout {
       width: 100%;
@@ -163,6 +161,7 @@
 
       .title-text {
         font-size: 20px;
+        line-height: 32px;
         font-weight: 600;
       }
       .classic-version-link {
@@ -171,7 +170,7 @@
 
         font-weight: 500;
         font-size: 12px;
-        line-height: 17px;
+        line-height: 18px;
         vertical-align: middle;
 
         &::after {
@@ -254,6 +253,7 @@
 
       .title-text {
         font-size: 16px;
+        line-height: 24px;
         font-weight: 600;
       }
       .classic-version-link {

@@ -40,10 +40,14 @@ class MarketDetailPrice extends React.Component {
                               2
                             : ['BTT', 'NFT'].includes(jTokenData.collateralSymbol)
                             ? 10
+                            : jTokenData.collateralSymbol === 'HTX'
+                            ? 9
                             : 6,
                           {
                             miniText: ['BTT', 'NFT'].includes(jTokenData.collateralSymbol)
                               ? '0.0000000001'
+                              : jTokenData.collateralSymbol === 'HTX'
+                              ? '0.000000001'
                               : '0.000001',
                             needDolar: true,
                             cutZero: !tokenUncutZeroInDetailPage.includes(jTokenData.collateralSymbol)
@@ -67,7 +71,7 @@ class MarketDetailPrice extends React.Component {
                 <button
                   className={'btn j-btn j-supply disabled j-not-used season ' + lang}
                   onClick={() => {
-                    this.props.lend.setData({ noServiceModalAllVisible: true });
+                    this.props.lend.setNoServiceModalAllVisible(true);
                   }}
                 >
                   {intl.get('v2.deposit')}
@@ -83,7 +87,7 @@ class MarketDetailPrice extends React.Component {
                 <button
                   className={'btn j-btn j-borrow disabled j-not-used season ' + lang}
                   onClick={() => {
-                    this.props.lend.setData({ noServiceModalAllVisible: true });
+                    this.props.lend.setNoServiceModalAllVisible(true);
                   }}
                 >
                   {intl.get('v2.borrow')}
@@ -91,31 +95,6 @@ class MarketDetailPrice extends React.Component {
               </Tooltip>
             </div>
           ) : (
-            // jTokenData.collateralName === 'SUNOLD' ? (
-            //   <div className="btn-wrap flex">
-            //     <Tooltip
-            //       title={intl.getHTML('v2.close_supply_tip_sunold')}
-            //       placement="bottom"
-            //       arrowPointAtCenter
-            //       overlayClassName="markey-detail-tooltip market-tooltip-overlay j-tooltip-dropdown"
-            //     >
-            //       <DepositButton
-            //         mobile={mobile}
-            //         jTokenData={jTokenData}
-            //         disabled={jTokenData?.collateralSymbol == '--'}
-            //       ></DepositButton>
-            //       {/* <button className={'btn j-btn j-supply disabled ' + lang}>{intl.get('v2.deposit')}</button> */}
-            //     </Tooltip>
-            //     <Tooltip
-            //       title={intl.getHTML('v2.market_sunold_disabled_tip')}
-            //       placement="bottom"
-            //       arrowPointAtCenter
-            //       overlayClassName="markey-detail-tooltip market-tooltip-overlay j-tooltip-dropdown"
-            //     >
-            //       <button className={'btn j-btn j-borrow disabled ' + lang}>{intl.get('v2.borrow')}</button>
-            //     </Tooltip>
-            //   </div>
-            // ) :
             <div className="btn-wrap flex">
               <DepositButton
                 mobile={mobile}

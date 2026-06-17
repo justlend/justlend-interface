@@ -133,6 +133,11 @@ export default {
     symbol: 'WIN',
     decimal: 6
   },
+  htx: {
+    token: 'TUPM7K8REVzD2UdV4R5fe5M8XbnR2DdoJ6',
+    symbol: 'HTX',
+    decimal: 18
+  },
   winlp: {
     token: 'TYN6Wh11maRfzgG7n5B6nM5VW1jfGs9chu',
     tokenAddress: 'TLa2f6VPqDgRE67v1736s7bJ8Ray5wYjU7',
@@ -140,6 +145,11 @@ export default {
     lp: 'WIN',
     decimal: 6,
     tokenDecimal: 6
+  },
+  u: {
+    token: 'TFNirp6PbqYE1ZTtWuCMUKJWLNZkoCoeFJ',
+    symbol: 'U',
+    decimal: 18
   },
   btc: {
     token: 'TN3W4H6rK2ce4vX9YnFQHwKENnHjoxb3m9',
@@ -249,5 +259,15 @@ export default {
     token: 'TMz2SWatiAtZVVcH2ebpsbVtYwUPT9EdjH',
     symbol: 'BUSD',
     decimal: 18
+  },
+  usd1: {
+    token: 'TPFqcBAaaUMCSVRCqPaQ9QnzKhmuoLR6Rc',
+    symbol: 'USD1',
+    decimal: 18
+  },
+  wbtc: {
+    token: 'TYhWwKpw43ENFWBTGpzLHn3882f2au7SMi',
+    symbol: 'WBTC',
+    decimal: 8
   }
 };

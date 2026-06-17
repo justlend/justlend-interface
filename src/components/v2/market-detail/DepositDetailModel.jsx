@@ -1,5 +1,5 @@
 import { Checkbox } from 'antd';
-import ReactEcharts from 'echarts-for-react';
+import ReactEcharts from 'echarts-for-react/lib';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import intl from 'react-intl-universal';
@@ -8,12 +8,12 @@ import { amountFormat, isMobile, toBigNumberNew, BigNumber } from '../../../util
 import { yAxisMaxApy, yAxisMaxSize, yAxisMinApy } from './BorrowDetailModel';
 import { tryFormatNumber, checkIfShouldShowMintApyDetail } from './utils';
 import { DepositDetailMobileTooltip } from './DepositDetailMobileTooltip.jsx';
-const { miningSymbol } = Config;
+const { miningSymbol, miningNewSymbol } = Config;
 function formatApy(number) {
   if (number == 0) {
     return 0;
   }
-  return tryFormatNumber(number * 100, number * 100 >= 100 ? 0 : 2, { miniText: 0.01 });
+  return tryFormatNumber(number * 100, 2, { miniText: 0.01 });
 }
 function getTooltipData({ params, lang, dataList, collateralSymbol }) {
   if (!dataList?.length) {
@@ -22,6 +22,8 @@ function getTooltipData({ params, lang, dataList, collateralSymbol }) {
       depositedAPY: '--',
       depositedUSD: '--',
       farmApy: '--',
+      farmUsddApy: '--',
+      farmTrxApy: '--',
       totalAPY: '--'
     };
   }
@@ -37,6 +39,8 @@ function getTooltipData({ params, lang, dataList, collateralSymbol }) {
       totalAPY: '--',
       depositedUSD: '--',
       farmApy: '--',
+      farmUsddApy: '--',
+      farmTrxApy: '--',
       isFake: data.isFake,
       isCurrent
     };
@@ -49,19 +53,23 @@ function getTooltipData({ params, lang, dataList, collateralSymbol }) {
       ? 0
       : formatApy(data.baseApyWithIncrement),
     totalAPY: formatApy(
-      Number(Config.holdingTokens.includes(collateralSymbol) ? data.baseApyWithIncrement : data.depositedAPY) +
-        Number(data.farmApy)
+      BigNumber(Config.holdingTokens.includes(collateralSymbol) ? data.baseApyWithIncrement : data.depositedAPY).plus(
+        data.farmApy
+      )
     ),
     depositedUSD: amountFormat(data.depositedUSD, 2, {
       miniText: 0.01
     }),
     farmApy: formatApy(data.farmApy),
+    farmUsddApy: formatApy(data.farmUsddApy),
+    farmTrxApy: formatApy(data.farmTrxApy),
     isCurrent,
     underlyingIncrementApy: formatApy(data.underlyingIncrementApy)
   };
 }
 
 @inject('lend')
+@inject('market')
 @observer
 class DepositDetailModel extends React.Component {
   constructor() {
@@ -78,6 +86,12 @@ class DepositDetailModel extends React.Component {
     setTimeout(() => {
       this.showTooltipForCurrentData();
     });
+  }
+  componentWillUnmount() {
+    const chartInstance = this.echartRef?.getEchartsInstance();
+    if (chartInstance) {
+      chartInstance.dispose();
+    }
   }
 
   getChartData() {
@@ -124,6 +138,7 @@ class DepositDetailModel extends React.Component {
     return {
       backgroundColor: mobile ? (isWhite ? '#ffffff' : 'rgba(255, 255, 255, 0.06)') : 'transparent',
       tooltip: {
+        show: true,
         trigger: 'axis',
         position: function (point, params, dom, rect, size) {
           var x = 0;
@@ -150,14 +165,16 @@ class DepositDetailModel extends React.Component {
         // showContent: !mobile,
         showContent: !mobile,
         axisPointer: {
+          show: true,
           type: 'line',
-          animation: false,
+          animation: true,
           lineStyle: {
             color: isWhite ? 'rgba(34,35,43,0.4)' : 'rgba(255, 255, 255, 0.4)',
             type: 'dashed',
-            width: 0.5
+            width: 1
           },
           label: {
+            show: true,
             precision: 2
           }
         },
@@ -169,7 +186,7 @@ class DepositDetailModel extends React.Component {
         textStyle: {
           color: 'rgba(255,255,255,0.6)',
           fontFamily: 'PingFang SC',
-          fontSize: '14px'
+          fontSize: 14
         },
         formatter: function (params) {
           const {
@@ -179,6 +196,8 @@ class DepositDetailModel extends React.Component {
             depositedUSD,
             farmApy,
             totalAPY,
+            farmUsddApy,
+            farmTrxApy,
             isFake,
             underlyingIncrementApy,
             isCurrent
@@ -192,7 +211,7 @@ class DepositDetailModel extends React.Component {
 
           return `<div class="chart-tooltip interest-rate">
               <header class="chart-tooltip-header">
-                <span class="color-light">${dateText}</span>
+                <span class="color-light">${dateText} 00:00:00（UTC）</span>
               </header>
               <main>
                 <div class="item">
@@ -230,13 +249,17 @@ class DepositDetailModel extends React.Component {
                     ? 'item wst-item'
                     : 'item hide-item'
                 }">
-                  <span class="label color-light" style="padding-left: 20px">${intl.get('risk_tip.strx_apy1')}</span>
+                  <span class="label color-light" style="padding-left: 20px">${intl.get('risk_tip.basic_apy1')}</span>
                   <div class="value-wrap">
                     <span class="value normal-weight color-light">${depositedAPY + '%'}</span>
                   </div>
                 </div>
                 <div class="${
-                  shouldShowMintApyDetail && !isFake && !Config.holdingTokens.includes(collateralSymbol)
+                  shouldShowMintApyDetail &&
+                  !isFake &&
+                  !Config.holdingTokens.includes(collateralSymbol) &&
+                  farmUsddApy &&
+                  farmUsddApy !== '--'
                     ? 'item wst-item'
                     : 'item hide-item'
                 }">
@@ -244,7 +267,23 @@ class DepositDetailModel extends React.Component {
                     miningSymbol
                   })}</span>
                   <div class="value-wrap">
-                    <span class="value normal-weight color-light">${farmApy + '%'}</span>
+                    <span class="value normal-weight color-light">${farmUsddApy + '%'}</span>
+                  </div>
+                </div>
+                <div class="${
+                  shouldShowMintApyDetail &&
+                  !isFake &&
+                  !Config.holdingTokens.includes(collateralSymbol) &&
+                  farmTrxApy &&
+                  farmTrxApy !== '--'
+                    ? 'item wst-item'
+                    : 'item hide-item'
+                }">
+                  <span class="label color-light" style="padding-left: 20px">${intl.get('risk_tip.mining_apy2', {
+                    miningSymbol: miningNewSymbol
+                  })}</span>
+                  <div class="value-wrap">
+                    <span class="value normal-weight color-light">${farmTrxApy + '%'}</span>
                   </div>
                 </div>
 
@@ -435,7 +474,7 @@ class DepositDetailModel extends React.Component {
       return;
     }
 
-    this.props.lend.setData({ depositDetailGraphIndex: params.batch[0].dataIndex });
+    this.props.market.setDepositDetailGraphIndex(params.batch[0].dataIndex);
   };
 
   initRef = e => {
@@ -443,21 +482,22 @@ class DepositDetailModel extends React.Component {
   };
 
   onChartReady = () => {
+    this.showTooltipForCurrentData();
     setTimeout(this.showTooltipForCurrentData, 1000);
   };
 
   showTooltipForCurrentData = () => {
     const instance = this.echartRef?.getEchartsInstance();
+    if (!instance) return;
     if (!this.props.dataList?.length) {
       setTimeout(this.showTooltipForCurrentData, 1000);
       return;
     }
-    instance &&
-      instance.dispatchAction({
-        type: 'showTip',
-        seriesIndex: 0,
-        dataIndex: 29
-      });
+    instance.dispatchAction({
+      type: 'showTip',
+      seriesIndex: 0,
+      dataIndex: 29
+    });
   };
 
   hideTooltip = () => {

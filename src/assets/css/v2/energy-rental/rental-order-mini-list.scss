@@ -10,17 +10,38 @@
         justify-content: space-between;
 
         .title-cotent {
-          display: inline-block;
+          display: flex;
+          align-items: center;
 
           .order-count-rect {
             display: inline-block;
             background: rgba(76, 84, 255, 0.3);
             border-radius: 1px;
             color: #9195fb;
+
+            &:hover {
+              background: rgba(77, 84, 255, 0.6);
+            }
+          }
+        }
+
+        .to-order-list {
+          position: relative;
+          font-size: 12px;
+          line-height: 16px;
+          font-weight: 500;
+          color: #9195fb;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+
+          img {
+            margin-left: 4px;
           }
         }
 
         .list-order-select {
+          margin-left: 10px;
           position: relative;
           z-index: 1;
 
@@ -491,6 +512,13 @@
               color: #4d54ff;
               border-radius: 1px;
               background: rgba(76, 84, 255, 0.2);
+              &:hover {
+                background: rgba(77, 84, 255, 0.4);
+              }
+
+              .to-order-list {
+                color: #4d54ff;
+              }
             }
           }
 
@@ -659,12 +687,11 @@
             text-align: center;
 
             margin-left: 6px;
-            padding-left: 3px;
-            padding-right: 3px;
+            padding: 0 4px;
 
             font-size: 12px;
             font-weight: 600;
-            line-height: 18px;
+            line-height: 16px;
           }
         }
 
@@ -725,18 +752,16 @@
     margin-left: 20px;
     .list-wrapper {
       .order-list {
-        max-height: 484px; // change js formula if changed this value
+        max-height: 414px; // change js formula if changed this value
         overflow-y: scroll;
         border-right: 1px solid transparent;
 
         &::-webkit-scrollbar {
-          /*滚动条整体样式*/
-          width: 1px; /*高宽分别对应横竖滚动条的尺寸*/
+          width: 1px;
           height: 40px;
           display: none;
         }
         &::-webkit-scrollbar-thumb {
-          /*滚动条里面小方块*/
           max-height: 40px;
           border-radius: 1px;
           background-color: rgba(255, 255, 255, 0.1);

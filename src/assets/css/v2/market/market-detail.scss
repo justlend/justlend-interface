@@ -1,5 +1,4 @@
 @import url(./common.scss);
-// todo 删掉
 iframe {
   display: none !important;
 }
@@ -127,6 +126,11 @@ $section_bg_color: #31333a;
           margin-bottom: 0;
         }
       }
+      .market-d-select-inner {
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
       li {
         height: 30px !important;
       }
@@ -240,7 +244,6 @@ $section_bg_color: #31333a;
     }
   }
 
-  // 货币价格
   .main-price {
     font-family: 'Avenir Next';
     font-weight: 600;
@@ -281,8 +284,12 @@ $section_bg_color: #31333a;
         background-color: #fff;
         border-radius: 100%;
       }
+      &.TRX-logo,
+      &.USD1-logo {
+        border-radius: 100%;
+      }
     }
-    // 货币名称
+
     .market-name {
       font-family: 'Avenir Next';
       font-weight: 600;
@@ -316,6 +323,17 @@ $section_bg_color: #31333a;
       height: 100%;
       overflow-y: auto;
       display: block;
+
+      &::-webkit-scrollbar {
+        width: 3px;
+        height: 40px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        max-height: 40px;
+        border-radius: 1px;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
     }
     &.disabled {
       cursor: not-allowed;
@@ -464,13 +482,12 @@ $section_bg_color: #31333a;
         }
       }
     }
-    // 中间图表部分
+
     &-content {
       display: flex;
       flex-direction: column;
       flex: 4 1 660px;
 
-      // 利率模型
       .interest-rate-model {
         padding-bottom: 17px;
         .chart-tooltip-fake {
@@ -659,7 +676,6 @@ $section_bg_color: #31333a;
         }
       }
     }
-    // 右侧市场数据
     &-data {
       box-sizing: border-box;
       flex: 1 1 340px;
@@ -718,6 +734,11 @@ $section_bg_color: #31333a;
           &.strong {
             font-size: 16px;
             line-height: 22px;
+
+            span {
+              font-size: 16px;
+              line-height: 22px;
+            }
           }
           &.deposit {
             color: #9195fb;
@@ -731,6 +752,8 @@ $section_bg_color: #31333a;
           }
           &.reward {
             color: #e9b361;
+            flex-wrap: wrap;
+            justify-content: flex-end;
           }
         }
         &.mint-reward-item {
@@ -810,10 +833,16 @@ $section_bg_color: #31333a;
   a {
     font-size: 12px;
     font-weight: 500;
+
+    // &.right-arrow {
+    //   display: inline-block;
+    //   background: url(../../../images/icon/right-arrow-default.svg) right no-repeat;
+    //   background-size: 5px;
+    //   padding-right: 8px;
+    // }
   }
 }
 
-// 白色主题
 .j-wrapper.white {
   .market-head-tips {
     background: #fef3e9;
@@ -893,8 +922,12 @@ $section_bg_color: #31333a;
     }
   }
 
-  // 左侧选择
   .market-d-select {
+    .market-d-select-inner {
+      &::-webkit-scrollbar-thumb {
+        background: rgba($color: #22232b, $alpha: 0.2);
+      }
+    }
     &-item {
       &.active,
       &:hover {
@@ -903,6 +936,7 @@ $section_bg_color: #31333a;
           color: $black;
         }
       }
+
       span {
         color: $black_light;
       }
@@ -964,6 +998,10 @@ $section_bg_color: #31333a;
     }
     .market-d-select .market-d-select-inner {
       display: flex;
+      &::-webkit-scrollbar {
+        width: 40px;
+        height: 3px;
+      }
     }
     .ml-base {
       margin-top: 15px;
@@ -1255,7 +1293,7 @@ $section_bg_color: #31333a;
 
                 &.strong {
                   font-size: 14px;
-                  line-height: 19px;
+                  line-height: 18px;
                 }
                 &.reward.strong {
                   font-size: 16px;
@@ -1365,7 +1403,6 @@ $section_bg_color: #31333a;
     }
   }
 
-  // 利率模型
   .interest-rate-model.section .section-content {
     padding: 0;
     .chart-tooltip {

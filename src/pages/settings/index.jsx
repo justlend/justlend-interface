@@ -22,6 +22,7 @@ import { isEmailValid } from './utils/helper';
 import ToggleSwitch from '../../components/Widget/ToggleSwitch';
 import '../../assets/css/settings.scss';
 import '../../assets/css/settings-skeleton.scss';
+import '../../assets/css/v2/theme.scss';
 
 let authTimer = null;
 @inject('network')
@@ -49,7 +50,7 @@ class SettingsPage extends React.Component {
       'event_label': 'portfolio_setting_globalsetting_UV'
     });
 
-    this.props.network.setData({ routeName: 'settings' });
+    this.props.network.setRouteName('settings');
 
     this.props.network.on('finishedWalletInit', async () => {
       if (this.props.network.isConnected !== true) {

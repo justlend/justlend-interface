@@ -469,7 +469,7 @@
           display: block;
 
           background-color: transparent;
-          color: #ffffff;
+          color: #ffffff !important;
           opacity: 0.6;
           transition: all 0.3s ease;
 
@@ -477,7 +477,7 @@
 
           &::after {
             content: '';
-            background: url(../images/v2/vote-detail/arrow-left-white.svg) 0 0 no-repeat;
+            background: url(../images/v2/vote-detail/arrow-left-white.svg) 0 0 no-repeat !important;
             position: absolute;
             top: 50%;
             left: 0;
@@ -486,7 +486,7 @@
           }
 
           &:hover {
-            color: #ffffff;
+            color: #ffffff !important;
             opacity: 1;
           }
         }
@@ -923,14 +923,14 @@
             border-color: rgba(34, 35, 43, 0.1);
           }
           .back-btn {
-            color: #22232b;
+            color: #22232b !important;
 
             &::after {
-              background-image: url(../images/v2/vote-detail/arrow-left-grey.svg);
+              background-image: url(../images/v2/vote-detail/arrow-left-grey.svg) !important;
             }
 
             &:hover {
-              color: #22232b;
+              color: #22232b !important;
             }
           }
 

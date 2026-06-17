@@ -2,6 +2,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 
 @inject('network')
+@inject('ui')
 @inject('lend')
 @observer
 class TouchWrapper extends React.Component {
@@ -34,36 +35,26 @@ class TouchWrapper extends React.Component {
   };
 
   calculateSwipe = () => {
-    const { showTabsBar } = this.props.network;
+    const { showTabsBar } = this.props.ui;
     var distance = this.touchStart - this.touchEnd;
     var htmlHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
     var clientHeight = document.body.clientHeight || document.documentElement.clientHeight;
     var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-    //console.log(scrollTop + clientHeight, htmlHeight);
-    //console.log(distance);
     if (Number(scrollTop + clientHeight) === Number(htmlHeight)) {
       if (!showTabsBar && distance > 10) {
-        this.props.network.setData({
-          showTabsBar: true
-        });
+        this.props.ui.setShowTabsBar(true);
       }
     } else {
       if (distance > 10) {
-        //console.log('swipe down');
-        this.props.network.setData({
-          showTabsBar: false
-        });
+        this.props.ui.setShowTabsBar(false);
       } else if (Math.abs(distance) > 10) {
-        this.props.network.setData({
-          showTabsBar: true
-        });
-        //console.log('swipe up');
+        this.props.ui.setShowTabsBar(true);
       }
     }
   };
 
   render() {
-    const { showTabsBar } = this.props.network;
+    const { showTabsBar } = this.props.ui;
     return showTabsBar ? this.props.children : null;
   }
 }

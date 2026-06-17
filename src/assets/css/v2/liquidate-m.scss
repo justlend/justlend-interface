@@ -199,7 +199,7 @@
 .j-wrapper.white {
   .j-container.j-liquidate-container-m {
     .liquidate-top {
-      background: #f1f1f8;
+      background: #f0f2f7;
     }
     .j-navi {
       border-bottom-color: rgba(34, 35, 43, 0.06);
@@ -249,6 +249,10 @@
 @media screen and (max-width: 750px) {
   .liquidate-popover.white {
     background-color: transparent;
+
+    .ant-popover-inner {
+      max-height: 300px;
+    }
   }
 }
 @media screen and (max-width: 390px) {

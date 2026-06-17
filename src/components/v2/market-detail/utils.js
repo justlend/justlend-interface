@@ -49,7 +49,6 @@ export function processJTokenData({ jTokenData, showMintApy }) {
     supplyDisplay: '--',
     exchangeRateDisplay: '--',
     liquidityDisplay: '--',
-    farmRewardUSD24hDisplay: '--',
 
     borrowList: [],
     supplyList: [],
@@ -62,6 +61,8 @@ export function processJTokenData({ jTokenData, showMintApy }) {
       baseApyWithIncrement: '--'
     }
   };
+  const { miningSymbol, miningNewSymbol } = Config;
+
   if (!jTokenData?.model || !Array.isArray(jTokenData.model)) {
     return emptyData;
   }
@@ -80,14 +81,14 @@ export function processJTokenData({ jTokenData, showMintApy }) {
           supply: '--',
           baseApyWithIncrement: '--'
         };
-    const { assetList } = RootStore.lend;
-    const { totalApy, mintApy, mintApyWithUSDD, underlyingIncrementApy } = getTotalApy(jTokenData, assetList);
+    const { assetList } = RootStore.market;
+    const { totalApy, mintApy, mintApyWithUSDD, mintApyTRX, underlyingIncrementApy } = getTotalApy(jTokenData, assetList);
 
     const depositAPYDisplay = `${
       tryFormatNumber(
         BigNumber(tryFormatNumber(current.supply, 2, { miniText: 0.01, per: true })).plus(
           tryFormatNumber(mintApy, 2, { miniText: 0.01, per: true })
-        ),
+        ).plus(tryFormatNumber(mintApyTRX, 2, { miniText: 0.01, per: true })),
         2,
         { miniText: 0.01, per: true }
       ) === '--'
@@ -100,7 +101,7 @@ export function processJTokenData({ jTokenData, showMintApy }) {
         : tryFormatNumber(
             BigNumber(tryFormatNumber(current.supply, 2, { miniText: 0.01, per: true })).plus(
               tryFormatNumber(mintApy, 2, { miniText: 0.01, per: true })
-            ),
+            ).plus(tryFormatNumber(mintApyTRX, 2, { miniText: 0.01, per: true })),
             2,
             { miniText: 0.01, per: true }
           )
@@ -123,6 +124,7 @@ export function processJTokenData({ jTokenData, showMintApy }) {
         ? `${tryFormatNumber(mintApyWithUSDD, 2, { per: true, miniText: '0.01' })}`
         : tryFormatNumber(mintApy, 2, { per: true, miniText: '0.01' })
     }%`;
+    const depositMiningAPYTRXDisplay = `${tryFormatNumber(mintApyTRX, 2, { per: true, miniText: '0.01' })}%`;
 
     const borrowAPyDisplay = `${tryFormatNumber(BigNumber(jTokenData.borrowedAPY).times(1e2), 2, {
       miniText: 0.01,
@@ -133,8 +135,8 @@ export function processJTokenData({ jTokenData, showMintApy }) {
       BigNumber(jTokenData.depositedUSD).isNaN()
         ? '--'
         : BigNumber(jTokenData.depositedUSD).gte(1e3)
-        ? tryAmountFormat(jTokenData.depositedUSD, 2, { miniText: 0.01, needDolar: true, cutZero: true })
-        : formatNumber(jTokenData.depositedUSD, 2, { miniText: 0.01, needDolar: true, cutZero: true })
+        ? tryAmountFormat(jTokenData.depositedUSD, 2, { miniText: 0.01, needDolar: true, cutZero: false })
+        : formatNumber(jTokenData.depositedUSD, 2, { miniText: 0.01, needDolar: true, cutZero: false })
     }`;
 
     const depositCountDisplay = jTokenData.depositHeadcount == 0 ? 0 : formatNumber(jTokenData.depositHeadcount, 0);
@@ -200,6 +202,9 @@ export function processJTokenData({ jTokenData, showMintApy }) {
     if (BigNumber(mintApy).gte(0)) {
       mintApyResult = mintApy;
     }
+    if (BigNumber(mintApyTRX).gte(0)) {
+      mintApyResult = BigNumber(mintApyResult).plus(mintApyTRX);
+    }
     if (Config.usddMint.includes(jTokenData.jtokenAddress)) {
       mintApyResult = mintApyWithUSDD;
     }
@@ -236,8 +241,11 @@ export function processJTokenData({ jTokenData, showMintApy }) {
 
     const borrowDetail = addFakeData(jTokenData.borrowDetail);
     const depositDetail = addFakeData(jTokenData.depositDetail);
+    const priceUSD =
+      collateralSymbol === 'USDD' || collateralSymbol === 'USDDOLD' ? '1' : jTokenData.priceUSD;
     return {
       ...jTokenData,
+      priceUSD,
       borrowDetail,
       depositDetail,
       isReady: true,
@@ -246,6 +254,7 @@ export function processJTokenData({ jTokenData, showMintApy }) {
       depositBaseAPYDisplay,
       underlyingIncrementApyDisplay,
       depositMiningAPYDisplay,
+      depositMiningAPYTRXDisplay,
       borrowAPyDisplay,
       depositSizeDisplay,
       depositCountDisplay,
@@ -259,11 +268,6 @@ export function processJTokenData({ jTokenData, showMintApy }) {
       supplyDisplay,
       exchangeRateDisplay,
       liquidityDisplay,
-      farmRewardUSD24hDisplay:
-        jTokenData.farmRewardUSD24h === undefined
-          ? '--'
-          : tryFormatNumber(jTokenData.farmRewardUSD24h, 0, { needDolar: true }),
-
       current,
       supplyList,
       borrowList,
@@ -271,7 +275,8 @@ export function processJTokenData({ jTokenData, showMintApy }) {
       mintList,
 
       mintApy,
-      mintApyWithUSDD
+      mintApyWithUSDD,
+      mintApyTRX,
     };
   } catch (e) {
     console.error('Process jTokeData failed: ', e, jTokenData);

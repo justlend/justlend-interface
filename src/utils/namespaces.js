@@ -32,7 +32,6 @@ export const getSupportedEventsByNamespace = namespace => {
 
 export const getRequiredNamespaces = chains => {
   const selectedNamespaces = getNamespacesFromChains(chains);
-  console.log('selected namespaces:', selectedNamespaces);
 
   return selectedNamespaces.reduce((acc, namespace) => {
     acc[namespace] = {

@@ -1,0 +1,1244 @@
+.liquidationv2-page-container {
+  .modal-overlay {
+    z-index: 1082;
+  }
+
+  .j-refresh {
+    padding: 5px 20px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.05);
+    margin-right: 20px;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.liquidationv2-header {
+  .liquidationv2-title {
+    display: inline-flex;
+    align-items: center;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    background-image: linear-gradient(64.31deg, #7155FF -13.24%, #FCEBD5 39.73%, #73D8EA 52.29%, #8DFFC5 67.54%, #FCECA6 97.97%, #5EACC4 116.36%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .v2-icon {
+    display: inline-block;
+    width: 28px;
+    height: 20px;
+    background: url(../../images/JLv2/v2-icon.svg) 0 0 no-repeat;
+    background-size: 100%;
+    margin-left: 6px;
+  }
+
+  .liquidationv2-subtitle {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.liquidationv2-content {
+  border-radius: 20px;
+  margin-top: 20px;
+  // border: 1px solid #858888;
+  background-color: #191e1e;
+  border: 0.8px solid;
+  border-image-source: linear-gradient(180deg, rgba(255, 255, 255, 0.47) 0%, rgba(153, 153, 153, 0) 88.56%);
+
+  .load-more-v2 {
+    margin: 0;
+    padding: 10px 0 30px;
+  }
+}
+
+.liquidationv2-tabs-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.liquidationv2-tabs {
+  display: flex;
+  align-items: center;
+
+  // padding: 24px 20px 24px 0;
+  >div {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 22px;
+    color: #fff;
+    margin: 0 20px;
+    padding: 24px 0 20px;
+    position: relative;
+    // cursor: pointer;
+    // transition: all 0.3s ease-in-out;
+
+    // &.current {
+    //   color: #fff;
+
+    //   &::after {
+    //     content: '';
+    //     width: 100%;
+    //     height: 2px;
+    //     background-color: #24B887;
+    //     position: absolute;
+    //     left: 0;
+    //     bottom: 0;
+    //   }
+    // }
+  }
+}
+
+.liquidationv2-filter {
+  justify-content: flex-start !important;
+  margin: 15px 0;
+  padding: 0 20px;
+
+  .risk-filter {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+
+    .j-input {
+      width: 60px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      background: rgba(10, 16, 16, 0.6) !important;
+
+      // placeholder 字号与 V1 清算页保持一致（12px），避免占位文案偏大。
+      &::-webkit-input-placeholder {
+        font-size: 12px;
+      }
+    }
+
+    .risk-error-msg {
+      padding: 6px 12px;
+      background: #34393A;
+
+      span {
+        color: #F4394F;
+        font-size: 14px;
+        line-height: 18px;
+      }
+    }
+
+    >em {
+      width: 8px;
+      margin: 0 6px;
+    }
+
+    .filter-text {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
+      margin-right: 8px;
+    }
+  }
+
+  .reset-btn:focus {
+    color: #24b887;
+    border-color: #24b887;
+    background-color: transparent;
+  }
+
+  .details-btn:hover {
+    color: #fff;
+    border-color: #029A67;
+    background-color: #029A67;
+  }
+
+  .confirm-btn {
+    margin: 0 10px;
+  }
+}
+
+.liquidationv2-list {
+
+  &.liquidationv2-skeleton {
+    padding: 20px 20px 40px;
+
+    .ant-skeleton-content .ant-skeleton-paragraph>li+li {
+      margin-top: 30px;
+    }
+
+    .ant-skeleton-content .ant-skeleton-paragraph>li {
+      height: 25px;
+    }
+  }
+
+  .list-header {
+    padding: 10px 0;
+    line-height: 20px;
+    background-color: rgba(255, 255, 255, 0.03);
+
+    .list-row .list-td {
+      padding-right: 20px;
+
+      &:first-child {
+        padding-left: 20px;
+      }
+
+      &.cursor-pointer {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .list-header,
+  .list-body {
+    .list-row {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      cursor: auto;
+    }
+
+    .list-td {
+      display: flex;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 500;
+
+      &:nth-child(1),
+      &:nth-child(2) {
+        width: 23%;
+      }
+
+      &:nth-child(3),
+      &:nth-child(4) {
+        width: 16%;
+      }
+
+      &:nth-child(5) {
+        width: 12%;
+      }
+
+      &:nth-child(6) {
+        width: 10%;
+        justify-content: flex-end;
+      }
+
+      >img {
+        width: 30px;
+        height: 30px;
+        margin-right: 16px;
+      }
+
+      >div {
+
+        >div,
+        >a {
+          font-size: 14px;
+          line-height: 22px;
+          font-weight: 500;
+          color: #fff;
+          white-space: nowrap;
+
+          &.row-usd {
+            font-size: 12px;
+            line-height: 18px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.5);
+          }
+
+          &.liquidation-address {
+            color: #24B887;
+          }
+        }
+      }
+    }
+  }
+
+  .list-body {
+    padding: 15px 0;
+
+    .list-row:hover {
+      background: #ffffff0d;
+    }
+
+    .list-td {
+      padding: 15px 20px 15px 0;
+
+      &:first-child {
+        padding-left: 20px;
+      }
+    }
+  }
+
+  .details-btn {
+    padding: 0 6px;
+  }
+
+  .value-tooltip {
+    &::before {
+      bottom: -2px;
+    }
+  }
+}
+
+.liquidationv2-notice-modal {
+  .ant-modal-content {
+    background: #1B1C20;
+    border-radius: 15px;
+  }
+
+  .ant-modal-body {
+    padding: 20px 20px 30px;
+  }
+
+  .notice-header {
+    padding: 0 20px 20px;
+    margin: 0 -20px;
+    text-align: center;
+    border-bottom: 1px solid #FFFFFF0F;
+  }
+
+  .notice-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    color: #fff;
+  }
+
+  .notice-content {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .notice-warning-icon {
+    width: 66px;
+    height: 66px;
+    margin: 50px auto 20px;
+  }
+
+  .notice-text {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #fff;
+  }
+
+  .notice-agreement {
+    .ant-checkbox-inner {
+      width: 14px;
+      height: 14px;
+      border: 1px solid #FFFFFF33;
+      border-radius: 2px;
+      background-color: transparent;
+    }
+
+    .ant-checkbox-checked .ant-checkbox-inner {
+      background-color: #24B887;
+      border-color: #24B887;
+    }
+
+    .ant-checkbox-checked:after {
+      border-color: #24B887;
+    }
+
+    span {
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 400;
+      color: #fff;
+    }
+
+    .notice-link {
+      position: relative;
+      color: #24B887;
+
+      &:after {
+        content: '';
+        width: 0;
+        height: 1px;
+        background: #24B887;
+        position: absolute;
+        top: calc(100% - 1px);
+        left: 50%;
+        transition: all 0.6s;
+      }
+
+      &:hover {
+        &:after {
+          left: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .notice-footer {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+
+    button {
+      flex: 1;
+      height: 40px;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 500;
+      color: #FFFFFF99;
+      border-radius: 6px;
+      border: 1px solid #FFFFFF33;
+      background: transparent;
+    }
+
+    .btn-cancel:hover {
+      border-color: #24B887;
+      color: #24B887;
+    }
+
+    .btn-confirm {
+      background: #24B887;
+      border-color: #24B887;
+      color: #fff;
+      opacity: 0.4;
+
+      &.active {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.white {
+    .ant-modal-content {
+      background: #FFFFFF;
+    }
+
+    .notice-header {
+      border-bottom: 1px solid #22232B0F;
+    }
+
+    .notice-text,
+    .notice-title {
+      color: #22232B;
+    }
+
+    .notice-agreement {
+      .ant-checkbox-inner {
+        border-color: #22232B;
+      }
+
+      .ant-checkbox-checked .ant-checkbox-inner {
+        background-color: #24B887;
+        border-color: #24B887;
+      }
+
+      .ant-checkbox-checked:after {
+        border-color: #24B887;
+      }
+
+      span {
+        color: #737480;
+      }
+    }
+
+    .notice-footer {
+      button {
+        color: #737480;
+        border-color: #22232B;
+      }
+
+      .btn-confirm {
+        background: #24B887;
+        border-color: #24B887;
+        color: #fff;
+        opacity: 0.6;
+
+        &.active {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .ant-modal {
+      max-width: calc(100vw - 30px);
+    }
+  }
+}
+
+.liquidationv2-modal,
+.liquidationv2-drawer {
+  .ant-drawer-content {
+    padding: 20px;
+    background: transparent;
+  }
+
+  .ant-drawer-wrapper-body {
+    border-radius: 10px;
+    overflow: hidden;
+    background: #1B1C20;
+  }
+
+  .ant-drawer-body {
+    width: 450px;
+    padding: 0 20px 30px;
+  }
+
+  .ant-modal-header,
+  .ant-drawer-header {
+    padding: 0;
+    border-bottom: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .ant-drawer-close {
+    line-height: 22px;
+  }
+
+  .liquidation-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+
+    border-bottom: 1px solid #FFFFFF0F;
+
+    .liquidation-title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 22px;
+      color: #fff;
+    }
+
+    .v2-icon {
+      width: 28px;
+      height: 20px;
+      margin-left: 6px;
+    }
+  }
+
+  /* Rows & Sections */
+  .liq-section {
+    padding-top: 20px;
+  }
+
+  .liq-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .liq-row .label {
+    margin-right: 12px;
+    color: #FFFFFF;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+  }
+
+  .liq-row.sub .label,
+  .liq-row.detail .label,
+  .liq-row .value {
+    color: #FFFFFF99;
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 400;
+  }
+
+  .value-wrap {
+    flex: 1;
+    text-align: right;
+
+    .wallet span {
+      font-size: 12px;
+    }
+  }
+
+  .main-val {
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .sub-val,
+  .sub-val span {
+    color: #FFFFFF99;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+  }
+
+  /* Input Area */
+  .liq-input-container {
+    margin-bottom: 20px;
+  }
+
+  .liq-input-box {
+    position: relative;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid transparent;
+    transition: background 0.3s ease-in-out;
+
+    &.liq-input-error {
+      border: 1px solid #FF5266;
+      background: rgba(255, 82, 102, 0.06) !important;
+    }
+
+    &.open {
+      background: #040707;
+    }
+
+    .token-select .token-list-text-trx {
+      margin-right: 0;
+    }
+  }
+
+  .liq-input-box,
+  .liq-row {
+    .wtrx-tip-icon {
+      transform: translateY(-1px);
+    }
+  }
+
+  .token-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .select-token-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .token-symbol {
+    width: 42px;
+    margin-left: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  .token-select-box {
+    padding: 20px;
+  }
+
+  .ant-popover-inner {
+    border-radius: 10px;
+  }
+
+  .ant-popover-inner-content,
+  .ant-popover-message,
+  .ant-popover-message-title {
+    padding: 0;
+  }
+
+  .ant-popover-buttons {
+    display: none;
+  }
+
+  .token-select-header,
+  .token-select-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    div:first-child {
+      margin-right: 4px;
+    }
+  }
+
+  .liq-input {
+    flex: 1;
+    margin: 0 10px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .suggest-tips,
+  .error-tips {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #FF5266;
+    font-weight: 400;
+  }
+
+  .balance-error {
+    color: #FF5266;
+  }
+
+  .suggest-tips {
+    color: #e1e1e199;
+  }
+
+  .ant-input-prefix {
+    color: #fff;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+  }
+
+  .ant-input {
+    padding: 0;
+    height: 24px;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: #fff;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 400;
+    }
+  }
+
+  .ant-input-number-handler-wrap {
+    display: none;
+    opacity: 0;
+  }
+
+  .token-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .input-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .currency-unit {
+    color: rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .max-btn {
+    padding: 4px 6px;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #fff;
+    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+  }
+
+  .liq-divider {
+    height: 1px;
+    background-color: #FFFFFF0D;
+    margin-bottom: 10px;
+  }
+
+  /* Warning */
+  .liq-warning {
+    display: flex;
+    align-items: center;
+    margin: 20px auto;
+  }
+
+  .tip-icon {
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+  }
+
+  .warning-text {
+    font-size: 12px;
+    color: #B3B4B7;
+    line-height: 18px;
+    font-weight: 400;
+  }
+
+  /* Submit Button */
+  .liq-submit-btn {
+    background-color: #24B887;
+    border: none !important;
+    height: 40px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #fff;
+
+    &.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  .token-select {
+    width: auto;
+    position: unset;
+
+    .token-options {
+      left: 0;
+      top: 71px;
+      width: 100%;
+      border-radius: 10px;
+      padding-bottom: 10px;
+      background: #040707;
+    }
+
+    .token-title {
+      padding: 16px 16px 6px;
+      border-bottom: none;
+
+      >div {
+        font-weight: 400;
+      }
+    }
+
+    .token-list-text {
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 600;
+    }
+
+    .token-list {
+      padding: 10px 16px;
+
+      &>div:last-child {
+        font-weight: 500;
+      }
+    }
+
+    .token-select-value {
+      padding: 0 24px 0 0;
+
+      &::after {
+        width: 10px;
+        right: 7px;
+        top: 14px;
+        background-image: url(../../images/JLv2/arrow-triangle-up.svg);
+      }
+    }
+  }
+
+  &.white {
+    .token-symbol {
+      color: #22232B;
+      font-weight: 600;
+    }
+
+    .token-select .token-select-value::after {
+      background-image: url(../../images/JLv2/white-theme/arrow-triangle-up.svg);
+    }
+
+    &.ant-drawer-right.ant-drawer-open .ant-drawer-content-wrapper {
+      box-shadow: none;
+    }
+
+    .ant-drawer-wrapper-body {
+      background: #FFFFFF;
+    }
+
+    .liquidation-header {
+      border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+
+      .liquidation-title {
+        color: #22232B;
+      }
+    }
+
+    .main-val,
+    .sub-val,
+    .sub-val span,
+    .liq-row .label,
+    .liq-row.sub .label,
+    .liq-row.detail .label,
+    .liq-row .value {
+      color: #22232B;
+    }
+
+    .liq-input-box {
+      background: rgba(34, 35, 43, 0.05);
+
+      &.open {
+        background: rgba(34, 35, 43, 0.08);
+      }
+    }
+
+    .token-select .token-options {
+      background: #FFFFFF;
+      box-shadow: 0px 4px 17.1px 0px #00000040;
+    }
+
+    .suggest-tips {
+      color: #737480;
+    }
+
+    .ant-input-prefix {
+      color: #22232B;
+    }
+
+    input.ant-input {
+      color: #22232B;
+      caret-color: #22232b !important;
+
+      &::placeholder {
+        color: #737480;
+      }
+    }
+
+    .liq-divider {
+      background-color: rgba(34, 35, 43, 0.06);
+    }
+
+    .currency-unit {
+      color: rgba(34, 35, 43, 0.2);
+    }
+
+    .max-btn {
+      color: #22232B;
+      background: rgba(115, 116, 128, 0.15);
+    }
+
+    .warning-text {
+      color: #22232B;
+    }
+
+    .liq-submit-btn.disabled {
+      opacity: 0.6;
+    }
+  }
+}
+
+.exchange-to-wtrx {
+  display: inline-block;
+  height: 18px;
+  margin-left: 6px;
+  padding: 0;
+  font-size: 12px;
+  color: #24B887 !important;
+
+  &::before {
+    display: none;
+  }
+  &::after {
+    border-bottom: 1px solid #24B887;
+  }
+}
+
+.liquidationv2-modal {
+  .ant-modal-body {
+    padding: 0 20px 30px;
+  }
+
+  .ant-modal-content {
+    border-radius: 10px;
+    overflow: hidden;
+    background: #1B1C20;
+  }
+
+  .cannot-liquidate-tip {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+    color: #F58721;
+  }
+
+  &.white {
+    .ant-modal-content {
+      background: #fff;
+    }
+  }
+}
+
+.address-link {
+  display: flex;
+  align-items: center;
+
+  .link-arrow {
+    display: inline-block;
+    min-width: 20px;
+    height: 20px;
+    background: url(../../images/JLv2/link-arrow.svg) 0 0 no-repeat;
+    background-size: 100%;
+    margin-left: 4px;
+  }
+}
+
+.liquidationv2.white {
+  .liquidationv2-title {
+    background-image: none;
+    -webkit-text-fill-color: #22232B;
+  }
+
+  .liquidationv2-subtitle {
+    color: #737480;
+  }
+
+  .liquidationv2-content {
+    background: #F9FAFC;
+    border: none;
+    box-shadow: 0px 10px 20px 0px #0000001A;
+  }
+
+  .liquidationv2-tabs>div {
+    color: #22232B;
+  }
+
+  .j-refresh {
+    background-color: rgba(34, 35, 43, 0.06);
+
+    >span {
+      color: #22232B;
+      font-weight: 500;
+    }
+
+    &:hover {
+      background-color: rgba(34, 35, 43, 0.12);
+    }
+  }
+
+  .liquidationv2-tabs-wrapper {
+    border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+  }
+
+  .liquidationv2-filter {
+    .dropdown-filter .dropdown-button {
+      background-color: rgba(34, 35, 43, 0.06);
+    }
+
+    .risk-error-msg {
+      background: #f0f2f7;
+      box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
+    }
+
+    .risk-filter .filter-text {
+      color: #737480;
+    }
+
+    .risk-filter .j-input {
+      background-color: rgba(34, 35, 43, 0.06) !important;
+      color: #737480;
+
+      &::placeholder {
+        color: #737480;
+        font-size: 12px;
+      }
+    }
+
+    .risk-filter>em {
+      background: #22232B;
+    }
+  }
+
+  .list-header {
+    background: #F0F2F7;
+  }
+
+  .liquidationv2-list .list-header .list-td,
+  .liquidationv2-list .list-body .list-td {
+    color: #737480;
+
+    >div>div,
+    >div>a {
+      color: #22232B;
+    }
+
+    div.row-usd {
+      color: #737480;
+    }
+  }
+
+  .liquidationv2-list .list-body .list-row:hover {
+    background: #f0f2f7;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .liquidationv2 {
+    .common-page-container {
+      padding: 30px 15px 0;
+    }
+
+    .j-footer .j-footer-content {
+      padding: 0 0 40px;
+    }
+
+    .load-more-v2 {
+      margin: 30px auto;
+      padding: 0;
+    }
+
+    .liquidationv2-content {
+      background: none;
+    }
+
+    .j-refresh {
+      width: fit-content;
+      margin-top: 14px;
+      margin-right: 0;
+    }
+
+    .liquidationv2-tabs-wrapper {
+      border-bottom: none;
+    }
+
+    .liquidationv2-tabs>div {
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+
+    .liquidationv2-filter {
+      margin: 0 0 20px 0;
+      padding: 0;
+    }
+
+    .dropdown-filter .dropdown-button {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .liquidationv2-filter .risk-filter {
+      margin-left: 0;
+
+      .j-input {
+        background: rgba(255, 255, 255, 0.1) !important;
+      }
+    }
+
+    .liquidationv2-filter .details-btn {
+      flex: 1;
+    }
+
+    .liquidationv2-mobile-list {
+      .list-box {
+        margin-bottom: 15px;
+        padding: 15px 15px 20px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 10px;
+
+        // filter: blur(80px);
+        &:last-child {
+          margin-bottom: 30px;
+        }
+      }
+
+      .list-box-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .list-box-label {
+        position: relative;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .value-tooltip::before {
+        bottom: -2px;
+      }
+
+      .token-icon {
+        width: 18px;
+        height: 18px;
+        margin-right: 6px;
+      }
+
+      .row-usd {
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .list-box-item-value {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        color: #fff;
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 500;
+      }
+
+      .details-btn {
+        flex: 1;
+      }
+    }
+  }
+
+  .liquidationv2.white {
+    .liquidationv2-content {
+      background: none;
+      box-shadow: none;
+    }
+
+    .liquidationv2-tabs-wrapper {
+      border-bottom: none;
+    }
+
+    .dropdown-filter .dropdown-button {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .liquidationv2-filter .risk-filter {
+      .j-input {
+        background: #FFFFFF !important;
+      }
+    }
+
+    .liquidationv2-filter .dropdown-filter .dropdown-button {
+      background-color: #fff;
+    }
+
+    .liquidationv2-mobile-list {
+      .list-box {
+        background: #FFFFFF;
+        // filter: blur(80px);
+      }
+
+      .list-box-label {
+        color: #737480;
+      }
+
+      .row-usd {
+        color: #737480;
+      }
+
+      .list-box-item-value {
+        color: #22232B;
+      }
+    }
+  }
+}

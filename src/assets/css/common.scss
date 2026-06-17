@@ -1304,7 +1304,7 @@ button.modal-btn,
     left: 0;
     width: 32px;
     height: 12px;
-    background: #d1d7e9;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
   }
   .switch-circle {
@@ -1335,7 +1335,12 @@ button.modal-btn,
 .c-4c54ff {
   color: #4c54ff !important;
 }
-
+// .ant-tooltip.j-tooltip-dropdown .can-click.right-arrow {
+//   display: inline-block;
+//   background: url(../images/icon/right-arrow-default.svg) right no-repeat;
+//   background-size: 5px;
+//   padding-right: 8px;
+// }
 .c-18c19f {
   color: #18c19f !important;
 }
@@ -1364,7 +1369,7 @@ button.modal-btn,
     }
   }
   .ant-tooltip {
-    max-width: 268px !important;
+    max-width: 250px !important;
   }
   .safe-input .ant-input-group {
     background: rgba(255, 255, 255, 0.08);

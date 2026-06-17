@@ -4,7 +4,7 @@ import Config from '../../../config';
 import { getExpiryDurationInMS } from '../../../utils/helper';
 
 const { service } = Config;
-const { messageApiHost, messageApiAccessToken, settingsService } = service;
+const { messageApiHost, settingsService } = service;
 
 const {
   setLanguagePath,
@@ -52,7 +52,6 @@ export const postWrapper = async (functionName, url, params) => {
 
 export const setSettingsSignature = async (address, sign) =>
   postWrapper('setSettingsSignature', `${messageApiHost}${setSignPath}`, {
-    // accessToken: messageApiAccessToken,
     address,
     expireTime: getExpiryDurationInMS(60 * 60),
     sign
@@ -64,7 +63,6 @@ export const getNotiSettings = async address =>
   });
 export const updateNotiSettings = async (address, type, turnOn, sign) =>
   postWrapper('updateNotiSettings', `${messageApiHost}${updateNotiSettingsPath}`, {
-    // accessToken: messageApiAccessToken,
     address,
     type,
     turnOn,
@@ -73,13 +71,11 @@ export const updateNotiSettings = async (address, type, turnOn, sign) =>
 
 export const getEmailBindInfo = async (address, sign) =>
   postWrapper('getEmailBindInfo', `${messageApiHost}${getEmailBindInfoPath}`, {
-    // accessToken: messageApiAccessToken,
     address,
     sign
   });
 export const getEmailOtp = async (address, email, action, lang, sign) =>
   postWrapper('getEmailOtp', `${messageApiHost}${getEmailOtpPath}`, {
-    // accessToken: messageApiAccessToken,
     address,
     email,
     action,
@@ -88,7 +84,6 @@ export const getEmailOtp = async (address, email, action, lang, sign) =>
   });
 export const verifyEmailOtp = async (address, email, code, action, sign) =>
   postWrapper('verifyEmailOtp', `${messageApiHost}${verifyEmailOtpPath}`, {
-    // accessToken: messageApiAccessToken,
     address,
     email,
     code,
@@ -98,7 +93,6 @@ export const verifyEmailOtp = async (address, email, code, action, sign) =>
 
 export const setLanguage = async (address, lang, sign) =>
   postWrapper('setLanguage', `${messageApiHost}${setLanguagePath}`, {
-    // accessToken: messageApiAccessToken,
     address: address,
     lang: lang,
     sign

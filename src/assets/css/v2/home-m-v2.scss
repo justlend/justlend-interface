@@ -175,6 +175,12 @@
     }
   }
 
+  .cannot-open .new-switch.switch-on {
+    .switch-line {
+      background: rgba(245, 135, 33, 0.6);
+    }
+  }
+
   .colleteral {
     color: #fff;
     margin-left: 4px;
@@ -279,13 +285,11 @@
       overflow: hidden;
       border-right: 1px solid transparent;
       &::-webkit-scrollbar {
-        /*滚动条整体样式*/
-        width: 1px; /*高宽分别对应横竖滚动条的尺寸*/
+        width: 1px;
         height: 40px;
         display: none;
       }
       &::-webkit-scrollbar-thumb {
-        /*滚动条里面小方块*/
         max-height: 40px;
         border-radius: 1px;
         background-color: rgba(255, 255, 255, 0.1);
@@ -391,6 +395,7 @@
 @media screen and (max-width: 798px) {
   .j-home-user-list {
     width: auto;
+    margin-bottom: 20px;
     .j-user-list_not-connect {
       background-size: cover;
       margin-bottom: 0;

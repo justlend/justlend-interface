@@ -12,6 +12,10 @@
   justify-content: flex-end;
 }
 
+.flex-direction-column {
+  flex-direction: column;
+}
+
 .flex-sp {
   display: flex;
   justify-content: space-between;
@@ -113,6 +117,10 @@
   padding-right: 50px;
 }
 
+.z-1101 {
+  z-index: 1101 !important;
+}
+
 .h52 {
   height: 52px !important;
 }
@@ -127,6 +135,10 @@
 
 .visible {
   overflow: visible !important;
+}
+
+.c-FF2A43 {
+  color: #ff2a43 !important;
 }
 
 .hover {
@@ -157,6 +169,141 @@
     position: relative;
     z-index: 4 !important;
   }
+}
+
+.j-transaction-modal {
+  .ant-modal-body {
+    padding: 0;
+    height: 560px;
+    position: relative;
+    border-radius: 10px !important;
+  }
+  .ant-modal-content {
+    height: 560px;
+    max-width: 400px;
+    margin: auto;
+    background-color: transparent;
+  }
+  &.short {
+    .ant-modal-body,
+    .ant-modal-content {
+      height: 388px;
+    }
+  }
+  .trans-title,
+  .trans-body {
+    padding: 0 20px;
+  }
+  .trans-body {
+    padding-bottom: 40px;
+  }
+  .trans-title {
+    height: 64px;
+    line-height: 64px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .trans-icon {
+    margin-top: 60px;
+    > img {
+      width: 66px;
+      height: 66px;
+    }
+
+    @keyframes rotation {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading {
+      margin: 10px auto 20px;
+      display: block;
+      transform: rotate(360deg);
+      animation: rotation 2s linear infinite;
+    }
+  }
+  .trans-tips,
+  .trans-tips a,
+  .trans-tips:hover {
+    margin-top: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #ffffff;
+  }
+  .j-large-btn {
+    margin-top: 60px;
+    position: absolute;
+    bottom: 40px;
+    left: calc(50% - 180px);
+    width: 360px;
+
+    &.loading-close {
+      border-radius: 5px;
+      border: 1px solid rgba(145, 149, 251, 0.8);
+      background: #282931;
+      color: #9195fb;
+
+      &:hover {
+        color: #fff;
+        background-color: #4d54ff;
+        border-color: #4d54ff;
+      }
+    }
+  }
+  .typo-text-link {
+    display: inline-block;
+    font-size: 12px;
+    color: #9195fb;
+    margin-top: 10px;
+  }
+  &.white {
+    .ant-modal-header,
+    .ant-modal-body {
+      background: #fff;
+    }
+    .trans-title {
+      color: #22232b;
+      border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+    }
+    .trans-tips,
+    .trans-tips a,
+    .trans-tips:hover {
+      color: rgba(34, 35, 43, 1);
+    }
+    .j-large-btn {
+      margin-top: 60px;
+
+      &.loading-close {
+        border: 1px solid #4d54ff;
+        background: rgba(77, 84, 255, 0.06);
+        color: #4c54ff;
+        &:hover {
+          color: #fff !important;
+          background-color: rgba(77, 84, 255, 1);
+          border-color: rgba(77, 84, 255, 1);
+        }
+        // &:hover {
+        //   opacity: 0.7;
+        // }
+      }
+    }
+    .typo-text-link {
+      color: #4c54ff;
+    }
+  }
+}
+
+.ant-modal-mask {
+  background-color: rgba(0, 0, 0, 0.85) !important;
 }
 
 .snow-bar {
@@ -207,6 +354,20 @@
 
 .no-padding {
   padding: 0 !important;
+}
+
+wcm-modal {
+  position: relative;
+  z-index: 9999;
+}
+
+/* Prevent iOS Safari auto-zoom on input focus (requires font-size >= 16px) */
+@supports (-webkit-touch-callout: none) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
 }
 
 .ant-input:hover {
@@ -305,7 +466,7 @@
 }
 
 .j-nodata {
-  padding: 100px;
+  padding: 53px 100px;
   text-align: center;
   .nodata-img {
     display: inline-block;
@@ -320,6 +481,15 @@
     line-height: 16px;
     color: rgba(255, 255, 255, 0.6);
     margin-top: 10px;
+  }
+}
+.jlv2-bg.white .j-nodata {
+  .nodata-img {
+    background: url(../../images/v2/white-theme/nodata-icon.svg) 0 0 no-repeat;
+    background-size: 100%;
+  }
+  .nodata-text {
+    color: #737480;
   }
 }
 
@@ -367,6 +537,15 @@
     bottom: 0;
     background: transparent !important;
     justify-content: center;
+  }
+}
+
+body {
+  .ant-modal-mask {
+    z-index: 1076;
+  }
+  .ant-modal-wrap {
+    z-index: 1077;
   }
 }
 
@@ -601,6 +780,7 @@ body {
     min-width: 80px;
     color: rgba(255, 255, 255, 0.9);
     background: #42444b;
+    margin-left: 10px;
     &:hover {
       color: #9195fb;
     }
@@ -639,13 +819,11 @@ body {
     border-right: 1px solid #21232a;
   }
   &::-webkit-scrollbar {
-    /*滚动条整体样式*/
-    width: 1px; /*高宽分别对应横竖滚动条的尺寸*/
+    width: 1px;
     height: 40px;
     display: none;
   }
   &::-webkit-scrollbar-thumb {
-    /*滚动条里面小方块*/
     max-height: 40px;
     border-radius: 1px;
     background-color: rgba(255, 255, 255, 0.1);
@@ -697,6 +875,9 @@ body {
 
   .loading-box {
     height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .anticon {
@@ -939,6 +1120,20 @@ body {
         margin-right: 6px;
       }
     }
+    .approve-wrap {
+      span {
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+
+        &.j-tooltip-icon {
+          margin-left: 6px;
+          vertical-align: -2px;
+        }
+      }
+    }
+
     a {
       font-weight: 500;
       font-size: 12px;
@@ -1069,7 +1264,7 @@ body {
   }
   ::-webkit-input-placeholder {
     font-weight: 400;
-    font-size: 14px;
+    font-size: 16px;
     color: rgba(255, 255, 255, 0.4);
   }
 
@@ -1084,7 +1279,7 @@ body {
     .ant-input-group-addon {
       background: #3c2d36;
       > span {
-        background-color: rgba(255, 255, 255, 0.06);
+        background-color: #3c2d36;
       }
     }
   }
@@ -1105,6 +1300,7 @@ body {
   box-shadow: none;
   margin-top: 50px;
   transition: all 0.3s ease-in-out;
+  white-space: nowrap;
   cursor: pointer;
   &:hover,
   &:focus,
@@ -1216,6 +1412,12 @@ body {
 }
 
 @media (max-width: 798px) {
+  #root .j-wrapper {
+    padding-top: 0;
+  }
+  #root .mobile-header-v2 {
+    position: relative !important;
+  }
   #root .j-wrapper .j-container div.liquidate-warning {
     padding: 7px 10px;
     text-align: left;
@@ -1251,6 +1453,7 @@ body {
   }
   .ant-btn.j-large-btn,
   .j-large-btn {
+    font-size: 13px;
     &.j-supply {
       &:hover {
         background: #4c54ff;
@@ -1348,7 +1551,7 @@ body {
     font-weight: 400;
     font-size: 12px;
     line-height: 20px;
-    color: #b3b4b7;
+    color: #fff;
     border-radius: 5px;
     div {
       font-size: 12px;
@@ -1366,6 +1569,23 @@ body {
     }
     span.light {
       color: #fff;
+    }
+
+    .can-click {
+      font-size: 12px;
+    }
+  }
+  &.light .ant-tooltip-inner {
+    color: #fff;
+  }
+  &.mobile-r-30 {
+    .ant-tooltip-inner {
+      transform: translateX(-30px);
+    }
+  }
+  &.mobile-l-30 {
+    .ant-tooltip-inner {
+      transform: translateX(30px);
     }
   }
   .ant-tooltip-arrow-content {
@@ -1569,11 +1789,12 @@ body {
   .ant-input {
     background: #22232b;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 16px;
     &::-webkit-input-placeholder {
       color: #a7a7aa;
       font-weight: 400;
+      font-size: 14px;
     }
     color: rgba(255, 255, 255, 1);
   }
@@ -1629,7 +1850,8 @@ body .ant-tooltip.j-tooltip-dropdown,
     }
   }
   &.j-tooltip-dropdown-receiver {
-    max-width: 220px;
+    max-width: 290px !important;
+    width: 290px !important;
   }
   &.triangle-icon {
     .ant-tooltip-arrow {
@@ -1652,7 +1874,7 @@ body .ant-tooltip.j-tooltip-dropdown,
     .ant-tooltip-arrow {
       left: unset;
       // transform: unset;
-      // right: 49.6px; // 已在dom中计算
+      // right: 49.6px;
       transform: translateX(50%);
     }
   }
@@ -2024,78 +2246,22 @@ body .ant-tooltip.j-tooltip-dropdown,
   }
 }
 
-.bs-route {
-  display: flex;
-  align-items: center;
-
-  &.bs-route-m {
-    justify-content: center;
-    flex-direction: column;
-    .menu-item-label {
-      display: flex;
-      align-items: center;
-      > span {
-        font-size: 12px;
-        white-space: nowrap;
+.cannot-open {
+  .new-switch {
+    .switch-circle {
+      background: #b3b4b7;
+      box-shadow: none;
+    }
+    &.switch-on {
+      .switch-line {
+        background-color: rgba(245, 135, 33, 0.6);
+      }
+      .switch-circle {
+        background: #fff;
+        box-shadow: 0px 0px 5px rgba(99, 97, 97, 0.3);
       }
     }
   }
-
-  &.ant-popover-open {
-    color: #fff;
-    .bs-arrow {
-      transform: rotate(0deg);
-      opacity: 1;
-    }
-    &:hover {
-      color: #fff !important;
-    }
-    .menu-item-label {
-      > span {
-        color: #9195fb;
-      }
-    }
-  }
-  &:hover {
-    color: rgba(255, 255, 255, 0.6);
-  }
-  .bs-arrow {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    background: url(../../images/liquidate/header-select-arrow.svg) 0 0 no-repeat;
-    background-size: 100%;
-    margin-left: 4px;
-    transform: rotate(180deg);
-    transition: all 0.3s ease-in-out;
-    opacity: 0.6;
-  }
-}
-.ant-popover-open {
-  color: #fff;
-  .bs-arrow {
-    transform: rotate(0deg);
-    opacity: 1;
-  }
-  &:hover {
-    color: #fff !important;
-  }
-  .menu-item-label {
-    > span {
-      color: #9195fb;
-    }
-  }
-}
-.bs-arrow {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  background: url(../../images/liquidate/header-select-arrow.svg) 0 0 no-repeat;
-  background-size: 100%;
-  margin-left: 4px;
-  transform: rotate(180deg);
-  transition: all 0.3s ease-in-out;
-  opacity: 0.6;
 }
 
 .beta {
@@ -2119,11 +2285,10 @@ body .ant-tooltip.j-tooltip-dropdown,
 }
 
 .rc-virtual-list-scrollbar {
-  width: 1px; /*高宽分别对应横竖滚动条的尺寸*/
+  width: 1px;
   height: 40px;
 
   .rc-virtual-list-scrollbar-thumb {
-    /*滚动条里面小方块*/
     width: 1px !important;
     border-radius: 1px !important;
     background-color: rgba(255, 255, 255, 0.2) !important;
@@ -2159,7 +2324,7 @@ body .ant-tooltip.j-tooltip-dropdown,
 .jl-links {
   display: inline-flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 20px;
   color: #9195fb;
@@ -2167,6 +2332,7 @@ body .ant-tooltip.j-tooltip-dropdown,
   position: relative;
   padding: 0 10px 0 0;
   white-space: nowrap;
+  position: relative;
   &:before {
     content: '';
     display: block;
@@ -2211,8 +2377,281 @@ body .ant-tooltip.j-tooltip-dropdown,
   }
 }
 
+.tooltip-hover {
+  position: relative;
+  color: #9195fb !important;
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #fff;
+  }
+
+  &:hover {
+    &::after {
+      border-bottom-color: #9195fb;
+    }
+    > * {
+      color: #9195fb !important;
+    }
+  }
+}
+
+body .ant-tooltip .ant-tooltip-inner > div.rent-fee-detail {
+  margin-top: 0;
+  margin-bottom: 0;
+  .rent-fee-detail-item {
+    margin-bottom: 10px;
+  }
+  .name {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #fff;
+  }
+  .value {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-align: right;
+    color: #fff;
+  }
+
+  .return-rule-tip {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 10px;
+    color: var(--color, #b3b4b7);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: left;
+    .return-rule-tip-text {
+      margin-right: 4px;
+    }
+  }
+
+  .learn-more {
+    span.link-button__arrow {
+      margin-left: 4px;
+    }
+  }
+}
+
+.j-link {
+  position: relative;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #9195fb;
+  white-space: nowrap;
+
+  &:after {
+    content: '';
+    width: 0;
+    height: 1px;
+    background: #9195fb;
+    position: absolute;
+    top: calc(100% - 1px);
+    left: 50%;
+    transition: all 0.6s;
+  }
+  &:hover {
+    color: #9195fb;
+    &:after {
+      left: 0;
+      width: 100%;
+    }
+  }
+}
+
+.risk-filter {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  > em {
+    display: inline-block;
+    width: 10px;
+    height: 1px;
+    margin: 0 2px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  .j-input {
+    width: 80px;
+    height: 24px;
+    line-height: 24px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    background: #22232b !important;
+    border-radius: 5px;
+    border: none;
+    margin: 0;
+    &:focus {
+      border: none !important;
+      box-shadow: none !important;
+    }
+    &::-webkit-input-placeholder {
+      font-weight: 400;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+    &.j-error-input {
+      border: 1px solid #ff5266;
+      background: rgba(255, 82, 102, 0.08) !important;
+      &:hover,
+      &:focus {
+        border: 1px solid #ff5266 !important;
+        background: rgba(255, 82, 102, 0.08) !important;
+      }
+    }
+  }
+  .risk-filter-btn {
+    width: 70px;
+    height: 24px;
+    line-height: 24px;
+    background: #4d54ff !important;
+    border-color: #4d54ff !important;
+    margin-left: 10px;
+    > span {
+      font-size: 12px;
+      font-weight: 400;
+      color: #fff !important;
+    }
+    &:hover {
+      background: #9195fb !important;
+      border-color: #9195fb !important;
+    }
+    &:disabled {
+      background: #53545a !important;
+      color: rgba(255, 255, 255, 0.6) !important;
+      > span {
+        color: rgba(255, 255, 255, 0.6) !important;
+      }
+      border-color: #53545a !important;
+      &:hover {
+        background: #53545a !important;
+        color: rgba(255, 255, 255, 0.6) !important;
+        border-color: #53545a !important;
+      }
+    }
+  }
+  .risk-error-msg {
+    position: absolute;
+    left: 0;
+    bottom: -38px;
+    display: flex;
+    align-items: center;
+    height: auto;
+    padding: 0 10px;
+    border-radius: 5px;
+    background: #40414a;
+    z-index: 1;
+    > span {
+      color: #ff5266;
+      font-size: 12px;
+      line-height: 30px;
+      white-space: nowrap;
+    }
+    > em {
+      position: relative;
+      top: -1px;
+      display: inline-block;
+      min-width: 12px;
+      height: 12px;
+      background: url(../../images/liquidate/error-triangle.svg) 0 0 no-repeat;
+      background-size: 100%;
+      margin-right: 6px;
+    }
+  }
+}
+
+// 清算 V1 页面：placeholder 字号与输入值（12px）保持一致，避免长占位文案被放大截断。
+// 仅作用于 V1 专属的 .j-liquidate 容器，不影响 JLv2 清算页共享的 .risk-filter 样式。
+// 加 .j-wrapper 前缀把特异性提到 0,5,1，确保深色 / 浅色（.j-wrapper.white）两态都能稳定胜出。
+.j-wrapper .j-liquidate .risk-filter .j-input.search-token::-webkit-input-placeholder {
+  font-size: 12px;
+}
+
 .j-wrapper.white,
 .ant-modal.white {
+  .ant-modal-body {
+    background-color: #fff;
+  }
+
+  .risk-filter {
+    > em {
+      background: #8d8e92;
+    }
+    .j-input {
+      color: #22232b;
+      background: #edeeff !important;
+      &::-webkit-input-placeholder {
+        font-weight: 400;
+        font-size: 16px;
+        color: rgba(34, 35, 43, 0.4);
+      }
+      &.j-error-input {
+        border: 1px solid #ff5266;
+        background: rgba(255, 82, 102, 0.08) !important;
+        &:hover,
+        &:focus {
+          border: 1px solid #ff5266 !important;
+          background: rgba(255, 82, 102, 0.08) !important;
+        }
+      }
+    }
+    .risk-filter-btn {
+      &:disabled {
+        background: #d3d3d5 !important;
+        color: rgba(255, 255, 255, 0.6) !important;
+        border-color: #d3d3d5 !important;
+        > span {
+          color: rgba(255, 255, 255, 1) !important;
+        }
+        &:hover {
+          background: #d3d3d5 !important;
+          color: rgba(255, 255, 255, 0.6) !important;
+          border-color: #d3d3d5 !important;
+        }
+      }
+    }
+    .risk-error-msg {
+      background: #f0f2f7;
+      box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
+    }
+  }
+  .j-link,
+  .j-link:hover {
+    color: #4d54ff;
+  }
+
+  .tooltip-hover {
+    color: #4d54ff !important;
+
+    &::after {
+      border-bottom-color: #22232b;
+    }
+
+    &:hover {
+      &::after {
+        border-bottom-color: #4d54ff;
+      }
+      > * {
+        color: #4d54ff !important;
+      }
+    }
+  }
+
   .back-btn {
     color: #22232b;
     &:hover {
@@ -2220,19 +2659,19 @@ body .ant-tooltip.j-tooltip-dropdown,
     }
   }
 
-  .jl-links {
-    color: #4d54ff;
+  // .jl-links {
+  //   color: #4d54ff;
 
-    &:before {
-      background-image: url(../../images/v2/white-theme/arrow-right-purple.svg);
-    }
-    &:after {
-      background: #4d54ff;
-    }
-    &:hover {
-      color: #4d54ff;
-    }
-  }
+  //   &:before {
+  //     background-image: url(../../images/v2/white-theme/arrow-right-purple.svg);
+  //   }
+  //   &:after {
+  //     background: #4d54ff;
+  //   }
+  //   &:hover {
+  //     color: #4d54ff;
+  //   }
+  // }
 
   .rc-virtual-list-scrollbar {
     .rc-virtual-list-scrollbar-thumb {
@@ -2310,8 +2749,6 @@ body .ant-tooltip.j-tooltip-dropdown,
   }
 
   .account-v2-container .more {
-    background: url(../../images/v2/account/bg-white.svg) no-repeat;
-    background-size: 100%;
     .recommend-tip {
       color: rgba(34, 35, 43, 0.6);
     }
@@ -2336,6 +2773,15 @@ body .ant-tooltip.j-tooltip-dropdown,
       }
     }
   }
+}
+
+// Default antd .ant-notification / .ant-message z-index is 1010, below the
+// 2222 .trans-modal uses and below the ant-modal-mask that can cover it during
+// active modals. Push both above everything so toasts and transaction
+// notifications stay visible during claim/approve/sign flows.
+.ant-notification,
+.ant-message {
+  z-index: 2500;
 }
 
 .ant-notification .ant-notification-notice {
@@ -2411,7 +2857,7 @@ body .ant-tooltip.j-tooltip-dropdown,
 
 .siging-icon {
   display: inline-block;
-  width: 12px;
+  min-width: 12px;
   height: 12px;
   background: url(../../images/v2/signing-icon.png) 0 0 no-repeat;
   background-size: 100%;
@@ -2491,6 +2937,10 @@ body .ant-tooltip.j-tooltip-dropdown,
   }
 }
 
+.wcm-overlay {
+  z-index: 9999 !important;
+}
+
 .j-tooltip-link {
   position: relative;
   display: inline-block;
@@ -2522,6 +2972,18 @@ body .ant-tooltip.j-tooltip-dropdown,
   &:hover {
     opacity: 1;
   }
+  &.yf-1 {
+    transform: translateY(-1px);
+  }
+  &.y-2 {
+    transform: translateY(2px);
+  }
+  &.y-3 {
+    transform: translateY(3px);
+  }
+  &.y-4 {
+    transform: translateY(4px);
+  }
 }
 .usdd-update {
   .not-used-icon {
@@ -2536,14 +2998,14 @@ body .ant-tooltip.j-tooltip-dropdown,
     max-width: 332px;
     .ant-tooltip-inner {
       font-weight: 500;
-      background: #413a38;
+      // background: #413a38;
       // > span {
       //   display: flex;
       //   align-items: center;
       // }
     }
     .ant-tooltip-arrow-content {
-      background: #413a38;
+      // background: #413a38;
       box-shadow: none;
     }
     .not-used-icon,
@@ -2557,80 +3019,6 @@ body .ant-tooltip.j-tooltip-dropdown,
   margin-left: 20px;
 }
 
-.header-bs-pop {
-  .bl-img {
-    width: 37px;
-    height: 16px;
-    margin-left: 4px;
-  }
-  .ant-popover-inner {
-    border-radius: 5px;
-    min-width: 200px;
-  }
-  a {
-    display: block;
-    height: 36px;
-    line-height: 36px;
-    padding: 0 16px;
-    color: #fff;
-    position: relative;
-    transition: all 0.3s ease-in-out;
-    font-weight: 500;
-    .apply-icon {
-      margin-left: 2px;
-      margin-bottom: 1px;
-    }
-    &::after {
-      content: '';
-      display: none;
-      width: 13px;
-      height: 13px;
-      background: url(../../images/liquidate/menu-selected.svg) 0 0 no-repeat;
-      background-size: 100%;
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-6px);
-    }
-    > span {
-      font-size: 14px;
-      font-weight: 500;
-    }
-    &:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.04);
-    }
-    &.current {
-      color: #fff;
-      // background: rgba(255, 255, 255, 0.04);
-      &::after {
-        display: block;
-      }
-    }
-  }
-  .ant-popover-inner-content {
-    padding: 8px 0;
-  }
-  .ant-popover-inner {
-    background-color: rgba(64, 65, 74, 1);
-  }
-  .ant-popover-arrow {
-    display: none;
-  }
-
-  .beta {
-    &::before {
-      right: 57px;
-      top: 8px;
-    }
-    &.en {
-      &::before {
-        right: 43px;
-        // top: 8px;
-      }
-    }
-  }
-}
 .j-navi {
   display: flex;
   align-items: center;
@@ -2814,7 +3202,7 @@ body .ant-tooltip.j-tooltip-dropdown,
     align-items: flex-start;
     font-size: 12px;
     font-weight: 500;
-    line-height: 17px;
+    line-height: 18px;
     margin-top: 10px;
     text-align: right;
 
@@ -2938,9 +3326,168 @@ body .ant-tooltip.j-tooltip-dropdown,
   margin: 30px auto 10px;
 }
 
-@media screen and (max-width: 750px) {
-  .ant-tooltip.j-tooltip-dropdown-receiver {
-    max-width: 220px !important;
+.oh {
+  overflow: hidden !important;
+}
+
+.token-select {
+  width: 116px;
+  position: relative;
+  z-index: 1;
+  .token-options {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: -10px;
+    width: 360px;
+    border-radius: 5px;
+    background: #40414a;
+    > div {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  .token-title,
+  .token-list {
+    padding: 10px;
+  }
+  .token-title {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    > div {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 22px;
+    }
+  }
+  .token-list {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &.disabled {
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: transparent;
+      }
+
+      img,
+      .token-list-text,
+      > div:last-child {
+        opacity: 0.4;
+      }
+    }
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+    > div {
+      line-height: 22px;
+      &:first-child {
+        display: flex;
+        align-items: center;
+      }
+      &:last-child {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+  }
+  .token-select-value {
+    position: relative;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding: 4px 26px 4px 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    > span {
+      opacity: 0.6;
+      margin-left: 6px;
+    }
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 11px;
+      top: 15px;
+      width: 12px;
+      height: 8px;
+      background: url(../../images/wst/arrow-up-white.svg) 0 0 no-repeat;
+      background-size: 100%;
+      opacity: 0.6;
+      transform: rotate(180deg);
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  &.open {
+    .token-options {
+      display: block;
+    }
+    .token-select-value {
+      > span {
+        opacity: 1;
+      }
+      &::after {
+        opacity: 1;
+        transform: rotate(0deg);
+      }
+    }
+  }
+  .token-list-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    margin: 0 10px;
+    & ~ .j-tooltip-icon {
+      margin-left: -4px;
+    }
+  }
+  .selected-icon {
+    display: none;
+    width: 13px;
+    height: 13px;
+    background: url(../../images/wst/selected.svg) 0 0 no-repeat;
+    background-size: cover;
+    transform: translateY(-2px);
+    &.show {
+      display: block;
+    }
+  }
+}
+
+.white {
+  .token-select {
+    .token-list-text {
+      color: #22232b;
+    }
+
+    .token-options {
+      background: #f8f8fe;
+    }
+    .token-title {
+      border-bottom: 1px solid rgba(34, 35, 43, 0.06);
+      > div {
+        color: rgba(34, 35, 43, 0.6);
+      }
+    }
+    .token-select-value {
+      border-right: 1px solid rgba(34, 35, 43, 0.1);
+      &::after {
+        background-image: url(../../images/wst/white-theme/arrow-up-black.svg);
+      }
+    }
+    .token-list {
+      &:hover {
+        background: #4b52df0f;
+      }
+      > div:last-child {
+        color: #22232b;
+      }
+    }
+    .selected-icon {
+      background-image: url(../../images/wst/white-theme/selected.svg);
+    }
   }
 }
 
@@ -3003,7 +3550,7 @@ body .ant-tooltip.j-tooltip-dropdown,
     width: 291px;
   }
   .not-used-icon {
-    padding: 10px 9px 5px;
+    padding: 9px 9px 5px;
     background-size: 71%;
   }
   .j-not-used-ml-20 {
@@ -3057,7 +3604,8 @@ body .ant-tooltip.j-tooltip-dropdown,
       }
     }
     &.j-deal-note-modal,
-    &.j-end-rent-modal {
+    &.j-end-rent-modal,
+    &.j-liquidate-modal {
       .ant-modal-body {
         padding-bottom: 40px;
       }

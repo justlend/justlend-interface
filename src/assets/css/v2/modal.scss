@@ -1,101 +1,3 @@
-.j-transaction-modal {
-  .ant-modal-body {
-    padding: 0;
-    height: 560px;
-    position: relative;
-    border-radius: 10px !important;
-  }
-  .ant-modal-content {
-    height: 560px;
-    max-width: 400px;
-    margin: auto;
-    background-color: transparent;
-  }
-  &.short {
-    .ant-modal-body,
-    .ant-modal-content {
-      height: 388px;
-    }
-  }
-  .trans-title,
-  .trans-body {
-    padding: 0 20px;
-  }
-  .trans-body {
-    padding-bottom: 40px;
-  }
-  .trans-title {
-    height: 64px;
-    line-height: 64px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 16px;
-    color: #ffffff;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  }
-  .trans-icon {
-    margin-top: 60px;
-    > img {
-      width: 66px;
-      height: 66px;
-    }
-
-    @keyframes rotation {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .loading {
-      margin: 10px auto 20px;
-      display: block;
-      transform: rotate(360deg);
-      animation: rotation 2s linear infinite;
-    }
-  }
-  .trans-tips,
-  .trans-tips a,
-  .trans-tips:hover {
-    margin-top: 20px;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
-    color: #ffffff;
-  }
-  .j-large-btn {
-    margin-top: 60px;
-    position: absolute;
-    bottom: 40px;
-    left: calc(50% - 180px);
-    width: 360px;
-
-    &.loading-close {
-      border-radius: 5px;
-      border: 1px solid rgba(145, 149, 251, 0.8);
-      background: #282931;
-      color: #9195fb;
-
-      &:hover {
-        color: #fff;
-        background-color: #4d54ff;
-        border-color: #4d54ff;
-      }
-    }
-  }
-  .typo-text-link {
-    display: inline-block;
-    font-size: 12px;
-    color: #9195fb;
-    margin-top: 10px;
-  }
-}
-.ant-modal-mask {
-  background-color: rgba(0, 0, 0, 0.85) !important;
-}
 @media screen and (max-width: 798px) {
   .j-transaction-modal {
     &.short {
@@ -262,42 +164,6 @@
   }
 }
 
-.j-transaction-modal.white {
-  .ant-modal-header,
-  .ant-modal-body {
-    background: #fff;
-  }
-  .trans-title {
-    color: #22232b;
-    border-bottom: 1px solid rgba(34, 35, 43, 0.06);
-  }
-  .trans-tips,
-  .trans-tips a,
-  .trans-tips:hover {
-    color: rgba(34, 35, 43, 1);
-  }
-  .j-large-btn {
-    margin-top: 60px;
-
-    &.loading-close {
-      border: 1px solid #4d54ff;
-      background: rgba(77, 84, 255, 0.06);
-      color: #4c54ff;
-      &:hover {
-        color: #fff !important;
-        background-color: rgba(77, 84, 255, 1);
-        border-color: rgba(77, 84, 255, 1);
-      }
-      // &:hover {
-      //   opacity: 0.7;
-      // }
-    }
-  }
-  .typo-text-link {
-    color: #4c54ff;
-  }
-}
-
 .j-network-error-modal {
   .network-error {
     padding: 50px 0;
@@ -315,14 +181,6 @@
   .j-large-btn {
     margin-top: 0;
   }
-}
-
-.j-link,
-.j-link:hover {
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  color: #9195fb;
 }
 
 .ant-modal.j-modal {
@@ -385,6 +243,7 @@
     width: 56px !important;
     height: 56px !important;
     background: none !important;
+    user-select: none;
   }
 
   &.white {
@@ -424,10 +283,55 @@
     }
   }
   .j-mr-content {
+    .des {
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      div {
+        font-size: 12px;
+      }
+    }
+    .content-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #22232b;
+      padding-right: 12px;
+      border-radius: 10px;
+    }
     // height: 436px;
-    padding: 20px 15px;
-    background: #22232b;
-    border-radius: 2px;
+    // padding: 20px 15px;
+    border-radius: 10px;
+    .j-ele {
+      background: #22232b;
+    }
+    .rcp-rewards-list {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      align-items: center;
+    }
+    .rcp-reward-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      .rcp-reward-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+      .rcp-reward-amount {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 27px;
+        color: #9195fb;
+      }
+    }
+    .rcp-total-usd {
+      font-size: 12px;
+      color: #ffffff99;
+      margin-top: 4px;
+    }
   }
   .j-top {
     padding-bottom: 16px;
@@ -497,10 +401,18 @@
     }
   }
   .j-ele {
-    background: #282931;
-    border-radius: 2px;
+    &.column {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    background: transparent;
+    border-radius: 10px;
     padding: 15px 12px;
     box-shadow: none;
+    .j-tooltip-icon {
+      transform: translateY(2px);
+    }
     .j-title,
     .j-accuring {
       font-weight: 500;
@@ -514,8 +426,19 @@
       font-size: 14px;
       line-height: 19px;
       color: #ffffff;
-      margin-top: 6px;
+      margin-top: 15px;
       text-align: left;
+      span {
+        &.sn-int {
+          font-size: 14px;
+        }
+        &.sn-decimal {
+          font-size: 12px;
+          span {
+            font-size: 12px;
+          }
+        }
+      }
     }
 
     .j-accuring {
@@ -582,6 +505,19 @@
       font-weight: 500;
       font-size: 12px;
       color: #ffffff;
+      max-width: 200px;
+      text-align: right;
+      span {
+        &.sn-int {
+          font-size: 14px;
+        }
+        &.sn-decimal {
+          font-size: 12px;
+          span {
+            font-size: 12px;
+          }
+        }
+      }
     }
   }
 
@@ -633,7 +569,28 @@
   &.j-mining-reward-modal,
   &.j-reward-modal {
     .ant-modal-body {
+      min-height: 350px;
+      padding-bottom: 20px;
+      .sn-int {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 19px;
+      }
+      .sn-decimal {
+        line-height: 19px;
+        color: rgba($color: #adadb0, $alpha: 0.6);
+        font-size: 16px;
+        font-weight: normal;
+      }
+    }
+    &.no-data .ant-modal-body {
+      min-height: unset;
       padding-bottom: 40px;
+    }
+    &.claim {
+      .ant-modal-body {
+        padding-bottom: 40px;
+      }
     }
   }
   &.j-reward-modal {
@@ -803,49 +760,130 @@
   }
   .rewards-list-title {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; // 两端对齐改为 Space Between
     align-items: center;
-    padding: 20px 20px 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 20px 15px 16px;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
     > span {
       font-weight: 500;
       font-size: 12px;
       line-height: 17px;
       color: rgba(255, 255, 255, 0.6);
+
+      &:nth-child(1) {
+        width: 30%;
+      }
+      &:nth-child(2) {
+        width: 50%;
+        text-align: left;
+      }
+      &:nth-child(3) {
+        width: 20%;
+      }
     }
   }
   .rewards-list-content {
-    height: 120px;
-    padding: 0 15px;
+    padding: 0;
     overflow-y: scroll;
-    .ant-checkbox-group {
-      display: block;
-    }
+
     .j-reward-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-      .j-value,
-      .j-reward-unit {
-        font-weight: 600;
-        font-size: 14px;
+      padding: 15px 0;
+      margin-bottom: 0;
+
+      .j-checkbox {
+        width: 30%;
+        font-weight: 400;
+        font-size: 12px;
         line-height: 20px;
-        text-align: right;
         color: #ffffff;
       }
+
+      .reward-amount-col {
+        width: 48%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        text-align: left;
+
+        .j-value {
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 1.5;
+          text-align: left;
+          color: #ffffff;
+
+          span {
+            margin-right: 4px;
+            &.sn-int {
+              margin-right: 0;
+              font-size: 14px;
+            }
+            &.sn-decimal {
+              font-size: 12px;
+              span {
+                font-size: 12px;
+              }
+            }
+          }
+        }
+      }
+
+      // 右侧：按钮
+      .claim-btn-col {
+        width: 22%;
+        display: inline-flex;
+        justify-content: flex-end;
+
+        .j-btn {
+          height: 32px;
+          line-height: 32px; // 确保文字垂直居中
+          font-size: 12px;
+          padding: 0 15px 0 32px;
+          border: none;
+          margin: 0;
+          min-width: 71px;
+          white-space: nowrap;
+          color: rgba(255, 255, 255, 0.9);
+          animation: none !important;
+          // transform: none !important;
+          transition: background-color 0.3s, color 0.3s;
+          background: rgba(57, 58, 65, 1) url(../../images/v2/account/reward-btn-icon.svg) 15px 10px no-repeat;
+          &:hover {
+            color: #9195fb;
+          }
+          &.j-signing {
+            position: relative;
+            background: rgba(57, 58, 65, 1);
+            color: rgba(145, 149, 251, 1);
+            animation: none !important;
+            &::after {
+              content: '';
+              position: absolute;
+              left: 15px;
+              top: 9px;
+              width: 12px;
+              height: 12px;
+              background: url(../../images/v2/signing-icon.png) no-repeat center center;
+              background-size: contain;
+              animation: rotation 2s linear infinite !important;
+            }
+          }
+        }
+      }
+
+      // 禁用态样式
       &.j-reward-item-disabled {
         .j-value,
         .j-reward-unit {
           color: rgba(255, 255, 255, 0.4);
         }
       }
-    }
-    .j-checkbox span {
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 20px;
-      color: #ffffff;
     }
   }
   .rewards-lists {
@@ -854,6 +892,13 @@
     border-radius: 2px;
     > div {
       background: #22232b;
+
+      &.pr {
+        border-radius: 0 0 10px 10px;
+        padding: 0 15px;
+        height: 200px;
+        overflow-y: scroll;
+      }
     }
 
     .ant-checkbox-inner {
@@ -913,10 +958,47 @@
   }
 }
 
-.j-wrapper.white {
+// Mirror the white-theme rules onto the modal classes themselves so the
+// JLv2 vault detail page (which renders the mining modals at body root, not
+// inside a .j-wrapper) still gets light cards / text instead of the dark
+// defaults. Without this fork the modal body switches to white via
+// .ant-modal.white .ant-modal-body, but the inner .j-mining-reward / .j-rewards
+// sub-cards stay dark.
+.j-wrapper.white,
+.ant-modal.j-mining-reward-modal.white,
+.ant-modal.j-reward-modal.white {
+  .j-mining-reward .j-mr-content .des {
+    color: rgba(34, 35, 43, 0.6);
+  }
+  .j-rewards .rewards-list-content .j-reward-item .claim-btn-col .j-btn.j-signing {
+    background: rgba(237, 238, 252, 1) !important;
+    color: rgba(76, 84, 255, 1) !important;
+    border: none !important;
+  }
+  .j-rewards .rewards-list-content .j-reward-item .claim-btn-col .j-btn {
+    color: rgba(34, 35, 43, 0.9);
+    background: rgba(237, 238, 252, 1) url(../../images/v2/account/reward-btn-icon.svg) 15px 10px no-repeat;
+  }
+  // Inner selector intentionally has no `.ant-modal.j-...modal` prefix so it
+  // applies to both the .j-wrapper.white descendant case AND the modal-self
+  // case (when portal'd to body — JLv2 dashboard wraps in .jlv2-bg.white,
+  // not .j-wrapper, so the wrapper-prefix variant misses it).
+  .ant-modal-body .sn-decimal {
+    color: rgba(34, 35, 43, 0.6);
+  }
+  // Same problem as .sn-decimal — the dark theme leaves a stray vertical
+  // border on the right of .scroll-bar that turns into a visible dark line
+  // on the white modal. Override here so the rule rides both scopes.
+  .scroll-bar,
+  .scroll-bar.rewards-list-content {
+    border-right-color: #f8f8fe;
+  }
   .j-mining-reward {
     .j-mr-content {
-      background: #f8f8fe;
+      background: transparent;
+      .content-top {
+        background: rgb(248, 248, 254);
+      }
     }
     .j-top {
       background-image: url(../../images/v2/white-theme/account/mining-bg.png);
@@ -956,7 +1038,8 @@
       }
     }
     .j-ele {
-      background: #fff;
+      background: rgba(248, 248, 254, 1);
+      box-shadow: none;
       .j-title,
       .j-accuring {
         color: rgba(34, 35, 43, 0.6);
@@ -1020,7 +1103,7 @@
       }
     }
     .rewards-list-title {
-      border-top-color: rgba(34, 35, 43, 0.06);
+      border-bottom-color: rgba(34, 35, 43, 0.06);
       > span {
         color: rgba(34, 35, 43, 0.6);
       }
@@ -1197,7 +1280,41 @@
   }
 }
 
+// Modal-frame white theme. The block at theme.scss `.j-wrapper.white div.ant-modal.j-modal {…}`
+// only covers V1 pages where the modal renders inside `.j-wrapper`. JLv2 vault
+// detail page renders the mining modals at body root with `.white` on the
+// modal itself, so we mirror the frame styles directly here. .j-reward-modal
+// also has its own dark `.ant-modal-content { background: #282931 }` rule that
+// has to be reverted in white theme.
+.ant-modal.j-mining-reward-modal.white,
+.ant-modal.j-reward-modal.white {
+  .ant-modal-header,
+  .ant-modal-body {
+    background-color: #ffffff;
+    .ant-modal-title {
+      color: #22232b;
+    }
+  }
+  .ant-modal-content {
+    background: #fff;
+  }
+  .anticon-close {
+    background-image: url(../../images/v2/white-theme/modal-close.svg);
+  }
+}
+
 @media screen and (max-width: 798px) {
+  .j-rewards .rewards-lists > div.pr {
+    padding: 0 10px;
+  }
+  .ant-modal.j-mining-reward-modal .ant-modal-body,
+  .ant-modal.j-reward-modal .ant-modal-body {
+    min-height: unset;
+    padding-bottom: 40px;
+  }
+  .j-mining-reward .j-ele .j-value span.sn-int {
+    font-size: 12px;
+  }
   .j-wrapper.white .j-rewards.j-allowance .rewards-icon {
     background: url(../../images/v2/energy-rent/rewards-white.png) no-repeat;
     background-size: 50px;
@@ -1225,9 +1342,6 @@
       .j-reward-unit {
         font-family: 'DM Sans-Medium';
       }
-    }
-    .j-mr-content {
-      height: 448px;
     }
   }
   .j-rewards {
@@ -1260,6 +1374,12 @@
         width: 70px;
         height: 70px;
       }
+    }
+  }
+
+  .j-network-error-modal {
+    &.ant-modal.j-modal .ant-modal-body {
+      padding: 0 15px 40px;
     }
   }
 }

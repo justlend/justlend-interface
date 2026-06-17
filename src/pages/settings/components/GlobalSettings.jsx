@@ -56,7 +56,7 @@ class GlobalSettings extends React.Component {
         'event_label': 'portfolio_setting_globalsetting_clickDark'
       });
     }
-    this.props.lend.setData({ theme: e.target.value });
+    this.props.lend.setTheme(e.target.value);
     window.localStorage.setItem('theme', e.target.value);
   };
 
@@ -88,7 +88,7 @@ class GlobalSettings extends React.Component {
     const code = await this.props.settings.setLanguage(defaultAccount, e.target.value);
 
     if (code === 0) {
-      this.props.lend.setData({ lang: e.target.value });
+      this.props.lend.setLang(e.target.value);
       window.localStorage.setItem('lang', e.target.value);
 
       setTimeout(() => {

@@ -450,6 +450,7 @@ div.vote-old-withdraw-modal-v2 {
     width: 56px !important;
     height: 56px !important;
     background: none !important;
+    user-select: none;
   }
 
   .ant-modal-content {
@@ -492,15 +493,12 @@ div.vote-old-withdraw-modal-v2 {
     // max-width: 100%;
 
     &::-webkit-scrollbar {
-      /*滚动条整体样式*/
       width: 1px;
-      /*高宽分别对应横竖滚动条的尺寸*/
       height: 40px;
       display: none;
     }
 
     &::-webkit-scrollbar-thumb {
-      /*滚动条里面小方块*/
       max-height: 40px;
       border-radius: 1px;
       background-color: rgba(255, 255, 255, 0.1);
@@ -754,15 +752,12 @@ div.vote-old-withdraw-modal-v2 {
       border-radius: 2px;
 
       &::-webkit-scrollbar {
-        /*滚动条整体样式*/
         width: 1px;
-        /*高宽分别对应横竖滚动条的尺寸*/
         height: 40px;
         // display: none;
       }
 
       &::-webkit-scrollbar-thumb {
-        /*滚动条里面小方块*/
         max-height: 40px;
         border-radius: 1px;
         background-color: rgba(34, 35, 43, 0.2);

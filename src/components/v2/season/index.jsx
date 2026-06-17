@@ -6,6 +6,7 @@ import { Config } from '../../../config';
 
 @inject('network')
 @inject('lend')
+@inject('market')
 @observer
 class SeasonToolBar extends React.Component {
   constructor(props) {
@@ -17,18 +18,22 @@ class SeasonToolBar extends React.Component {
 
   render() {
     const { isConnected } = this.props.network;
+    const { fullNodeError } = this.props.lend;
+    const list = ['home', 'market', 'marketDetail', 'vault', 'dashboard', 'marketV2'];
+
     return (
       <div className="pr">
         <section
           className="season-toolbar"
           style={{ display: this.props.lend.serviceInnerStatus === 'continue' && isConnected ? 'flex' : 'none' }}
         >
-          {this.props.pageName === 'home' || this.props.pageName === 'market' || this.props.pageName === 'marketDetail'
-            ? this.props.lend.continueWhileDisabled && isConnected
+          {list.includes(this.props.pageName)
+            ? this.props.market.continueWhileDisabled && isConnected
               ? intl.get('season.top_tip2')
               : intl.get('season.top_tip1')
             : intl.get('season.top_tip1')}
         </section>
+        {fullNodeError && <section className="season-toolbar">{intl.get('s11.tips2')}</section>}
         {!!Config.winterThemeVisible && (
           <div className="snow-bar">
             <div className="snow-bar-left"></div>

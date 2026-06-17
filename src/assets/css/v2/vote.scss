@@ -290,6 +290,15 @@
         margin-top: 0;
       }
 
+      .ant-tooltip.j-tooltip-dropdown.right-warning {
+        left: unset !important;
+        right: 0 !important;
+        max-width: 280px !important;
+        .ant-tooltip-arrow {
+          right: calc(100% - 80px) !important;
+        }
+      }
+
       .ticket-icon {
         background: url(../../images/v2/vote-detail/vote.svg) no-repeat center;
         width: 18px;
@@ -338,6 +347,20 @@
           font-size: 16px;
           line-height: 28px;
           color: #9195fb;
+          .warning-tag {
+            padding: 5px 12px 5px 30px;
+            margin-left: 10px;
+            background: rgba($color: #fff, $alpha: 0.08) url(../../images/v2/vote/warning-tag.svg) no-repeat 12px center;
+            color: #b3b4b7;
+            border-radius: 2px;
+            position: relative;
+            &:hover {
+              color: #fff;
+            }
+            .ant-tooltip.j-tooltip-dropdown.left-warning {
+              left: 0 !important;
+            }
+          }
         }
 
         .vote-btn {
@@ -1147,6 +1170,7 @@
     width: 56px !important;
     height: 56px !important;
     background: none !important;
+    user-select: none;
   }
 
   .ant-divider {
@@ -1409,6 +1433,45 @@
       }
     }
 
+    .approve-tip {
+      position: absolute;
+      bottom: 90px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      > span {
+        font-size: 12px;
+        line-height: 20px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.6);
+        &:first-child {
+          min-width: 12px;
+          width: 12px;
+          height: 12px;
+          background-image: url(../../images/v2/warning-yellow-icon.svg);
+          background-size: contain;
+          margin-right: 6px;
+        }
+      }
+      .j-tooltip-icon {
+        margin-left: 6px;
+      }
+
+      a {
+        color: #9195fb;
+        &:before {
+          background: url(../../images/v2/arrow-right-purple.svg) 0 0 no-repeat;
+        }
+        &:after {
+          background: #9195fb;
+        }
+
+        &:hover {
+          color: #9195fb;
+        }
+      }
+    }
+
     .tx-failed {
       font-style: normal;
       font-weight: 400;
@@ -1531,6 +1594,18 @@
     .exceed-remain-votes {
       background: #f8f8fe;
       border-radius: 2px;
+    }
+
+    .approve-tip {
+      > span {
+        color: rgba(34, 35, 43, 0.6);
+        &:first-child {
+          background-image: url(../../images/v2/white-theme/warning-yellow-icon.svg);
+        }
+      }
+      .j-tooltip-icon {
+        background: url(../../images/v2/white-theme/tooltip-icon.svg);
+      }
     }
 
     .modal-btn {
@@ -1814,6 +1889,13 @@
       .p-first-row {
         .p-title {
           color: #4c54ff;
+          .warning-tag {
+            background: #22232b14 url(../../images/v2/vote/warning-tag.svg) no-repeat 12px center;
+            color: #22232b99;
+            &:hover {
+              color: #22232b;
+            }
+          }
         }
       }
 

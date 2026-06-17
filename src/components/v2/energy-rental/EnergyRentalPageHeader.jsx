@@ -28,18 +28,6 @@ class EnergyRentalPageHeader extends React.Component {
           <div>
             <div className="page-title">
               <div className="title-text green-line">{intl.get('energy_rental.page_header.title')}</div>
-              <Link
-                to={'/energy?lang=' + lang}
-                className="classic-version-link"
-                onClick={() => {
-                  window.gtag('event', 'click', {
-                    'event_category': 'energyrent',
-                    'event_label': 'energyrent_pro_click_swicthtoOld'
-                  });
-                }}
-              >
-                {intl.get('energy_rental.page_header.classic_btn')}
-              </Link>
             </div>
 
             <div className="j-announce">
@@ -47,7 +35,7 @@ class EnergyRentalPageHeader extends React.Component {
               <a
                 className="announce-content"
                 onClick={() => {
-                  window.gtag('event', 'click', {
+                  window.gtag('event', 'energyrent_pro_click_announce', {
                     'event_category': 'energyrent',
                     'event_label': 'energyrent_pro_click_announce'
                   });
@@ -64,7 +52,7 @@ class EnergyRentalPageHeader extends React.Component {
           <div className="jl-feedback">
             <div className="feedback-link">
               <em className="feedback-icon"></em>
-              <a className="jl-links" href={feedbackUrl} target="feedback">
+              <a className="jl-links purple-link-btn" href={feedbackUrl} target="feedback">
                 {intl.get('liquidate.feedback')}
               </a>
             </div>

@@ -1,32 +1,29 @@
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import React from 'react';
+import Stores from '../../stores';
 import '../../assets/css/v2/components/simple-link.scss';
 
-@inject('lend')
-@observer
-class SimpleLink extends React.Component {
-  render() {
-    const { lang, theme } = this.props.lend;
-    const { href, children, showArrow = true, className, ...others } = this.props;
-    const innerContent = (
-      <>
-        <span className={`link-text ${lang}`}>{children}</span>
-        {showArrow ? <span className="link-arrow"></span> : null}
-      </>
-    );
-    if (href) {
-      return (
-        <a className={`simple-link ${theme} ${className ? ' ' + className : ''}`} {...others} href={href}>
-          {innerContent}
-        </a>
-      );
-    }
+const SimpleLink = observer(({ href = '', children = null, showArrow = true, className = '', ...others }) => {
+  const { lend } = Stores;
+  const { lang, theme } = lend;
+  const innerContent = (
+    <>
+      <span className={`link-text ${lang}`}>{children}</span>
+      {showArrow ? <span className="link-arrow"></span> : null}
+    </>
+  );
+  if (href) {
     return (
-      <div className={`simple-link ${theme} ${className ? ' ' + className : ''}`} {...others}>
+      <a className={`simple-link ${theme} ${className ? ' ' + className : ''}`} {...others} href={href}>
         {innerContent}
-      </div>
+      </a>
     );
   }
-}
+  return (
+    <div className={`simple-link ${theme} ${className ? ' ' + className : ''}`} {...others}>
+      {innerContent}
+    </div>
+  );
+});
 
 export { SimpleLink };

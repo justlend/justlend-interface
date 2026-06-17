@@ -7,16 +7,18 @@ import Header from '../../components/v2/Header';
 import TabsBar from '../../components/v2/mobile/TabsBar';
 import SeasonToolBar from '../../components/v2/season/index';
 import DepositBorrowRecords from './components/depositBorrowRecords';
-import CDPRecords from './components/CDPRecords';
+import SBMV2Records from './components/SBMV2Records';
 import RentRecords from './components/rentRecords';
 import StrxRecords from './components/strxRecords';
 import VoteRecords from './components/voteRecords';
+import RecordDetail from './components/RecordDetail';
 import LiquidationRecords from './components/liquidateRecords';
 import Footer from '../../components/v2/Footer';
 import { BigNumber, getParameterByName, goToPage } from '../../utils/helper';
 import { updateLastSeenTime } from './utils/backend';
 import '../../assets/css/userRecords.scss';
 import '../../assets/css/userRecords-skeleton.scss';
+import '../../assets/css/v2/theme.scss';
 const { TabPane } = Tabs;
 const { Option } = Select;
 
@@ -32,8 +34,10 @@ class UserRecordsPage extends React.Component {
     this.state = {
       lang: window.localStorage.getItem('lang') || intl.options.currentLocale,
       mobile: isMobile(window.navigator).any,
-      currentTabKey: getParameterByName('tab') === 'liquidate' ? '2' : '1',
-      activeDataKey: getParameterByName('tab') === 'liquidate' ? '6' : '1',
+      activeTab:
+        (['SBMV1', 'SBMV2', 'Strx', 'Rent', 'Vote', 'Liquidate'].includes(getParameterByName('tab')) &&
+          getParameterByName('tab')) ||
+        'SBMV1',
       selectOpen: false,
       isMac: true
     };
@@ -47,15 +51,17 @@ class UserRecordsPage extends React.Component {
       'event_category': 'portfolio',
       'event_label': 'portfolio_records_UV'
     });
-    this.props.network.setData({ routeName: 'userRecords' });
+
+    this.props.network.setRouteName('userRecords');
     const { isConnected } = this.props.network;
 
-    await this.props.userRecords.setVariablesInterval();
+    // await this.props.userRecords.setVariablesInterval();
     document.title = 'Records - JustLend DAO';
 
     if (isConnected) {
       await this.props.userRecords.setVariablesInterval();
     } else {
+      this.props.lend.getCurrentBlock();
       await this.props.network.on('connect', async () => {
         this.props.userRecords.setVariablesInterval();
       });
@@ -96,7 +102,7 @@ class UserRecordsPage extends React.Component {
       lastSeenTimestamp: new Date().getTime(),
       accessToken: await this.props.settings.encryptSignInfo('lend')
     });
-    await this.props.userRecords.getLiquidityRecordsData();
+    // await this.props.userRecords.getLiquidityRecordsData();
   };
 
   componentWillUnmount() {
@@ -118,60 +124,57 @@ class UserRecordsPage extends React.Component {
   };
 
   tabChange = key => {
-    if (key === '1') {
-      window.gtag('event', 'portfolio_records_clickUserAuction', {
-        'event_category': 'portfolio',
-        'event_label': 'portfolio_records_clickUserAuction'
-      });
-    } else if (key === '2') {
-      window.gtag('event', 'portfolio_records_clickLiquidation', {
-        'event_category': 'portfolio',
-        'event_label': 'portfolio_records_clickLiquidation'
-      });
-      window.gtag('event', 'portfolio_records_liquidation_PV', {
-        'event_category': 'portfolio',
-        'event_label': 'portfolio_records_liquidation_PV'
-      });
-      window.gtag('event', 'portfolio_records_liquidation_UV', {
-        'event_category': 'portfolio',
-        'event_label': 'portfolio_records_liquidation_UV'
-      });
-    }
-    this.setState({ activeDataKey: key === '1' ? key : '6', currentTabKey: key });
-    this.props.userRecords.setData({ currentPageNumber: 1 });
+    // if (key === '1') {
+    window.gtag('event', 'portfolio_records_clickUserAuction', {
+      'event_category': 'portfolio',
+      'event_label': 'portfolio_records_clickUserAuction'
+    });
+    
+    // } else if (key === '2') {
+    //   window.gtag('event', 'portfolio_records_clickLiquidation', {
+    //     'event_category': 'portfolio',
+    //     'event_label': 'portfolio_records_clickLiquidation'
+    //   });
+    //   window.gtag('event', 'portfolio_records_liquidation_PV', {
+    //     'event_category': 'portfolio',
+    //     'event_label': 'portfolio_records_liquidation_PV'
+    //   });
+    //   window.gtag('event', 'portfolio_records_liquidation_UV', {
+    //     'event_category': 'portfolio',
+    //     'event_label': 'portfolio_records_liquidation_UV'
+    //   });
+    // }
+    this.setState({ activeTab: key });
+    this.props.userRecords.setOneData('currentPageNumber', 1);
   };
 
   getRecordsLength = () => {
-    const { activeDataKey } = this.state;
+    const { activeTab } = this.state;
     const {
       depositBorrowTotalCount,
       liquidationTotalCount,
-      CDPTotalCount,
       rentTotalCount,
       voteTotalCount,
-      strxTotalCount
+      strxTotalCount,
+      SBMV2TotalCount
     } = this.props.userRecords;
-    if (activeDataKey === '1') return depositBorrowTotalCount ?? 0;
-    if (activeDataKey === '2') return strxTotalCount ?? 0;
-    if (activeDataKey === '3') return rentTotalCount ?? 0;
-    if (activeDataKey === '4') return voteTotalCount ?? 0;
-    if (activeDataKey === '5') return CDPTotalCount ?? 0;
-    if (activeDataKey === '6') return liquidationTotalCount ?? 0;
+    if (activeTab === 'SBMV1') return depositBorrowTotalCount ?? 0;
+    if (activeTab === 'SBMV2') return SBMV2TotalCount ?? 0;
+    if (activeTab === 'Strx') return strxTotalCount ?? 0;
+    if (activeTab === 'Rent') return rentTotalCount ?? 0;
+    if (activeTab === 'Vote') return voteTotalCount ?? 0;
+    if (activeTab === 'Liquidate') return liquidationTotalCount ?? 0;
     return '--';
   };
 
-  actionTypeSelectOnChange = key => {
-    this.setState({ selectOpen: false, activeDataKey: key });
-    this.props.userRecords.setData({ currentPageNumber: 1 });
-  };
-
   renderActionRecords = () => {
-    const { activeDataKey } = this.state;
-    if (activeDataKey === '1') return <DepositBorrowRecords />;
-    if (activeDataKey === '2') return <StrxRecords />;
-    if (activeDataKey === '3') return <RentRecords />;
-    if (activeDataKey === '4') return <VoteRecords />;
-    if (activeDataKey === '5') return <CDPRecords />;
+    const { activeTab } = this.state;
+    if (activeTab === 'SBMV1') return <DepositBorrowRecords />;
+    if (activeTab === 'SBMV2') return <SBMV2Records />;
+    if (activeTab === 'Strx') return <StrxRecords />;
+    if (activeTab === 'Rent') return <RentRecords />;
+    if (activeTab === 'Vote') return <VoteRecords />;
+    if (activeTab === 'Liquidate') return <LiquidationRecords />;
   };
 
   renderSkeleton = () => {
@@ -250,7 +253,7 @@ class UserRecordsPage extends React.Component {
         </div>
         <div className="content-skeleton-row">
           <div className="content-title-skeleton-row">
-            <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active className="title-skeleton" />
+            <Skeleton title={false} paragraph={{ rows: 1, width: '120%' }} active className="title-skeleton" />
             <Skeleton title={false} paragraph={{ rows: 1, width: '100%' }} active className="title-skeleton" />
           </div>
           <div className="skeleton-space" />
@@ -260,8 +263,51 @@ class UserRecordsPage extends React.Component {
     );
   };
 
+  getTabItems = () => {
+    const tabItems = [
+      {
+        key: 'SBMV1',
+        label: intl.get('jlv2.record.sbmv1'),
+        desc: intl.getHTML('jlv2.record.record_tips1')
+      },
+      {
+        key: 'SBMV2',
+        label: (
+          <div className="pr">
+            {intl.get('jlv2.record.sbmv2')}
+            <em className="records-v2"></em>
+          </div>
+        ),
+        desc: intl.getHTML('jlv2.record.record_tips2'),
+        icon: 'JLv2'
+      },
+      {
+        key: 'Strx',
+        label: intl.get('jlv2.record.strx'),
+        desc: intl.getHTML('jlv2.record.record_tips3')
+      },
+      {
+        key: 'Rent',
+        label: intl.get('jlv2.record.tron_resource'),
+        desc: intl.getHTML('jlv2.record.record_tips4')
+      },
+      {
+        key: 'Vote',
+        label: intl.get('jlv2.record.vote'),
+        desc: intl.getHTML('jlv2.record.record_tips5')
+      },
+      {
+        key: 'Liquidate',
+        label: intl.get('jlv2.record.liquidate_penalty'),
+        desc: intl.getHTML('jlv2.record.record_tips6')
+      }
+    ];
+
+    return tabItems;
+  };
+
   render() {
-    const { activeDataKey, currentTabKey, mobile, selectOpen, isMac } = this.state;
+    const { activeTab, mobile, selectOpen, isMac } = this.state;
     const { theme, lang } = this.props.lend;
     const { isLoading } = this.props.userRecords;
     const amount = this.getRecordsLength();
@@ -269,59 +315,33 @@ class UserRecordsPage extends React.Component {
     return (
       <div className={'j-wrapper user-records-page ' + theme}>
         <Header
-          // instantActions={this.getLiquidityData}
           mountedActions={this.getLiquidityData}
+          instantActions={null}
           classNames={'transparent-bg'}
           hideRecordSign={true}
-        ></Header>
+        />
         {!isLoading ? (
           <div className="user-records-container">
             <SeasonToolBar pageName="userRecords" />
-            <div className="user-records-title">{intl.get('user_records.records')}</div>
+            <div className="user-records-title">{intl.get('jlv2.record.transaction_record')}</div>
             <div className={'user-records-content ' + lang}>
-              <Tabs activeKey={currentTabKey} onChange={this.tabChange} className="records-tab">
-                <TabPane tab={intl.get('user_records.action_records')} key="1">
-                  {mobile && BigNumber(amount).gt(0) && (
-                    <span className="statistics">{intl.get('user_records.total_records', { amount })}</span>
-                  )}
-                  {this.renderActionRecords()}
-                </TabPane>
-                <TabPane tab={intl.get('liquidation_records.records')} key="2">
-                  {mobile && BigNumber(amount).gt(0) && (
-                    <span className="statistics">{intl.get('user_records.total_records', { amount })}</span>
-                  )}
-                  <LiquidationRecords />
-                </TabPane>
+              <Tabs activeKey={activeTab} onChange={this.tabChange} className="records-tab">
+                {this.getTabItems().map(item => (
+                  <TabPane tab={item.label} key={item.key}>
+                    <div className="record-desc">{item.desc}</div>
+                    {this.renderActionRecords()}
+                  </TabPane>
+                ))}
               </Tabs>
-              <div className={'action-types ' + (isMac ? '' : 'not-mac')}>
-                {currentTabKey === '1' && (
-                  <Select
-                    value={activeDataKey}
-                    open={selectOpen}
-                    dropdownClassName={'user-records-select ' + theme}
-                    dropdownMatchSelectWidth={156}
-                    onMouseEnter={() => this.setState({ selectOpen: true })}
-                    onMouseDown={() => this.setState({ selectOpen: true })}
-                    onMouseLeave={() => this.setState({ selectOpen: false })}
-                    onChange={e => this.actionTypeSelectOnChange(e)}
-                    dropdownAlign={{ offset: [0, 10] }}
-                  >
-                    <Option value="1">{intl.get('supply_and_borrow_records.supply_and_borrow')}</Option>
-                    <Option value="2">{intl.get('strx_records.strx')}</Option>
-                    <Option value="3">{intl.get('energy_rental_records.energy_rental')}</Option>
-                    <Option value="4">{intl.get('vote_records.vote')}</Option>
-                    <Option value="5">{intl.get('cdp_records.cdp')}</Option>
-                  </Select>
-                )}
-                {!mobile && BigNumber(amount).gt(0) && (
-                  <span className="statistics">{intl.get('user_records.total_records', { amount })}</span>
-                )}
-              </div>
+              {BigNumber(amount).gt(0) && (
+                <span className="statistics">{intl.get('user_records.total_records', { amount })}</span>
+              )}
             </div>
           </div>
         ) : (
           this.renderSkeleton()
         )}
+        <RecordDetail />
         <Footer />
         <div>
           <TabsBar theme={theme} />

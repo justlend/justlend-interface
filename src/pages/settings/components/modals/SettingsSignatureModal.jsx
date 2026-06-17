@@ -32,7 +32,13 @@ class SettingsSignatureModal extends React.Component {
   };
 
   onClickSignNow = async () => {
-    const { defaultAccount, isLedgerConnected, isWalletConnected } = this.props.network;
+    const {
+      defaultAccount,
+      isLedgerConnected,
+      isWalletConnectConnected: isWalletConnected,
+      walletType: connectedWallet,
+      currentAppName
+    } = this.props.network;
     const { isSigning } = this.state;
 
     if (isSigning) {
@@ -65,6 +71,13 @@ class SettingsSignatureModal extends React.Component {
           signError: intl.get('settings.bind_email_modal.server_error')
         });
       }
+    } else if (connectedWallet === 'binance' || currentAppName === 'imToken Wallet') {
+      saveSignInfoToLocalStorage('', '', '');
+
+      this.setState({
+        isSigning: false,
+        signError: currentAppName === 'imToken Wallet' ? intl.get('not_support_im') : intl.get('not_support')
+      });
     } else {
       saveSignInfoToLocalStorage('', '', '');
 
@@ -82,6 +95,7 @@ class SettingsSignatureModal extends React.Component {
     });
     const { mobile, isSigning, signError } = this.state;
     const { theme } = this.props.lend;
+    const { currentAppName } = this.props.network;
 
     const { settingsSignatureModalVisible } = this.props.settings;
 
@@ -115,15 +129,16 @@ class SettingsSignatureModal extends React.Component {
               onClick={() => {
                 this.onClickSignNow();
               }}
+              disabled={currentAppName === 'imToken Wallet'}
             >
               {intl.get('settings.signature_modal.sign_btn')}
             </button>
           )}
 
-          {signError && (
+          {(signError || currentAppName === 'imToken Wallet') && (
             <div className="j-error-tip wallet-reject">
               <span className="j-error-img"></span>
-              <div>{signError}</div>
+              <div>{currentAppName === 'imToken Wallet' ? intl.get('not_support_im') : signError}</div>
             </div>
           )}
         </div>

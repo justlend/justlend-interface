@@ -2,6 +2,8 @@
 #root .j-user-list {
   // max-width: 790px;
   width: 100%;
+  min-width: 0;
+  overflow: hidden;
   border-radius: 10px;
   .j-nodata {
     padding: 30px;
@@ -479,13 +481,11 @@
       padding-bottom: 44px;
       border-right: 1px solid transparent;
       &::-webkit-scrollbar {
-        /*滚动条整体样式*/
-        width: 1px; /*高宽分别对应横竖滚动条的尺寸*/
+        width: 1px;
         height: 40px;
         display: none;
       }
       &::-webkit-scrollbar-thumb {
-        /*滚动条里面小方块*/
         max-height: 40px;
         border-radius: 1px;
         background-color: rgba(255, 255, 255, 0.1);

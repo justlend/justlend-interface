@@ -1,4 +1,4 @@
-import ReactEcharts from 'echarts-for-react';
+import ReactEcharts from 'echarts-for-react/lib';
 import { inject, observer } from 'mobx-react';
 import Intl from 'react-intl-universal';
 import React, { Component } from 'react';
@@ -28,11 +28,20 @@ class MarketChart extends Component {
     this.echartRef = null;
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     this.hideTooltip();
     setTimeout(() => {
       this.showTooltipForCurrentData();
     });
+    if (this.echartRef) {
+      this.echartRef.getEchartsInstance().resize();
+    }
+  }
+  componentWillUnmount() {
+    const chartInstance = this.echartRef?.getEchartsInstance();
+    if (chartInstance) {
+      chartInstance.dispose();
+    }
   }
   getEchartsOption() {
     const { voteApy = 0, type, totalApy } = this.props;
@@ -68,11 +77,17 @@ class MarketChart extends Component {
   };
 
   initRef = e => {
-    this.echartRef = e;
+    if (e && e.getEchartsInstance) {
+      this.echartRef = e;
+    }
   };
 
   onChartReady = () => {
-    setTimeout(this.showTooltipForCurrentData, 800);
+    setTimeout(() => {
+      if (this.props.dataList?.length) {
+        this.showTooltipForCurrentData();
+      }
+    }, 1000);
   };
 
   showTooltipForCurrentData = () => {
@@ -157,6 +172,8 @@ function getChartOptions({ theme, dataList, type, isMobile, labelStatus }) {
     : xData.map((item, index) => {
         return [item, trxData[index]];
       });
+  const currentIndex = dataList.findIndex(item => item.current);
+  const axisPointerValue = currentIndex !== -1 ? xData[currentIndex] : xData[0];
   return {
     // background: 'transparent',
     color: [
@@ -170,21 +187,21 @@ function getChartOptions({ theme, dataList, type, isMobile, labelStatus }) {
           ? [
               {
                 offset: 0,
-                color: '#9195FB'
+                color: '#9195FB' // 0%
               },
               {
                 offset: 1,
-                color: '#18C19F'
+                color: '#18C19F' // 100%
               }
             ]
           : [
               {
                 offset: 0,
-                color: '#1BDCB5'
+                color: '#1BDCB5' // 0%
               },
               {
                 offset: 1,
-                color: '#5FD2EB'
+                color: '#5FD2EB' // 100%
               }
             ],
         global: false
@@ -199,21 +216,21 @@ function getChartOptions({ theme, dataList, type, isMobile, labelStatus }) {
           ? [
               {
                 offset: 0,
-                color: 'rgba(29, 192, 163, 0)'
+                color: 'rgba(29, 192, 163, 0)' // 0%
               },
               {
                 offset: 1,
-                color: 'rgba(146, 150, 251, 0.3)'
+                color: 'rgba(146, 150, 251, 0.3)' // 100%
               }
             ]
           : [
               {
                 offset: 0,
-                color: 'rgba(29, 192, 163, 0)'
+                color: 'rgba(29, 192, 163, 0)' // 0%
               },
               {
                 offset: 1,
-                color: 'rgba(134, 255, 231, 0.3)'
+                color: 'rgba(134, 255, 231, 0.3)' // 100%
               }
             ],
         global: false
@@ -227,12 +244,12 @@ function getChartOptions({ theme, dataList, type, isMobile, labelStatus }) {
       containLabel: true
     },
     tooltip: {
+      show: true,
       trigger: 'axis',
       showContent: true,
       extraCssText: 'z-index: 999',
       position: isMobile ? ['10%', '20%'] : undefined,
       // position: function (pos, params, dom, rect, size) {
-
       //   var obj = { top: 10 };
       //   obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
       //   return obj;
@@ -300,7 +317,7 @@ function getChartOptions({ theme, dataList, type, isMobile, labelStatus }) {
       }
     },
     xAxis: {
-      type: 'value',
+      type: 'category',
       // interval: 10,
       data: xData,
       boundaryGap: false,
@@ -322,7 +339,8 @@ function getChartOptions({ theme, dataList, type, isMobile, labelStatus }) {
         }
       },
       axisPointer: {
-        value: dataList.findIndex(item => item.current) || 0,
+        show: true,
+        value: axisPointerValue,
         label: {
           show: labelStatus,
           formatter: function (params, text) {

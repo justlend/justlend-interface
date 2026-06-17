@@ -4,10 +4,16 @@ import React from 'react';
 import '../../../assets/css/v2/home/recommend-liquidity-stake.scss';
 import { goToPage, formatNumber } from '../../../utils/helper';
 import intl from 'react-intl-universal';
+import config from '../../../config';
+import MiningDImg from '../../../assets/images/v2/usdd/Mining-default.png';
+import MiningDLImg from '../../../assets/images/v2/usdd/Mining-default-long.png';
+import MiningWImg from '../../../assets/images/v2/usdd/Mining-white.png';
+import MiningWLImg from '../../../assets/images/v2/usdd/Mining-white-long.png';
 
 @inject('network')
 @inject('lend')
 @inject('strx')
+@inject('user')
 @observer
 class RecommendLiquidityStake extends React.Component {
   componentDidMount() {
@@ -19,16 +25,19 @@ class RecommendLiquidityStake extends React.Component {
     const addr = this.props.network.defaultAccount;
     if (this.props.isUSDDUpdateBanner) {
       window.localStorage.setItem('isShowUSDDUpdateAd_' + addr, '1');
-      this.props.lend.setData({ isShowUSDDUpdateAd: '1' });
+      this.props.user.setUSDDUpdateAd('1');
       window.localStorage.setItem('isShowRecommendToken_' + addr, '1');
-      this.props.lend.setData({ isShowRecommendToken: '1' });
+      this.props.user.setRecommendToken('1');
     } else {
       window.localStorage.setItem('isShowRecommendToken_' + addr, '1');
-      this.props.lend.setData({ isShowRecommendToken: '1' });
+      this.props.user.setRecommendToken('1');
     }
   };
   onClick = () => {
-    if (this.props.isUSDDUpdateBanner) return;
+    if (this.props.isUSDDUpdateBanner) {
+      window.open(config.adLink);
+      return;
+    }
     goToPage('strx', this.props.type === 'old' ? '_blank' : '_self');
     window.gtag('event', 'PC_recommend_strx', { 'event_category': 'sTRX', 'event_label': 'recommend_strx' });
   };
@@ -43,6 +52,10 @@ class RecommendLiquidityStake extends React.Component {
         }
         onClick={this.onClick}
       >
+        <img src={MiningDImg} alt="" style={{ display: 'none' }} />
+        <img src={MiningDLImg} alt="" style={{ display: 'none' }} />
+        <img src={MiningWLImg} alt="" style={{ display: 'none' }} />
+        <img src={MiningWImg} alt="" style={{ display: 'none' }} />
         <p className={`title ${lang}`}>
           <span className="icon">NEW</span>
         </p>

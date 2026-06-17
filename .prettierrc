@@ -4,5 +4,6 @@
   "singleQuote": true,
   "quoteProps": "preserve",
   "printWidth": 120,
-  "tabWidth": 2
+  "tabWidth": 2,
+  "importOrderParserPlugins": ["typescript", "decorators-legacy", "jsx", "decorators"]
 }

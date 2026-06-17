@@ -3,7 +3,7 @@ import React from 'react';
 import intl from 'react-intl-universal';
 import { Tooltip } from 'antd';
 import Config from '../../../config';
-import { addToTronlink, getJTokenLogo, isMobile } from '../../../utils/helper';
+import { addToTronlink, getJTokenLogo, getLiquidJTokenLogo, isMobile } from '../../../utils/helper';
 import { MarketTooltip } from './MarketTooltip';
 import defaultIcon from '../../../assets/images/default.svg';
 import { getLendIcons } from '../../../utils/constant';
@@ -124,7 +124,7 @@ class JTokenInfo extends React.Component {
         {mobile ? (
           <div className="flex-between aic">
             <div className="token-wrap">
-              <img className="token-img" src={getJTokenLogo(jTokenData.collateralSymbol)} alt="logo" />
+              <img className="token-img" src={getLiquidJTokenLogo('j' + jTokenData.collateralSymbol)} alt="logo" />
               <span className="token-text color-primary">j{jTokenData.collateralSymbol || '--'}</span>
             </div>
             <a
@@ -167,7 +167,7 @@ class JTokenInfo extends React.Component {
               overlayInnerStyle={{ width: 'unset' }}
             >
               <div className="token-wrap">
-                <img className="token-img" src={getJTokenLogo(jTokenData.collateralSymbol)} alt="logo" />
+                <img className="token-img" src={getLiquidJTokenLogo('j' + jTokenData.collateralSymbol)} alt="logo" />
                 <span className="token-text color-primary">j{jTokenData.collateralSymbol || '--'}</span>
               </div>
             </MarketTooltip>

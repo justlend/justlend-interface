@@ -7,15 +7,18 @@ import { inject, observer } from 'mobx-react';
 import React from 'react';
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
-import { cutMiddle, formatNumber, getQueryObj } from '../../../utils/helper';
+import { cutMiddle, formatNumber, getQueryObj, toFixedDown } from '../../../utils/helper';
 import { TooltipText } from './TooltipText';
 import { dateAfterSecondsToISO, toDayHourMinString } from './utils';
 import EndRentalTipModal from '../../Modals/v2/energy-rental/EndRentalTip';
 
+import moreIcon from '../../../assets/images/v2/energy-rental/right-arrow-purple.svg';
+import moreWhiteIcon from '../../../assets/images/v2/energy-rental/right-arrow-purple-white-theme.svg';
 import '../../../assets/css/v2/energy-rental/rental-order-mini-list.scss';
 import '../../../assets/css/v2/rent-order-list.scss';
 
 @inject('energyRental')
+@inject('lend')
 @inject('network')
 @inject('system')
 @observer
@@ -100,10 +103,8 @@ class RentalOrderMiniList extends React.Component {
   othersForMeList = () => {
     const { orderListByExpirationTime, durationUnitSwitch, lang, mobile, othersOrderListAtBottom, mobileListDisplay } =
       this.state;
-    const { miniReceiverTotal, miniReceiverOrdersList } = this.props.energyRental;
+    const { miniReceiverTotal, miniReceiverOrdersList, usageChargeRatio } = this.props.energyRental;
     const { defaultAccount } = this.props.network;
-
-    // console.log(miniReceiverOrdersList, 'miniReceiverOrdersList');
 
     return miniReceiverOrdersList?.map((order, id) => {
       let renter = toJS(miniReceiverOrdersList[id].renter);
@@ -116,7 +117,7 @@ class RentalOrderMiniList extends React.Component {
         : returnRentInfo.unrecoveredEnergyAmount;
       let unrecoveredEnergyFee = BigNumber(returnRentInfo.dailyRent)
         .times(BigNumber(unrecoveredEnergyAmount).div(returnRentInfo.rentAmount))
-        .times(0.5);
+        .times(usageChargeRatio);
       let rentRemainAndsecurityDeposit = BigNumber(returnRentInfo.rentRemain).plus(returnRentInfo.securityDeposit);
 
       unrecoveredEnergyFee = BigNumber(unrecoveredEnergyFee).gt(rentRemainAndsecurityDeposit)
@@ -238,14 +239,12 @@ class RentalOrderMiniList extends React.Component {
                         ) : (
                           <div className="rent-info-tooltip">
                             <div className="detail-row">
-                              <div className="row-title2">
-                                {intl.get('energy_rental.end_order_modal.remaining_trx')}
-                              </div>
+                              <div className="row-title2">{intl.get('energy_rental.refund_of_deposit')}</div>
                               <div className="row-value2">
                                 {formatNumber(
-                                  BigNumber(returnRentInfo.rentRemain)
-                                    .plus(returnRentInfo.securityDeposit)
-                                    .minus(unrecoveredEnergyFee),
+                                  BigNumber(toFixedDown(returnRentInfo.rentRemain, 6))
+                                    .plus(toFixedDown(returnRentInfo.securityDeposit, 6))
+                                    .minus(toFixedDown(unrecoveredEnergyFee, 6)),
                                   6
                                 )}{' '}
                                 TRX
@@ -256,14 +255,20 @@ class RentalOrderMiniList extends React.Component {
                               <div className="row-title">
                                 {intl.get('energy_rental.end_order_modal.remaining_rent')}
                               </div>
-                              <div className="row-value">{formatNumber(returnRentInfo.rentRemain, 6)} TRX</div>
+                              <div className="row-value">
+                                {formatNumber(
+                                  BigNumber(returnRentInfo.rentRemain).plus(returnRentInfo.securityDeposit),
+                                  6
+                                )}{' '}
+                                TRX
+                              </div>
                             </div>
-                            <div className="detail-row">
+                            {/* <div className="detail-row">
                               <div className="row-title">
                                 {intl.get('energy_rental.end_order_modal.security_deposit')}
                               </div>
                               <div className="row-value">{formatNumber(returnRentInfo.securityDeposit, 6)} TRX</div>
-                            </div>
+                            </div> */}
                             <div className="detail-row" style={{ alignItems: 'flex-start' }}>
                               <div className="row-title">
                                 <div style={{ textAlign: 'start' }}>
@@ -339,14 +344,12 @@ class RentalOrderMiniList extends React.Component {
                         title={
                           <div className="rent-info-tooltip">
                             <div className="detail-row">
-                              <div className="row-title2">
-                                {intl.get('energy_rental.end_order_modal.remaining_trx')}
-                              </div>
+                              <div className="row-title2">{intl.get('energy_rental.refund_of_deposit')}</div>
                               <div className="row-value2">
                                 {formatNumber(
-                                  BigNumber(returnRentInfo.rentRemain)
-                                    .plus(returnRentInfo.securityDeposit)
-                                    .minus(unrecoveredEnergyFee),
+                                  BigNumber(toFixedDown(returnRentInfo.rentRemain, 6))
+                                    .plus(toFixedDown(returnRentInfo.securityDeposit, 6))
+                                    .minus(toFixedDown(unrecoveredEnergyFee, 6)),
                                   6
                                 )}{' '}
                                 TRX
@@ -357,14 +360,20 @@ class RentalOrderMiniList extends React.Component {
                               <div className="row-title">
                                 {intl.get('energy_rental.end_order_modal.remaining_rent')}
                               </div>
-                              <div className="row-value">{formatNumber(returnRentInfo.rentRemain, 6)} TRX</div>
+                              <div className="row-value">
+                                {formatNumber(
+                                  BigNumber(returnRentInfo.rentRemain).plus(returnRentInfo.securityDeposit),
+                                  6
+                                )}{' '}
+                                TRX
+                              </div>
                             </div>
-                            <div className="detail-row">
+                            {/* <div className="detail-row">
                               <div className="row-title">
                                 {intl.get('energy_rental.end_order_modal.security_deposit')}
                               </div>
                               <div className="row-value">{formatNumber(returnRentInfo.securityDeposit, 6)} TRX</div>
-                            </div>
+                            </div> */}
                             <div className="detail-row" style={{ alignItems: 'flex-start' }}>
                               <div className="row-title">
                                 <div style={{ textAlign: 'start' }}>
@@ -447,7 +456,7 @@ class RentalOrderMiniList extends React.Component {
                 this.setState({ order });
                 this.props.energyRental.setData({ endRentalTipShow: true, endOrderType: 'receiver' });
                 // this.onClickEndButton(order);
-                window.gtag('event', 'click', {
+                window.gtag('event', 'energyrent_pro_orderlist_clickEnd', {
                   'event_category': 'energyrent',
                   'event_label': 'energyrent_pro_orderlist_clickEnd'
                 });
@@ -476,7 +485,8 @@ class RentalOrderMiniList extends React.Component {
   render() {
     const { orderListByExpirationTime, durationUnitSwitch, lang, mobile, orderListAtBottom, mobileListDisplay } =
       this.state;
-    const { orderListTotalCount, miniOrderList, miniReceiverTotal } = this.props.energyRental;
+    const { orderListTotalCount, miniOrderList, miniReceiverTotal, usageChargeRatio } = this.props.energyRental;
+    const { theme } = this.props.lend;
     const { defaultAccount } = this.props.network;
 
     let totalCount = orderListTotalCount;
@@ -504,11 +514,24 @@ class RentalOrderMiniList extends React.Component {
                     ? 'energy_rental.mini_list.list_title_plural'
                     : 'energy_rental.mini_list.list_title'
                 )}
-                {orderListTotalCount + miniReceiverTotal > 1 && (
-                  <div className="order-count-rect">{orderListTotalCount + miniReceiverTotal}</div>
+                {orderListTotalCount + miniReceiverTotal > 0 && (
+                  <div className="order-count-rect">
+                    <Link
+                      className="to-order-list"
+                      to={'/energyRentalOrderList?lang=' + lang}
+                      onClick={() => {
+                        window.gtag('event', 'energyrent_pro_orderlist_clickAllorders', {
+                          'event_category': 'energyrent',
+                          'event_label': 'energyrent_pro_orderlist_clickAllorders'
+                        });
+                      }}
+                    >
+                      {orderListTotalCount + miniReceiverTotal}
+                      <img src={theme === 'white' ? moreWhiteIcon : moreIcon} alt="" />
+                    </Link>
+                  </div>
                 )}
               </div>
-
               {orderListTotalCount > 1 && (
                 <div
                   className="list-order-select"
@@ -524,7 +547,7 @@ class RentalOrderMiniList extends React.Component {
                       className={classnames('order-option', { 'active': orderListByExpirationTime })}
                       onClick={() => {
                         this.onClickOrderListSelectOption(true);
-                        window.gtag('event', 'click', {
+                        window.gtag('event', 'energyrent_pro_orderlist_clickchangeSort', {
                           'event_category': 'energyrent',
                           'event_label': 'energyrent_pro_orderlist_clickchangeSort'
                         });
@@ -536,7 +559,7 @@ class RentalOrderMiniList extends React.Component {
                       className={classnames('order-option', { 'active': !orderListByExpirationTime })}
                       onClick={() => {
                         this.onClickOrderListSelectOption(false);
-                        window.gtag('event', 'click', {
+                        window.gtag('event', 'energyrent_pro_orderlist_clickchangeSort', {
                           'event_category': 'energyrent',
                           'event_label': 'energyrent_pro_orderlist_clickchangeSort'
                         });
@@ -567,7 +590,7 @@ class RentalOrderMiniList extends React.Component {
                   : returnRentInfo.unrecoveredEnergyAmount;
                 let unrecoveredEnergyFee = BigNumber(returnRentInfo.dailyRent)
                   .times(BigNumber(unrecoveredEnergyAmount).div(returnRentInfo.rentAmount))
-                  .times(0.5);
+                  .times(usageChargeRatio);
                 let rentRemainAndsecurityDeposit = BigNumber(returnRentInfo.rentRemain).plus(
                   returnRentInfo.securityDeposit
                 );
@@ -703,14 +726,12 @@ class RentalOrderMiniList extends React.Component {
                                   title={
                                     <div className="rent-info-tooltip">
                                       <div className="detail-row">
-                                        <div className="row-title2">
-                                          {intl.get('energy_rental.end_order_modal.remaining_trx')}
-                                        </div>
+                                        <div className="row-title2">{intl.get('energy_rental.refund_of_deposit')}</div>
                                         <div className="row-value2">
                                           {formatNumber(
-                                            BigNumber(returnRentInfo.rentRemain)
-                                              .plus(returnRentInfo.securityDeposit)
-                                              .minus(unrecoveredEnergyFee),
+                                            BigNumber(toFixedDown(returnRentInfo.rentRemain, 6))
+                                              .plus(toFixedDown(returnRentInfo.securityDeposit, 6))
+                                              .minus(toFixedDown(unrecoveredEnergyFee, 6)),
                                             6
                                           )}{' '}
                                           TRX
@@ -722,17 +743,21 @@ class RentalOrderMiniList extends React.Component {
                                           {intl.get('energy_rental.end_order_modal.remaining_rent')}
                                         </div>
                                         <div className="row-value">
-                                          {formatNumber(returnRentInfo.rentRemain, 6)} TRX
+                                          {formatNumber(
+                                            BigNumber(returnRentInfo.rentRemain).plus(returnRentInfo.securityDeposit),
+                                            6
+                                          )}{' '}
+                                          TRX
                                         </div>
                                       </div>
-                                      <div className="detail-row">
+                                      {/* <div className="detail-row">
                                         <div className="row-title">
                                           {intl.get('energy_rental.end_order_modal.security_deposit')}
                                         </div>
                                         <div className="row-value">
                                           {formatNumber(returnRentInfo.securityDeposit, 6)} TRX
                                         </div>
-                                      </div>
+                                      </div> */}
                                       <div className="detail-row" style={{ alignItems: 'flex-start' }}>
                                         <div className="row-title">
                                           <div style={{ textAlign: 'start' }}>
@@ -809,14 +834,12 @@ class RentalOrderMiniList extends React.Component {
                                   title={
                                     <div className="rent-info-tooltip">
                                       <div className="detail-row">
-                                        <div className="row-title2">
-                                          {intl.get('energy_rental.end_order_modal.remaining_trx')}
-                                        </div>
+                                        <div className="row-title2">{intl.get('energy_rental.refund_of_deposit')}</div>
                                         <div className="row-value2">
                                           {formatNumber(
-                                            BigNumber(returnRentInfo.rentRemain)
-                                              .plus(returnRentInfo.securityDeposit)
-                                              .minus(unrecoveredEnergyFee),
+                                            BigNumber(toFixedDown(returnRentInfo.rentRemain, 6))
+                                              .plus(toFixedDown(returnRentInfo.securityDeposit, 6))
+                                              .minus(toFixedDown(unrecoveredEnergyFee, 6)),
                                             6
                                           )}{' '}
                                           TRX
@@ -828,17 +851,21 @@ class RentalOrderMiniList extends React.Component {
                                           {intl.get('energy_rental.end_order_modal.remaining_rent')}
                                         </div>
                                         <div className="row-value">
-                                          {formatNumber(returnRentInfo.rentRemain, 6)} TRX
+                                          {formatNumber(
+                                            BigNumber(returnRentInfo.rentRemain).plus(returnRentInfo.securityDeposit),
+                                            6
+                                          )}{' '}
+                                          TRX
                                         </div>
                                       </div>
-                                      <div className="detail-row">
+                                      {/* <div className="detail-row">
                                         <div className="row-title">
                                           {intl.get('energy_rental.end_order_modal.security_deposit')}
                                         </div>
                                         <div className="row-value">
                                           {formatNumber(returnRentInfo.securityDeposit, 6)} TRX
                                         </div>
-                                      </div>
+                                      </div> */}
                                       <div className="detail-row" style={{ alignItems: 'flex-start' }}>
                                         <div className="row-title">
                                           <div style={{ textAlign: 'start' }}>
@@ -858,6 +885,9 @@ class RentalOrderMiniList extends React.Component {
                                     </div>
                                   }
                                   trigger={['hover', 'click']}
+                                  onMouseEnter={() => {
+                                    this.props.energyRental.getReturnRentInfo(renter, receiver);
+                                  }}
                                 >
                                   <span className="j-tooltip-icon ml-4"></span>
                                 </Tooltip>
@@ -942,7 +972,7 @@ class RentalOrderMiniList extends React.Component {
                         className="action-btn end-btn"
                         onClick={() => {
                           this.onClickEndButton(order);
-                          window.gtag('event', 'click', {
+                          window.gtag('event', 'energyrent_pro_orderlist_clickEnd', {
                             'event_category': 'energyrent',
                             'event_label': 'energyrent_pro_orderlist_clickEnd'
                           });
@@ -953,8 +983,9 @@ class RentalOrderMiniList extends React.Component {
                       <button
                         className="action-btn add-btn"
                         onClick={() => {
+                          this.props.energyRental.getReturnRentInfo(renter, receiver);
                           this.onClickRenewButton(order);
-                          window.gtag('event', 'click', {
+                          window.gtag('event', 'energyrent_pro_orderlist_clickRenew', {
                             'event_category': 'energyrent',
                             'event_label': 'energyrent_pro_orderlist_clickRenew'
                           });
@@ -990,7 +1021,7 @@ class RentalOrderMiniList extends React.Component {
             className="order-list-link purple-link-btn hover"
             to={'/energyRentalOrderList?lang=' + lang}
             onClick={() => {
-              window.gtag('event', 'click', {
+              window.gtag('event', 'energyrent_pro_orderlist_clickAllorders', {
                 'event_category': 'energyrent',
                 'event_label': 'energyrent_pro_orderlist_clickAllorders'
               });

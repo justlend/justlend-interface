@@ -1,9 +1,8 @@
 // Libraries
-import { observable, transaction } from 'mobx';
-import intl from 'react-intl-universal';
+import { observable, makeObservable } from 'mobx';
 import Config from '../config';
 import BigNumber from 'bignumber.js';
-import { formatNumber, getQueryObj, getTrxBalance } from '../utils/helper';
+import { getQueryObj } from '../utils/helper';
 import {
   getBalanceStUsdtInfo,
   tronObj,
@@ -49,6 +48,8 @@ export default class StUsdtStore {
       this.theme = theme;
       this.lang = lang;
     });
+
+    makeObservable(this);
   }
 
   setData = (obj = {}, target = false) => {
@@ -65,7 +66,7 @@ export default class StUsdtStore {
   setVariablesInterval = async () => {
     if (!this.backendInterval) {
       this.backendInterval = setInterval(async () => {
-        await this.getDashboardData();
+        // await this.getDashboardData();
         // await this.getRebaseHistoryData();
         await this.getRebaseChartsData();
         await this.getFeeRate();
@@ -167,18 +168,6 @@ export default class StUsdtStore {
     }
   };
 
-  // getRebaseHistoryData = async () => {
-  //   try {
-  //     const res = await getRebaseHistory();
-  //     if (res.success) {
-  //       this.setData({ rebaseHistoryData: res.data });
-  //     }
-  //     return null;
-  //   } catch (err) {
-  //     console.log('getRebaseHistoryData', err);
-  //   }
-  // };
-
   getRebaseChartsData = async () => {
     try {
       const res = await getStUsdtRebaseCharts();
@@ -256,6 +245,7 @@ export default class StUsdtStore {
     try {
       let multiRewardData = {};
       this.claimableInfo.claimableItem
+        .slice()
         .sort((a, b) => {
           return a.timestamp - b.timestamp;
         })

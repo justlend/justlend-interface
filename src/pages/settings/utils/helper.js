@@ -1,6 +1,49 @@
-import Config from '../../../config';
+const DB_NAME = 'justlend-keys';
+const STORE_NAME = 'sign-keys';
 
-const { settingsTokenArray1, settingsTokenArray2 } = Config;
+// ---- IndexedDB helpers ----
+
+const openDB = () =>
+  new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, 1);
+    req.onupgradeneeded = () => req.result.createObjectStore(STORE_NAME);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+
+const getFromDB = db =>
+  new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, 'readonly');
+    const req = tx.objectStore(STORE_NAME).get('session');
+    req.onsuccess = () => resolve(req.result || null);
+    req.onerror = () => reject(req.error);
+  });
+
+const saveToDB = (db, value) =>
+  new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, 'readwrite');
+    const req = tx.objectStore(STORE_NAME).put(value, 'session');
+    req.onsuccess = () => resolve();
+    req.onerror = () => reject(req.error);
+  });
+
+const getSessionKey = async () => {
+  const db = await openDB();
+
+  const existing = await getFromDB(db);
+  if (existing) return existing;
+
+  const key = await window.crypto.subtle.generateKey(
+    { name: 'AES-GCM', length: 256 },
+    false, 
+    ['encrypt', 'decrypt']
+  );
+  const iv = window.crypto.getRandomValues(new Uint8Array(12));
+  await saveToDB(db, { key, iv });
+  return { key, iv };
+};
+
+// ---- public helpers ----
 
 export function isEmailValid(email) {
   return email !== '--' && email.length > 0;
@@ -24,43 +67,21 @@ export const getSignInfoFromLocalStorage = async () => {
   }
 };
 
-const importKey = async () => {
-  return await window.crypto.subtle.importKey(
-    'raw',
-    Buffer.from(new Uint8Array(JSON.parse(settingsTokenArray1)), 'base64'),
-    {
-      name: 'AES-GCM',
-      length: 256
-    },
-    true,
-    ['encrypt', 'decrypt']
-  );
-};
 const encryptSignInfo = async (timestamp, signResult, walletAddress) => {
   const encodedPlaintext = new TextEncoder().encode(
     JSON.stringify({ 'signResult': signResult, 'signTimestamp': timestamp, 'addr': walletAddress })
   );
-  const secretKey = await importKey();
+  const { key, iv } = await getSessionKey();
 
-  const ciphertext = await window.crypto.subtle.encrypt(
-    {
-      name: 'AES-GCM',
-      iv: Buffer.from(new Uint8Array(JSON.parse(settingsTokenArray2)), 'base64')
-    },
-    secretKey,
-    encodedPlaintext
-  );
+  const ciphertext = await window.crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, encodedPlaintext);
 
   return Buffer.from(ciphertext).toString('base64');
 };
 const decryptSignInfo = async ciphertext => {
-  const secretKey = await importKey();
+  const { key, iv } = await getSessionKey();
   const encodedPlaintext = await window.crypto.subtle.decrypt(
-    {
-      name: 'AES-GCM',
-      iv: Buffer.from(new Uint8Array(JSON.parse(settingsTokenArray2)), 'base64')
-    },
-    secretKey,
+    { name: 'AES-GCM', iv },
+    key,
     Buffer.from(ciphertext, 'base64')
   );
 

@@ -11,6 +11,7 @@ import {
   tableClickRowToTransaction,
   BigNumber
 } from '../../../utils/helper';
+import { formatTokenAmount, formatFiatValue } from '../../../utils/formatters';
 import '../../../assets/css/userRecords.scss';
 
 @inject('network')
@@ -27,12 +28,14 @@ class DepositBorrowRecords extends React.Component {
 
   getContextFromActionType = (actionType, symbol) => {
     const actions = {
-      '1': intl.get('supply_and_borrow_records.supply'),
-      '2': intl.get('supply_and_borrow_records.withdraw'),
-      '3': intl.get('supply_and_borrow_records.borrow'),
-      '4': intl.get('supply_and_borrow_records.repay'),
-      '5': intl.get('supply_and_borrow_records.liquidate', { token: symbol || '--' }),
-      '6': intl.get('supply_and_borrow_records.repay_liquidate', { token: symbol || '--' }),
+      '1': intl.get('supply_and_borrow_records.supply') + ' ' + symbol,
+      '2': intl.get('supply_and_borrow_records.withdraw') + ' ' + symbol,
+      '3': intl.get('supply_and_borrow_records.borrow') + ' ' + symbol,
+      '4': intl.get('supply_and_borrow_records.repay') + ' ' + symbol,
+      '5': intl.get('jlv2.record.liquidate_reward'),
+      '6': intl.get('jlv2.record.as_liquidator'),
+      // '5': intl.get('supply_and_borrow_records.liquidate', { token: symbol || '--' }),
+      // '6': intl.get('supply_and_borrow_records.repay_liquidate', { token: symbol || '--' }),
       '7': intl.get('supply_and_borrow_records.receive_jtoken'),
       '8': intl.get('supply_and_borrow_records.send_jtoken'),
       '9': intl.get('supply_and_borrow_records.approve', { title: symbol || '--' }),
@@ -47,8 +50,8 @@ class DepositBorrowRecords extends React.Component {
     const { tokenDecimal } = this.props.userRecords;
     const doNotDisplayList = [10, 11];
     const noLimitList = [9];
-    const useJTokenSymbolList = [1, 2, 5, 7, 8];
-    const manuallyAddJSymbolList = [1, 2];
+    const useJTokenSymbolList = [5, 7, 8]; 
+    const manuallyAddJSymbolList = [7, 8]; 
     const positiveSignList = [1, 3, 5, 7];
     const negativeSignList = [2, 4, 6, 8];
     const currentSign = positiveSignList.includes(item.actionType)
@@ -57,7 +60,7 @@ class DepositBorrowRecords extends React.Component {
       ? '-'
       : '';
 
-    if (doNotDisplayList.includes(item.actionType)) return '';
+    if (doNotDisplayList.includes(item.actionType)) return '-';
     /**
      * Different from the initial discussion conclusion,
      * since the backend cannot filter unofficial authorizations,
@@ -71,9 +74,11 @@ class DepositBorrowRecords extends React.Component {
         return intl.get('supply_and_borrow_records.no_limit');
       }
       return (
-        <div className={'token-amount green'}>
+        // <div className={'token-amount green'}>
+        <div className={'token-amount'}>
           <span>{currentSign}</span>
-          <span>{formatNumber(item.tokenAmount, tokenDecimal, { miniText: '0.000001' })}</span>
+          <span>{formatTokenAmount(item.tokenAmount, item.symbol)}</span>
+          {/* <span>{formatNumber(item.tokenAmount, tokenDecimal, { miniText: '0.000001' })}</span>
           {showEllipsis(item.tokenAmount, tokenDecimal) && (
             <Tooltip
               overlayClassName="user-records-tooltip"
@@ -83,17 +88,24 @@ class DepositBorrowRecords extends React.Component {
             >
               {'...'}
             </Tooltip>
-          )}
-          <span>{' ' + (item.symbol || '--')}</span>
+          )} 
+          <span>{' ' + (item.symbol || '--')}</span>*/}
         </div>
       );
     }
     if (!item.tokenAmount && !item.jtokenAmount) return '--';
     if (useJTokenSymbolList.includes(item.actionType)) {
       return (
-        <div className={'token-amount ' + (currentSign === '+' ? 'green' : currentSign === '-' ? 'red' : '')}>
-          <span>{currentSign}</span>
-          <span>{formatNumber(item.jtokenAmount, tokenDecimal, { miniText: '0.000001' })}</span>
+        // <div className={'token-amount ' + (currentSign === '+' ? 'green' : currentSign === '-' ? 'red' : '')}>
+        //   <span>{currentSign}</span>
+        <div className={'token-amount'}>
+          <span>
+            {formatTokenAmount(
+              item.jtokenAmount,
+              (manuallyAddJSymbolList.includes(item.actionType) ? 'j' : '') + (item.symbol || '--')
+            )}
+          </span>
+          {/* <span>{formatNumber(item.jtokenAmount, tokenDecimal, { miniText: '0.000001' })}</span>
           {showEllipsis(item.jtokenAmount, tokenDecimal) && (
             <Tooltip
               overlayClassName="user-records-tooltip"
@@ -103,16 +115,18 @@ class DepositBorrowRecords extends React.Component {
             >
               {'...'}
             </Tooltip>
-          )}
-          <span>{' ' + (manuallyAddJSymbolList.includes(item.actionType) ? 'j' : '') + (item.symbol || '--')}</span>
+          )} 
+          <span>{' ' + (manuallyAddJSymbolList.includes(item.actionType) ? 'j' : '') + (item.symbol || '--')}</span>*/}
         </div>
       );
     }
 
     return (
-      <div className={'token-amount ' + (currentSign === '+' ? 'green' : currentSign === '-' ? 'red' : '')}>
-        <span>{currentSign}</span>
-        <span>{formatNumber(item.tokenAmount, tokenDecimal, { miniText: '0.000001' })}</span>
+      // <div className={'token-amount ' + (currentSign === '+' ? 'green' : currentSign === '-' ? 'red' : '')}>
+      //   <span>{currentSign}</span>
+      <div className={'token-amount'}>
+        <span>{formatTokenAmount(item.tokenAmount, item.symbol)}</span>
+        {/* <span>{formatNumber(item.tokenAmount, tokenDecimal, { miniText: '0.000001' })}</span>
         {showEllipsis(item.tokenAmount, tokenDecimal) && (
           <Tooltip
             overlayClassName="user-records-tooltip"
@@ -123,7 +137,7 @@ class DepositBorrowRecords extends React.Component {
             {'...'}
           </Tooltip>
         )}
-        <span>{' ' + (item.symbol || '--')}</span>
+        <span>{' ' + (item.symbol || '--')}</span> */}
       </div>
     );
   };
@@ -132,45 +146,41 @@ class DepositBorrowRecords extends React.Component {
     const { mobile } = this.state;
     let columns = [
       {
-        title: intl.get('user_records.type'),
-        dataIndex: 'actionType',
-        key: '1',
-        ellipsis: true,
+        title: intl.get('user_records.time'),
+        dataIndex: 'blockTimestamp',
+        align: 'left',
         fixed: 'left',
-        width: '30%',
+        width: '20%',
+        render: (text, item) => {
+          return <div className="time">{text ? new Date(text).format('yyyy-MM-dd h:m:s') : '--'}</div>;
+        }
+      },
+      {
+        title: intl.get('jlv2.record.protocol'),
+        dataIndex: 'protocol',
+        align: 'left',
+        width: '15%',
+        render: (text, item) => 'SBM V1'
+      },
+      {
+        title: intl.get('jlv2.record.operation'),
+        dataIndex: 'actionType',
+        ellipsis: true,
+        width: '25%',
         className: 'actionType',
         render: (text, item) => {
           const showDescriptionList = [7, 8];
           return (
-            <div className="flex-center">
-              {item?.status && (
-                <span
-                  className={'icon mr-10 ' + (item.status === 1 ? 'loading' : item.status === 2 ? 'success' : '')}
-                ></span>
-              )}
-              {mobile ? (
-                showDescriptionList.includes(item.actionType) ? (
-                  <Tooltip
-                    overlayClassName="j-tooltip-dropdown"
-                    title={
-                      item.actionType === 7
-                        ? intl.get('action_records_hover.received_jtoken')
-                        : item.actionType === 8
-                        ? intl.get('action_records_hover.sent_jtoken')
-                        : ''
-                    }
-                    placement="topRight"
-                    arrowPointAtCenter
-                  >
-                    <span className="underline-dashed">{this.getContextFromActionType(text, item.symbol)}</span>
-                  </Tooltip>
-                ) : (
-                  <span className="mr-10">{this.getContextFromActionType(text, item.symbol)}</span>
-                )
-              ) : (
-                <>
-                  <span className="mr-10">{this.getContextFromActionType(text, item.symbol)}</span>
-                  {showDescriptionList.includes(item.actionType) && (
+            <div className="mobile-card">
+              {mobile && <span>{intl.get('jlv2.record.operation')}</span>}
+              <div className="flex-center">
+                {item?.status && (
+                  <span
+                    className={'icon mr-10 ' + (item.status === 1 ? 'loading' : item.status === 2 ? 'success' : '')}
+                  ></span>
+                )}
+                {mobile ? (
+                  showDescriptionList.includes(item.actionType) ? (
                     <Tooltip
                       overlayClassName="j-tooltip-dropdown"
                       title={
@@ -183,29 +193,33 @@ class DepositBorrowRecords extends React.Component {
                       placement="topRight"
                       arrowPointAtCenter
                     >
-                      <span className="j-tooltip-icon"></span>
+                      <span className="underline-dashed">{this.getContextFromActionType(text, item.symbol)}</span>
                     </Tooltip>
-                  )}
-                </>
-              )}
-            </div>
-          );
-        }
-      },
-      {
-        title: intl.get('user_records.time'),
-        dataIndex: 'blockTimestamp',
-        align: 'left',
-        width: '30%',
-        key: '2',
-        render: (text, item) => {
-          return (
-            <div className="time">
-              {text
-                ? new Date(text).format('yyyy-MM-dd h:m:s')
-                : item?.blocktimestamp
-                ? new Date(item.blocktimestamp).format('yyyy-MM-dd h:m:s')
-                : '--'}
+                  ) : (
+                    <span>{this.getContextFromActionType(text, item.symbol)}</span>
+                  )
+                ) : (
+                  <>
+                    <span>{this.getContextFromActionType(text, item.symbol)}</span>
+                    {showDescriptionList.includes(item.actionType) && (
+                      <Tooltip
+                        overlayClassName="j-tooltip-dropdown"
+                        title={
+                          item.actionType === 7
+                            ? intl.get('action_records_hover.received_jtoken')
+                            : item.actionType === 8
+                            ? intl.get('action_records_hover.sent_jtoken')
+                            : ''
+                        }
+                        placement="topRight"
+                        arrowPointAtCenter
+                      >
+                        <span className="j-tooltip-icon"></span>
+                      </Tooltip>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           );
         }
@@ -214,7 +228,6 @@ class DepositBorrowRecords extends React.Component {
         title: intl.get('user_records.amount'),
         dataIndex: 'tokenAmount',
         align: 'left',
-        key: '3',
         render: (text, item) => {
           const hideUsdList = [9, 10, 11];
           return (
@@ -224,11 +237,12 @@ class DepositBorrowRecords extends React.Component {
                 {this.renderTokenAmount(item)}
                 {!hideUsdList.includes(item?.actionType) && (
                   <div className="associate-usd">
-                    {formatNumber(item.associateUsd, 2, {
+                    {formatFiatValue(item.associateUsd)}
+                    {/* {formatNumber(item.associateUsd, 2, {
                       cutZero: true,
                       needDolar: true,
                       miniText: '0.01'
-                    })}
+                    })} */}
                   </div>
                 )}
               </div>
@@ -237,18 +251,32 @@ class DepositBorrowRecords extends React.Component {
         }
       },
       {
-        title: '',
+        title: intl.get('jlv2.record.action'),
         dataIndex: 'txId',
-        key: '5',
-        width: 80,
-        render: (text, item) => <span className="link-arrow"></span>
+        width: '12%',
+        // render: (text, item) => <span className="link-arrow"></span>
+        render: (text, item) => (
+          this.state.mobile ? (
+            <span
+              className="records-link"
+              onClick={e => {
+                e.stopPropagation();
+                this.props.userRecords.handleToDetail('SBMV1', item);
+              }}
+            >
+              {intl.get('jlv2.record.details')}
+            </span>
+          ) : (
+            <span className="records-link">{intl.get('jlv2.record.details')}</span>
+          )
+        )
       }
     ];
     return columns;
   };
 
   getPageContent = currentPageNumber => {
-    this.props.userRecords.setData({ currentPageNumber });
+    this.props.userRecords.setOneData('currentPageNumber', currentPageNumber);
     this.props.userRecords.getDepositBorrowRecordsData();
   };
 
@@ -259,9 +287,10 @@ class DepositBorrowRecords extends React.Component {
         className="user-records-table"
         columns={this.getInfoColumns()}
         onRow={record => {
+          if(this.state.mobile) return ;
           return {
             onClick: () => {
-              tableClickRowToTransaction(record?.txId, 'userRecord');
+              this.props.userRecords.handleToDetail('SBMV1', record);
             }
           };
         }}
@@ -280,7 +309,7 @@ class DepositBorrowRecords extends React.Component {
         locale={{
           emptyText: emptyReactNodeNew
         }}
-        rowKey={'id'}
+        rowKey={record => record.id}
       />
     );
   }

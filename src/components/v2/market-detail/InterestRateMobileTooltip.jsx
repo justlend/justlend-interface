@@ -6,20 +6,23 @@ import { BigNumber, formatNumber } from '../../../utils/helper';
 import { tryFormatNumber } from './utils';
 
 @inject('lend')
+@inject('market')
 @observer
 class InterestRateMobileTooltip extends React.Component {
   render() {
     const { jTokenData, showMintApy } = this.props;
-    const { interestRateGraphIndex } = this.props.lend;
-    const { borrowList, supplyList, mintApy, mintApyWithUSDD, collateralSymbol, current } = jTokenData;
+    const { interestRateGraphIndex } = this.props.market;
+    const { borrowList, supplyList, mintApy, mintApyTRX, mintApyWithUSDD, collateralSymbol, current } = jTokenData;
 
     var params;
     let useRateDisplay, wstDepositBaseApyDisplay, wstApyDisplay;
     let baseDeposit = '--';
     let mint = Config.usddMint.includes(jTokenData.jtokenAddress) ? mintApyWithUSDD : mintApy;
+    let mintTrx = mintApyTRX;
 
     if (!showMintApy) {
       mint = 0;
+      mintTrx = 0;
     }
 
     let depositApyDisplay;
@@ -62,7 +65,7 @@ class InterestRateMobileTooltip extends React.Component {
         per: true
       })}%`;
 
-      baseDeposit = tryFormatNumber(BigNumber(params[1].value).minus(BigNumber(mint)._toFixed(2, 1)), 2);
+      baseDeposit = tryFormatNumber(BigNumber(params[1].value).minus(BigNumber(mint)._toFixed(2, 1)).minus(BigNumber(mintTrx)._toFixed(2, 1)), 2);
 
       if (Config.holdingTokens.includes(collateralSymbol)) {
         let resultApy = BigNumber(BigNumber(jTokenData?.model[interestRateGraphIndex + 1].supply).plus(1))
@@ -86,7 +89,7 @@ class InterestRateMobileTooltip extends React.Component {
                 Config.holdingTokens.includes(collateralSymbol)
                   ? jTokenData?.current?.baseApyWithIncrement
                   : jTokenData?.current?.supply
-              ).plus(BigNumber(mint)._toFixed(2, 1)),
+              ).plus(BigNumber(mint)._toFixed(2, 1)).plus(BigNumber(mintTrx)._toFixed(2, 1)),
               2,
               {
                 miniText: 0.01,
@@ -104,6 +107,9 @@ class InterestRateMobileTooltip extends React.Component {
 
       baseDeposit = tryFormatNumber(jTokenData?.current?.supply, 2, { miniText: 0.01, per: true });
     }
+
+    const hasUSDDMint = BigNumber(mint).gt(0);
+    const hasTRXMint = BigNumber(mintTrx).gt(0);
 
     return (
       <div className="chart-tooltip chart-tooltip-fake interest-rate">
@@ -145,7 +151,13 @@ class InterestRateMobileTooltip extends React.Component {
               <span className="label fs12 color-light"></span>
               <div className="value-wrap">
                 <span className="detail color-primary fs12">
-                  ({baseDeposit}% + {tryFormatNumber(mint, 2)}%)
+                  {'('}
+                  {`${baseDeposit}%`}
+                  {hasUSDDMint || hasTRXMint ? ' + ' : ''}
+                  {hasUSDDMint ? `${tryFormatNumber(mint, 2)}%` : ''}
+                  {hasUSDDMint && hasTRXMint ? ' + ' : ''}
+                  {hasTRXMint ? `${tryFormatNumber(mintApyTRX, 2)}%` : ''}
+                  {')'}
                 </span>
               </div>
             </div>

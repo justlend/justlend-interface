@@ -1,5 +1,5 @@
 import { Checkbox } from 'antd';
-import ReactEcharts from 'echarts-for-react';
+import ReactEcharts from 'echarts-for-react/lib';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import intl from 'react-intl-universal';
@@ -7,8 +7,9 @@ import { Config } from '../../../config';
 import { BigNumber, formatNumber, isMobile } from '../../../utils/helper';
 import { tryFormatNumber, checkIfShouldShowMintApyDetail } from './utils';
 import { InterestRateMobileTooltip } from './InterestRateMobileTooltip';
-const { miningSymbol } = Config;
+const { miningSymbol, miningNewSymbol } = Config;
 @inject('lend')
+@inject('market')
 @observer
 class InterestRateModel extends React.Component {
   constructor() {
@@ -25,32 +26,24 @@ class InterestRateModel extends React.Component {
       this.showTooltipForCurrentData();
     });
   }
+  componentWillUnmount() {
+    const chartInstance = this.echartRef?.getEchartsInstance();
+    if (chartInstance) {
+      chartInstance.dispose();
+    }
+  }
 
   getEchartsOption(shouldShowMintApyDetail) {
     const { mobile, isHovering } = this.state;
-    const { lang } = this.props.lend;
+    const { lang, theme } = this.props.lend;
     const { jTokenData } = this.props;
-    const isWhite = this.props.lend.theme === 'white';
-    const { borrowList, supplyList, baseList, mintApy, mintApyWithUSDD, current } = jTokenData;
-    const lendTemp = this.props.lend;
-    // const useRate = BigNumber(current.base);
-    // const currentXDisplay = tryFormatNumber(BigNumber(useRate).gt(100) ? 100 : useRate, 2);
-    // console.log(baseList);
-    // const markPoint = [
-    //   {
-    //     coord: [Number(currentXDisplay), 180],
-    //     label: {
-    //       formatter: currentXDisplay + '%',
-    //       // position: 'outside',
-    //       offset: [5, -80],
-    //       textBorderWidth: 0
-    //     }
-    //   }
-    // ];
+    const isWhite = theme === 'white';
+    const { borrowList, supplyList, baseList, mintApy, mintApyTRX, mintApyWithUSDD, current } = jTokenData;
 
     return {
       backgroundColor: mobile ? (isWhite ? '#ffffff' : 'rgba(255, 255, 255, 0.06)') : 'transparent',
       tooltip: {
+        show: true,
         showContent: !mobile,
         // showContent: isHovering,
         trigger: 'axis',
@@ -67,6 +60,10 @@ class InterestRateModel extends React.Component {
           },
           label: {
             precision: 2
+            // show: true,
+            // formatter: function (params) {
+            //   return `${params.value}%`;
+            // }
           }
         },
         backgroundColor: isWhite ? '#ffffff' : '#40414A',
@@ -82,28 +79,39 @@ class InterestRateModel extends React.Component {
         formatter: function (params) {
           let baseDeposit = '--';
           let mint = Config.usddMint.includes(jTokenData.jtokenAddress) ? mintApyWithUSDD : mintApy;
+          let mint2 = mintApyTRX;
           if (!shouldShowMintApyDetail) {
             mint = 0;
+            mint2 = 0;
           }
           if (mint !== '--') {
             if (params[1].value.includes('<')) {
               baseDeposit = params[1].value;
             } else {
-              const value = BigNumber(params[1].value).minus(BigNumber(mint)._toFixed(2, 1));
-              baseDeposit = formatNumber(value, value >= 100 ? 0 : 2);
+              const value = BigNumber(params[1].value)
+                .minus(BigNumber(mint)._toFixed(2, 1))
+                .minus(BigNumber(mint2)._toFixed(2, 1))
+                .toNumber();
+              baseDeposit = formatNumber(value, 2);
             }
           }
           const { current, collateralSymbol } = jTokenData;
           const model = jTokenData.model.filter(item => !item.current);
 
-          let useRateDisplay, depositApyDisplay, baseDepositApyDisplay, mintApyDisplay, borrowAPyDisplay;
+          let useRateDisplay,
+            depositApyDisplay,
+            baseDepositApyDisplay,
+            mintApyDisplay,
+            mintApyTRXDisplay,
+            borrowAPyDisplay;
           let wstDepositBaseApyDisplay, wstApyDisplay;
           if (isHovering) {
             const useRate = BigNumber(model[params[0].dataIndex].base).times(100);
             useRateDisplay = `${Number(tryFormatNumber(BigNumber(useRate).gt(100) ? 100 : useRate, 2))}%`;
             depositApyDisplay = `${params[1].value}%`;
             baseDepositApyDisplay = `${baseDeposit}%`;
-            mintApyDisplay = `${tryFormatNumber(mint, mint >= 100 ? 0 : 2, { miniText: 0.01, per: true })}%`;
+            mintApyDisplay = `${tryFormatNumber(mint, 2, { miniText: 0.01, per: true })}%`;
+            mintApyTRXDisplay = `${tryFormatNumber(mint2, 2, { miniText: 0.01, per: true })}%`;
             borrowAPyDisplay = `${params[0].value}%`;
 
             wstDepositBaseApyDisplay = `${tryFormatNumber(BigNumber(model[params[0].dataIndex].supply).times(100), 2, {
@@ -136,6 +144,7 @@ class InterestRateModel extends React.Component {
               { miniText: 0.01, per: true, defaultSymbol: true }
             )}%`;
             mintApyDisplay = `${tryFormatNumber(mint, 2, { miniText: 0.01, per: true })}%`;
+            mintApyTRXDisplay = `${tryFormatNumber(mint2, 2, { miniText: 0.01, per: true })}%`;
             borrowAPyDisplay = `${tryFormatNumber(current.borrow, 2, { miniText: 0.01, per: true })}%`;
             let depositApy = tryFormatNumber(
               BigNumber(
@@ -143,7 +152,9 @@ class InterestRateModel extends React.Component {
                   miniText: 0.01,
                   per: true
                 })
-              ).plus(tryFormatNumber(mint, 2, { miniText: 0.01, per: true })),
+              )
+                .plus(tryFormatNumber(mint, 2, { miniText: 0.01, per: true }))
+                .plus(tryFormatNumber(mint2, 2, { miniText: 0.01, per: true })),
               2,
               { miniText: 0.01, per: true }
             );
@@ -151,9 +162,9 @@ class InterestRateModel extends React.Component {
             depositApyDisplay = `${
               depositApy === '--'
                 ? tryFormatNumber(
-                    BigNumber(collateralSymbol === 'wstUSDT' ? current.baseApyWithIncrement : current.supply).plus(
-                      mint
-                    ),
+                    BigNumber(collateralSymbol === 'wstUSDT' ? current.baseApyWithIncrement : current.supply)
+                      .plus(mint)
+                      .plus(mint2),
                     2,
                     { miniText: 0.01, per: true }
                   )
@@ -216,19 +227,31 @@ class InterestRateModel extends React.Component {
                     ? 'item wst-item'
                     : 'item hide-item'
                 }">
-                  <span class="label color-light">${intl.get('risk_tip.strx_apy1')}</span>
+                  <span class="label color-light">${intl.get('risk_tip.basic_apy1')}</span>
                   <div class="value-wrap">
                     <span class="value normal-weight color-light">${baseDepositApyDisplay}</span>
                   </div>
                 </div>
                 <div class="${
-                  shouldShowMintApyDetail && !Config.holdingTokens.includes(collateralSymbol)
+                  shouldShowMintApyDetail && !Config.holdingTokens.includes(collateralSymbol) && Number(mint)
                     ? 'item wst-item'
                     : 'item hide-item'
                 }">
                   <span class="label color-light">${intl.get('risk_tip.mining_apy2', { miningSymbol })}</span>
                   <div class="value-wrap">
                     <span class="value normal-weight color-light">${mintApyDisplay}</span>
+                  </div>
+                </div>
+                <div class="${
+                  shouldShowMintApyDetail && !Config.holdingTokens.includes(collateralSymbol) && Number(mint2)
+                    ? 'item wst-item'
+                    : 'item hide-item'
+                }">
+                  <span class="label color-light">${intl.get('risk_tip.mining_apy2', {
+                    miningSymbol: miningNewSymbol
+                  })}</span>
+                  <div class="value-wrap">
+                    <span class="value normal-weight color-light">${mintApyTRXDisplay}</span>
                   </div>
                 </div>
 
@@ -346,7 +369,7 @@ class InterestRateModel extends React.Component {
             backgroundColor: '#40414A',
             padding: [3, 5, 3, 5],
             margin: -205,
-            lineHeight: '18px',
+            lineHeight: 18,
             shadowBlur: 0,
             formatter: function (params, text) {
               const useRate = BigNumber(current.base);
@@ -442,6 +465,8 @@ class InterestRateModel extends React.Component {
 
   showTooltipForCurrentData = () => {
     const instance = this.echartRef?.getEchartsInstance();
+    // console.log('ECharts instance:', instance);
+    if (!instance) return;
     if (!this.props.jTokenData.model?.length) {
       setTimeout(this.showTooltipForCurrentData, 1000);
       return;
@@ -449,13 +474,12 @@ class InterestRateModel extends React.Component {
     const idx = this.props.jTokenData.model.findIndex(item => item.current);
     // console.log('show tooitp', instance);
 
-    instance &&
-      instance.dispatchAction({
-        type: 'showTip',
-        seriesIndex: 0,
-        dataIndex: idx
-      });
-    this.props.lend.setData({ interestRateGraphIndex: -1 });
+    instance.dispatchAction({
+      type: 'showTip',
+      seriesIndex: 0,
+      dataIndex: idx
+    });
+    this.props.market.setInterestRateGraphIndex(-1);
   };
   hideTooltip = () => {
     const instance = this.echartRef?.getEchartsInstance();
@@ -474,7 +498,7 @@ class InterestRateModel extends React.Component {
       return;
     }
 
-    this.props.lend.setData({ interestRateGraphIndex: params.batch[0].dataIndex });
+    this.props.market.setInterestRateGraphIndex(params.batch[0].dataIndex);
   };
   onShowMintApyChange = e => {
     this.setState({
@@ -516,18 +540,15 @@ class InterestRateModel extends React.Component {
       // downplay: this.onChartDownplay
     };
 
+    const mintApy = Config.usddMint.includes(jTokenData.jtokenAddress)
+      ? jTokenData.mintApyWithUSDD
+      : jTokenData.mintApy;
+    const mintApyTRX = jTokenData.mintApyTRX;
+    const apy = mintApy !== '--' && BigNumber(mintApy).gt(0) ? mintApy : mintApyTRX;
+
     const shouldShowMintApyDetail =
-      checkIfShouldShowMintApyDetail(
-        showMintApy,
-        jTokenData.collateralSymbol,
-        Config.usddMint.includes(jTokenData.jtokenAddress) ? jTokenData.mintApyWithUSDD : jTokenData.mintApy
-      ) && openMint;
-    const shouldShowCheckbox =
-      checkIfShouldShowMintApyDetail(
-        true,
-        jTokenData.collateralSymbol,
-        Config.usddMint.includes(jTokenData.jtokenAddress) ? jTokenData.mintApyWithUSDD : jTokenData.mintApy
-      ) && openMint;
+      checkIfShouldShowMintApyDetail(showMintApy, jTokenData.collateralSymbol, apy) && openMint;
+    const shouldShowCheckbox = checkIfShouldShowMintApyDetail(true, jTokenData.collateralSymbol, apy) && openMint;
 
     return (
       <div className="interest-rate-model section">

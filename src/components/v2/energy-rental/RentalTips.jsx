@@ -35,7 +35,7 @@ class RentalTips extends React.Component {
             rel="noreferrer"
             className="purple-link-btn hover"
             onClick={() => {
-              window.gtag('event', 'click', {
+              window.gtag('event', 'energyrent_pro_tips_clickUserguide', {
                 'event_category': 'energyrent',
                 'event_label': 'energyrent_pro_tips_clickUserguide'
               });
@@ -65,7 +65,7 @@ class RentalTips extends React.Component {
               rel="noreferrer"
               className="purple-link-btn hover"
               onClick={() => {
-                window.gtag('event', 'click', {
+                window.gtag('event', 'energyrent_pro_tips_clickGasdetails', {
                   'event_category': 'energyrent',
                   'event_label': 'energyrent_pro_tips_clickGasdetails'
                 });

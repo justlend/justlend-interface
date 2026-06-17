@@ -1,17 +1,7 @@
 import axios from 'axios';
 import Config from '../../../config';
 const { service } = Config;
-const {
-  host,
-  stableHost,
-  depositBorrowRecord,
-  updateLastSeen,
-  strxRecord,
-  rentRecord,
-  voteRecord,
-  liquidateRecord,
-  cdpRecord
-} = service;
+const { host, depositBorrowRecord, updateLastSeen, strxRecord, rentRecord, voteRecord, liquidateRecord } = service;
 
 export const getUserRecords = async (type, addr, page, pageSize) => {
   try {
@@ -22,10 +12,6 @@ export const getUserRecords = async (type, addr, page, pageSize) => {
     if (type === 'strx') recordsPath = strxRecord;
     if (type === 'vote') recordsPath = voteRecord;
     if (type === 'liquidate') recordsPath = liquidateRecord;
-    if (type === 'cdp') {
-      recordsPath = cdpRecord;
-      recordsHost = stableHost;
-    }
     const url = `${recordsHost}${recordsPath}`;
     let { data } = await axios.get(url, { params: { addr, page, pageSize } });
 

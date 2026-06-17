@@ -8,7 +8,7 @@
   bottom: 0;
   width: 100%;
   height: 68px;
-  padding: 0 10px;
+  padding: 0;
   align-items: center;
   justify-content: center;
   background: #31333a;
@@ -21,6 +21,9 @@
     overflow: hidden;
     height: 48px;
     position: relative;
+    > a {
+      width: 20%;
+    }
     .new-icon {
       position: absolute;
       top: 0px;
@@ -54,6 +57,14 @@
       .stUsdt {
         background: url(../../images/v2/mobile/tabsbar/icon_stUsdt_selected.png) no-repeat center/cover;
       }
+
+      .sbmv1 {
+        background: url(../../images/v2/mobile/tabsbar/home-sbmv1-selected-icon.svg) no-repeat center/cover;
+      }
+      
+      .sbmv2 {
+        background: url(../../images/v2/mobile/tabsbar/home-sbmv2-selected-icon.svg) no-repeat center/cover;
+      }
     }
   }
 
@@ -81,9 +92,24 @@
     }
 
     &.more {
-      background: url(../../images/v2/mobile/tabsbar/icon_more.png) no-repeat center/cover;
+      background: url(../../images/v2/mobile/tabsbar/more.svg) no-repeat center/cover;
+    }
+
+    &.sbmv1 {
+      background: url(../../images/v2/mobile/tabsbar/home-sbmv1-icon.svg) no-repeat center/cover;
+    }
+    
+    &.sbmv2 {
+      background: url(../../images/v2/mobile/tabsbar/home-sbmv2-icon.svg) no-repeat center/cover;
     }
   }
+  .bs-route-m.ant-popover-open,
+  .bs-route-m.current {
+    .more {
+      background-image: url(../../images/v2/mobile/tabsbar/more-hover.svg);
+    }
+  }
+
 
   .menu-item-label {
     display: block;
@@ -94,18 +120,8 @@
     color: #fff;
     line-height: 14px;
     text-align: center;
-  }
-
-  .lend-title .menu-icons {
-    transform: translateX(-5px);
-  }
-
-  .bs-route {
-    &.ant-popover-open {
-      .bs-arrow {
-        transform: rotate(180deg);
-        background-image: url(../../images/liquidate/header-select-arrow-selected.svg);
-      }
+    >span {
+      color: #fff !important;
     }
   }
 
@@ -127,6 +143,14 @@
 
         .dao {
           background: url(../../images/v2/mobile/tabsbar/white-theme/icon_dao_selected.png) no-repeat center/cover;
+        }
+
+        .sbmv1 {
+          background: url(../../images/v2/mobile/tabsbar/white-theme/home-sbmv1-selected-icon.svg) no-repeat center/cover;
+        }
+        
+        .sbmv2 {
+          background: url(../../images/v2/mobile/tabsbar/white-theme/home-sbmv2-selected-icon.svg) no-repeat center/cover;
         }
       }
     }
@@ -154,32 +178,46 @@
       }
 
       &.more {
-        background: url(../../images/v2/mobile/tabsbar/white-theme/icon_more.png) no-repeat center/cover;
+        background: url(../../images/v2/mobile/tabsbar/white-theme/more.svg) no-repeat center/cover;
+      }
+
+      &.sbmv1 {
+        background: url(../../images/v2/mobile/tabsbar/white-theme/home-sbmv1-icon.svg) no-repeat center/cover;
+      }
+      
+      &.sbmv2 {
+        background: url(../../images/v2/mobile/tabsbar/white-theme/home-sbmv2-icon.svg) no-repeat center/cover;
+      }
+    }
+    .bs-route-m.ant-popover-open,
+    .bs-route-m.current {
+      .more {
+        background-image: url(../../images/v2/mobile/tabsbar/white-theme/more-hover.svg);
       }
     }
 
     .menu-item-label {
       color: #22232b;
+       > span {
+        color: #22232b !important;
+       }
     }
 
     .bs-route.bs-route-m {
-      &.ant-popover-open {
+      .bs-arrow {
+        transform: rotate(0deg);
+      }
+      &.ant-popover-open,
+      &.current {
         .menu-item-label {
           > span {
-            color: #4c54ff;
+            color: #fff;
           }
         }
         .bs-arrow {
-          // min-width: 11px;
-          // height: 11px;
-          transition: none;
-          transform: rotate(180deg) translateY(2px);
-          background-image: url(../../images/liquidate/white-theme/header-select-arrow-selected.svg);
+          background-image: url(../../images/JLv2/white-theme/header/header-select-arrow-hover.svg);
+          // transform: rotate(180deg);
         }
-      }
-      .bs-arrow {
-        transition: none;
-        background-image: url(../../images/liquidate/white-theme/header-select-arrow.svg);
       }
     }
   }
@@ -195,6 +233,93 @@
       &::before {
         transform: translateX(12px);
       }
+    }
+  }
+  .header-dropdown-v2-mobile {
+    position: fixed;
+    left: 15px;
+    right: 15px;
+    bottom: 79px;
+    top: auto;
+    min-height: 185px;
+    padding-top: 0;
+    margin-left: 0;
+    &::before {
+      display: none;
+    }
+    .header-v2-icon {
+      background-position: 10px center;
+      padding-left: 52px !important;
+    }
+    .dropdown-inner {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 14px 10px;
+      border-radius: 10px;
+      background-color: #131721;
+      border: 1px solid #41444c;
+      .item-title {
+        width: 100%;
+        margin-bottom: 8px;
+        height: auto;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+      .main-item.current,
+      > div {
+        background-color: transparent !important;
+      }
+      > div {
+        padding: 0;
+      }
+      .main-item {
+        width: 100%;
+        &::after {
+          opacity: 1 !important;
+          width: 20px;
+          height: 20px;
+          background: url(../../images/JLv2/header/header-triangle-m.png) 0 0 no-repeat;
+          background-size: 100%;
+          transform: rotate(180deg);
+        }
+        &.current,
+        &.open {
+          &::after {
+            transform: rotate(0deg);
+          }
+        }
+      }
+      .sub-item {
+        width: 100%;
+      }
+      .header-v2-icon:hover {
+        &.sbm-v2 {
+          background-image: url(../../images/JLv2/header/sbm-v2.svg);
+        }
+
+        &.sbm-v1 {
+          background-image: url(../../images/JLv2/header/sbm-v1.svg);
+        }
+      }
+    }
+  }
+  .m-tabsbar.white {
+    .header-v2-icon {
+      &.current,
+      &:hover {
+        &.sbm-v2 {
+          background-image: url(../../images/JLv2/white-theme/header/sbm-v2-hover.svg);
+        }
+        &.sbm-v1 {
+          background-image: url(../../images/JLv2/white-theme/header/sbm-v1-hover.svg);
+        }
+      }
+    }
+    .header-dropdown-v2-mobile .dropdown-inner {
+      border-color: #fff;
+      background-color: #fff;
     }
   }
 }

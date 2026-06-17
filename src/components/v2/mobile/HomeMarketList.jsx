@@ -32,7 +32,7 @@ import { DepositButton } from '../market-detail/DepositButton';
 import { BorrowButton } from '../market-detail/BorrowButton';
 import { SimpleLink } from '../../Common/SimpleLink';
 import { checkIfShouldShowMintApyDetail } from '../market-detail/utils';
-const { miningSymbol } = Config;
+const { miningSymbol, miningNewSymbol } = Config;
 
 export const getLiquidityTooltipTitle = () =>
   tooltip(intl.get('v2.tip8'), [
@@ -66,10 +66,12 @@ export const getSupplyApyTooltipTitle = (item, assetList) => {
 };
 
 export const getSupplyApyTooltipTitleNew = (item, assetList, openMint) => {
-  const { depositApy, underlyingIncrementApy, mintApy, mintApyWithUSDD } = getTotalApy(item, assetList);
+  const { depositApy, underlyingIncrementApy, mintApy, mintApyWithUSDD, mintApyTRX } = getTotalApy(item, assetList);
   const finalMintApy = Config.usddMint.includes(item.jtokenAddress) ? mintApyWithUSDD : mintApy;
+  const apy = (mintApy !== '--' && BigNumber(mintApy).gt(0)) ? mintApy : mintApyTRX;
+
   const shouldShowMiningApyDetail =
-    checkIfShouldShowMintApyDetail(true, item.collateralSymbol, finalMintApy) && openMint;
+    checkIfShouldShowMintApyDetail(true, item.collateralSymbol, apy) && openMint;
 
   if (item.collateralSymbol === 'sTRX') {
     return tooltipSTRX(depositApy, underlyingIncrementApy, mintApy, shouldShowMiningApyDetail);
@@ -84,10 +86,19 @@ export const getSupplyApyTooltipTitleNew = (item, assetList, openMint) => {
     });
 
     if (shouldShowMiningApyDetail) {
-      apyArr.push({
-        title: intl.get('risk_tip.mining_apy2', { miningSymbol }),
-        value: formatNumber(finalMintApy, 2, { per: true, miniText: '0.01' }) + '%'
-      });
+      if (BigNumber(finalMintApy).gt(0)) {
+        apyArr.push({
+          title: intl.get('risk_tip.mining_apy2', { miningSymbol }),
+          value: formatNumber(finalMintApy, 2, { per: true, miniText: '0.01' }) + '%'
+        });
+      }
+      // add TRX mining reward APY
+      if (BigNumber(mintApyTRX).gt(0)) {
+        apyArr.push({
+          title: intl.get('risk_tip.mining_apy2', { miningSymbol: miningNewSymbol }),
+          value: formatNumber(mintApyTRX, 2, { per: true, miniText: '0.01' }) + '%'
+        });
+      }
     }
 
     if (Config.usddMint.includes(item.jtokenAddress)) {
@@ -114,6 +125,7 @@ export const getSupplyApyTooltipTitleNew = (item, assetList, openMint) => {
 @inject('lend')
 @inject('system')
 @inject('pool')
+@inject('market')
 @observer
 class HomeMarketList extends React.Component {
   constructor(props) {
@@ -232,7 +244,8 @@ class HomeMarketList extends React.Component {
 
   marketCardRender = dataSource => {
     const { isConnected } = this.props.network;
-    const { lang, balanceInfo, assetList, theme, noService, riojBalance, openMint } = this.props.lend;
+    const { lang, theme, openMint } = this.props.lend;
+    const { isUSDDOLDDisabled, balanceInfo, assetList, noService, riojBalance } = this.props.market;
     const { mobile } = this.state;
 
     return (
@@ -241,9 +254,10 @@ class HomeMarketList extends React.Component {
           const isTrx = item?.collateralSymbol?.toLocaleLowerCase() === 'trx';
           const isUsdt = item?.collateralSymbol?.toLocaleLowerCase() === 'usdt';
 
-          const { totalApy, mintApy, depositApy, wstUSDTDepositApyWithIncrement } = getTotalApy(item, assetList);
+          const { totalApy, mintApy, mintApyTRX, depositApy, wstUSDTDepositApyWithIncrement } = getTotalApy(item, assetList);
+          const apy = (mintApy !== '--' && BigNumber(mintApy).gt(0)) ? mintApy : mintApyTRX;
           const shouldShowMiningApyDetail =
-            checkIfShouldShowMintApyDetail(true, item.collateralSymbol, mintApy) && openMint;
+            checkIfShouldShowMintApyDetail(true, item.collateralSymbol, apy) && openMint;
 
           return (
             <div
@@ -266,7 +280,7 @@ class HomeMarketList extends React.Component {
               <div
                 className="market-card bg-primary"
                 onClick={e => {
-                  window.gtag('event', 'click', {
+                  window.gtag('event', `market_${item?.collateralSymbol?.toLocaleLowerCase()}`, {
                     'event_category': 'H5',
                     'event_label': `market_${item?.collateralSymbol?.toLocaleLowerCase()}`
                   });
@@ -291,7 +305,7 @@ class HomeMarketList extends React.Component {
                       }}
                       alt=""
                     />
-                    <div className="text-wrap">
+                    <div className="text-wrap text-wrap-m">
                       {noService && item.collateralSymbol === 'wstUSDT' ? (
                         <div className="token-names flex aic">
                           <span className="mc-symbol color-primary">{item.collateralSymbol}</span>
@@ -315,18 +329,53 @@ class HomeMarketList extends React.Component {
                           {item.collateralSymbol === 'USDDOLD' && miningSymbol === 'USDD' && (
                             <Tooltip
                               overlayClassName={'j-tooltip-dropdown ' + theme}
-                              title={intl.get('usdd_update.tip')}
+                              title={
+                                isUSDDOLDDisabled ? intl.getHTML('usdd_update.migrate') : intl.get('usdd_update.tip')
+                              }
                               trigger="['hover','click']"
                               placement="top"
                               arrowPointAtCenter
                             >
-                              <span className={'tip'}></span>
+                              <span className={isUSDDOLDDisabled ? 'not-used-icon y-2 ml-6' : 'tip'}></span>
+                            </Tooltip>
+                          )}
+                          {item.collateralSymbol === 'USDJ' && item.mintPaused && item.borrowPaused ? (
+                            <Tooltip
+                              title={intl.get('risk_tip.usdj_icon')}
+                              placement="top"
+                              trigger="['hover','click']"
+                              arrowPointAtCenter
+                              overlayClassName={'j-tooltip-dropdown light ' + theme}
+                            >
+                              <em className="not-used-icon y-2 ml-6"></em>
+                            </Tooltip>
+                          ) : (
+                            ''
+                          )}
+                          {(Config.riskMarkets.includes(item.collateralSymbol) || item.collateralSymbol === 'WBTT') && (
+                            <Tooltip
+                              title={
+                                item.collateralSymbol === 'SUNOLD'
+                                  ? intl.getHTML('risk_tip.sunold_borrow')
+                                  : intl.getHTML(`risk_tip.${item.collateralSymbol?.toLocaleLowerCase()}_icon`, {
+                                      link:
+                                        item.collateralSymbol === 'USDCOLD'
+                                          ? Config.announceForUSDCOLD
+                                          : Config.announceLink
+                                    })
+                              }
+                              placement="top"
+                              trigger="['hover','click']"
+                              arrowPointAtCenter
+                              overlayClassName={'j-tooltip-dropdown light ' + theme}
+                            >
+                              <em className="not-used-icon y-2 ml-6"></em>
                             </Tooltip>
                           )}
                         </span>
                       )}
 
-                      <div className="c-flex">
+                      <div className="flex">
                         <span className="mc-subtitle color-light">{item.collateralName}</span>
                         {(item.collateralSymbol === 'ETHB' || item.collateralSymbol === 'ETH') && (
                           <div className={'mc-des ' + theme}>
@@ -336,50 +385,47 @@ class HomeMarketList extends React.Component {
                           </div>
                         )}
                       </div>
-                      {((Config.riskMarkets.includes(item.collateralSymbol) && item.collateralSymbol !== 'ETH') ||
-                        item.collateralSymbol === 'WBTT') && (
-                        <div className="token-names flex aic">
-                          <Tooltip
-                            title={
-                              item.collateralSymbol === 'SUNOLD'
-                                ? intl.getHTML('risk_tip.sunold_borrow')
-                                : intl.getHTML(`risk_tip.${item.collateralSymbol?.toLocaleLowerCase()}_icon`, {
-                                    link:
-                                      item.collateralSymbol === 'USDCOLD'
-                                        ? Config.announceForUSDCOLD
-                                        : Config.announceLink
-                                  })
-                            }
-                            placement="top"
-                            trigger="['hover','click']"
-                            arrowPointAtCenter
-                            overlayClassName={'j-tooltip-dropdown not-used ' + theme}
-                          >
-                            <em className="not-used-icon ml-6"></em>
-                          </Tooltip>
-                        </div>
-                      )}
                     </div>
                   </div>
 
-                  {item.account_entered === 2 ? (
-                    <span className="colleteral color-light">{intl.get('index.not_support')}</span>
+                  {BigNumber(item.collateralFactor).eq(0) || (item.mintPaused && item.borrowPaused) ? (
+                    <>
+                      <div className="collateral color-light" onClick={this.stopPropagation}>
+                        <TooltipText
+                          title={
+                            item.collateralSymbol === 'USDDOLD'
+                              ? item.account_entered === 1
+                                ? intl.get('s11.market_closed_tips4')
+                                : intl.get('s11.market_closed_tips3')
+                              : item.account_entered === 1
+                              ? intl.get('s11.market_closed_tips2')
+                              : intl.get('s11.market_closed_tips1')
+                          }
+                          placement="topLeft"
+                          arrowPointAtCenter
+                          overlayClassName="j-tooltip-dropdown light"
+                        >
+                          {intl.get('v2.collateral')}
+
+                          {''}
+                        </TooltipText>
+                        <div className="cannot-open">
+                          <ToggleSwitch
+                            on={item.account_entered === 1}
+                            lang={lang}
+                            onClick={() => {
+                              if (item.account_entered === 1) {
+                                return this.props.onSwitchChange(item.account_entered === 1, item);
+                              }
+                              return;
+                            }}
+                          ></ToggleSwitch>
+                        </div>
+                      </div>
+                    </>
                   ) : (
                     <div className="collateral color-light" onClick={this.stopPropagation}>
-                      <TooltipText
-                        overlayClassName="j-tooltip-dropdown"
-                        title={intl.get('v2.tip4')}
-                        placement="top"
-                        overlayStyle={{
-                          width: 200
-                        }}
-                        onOpenChange={window.gtag('event', 'H5_Collateral', {
-                          'event_category': 'H5',
-                          'event_label': 'Collateral'
-                        })}
-                      >
-                        {intl.get('v2.collateral')}
-                      </TooltipText>
+                      <div className="tooltip-text no-border-bottom">{intl.get('v2.collateral')}</div>
                       <ToggleSwitch
                         on={item.account_entered === 1}
                         lang={lang}
@@ -453,7 +499,7 @@ class HomeMarketList extends React.Component {
                         <DepositButton
                           jTokenData={item}
                           mobile={this.state.mobile}
-                          placement={mobile ? 'bottomRight' : 'bottom'}
+                          placement={'bottom'}
                         ></DepositButton>
                       </div>
                     </div>
@@ -475,11 +521,7 @@ class HomeMarketList extends React.Component {
                         {item.collateralSymbol}
                       </div>
                       <div className="btn-wrap right">
-                        <BorrowButton
-                          jTokenData={item}
-                          mobile={this.state.mobile}
-                          placement={mobile ? 'bottomLeft' : 'bottom'}
-                        ></BorrowButton>
+                        <BorrowButton jTokenData={item} mobile={this.state.mobile} placement={'bottom'}></BorrowButton>
                       </div>
                     </div>
                   </div>
@@ -514,8 +556,9 @@ class HomeMarketList extends React.Component {
     const { searchValue, sortField } = this.state;
     const { isConnected } = this.props.network;
     const { sortType, showHiddenMarket } = this.state;
-    const { assetList, lang } = this.props.lend;
-    // const { markets, defaultMarkets } = this.state;
+    const { assetList } = this.props.market;
+    const { lang } = this.props.lend;
+
     let dataArr = [];
     let marketsNew = marketList.map(item => {
       const { depositApy, mintApy, totalApy } = getTotalApy(item, assetList);
@@ -527,19 +570,23 @@ class HomeMarketList extends React.Component {
     });
 
     if (sortField === 'deposit') {
-      dataArr = marketsNew.sort((a, b) =>
-        sortType === 'asc' ? a.depositSortApy - b.depositSortApy : b.depositSortApy - a.depositSortApy
-      );
+      dataArr = marketsNew
+        .slice()
+        .sort((a, b) =>
+          sortType === 'asc' ? a.depositSortApy - b.depositSortApy : b.depositSortApy - a.depositSortApy
+        );
     } else if (sortField === 'borrow') {
-      dataArr = marketsNew.sort((a, b) =>
-        sortType === 'asc' ? a.borrowedAPY - b.borrowedAPY : b.borrowedAPY - a.borrowedAPY
-      );
+      dataArr = marketsNew
+        .slice()
+        .sort((a, b) => (sortType === 'asc' ? a.borrowedAPY - b.borrowedAPY : b.borrowedAPY - a.borrowedAPY));
     } else if (sortField === 'liquidity') {
-      dataArr = marketsNew.sort((a, b) =>
-        sortType === 'asc'
-          ? marketLendAvailable(a) - marketLendAvailable(b)
-          : marketLendAvailable(b) - marketLendAvailable(a)
-      );
+      dataArr = marketsNew
+        .slice()
+        .sort((a, b) =>
+          sortType === 'asc'
+            ? marketLendAvailable(a) - marketLendAvailable(b)
+            : marketLendAvailable(b) - marketLendAvailable(a)
+        );
     } else {
       dataArr = marketList;
     }

@@ -1,21 +1,11 @@
 // Libraries
 import React from 'react';
-import { observable } from 'mobx';
+import { observable, makeObservable } from 'mobx';
 
-import { ACCOUNT_TRONLINK, BigNumber, tronscanTX, cutMiddle, voteFormat, formatNumber } from '../utils/helper';
+import { BigNumber } from '../utils/helper';
 import { tokenBalanceOf, getPoolsInfo, getRewardsNew } from '../utils/blockchain';
-import {
-  getSowDays,
-  getMinedSunOld,
-  getTrxPrice,
-  getTokenPrice,
-  getVoteRankList,
-  getVoteTo,
-  getVoteList,
-  getTronBull,
-  getTronbullish
-} from '../utils/backend';
-import { initPoolData, calcMineInfo, initVoteList, getStatus, initVoteData, VOTE_STATUS } from '../utils/constant';
+import { getTokenPrice, getTronBull, getTronbullish } from '../utils/backend';
+import { initPoolData } from '../utils/constant';
 import Config from '../config';
 
 const defaultIntervalSeconds = 60000;
@@ -41,6 +31,8 @@ export default class PoolStore {
     this.defaultIntervalSec = 60000;
     this.backendPass = 0;
     this.backendPing = 10;
+
+    makeObservable(this);
   }
 
   setData = (obj = {}) => {
@@ -111,8 +103,13 @@ export default class PoolStore {
       const { activeSwaps, contract } = Config;
       const activeSwapsAll = activeSwaps;
       const params = activeSwapsAll.map(item => {
-        // console.log(BigNumber(poolData[item].totalUSD)._toFixed(2));
-        return { pool: contract[item].pool, tvl: BigNumber(poolData[item].totalUSD)._toFixed(2) };
+        return {
+          pool: contract[item].pool,
+          tvl:
+            isNaN(poolData[item].totalUSD) || poolData[item].totalUSD === '--'
+              ? 0
+              : BigNumber(poolData[item].totalUSD)._toFixed(2)
+        };
       });
       const pool = params.map(item => item.pool).join(',');
       const tvl = params.map(item => item.tvl).join(',');
@@ -131,7 +128,7 @@ export default class PoolStore {
       const poolIds = Object.keys(poolData);
       const _poolAddresses = [];
       const _poolIds = [];
-      poolIds.map(async id => {
+      poolIds.map(id => {
         if (poolData[id].pool) {
           _poolIds.push(id);
           _poolAddresses.push(poolData[id].pool);
@@ -161,7 +158,7 @@ export default class PoolStore {
 
       const { totalLock, claimed, staked, trxAmount, tokenAmount } = res.data;
 
-      _poolIds.map(async (id, index) => {
+      _poolIds.map((id, index) => {
         const { precision, tokenPrecision, lp } = poolData[id];
 
         const _total = BigNumber(totalLock[index]._hex).div(precision);

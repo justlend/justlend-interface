@@ -5,6 +5,10 @@
 }
 .j-subhead .info .desc {
   text-indent: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 10px;
 }
 .j-subhead {
   .tall-skeleton {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Intl from 'react-intl-universal';
 
-import ReactEcharts from 'echarts-for-react';
+import ReactEcharts from 'echarts-for-react/lib';
 import { inject, observer } from 'mobx-react';
 import BigNumber from 'bignumber.js';
 
@@ -36,6 +36,12 @@ class RentalPriceModel extends Component {
     setTimeout(() => {
       this.showTooltipForCurrentData();
     });
+  }
+  componentWillUnmount() {
+    const chartInstance = this.echartRef?.getEchartsInstance();
+    if (chartInstance) {
+      chartInstance.dispose();
+    }
   }
   getEchartsOption() {
     const { voteApy = 0, totalApy } = this.props;
@@ -81,17 +87,17 @@ class RentalPriceModel extends Component {
   showTooltipForCurrentData = () => {
     const { mobile } = this.state;
     const instance = this.echartRef?.getEchartsInstance();
+    if (!instance) return;
     if (!this.props.dataList?.length) {
       setTimeout(this.showTooltipForCurrentData, 800);
       return;
     }
-    instance &&
-      instance.dispatchAction({
-        type: 'showTip',
-        seriesIndex: 0,
-        dataIndex: this.props.dataList.findIndex(item => item.current) || 0,
-        position: mobile ? [40, 10] : [80, 10]
-      });
+    instance.dispatchAction({
+      type: 'showTip',
+      seriesIndex: 0,
+      dataIndex: this.props.dataList.findIndex(item => item.current) || 0,
+      position: mobile ? [40, 10] : [80, 10]
+    });
   };
 
   hideTooltip = () => {
@@ -160,11 +166,11 @@ function getChartOptions({ theme, dataList, isMobile, labelStatus }) {
         colorStops: [
           {
             offset: 0,
-            color: '#1BDCB5'
+            color: '#1BDCB5' // 0%
           },
           {
             offset: 1,
-            color: '#5FD2EB'
+            color: '#5FD2EB' // 100%
           }
         ],
         global: false
@@ -178,11 +184,11 @@ function getChartOptions({ theme, dataList, isMobile, labelStatus }) {
         colorStops: [
           {
             offset: 0,
-            color: 'rgba(29, 192, 163, 0)'
+            color: 'rgba(29, 192, 163, 0)' // 0%
           },
           {
             offset: 1,
-            color: 'rgba(134, 255, 231, 0.3)'
+            color: 'rgba(134, 255, 231, 0.3)' // 100%
           }
         ],
         global: false
@@ -288,6 +294,7 @@ function getChartOptions({ theme, dataList, isMobile, labelStatus }) {
       {
         data: serialData,
         type: 'line',
+        animation: false,
         areaStyle: {
           color: 'transparent'
         },

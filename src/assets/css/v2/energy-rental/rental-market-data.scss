@@ -5,12 +5,34 @@
   .price-and-chart {
     display: flex;
 
+    .price-title {
+      position: relative;
+      padding: 0 20px 15px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: #fff;
+
+      &::before {
+        content: '';
+        position: absolute;
+        background-size: 16px 16px;
+        width: 16px;
+        height: 16px;
+        top: 1px;
+        left: 0;
+        background-image: url(../../../images/v2/energy-rental/energy-amount-field-icon.png);
+      }
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0.57%, rgba(255, 255, 255, 0) 100%);
+    }
+
     .price-info {
       flex-basis: 50%;
-
-      .title {
-        color: #fff;
-      }
       .price {
         .value {
           color: #fff;
@@ -67,29 +89,361 @@
     }
   }
 
-  .market-stat {
-    display: flex;
+  .energy-data-container {
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    .j-energy-data-tabs {
+      .ant-tabs-nav-wrap {
+        border-bottom: 0;
+        justify-content: flex-start;
+      }
 
-    .stat {
+      &.ant-tabs-top > .ant-tabs-nav:before {
+        border-bottom: 0;
+      }
+
+      .ant-tabs-nav {
+        margin-bottom: 30px;
+
+        .ant-tabs-tab + .ant-tabs-tab {
+          margin-left: 20px;
+        }
+      }
+
+      .ant-tabs-tab {
+        font-family: 'PingFang SC';
+        background: transparent;
+        border: none;
+        margin-left: 0;
+        padding: 4px 20px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        border-radius: 5px;
+        color: rgba(255, 255, 255, 0.4);
+        background-color: rgba(31, 32, 39, 0.4);
+
+        &.ant-tabs-tab-active,
+        &:hover {
+          .ant-tabs-tab-btn {
+            color: #fff;
+            text-shadow: 0 0 0.25px #fff;
+          }
+        }
+      }
+    }
+
+    .energy-pool-data-container {
       display: flex;
-      flex-direction: row;
+      justify-content: space-between;
       align-items: center;
+    }
 
-      .grey-dot {
-        background-color: #b3b4b7;
+    .energy-pool-data-title {
+      position: relative;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      color: #b3b4b7;
+
+      &::before {
+        content: '';
+        position: absolute;
         width: 4px;
         height: 4px;
+        background: #b3b4b7;
         border-radius: 1px;
+        top: 50%;
+        left: -14px;
+        transform: translateY(-50%);
       }
-      .stat-title {
+    }
+
+    .energy-pool-data-left {
+      flex: 1;
+      padding-right: 30px;
+    }
+
+    .energy-pool-data-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .energy-pool-data-chart {
+      margin-top: 20px;
+    }
+
+    .energy-pool-data-total {
+      padding-left: 14px;
+
+      .energy-pool-data-total-value {
+        margin: 6px 0;
+        font-family: 'Avenir Next';
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 22px;
+        color: #fff;
+      }
+
+      .energy-pool-data-total-time {
+        font-family: 'Avenir Next';
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
         color: #b3b4b7;
       }
-      .stat-value {
+    }
+
+    .energy-pool-data-info {
+      min-height: 40px;
+      display: flex;
+      flex-wrap: wrap;
+
+      .energy-pool-data-info-item {
+        position: relative;
+        padding: 1px 20px 1px 14px;
+
+        &::before {
+          content: '';
+          position: absolute;
+          width: 3px;
+          height: 30px;
+          border-radius: 3px;
+          top: 5px;
+          left: 0;
+        }
+
+        &:nth-child(1) {
+          min-width: auto;
+          &::before {
+            background: linear-gradient(0deg, #3affd7 0%, #91e8fb 100%);
+          }
+        }
+
+        &:nth-child(2) {
+          min-width: 139px;
+          &::before {
+            background: #d9d6de;
+          }
+        }
+
+        &:nth-child(3) {
+          min-width: 121px;
+          padding: 1px 2px 1px 14px;
+          &::before {
+            background: #5158ff;
+          }
+        }
+      }
+      .energy-pool-data-info-item-title {
+        margin-bottom: 2px;
+        font-family: 'Avenir Next';
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        color: #b3b4b7;
+
+        .j-tooltip-icon {
+          vertical-align: -1px;
+        }
+      }
+      .energy-pool-data-info-item-value {
+        font-family: 'Avenir Next';
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
         color: #fff;
       }
     }
+
+    .energy-pool-data-right {
+      min-width: 170px;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      padding-left: 44px;
+      align-self: stretch;
+
+      .energy-pool-data-title {
+        margin-bottom: 2px;
+      }
+
+      .energy-pool-data-user-item:last-child {
+        margin-top: 8px;
+      }
+
+      .energy-pool-user-icon {
+        width: 36px;
+        height: 36px;
+        margin-top: 28px;
+      }
+      .energy-pool-user-item-title {
+        margin: 10px 0 4px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+        color: #b3b4b7;
+      }
+      .energy-pool-user-item-value {
+        font-family: 'Avenir Next';
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 22px;
+        color: #fff;
+      }
+    }
+  }
+
+  .rental-explanation-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .rental-explanation-left,
+    .rental-explanation-right {
+      flex: 1;
+      padding-left: 14px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rental-explanation-divider {
+      width: 1px;
+      margin: 0 30px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .rental-explanation-title {
+      position: relative;
+      margin-bottom: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      color: #fff;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 1px;
+        background: #b3b4b7;
+        top: 50%;
+        left: -14px;
+        transform: translateY(-50%);
+      }
+    }
+
+    .rental-explanation-tip,
+    .rental-explanation-desc {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 18px;
+      color: #b3b4b7;
+    }
+
+    .rental-explanation-tip {
+      margin-bottom: 20px;
+    }
+
+    .rental-explanation-desc {
+      padding: 16px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .rental-explanation-desc-container {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      margin-top: 20px;
+    }
+
+    .rental-explanation-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+
+      .rental-explanation-item-title {
+        // white-space: nowrap;
+        padding: 3px 13px;
+        margin-right: 10px;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.04);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        color: #18c19f;
+
+        &.auto-width {
+          flex: 1;
+          max-width: 210px;
+          margin-right: 0;
+          margin-left: 10px;
+          text-align: center;
+        }
+      }
+
+      .rental-explanation-item-value {
+        // white-space: nowrap;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        color: #ffffff;
+      }
+    }
+
+    &.en .rental-explanation-item {
+      .rental-explanation-item-title {
+        flex-shrink: 0;
+        width: 144px;
+        padding: 3px 10px;
+        text-align: center;
+      }
+
+      .rental-explanation-item-value {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .rental-explanation-right .rental-explanation-item {
+      margin-bottom: 0;
+    }
+
+    .rental-explanation-line {
+      height: 32px;
+      padding-left: 55px;
+
+      &.rental-explanation-line-en {
+        padding-left: 65px;
+      }
+    }
+  }
+}
+
+.reiv {
+  > span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  &.mobile.en {
+    flex: 1;
+    > span > span:nth-child(2) {
+      width: 90px;
+      text-align: center;
+    }
+  }
+}
+
+.reit {
+  &.mobile.en {
+    // width: 150px !important;
+    flex: none !important;
   }
 }
 
@@ -97,10 +451,16 @@
 .j-wrapper.white {
   .rental-market-data {
     .price-and-chart {
-      .price-info {
-        .title {
-          color: #22232b;
+      .price-title {
+        color: #22232b;
+        &::before {
+          background-image: url(../../../images/v2/energy-rental/energy-amount-field-icon-white-theme.png);
         }
+      }
+      .section-divider {
+        background: #f2f2f2;
+      }
+      .price-info {
         .price {
           .value {
             color: #22232b;
@@ -137,17 +497,119 @@
       }
     }
 
-    .market-stat {
-      border-top: 1px solid #f2f2f2;
+    .energy-data-container {
+      background: rgba(34, 35, 43, 0.02);
 
-      .stat {
-        .grey-dot {
-          background-color: #9c9daa;
+      .j-energy-data-tabs {
+        .ant-tabs-tab {
+          color: rgba(34, 35, 43, 0.4);
+          background-color: rgba(34, 35, 43, 0.08);
+
+          &.ant-tabs-tab-active,
+          &:hover {
+            .ant-tabs-tab-btn {
+              color: #22232b;
+              text-shadow: 0 0 0.25px #22232b;
+            }
+          }
         }
-        .stat-title {
+      }
+
+      .energy-pool-data-container {
+        .energy-pool-data-title {
+          color: #737480;
+
+          &::before {
+            background: #737480;
+          }
+        }
+      }
+
+      .energy-pool-data-total {
+        .energy-pool-data-total-value {
+          color: #22232b;
+        }
+
+        .energy-pool-data-total-time {
           color: #737480;
         }
-        .stat-value {
+      }
+
+      .energy-pool-data-info {
+        .energy-pool-data-info-item {
+          &:nth-child(1) {
+            &::before {
+              background: linear-gradient(0deg, #1bdcb5 0%, #5fd2eb 100%);
+            }
+          }
+
+          &:nth-child(2) {
+            &::before {
+              background: #b1bcf1;
+            }
+          }
+
+          &:nth-child(3) {
+            &::before {
+              background: #5158ff;
+            }
+          }
+
+          .energy-pool-data-info-item-title {
+            color: #737480;
+          }
+
+          .energy-pool-data-info-item-value {
+            color: #22232b;
+          }
+        }
+      }
+
+      .energy-pool-data-right {
+        min-width: 170px;
+        border-left: 0.5px solid rgba(115, 116, 128, 0.3);
+        padding-left: 44px;
+
+        .energy-pool-user-item-title {
+          color: #737480;
+        }
+
+        .energy-pool-user-item-value {
+          color: #22232b;
+        }
+      }
+    }
+
+    .rental-explanation-container {
+      .rental-explanation-divider {
+        width: 0.5px;
+        background: rgba(115, 116, 128, 0.3);
+      }
+
+      .rental-explanation-title {
+        color: #22232b;
+
+        &::before {
+          background: #737480;
+        }
+      }
+
+      .rental-explanation-tip,
+      .rental-explanation-desc {
+        color: #737480;
+      }
+
+      .rental-explanation-desc {
+        background: rgba(34, 35, 43, 0.08);
+      }
+
+      .rental-explanation-item {
+        .rental-explanation-item-title {
+          background: rgba(34, 35, 43, 0.08);
+          color: #18c19f;
+        }
+
+        .rental-explanation-item-value {
           color: #22232b;
         }
       }
@@ -159,23 +621,15 @@
 @media screen and (min-width: 799px) {
   .rental-market-data {
     margin-top: 20px;
-    padding: 25px 30px;
+    // padding: 25px 30px;
 
     .price-and-chart {
-      flex-direction: row;
-      align-items: center;
-
-      padding-bottom: 26px;
+      padding: 20px 30px 0;
+      flex-direction: column;
 
       .price-info {
         padding-right: 15px;
 
-        .title {
-          margin-bottom: 10px;
-
-          font-size: 16px;
-          font-weight: 500;
-        }
         .price {
           .value {
             font-size: 26px;
@@ -204,38 +658,6 @@
         padding-left: 15px;
       }
     }
-
-    .market-stat {
-      padding-top: 28px;
-      flex-direction: row;
-      justify-content: space-between;
-
-      .stat {
-        max-width: 33%;
-        flex-grow: 0;
-        flex-shrink: 1;
-
-        &:not(:first-child) {
-          padding-left: 6px;
-        }
-
-        .stat-title {
-          padding-left: 16px;
-          font-size: 14px;
-          font-weight: 500;
-          white-space: nowrap;
-        }
-        .stat-value {
-          margin-left: 8px;
-          font-size: 18px;
-          font-weight: 600;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: block;
-        }
-      }
-    }
   }
 }
 
@@ -243,20 +665,24 @@
 @media (max-width: 798px) {
   .rental-market-data {
     margin-top: 20px;
-    padding: 20px 15px;
+    padding: 20px 15px 30px;
 
     .price-and-chart {
       flex-direction: column;
       padding-bottom: 20px;
 
-      .price-info {
-        margin-bottom: 15px;
-        .title {
-          margin-bottom: 10px;
+      .section-divider {
+        background: #3d3f46;
+      }
 
-          font-size: 16px;
-          font-weight: 500;
-        }
+      .price-content {
+        margin-top: 16px;
+        flex-direction: column;
+        align-items: flex-start !important;
+      }
+
+      .price-info {
+        margin-bottom: 10px;
         .price {
           .value {
             font-size: 24px;
@@ -286,32 +712,197 @@
       }
     }
 
-    .market-stat {
-      padding-top: 20px;
-      padding-left: 4px;
+    .energy-data-container {
+      padding: 30px 15px;
+      margin: -10px -15px -30px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      overflow: hidden;
+
+      .j-energy-data-tabs {
+        .ant-tabs-nav-wrap {
+          justify-content: center;
+        }
+      }
+
+      .energy-pool-data-container {
+        flex-direction: column;
+
+        .energy-pool-data-title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+
+      .energy-pool-data-left {
+        width: 100%;
+        padding-right: 0;
+      }
+
+      .energy-pool-data-chart {
+        margin-top: 0;
+        margin-bottom: 30px;
+      }
+
+      .energy-pool-data-total {
+        flex: 1;
+        .energy-pool-data-total-value {
+          margin: 6px 0 20px;
+        }
+      }
+
+      .energy-pool-data-info {
+        flex-direction: column;
+        min-height: auto;
+        margin-top: 20px;
+
+        .energy-pool-data-info-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          min-height: 36px;
+          margin-bottom: 10px;
+          padding: 0 15px !important;
+          background: rgba(255, 255, 255, 0.04);
+          border-radius: 5px;
+
+          &::before {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 16px;
+            border-radius: 3px;
+            top: 10px;
+            left: 0;
+          }
+
+          .energy-pool-data-info-item-title {
+            margin-bottom: 0;
+
+            .hover-line {
+              font-family: 'Avenir Next';
+              font-size: 12px;
+              font-weight: 400;
+              line-height: 16px;
+              color: #b3b4b7;
+              border-bottom: 1px dashed rgba(255, 255, 255, 0.6);
+
+              &:hover {
+                color: #9195fb;
+                border-color: #9195fb;
+              }
+            }
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .energy-pool-data-right {
+        width: 100%;
+        padding-left: 14px !important;
+        padding-top: 30px;
+        margin-top: 0;
+        border-left: none !important;
+        border-top: 1px solid #3d3f46;
+
+        .energy-pool-data-title {
+          margin-bottom: 0px;
+        }
+
+        .energy-pool-user-icon {
+          margin-top: 20px;
+        }
+      }
+
+      .energy-pool-data-user-info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .energy-pool-data-user-item {
+          flex: 1;
+          margin-top: 0 !important;
+        }
+      }
+    }
+
+    .rental-explanation-container {
       flex-direction: column;
 
-      .stat {
-        display: flex;
+      .rental-explanation-left {
+        .rental-explanation-item {
+          flex-direction: column;
+          margin-bottom: 20px;
 
-        &:not(:first-child) {
-          margin-top: 10px;
+          .rental-explanation-item-title {
+            width: 100%;
+            margin-right: 0;
+            margin-bottom: 10px;
+            text-align: center;
+          }
         }
 
-        .stat-title {
-          // flex-basis: 30%;
-          white-space: nowrap;
-          flex-shrink: 0;
+        .rental-explanation-desc-container {
+          margin-top: 0;
+        }
+      }
 
-          padding-left: 16px;
-          font-size: 12px;
-          font-weight: 400;
+      .rental-explanation-divider {
+        width: 100% !important;
+        height: 0.5px !important;
+        margin: 30px 0;
+      }
+
+      .rental-explanation-right {
+        .rental-explanation-item {
+          .rental-explanation-item-title {
+            margin-left: 4px;
+          }
+
+          &:nth-child(5) {
+            flex-direction: column;
+            margin-bottom: 20px;
+
+            .rental-explanation-item-title {
+              width: 100%;
+              margin: 0 0 10px 0;
+              text-align: center;
+            }
+          }
         }
-        .stat-value {
-          margin-left: 8px;
-          font-size: 14px;
-          font-weight: 600;
+
+        .rental-explanation-desc-container {
+          margin-top: 0;
         }
+      }
+
+      .rental-explanation-line {
+        padding-left: 50% !important;
+      }
+    }
+  }
+
+  .j-wrapper.white .rental-market-data {
+    .energy-data-container {
+      .energy-pool-data-info .energy-pool-data-info-item {
+        background: rgba(34, 35, 43, 0.04);
+
+        .energy-pool-data-info-item-title .hover-line {
+          color: #737480;
+          border-bottom: 1px dashed rgba(34, 35, 43, 0.6);
+          &:hover {
+            color: #4d54ff;
+            border-color: #4d54ff;
+          }
+        }
+      }
+
+      .energy-pool-data-right {
+        border-top: 0.5px solid rgba(115, 116, 128, 0.3);
       }
     }
   }

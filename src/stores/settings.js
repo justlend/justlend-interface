@@ -1,7 +1,6 @@
-import { observable } from 'mobx';
-import NodeRSA from 'node-rsa';
-import Config from '../config';
-import { BigNumber } from '../utils/helper';
+import { observable, makeObservable } from 'mobx';
+import { BigNumber, secureRandom128 } from '../utils/helper';
+import { encryptData } from '../utils/crypto';
 import {
   setSettingsSignature,
   getNotiSettings,
@@ -12,9 +11,6 @@ import {
   setLanguage
 } from '../pages/settings/utils/backend';
 import { getSignInfoFromLocalStorage } from '../pages/settings/utils/helper';
-
-const { service } = Config;
-const { messageApiToken, lendApiToken } = service;
 
 export default class SettingsStore {
   @observable bindedEmail = '--';
@@ -39,6 +35,8 @@ export default class SettingsStore {
 
   constructor(rootStore) {
     this.rootStore = rootStore;
+
+    makeObservable(this);
   }
 
   setData = (obj = {}) => {
@@ -48,7 +46,7 @@ export default class SettingsStore {
     });
   };
 
-  encryptSignInfo = async type => {
+  encryptSignInfo = async (type = 'message') => {
     await this.rootStore.lend.getLatestBlockInfo();
 
     const lastSignInfo = await getSignInfoFromLocalStorage();
@@ -59,13 +57,17 @@ export default class SettingsStore {
         lastSignInfo && lastSignInfo.addr === this.rootStore.network.defaultAccount
           ? lastSignInfo.signResult || '_'
           : '_',
-      t: BigNumber(Math.random()).times(1000).toFixed(0, 1)
+      t: BigNumber(secureRandom128()).times(1000).toFixed(0, 1)
     };
 
-    const key = new NodeRSA(type === 'lend' ? lendApiToken : messageApiToken, 'pkcs8-public');
-
-    key.setOptions({ encryptionScheme: 'pkcs1' });
-    return key.encrypt(signData, 'base64', 'utf-8');
+    const env = import.meta.env.VITE_ENV;
+    // console.log('env', env);
+    const encryptedData = encryptData(
+      type,
+      env === 'test' ? 'dev' : env === 'backendPro' ? 'pro' : 'prod',
+      JSON.stringify(signData)
+    );
+    return encryptedData;
   };
 
   setSettingsSignature = async address => {
@@ -142,26 +144,6 @@ export default class SettingsStore {
           this.setData({
             languagePreference: data.language
           });
-
-          // If current lang is not backend returned preferred language, update lang and reload page
-          if (this.rootStore.lend.lang.toUpperCase() != data.language.toUpperCase()) {
-            this.rootStore.lend.setData({ lang: data.language });
-            window.localStorage.setItem('lang', data.language);
-
-            setTimeout(() => {
-              let search = window.location.search;
-              let params = new URLSearchParams(search);
-              let paramName = 'lang';
-              let paramValue = data.language;
-              if (params.has(paramName)) {
-                params.set(paramName, paramValue);
-              } else {
-                params.append(paramName, paramValue);
-              }
-              search = params.toString();
-              window.location.search = search;
-            }, 200);
-          }
         } else {
           this.setData({
             languagePreference: ''

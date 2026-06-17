@@ -73,6 +73,7 @@
     top: calc(50vh - 330px);
     height: 661px;
     .ant-modal-content {
+      background-color: #fff;
       border-radius: 10px;
       overflow: hidden;
       .ant-modal-body {
@@ -336,11 +337,10 @@
 
   .no-service-modal-all {
     .ant-modal {
-      //top: 100px;
       width: calc(100% - 40px) !important;
-      top: calc(50vh - 250px);
+      top: calc(50vh - 300px);
+      height: auto;
       padding-top: 0;
-      // height: 560px;
       .ant-modal-content {
         border-radius: 6px;
         overflow: hidden;

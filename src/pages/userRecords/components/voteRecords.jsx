@@ -10,6 +10,7 @@ import {
   tableClickRowToTransaction,
   BigNumber
 } from '../../../utils/helper';
+import { formatTokenAmount } from '../../../utils/formatters';
 import '../../../assets/css/userRecords.scss';
 
 @inject('lend')
@@ -30,18 +31,18 @@ class VoteRecords extends React.Component {
     let proposalDetailLink = `/voteDetailNew?proposalId=${proposalId}&lang=${lang}`;
     if (!proposalId) proposalDetailLink = `/voteNew?lang=${lang}`;
     const actions = {
-      '1': intl.get('vote_records.get_votes'),
+      '1': intl.get('jlv2.record.get_vote'),
       '2': (
         <div>
-          {intl.get('vote_records.vote_for_proposal')}
-          <a href={proposalDetailLink} className="to-proposal-detail hover" target="proposalDetail">
+          {intl.get('jlv2.record.vote_for')}
+          <a href={proposalDetailLink} className="to-proposal-detail hover" target="_self">
             {intl.get('vote_records.proposal', { number: proposalId || '--' })}
           </a>
         </div>
       ),
       '3': (
         <div>
-          {intl.get('vote_records.vote_against_for_proposal')}
+          {intl.get('jlv2.record.vote_against')}
           <a href={proposalDetailLink} className="to-proposal-detail hover" target="proposalDetail">
             {intl.get('vote_records.proposal', { number: proposalId || '--' })}
           </a>
@@ -56,8 +57,8 @@ class VoteRecords extends React.Component {
           {intl.get('vote_records.recycle_suffix')}
         </div>
       ),
-      '5': intl.get('vote_records.convert_proposal'),
-      '6': intl.get('vote_records.convert_to_jst')
+      '5': intl.get('jlv2.record.convert_back_vote'),
+      '6': intl.get('jlv2.record.convert_back_vote')
     };
     return actions[opType];
   };
@@ -73,8 +74,8 @@ class VoteRecords extends React.Component {
 
     return (
       <div>
-        <span>{formatNumber(item.amount, tokenDecimal, { miniText: '0.000001' })}</span>
-        {showEllipsis(item.amount, tokenDecimal) && (
+        {/* <span>{formatNumber(item.amount, tokenDecimal, { miniText: '0.000001' })}</span> */}
+        {/* {showEllipsis(item.amount, tokenDecimal) && (
           <Tooltip
             overlayClassName="user-records-tooltip"
             title={formatNumber(item.amount)}
@@ -83,7 +84,8 @@ class VoteRecords extends React.Component {
           >
             {'...'}
           </Tooltip>
-        )}
+        )} */}
+        <span>{formatTokenAmount(item.amount)}</span>
         <span>
           {' ' +
             (voteTextList.includes(item.opType)
@@ -102,40 +104,40 @@ class VoteRecords extends React.Component {
     const { mobile } = this.state;
     let columns = [
       {
-        title: intl.get('user_records.type'),
-        dataIndex: 'opType',
-        key: '1',
-        ellipsis: true,
+        title: intl.get('user_records.time'),
+        dataIndex: 'blockTimestamp',
+        align: 'left',
         fixed: 'left',
+        width: '20%',
+        render: (text, item) => {
+          return <div className="time">{text ? new Date(text).format('yyyy-MM-dd h:m:s') : '--'}</div>;
+        }
+      },
+      {
+        title: intl.get('jlv2.record.protocol'),
+        dataIndex: 'protocol',
+        align: 'left',
+        width: '15%',
+        render: (text, item) => 'Governance'
+      },
+      {
+        title: intl.get('jlv2.record.operation'),
+        dataIndex: 'opType',
+        ellipsis: true,
         width: '30%',
         className: 'opType',
         render: (text, item) => {
           return (
-            <div className="flex-center">
-              {item?.status && (
-                <span
-                  className={'icon mr-10 ' + (item.status === 1 ? 'loading' : item.status === 2 ? 'success' : '')}
-                ></span>
-              )}
-              <span className="mr-10">{this.getContextFromOpType(text, item?.proposalId)}</span>
-            </div>
-          );
-        }
-      },
-      {
-        title: intl.get('user_records.time'),
-        dataIndex: 'blockTimestamp',
-        align: 'left',
-        width: '30%',
-        key: '2',
-        render: (text, item) => {
-          return (
-            <div className="time">
-              {text
-                ? new Date(text).format('yyyy-MM-dd h:m:s')
-                : item?.blocktimestamp
-                ? new Date(item.blocktimestamp).format('yyyy-MM-dd h:m:s')
-                : '--'}
+            <div className="mobile-card">
+              {mobile && <span>{intl.get('jlv2.record.operation')}</span>}
+              <div className="flex-center">
+                {item?.status && (
+                  <span
+                    className={'icon mr-10 ' + (item.status === 1 ? 'loading' : item.status === 2 ? 'success' : '')}
+                  ></span>
+                )}
+                <span>{this.getContextFromOpType(text, item?.proposalId)}</span>
+              </div>
             </div>
           );
         }
@@ -144,7 +146,6 @@ class VoteRecords extends React.Component {
         title: intl.get('user_records.amount'),
         dataIndex: 'amount',
         align: 'left',
-        key: '3',
         render: (text, item) => (
           <div className="mobile-card">
             {mobile && <span>{intl.get('user_records.amount')}</span>}
@@ -155,18 +156,32 @@ class VoteRecords extends React.Component {
         )
       },
       {
-        title: '',
+        title: intl.get('jlv2.record.action'),
         dataIndex: 'txId',
-        width: 80,
-        key: '5',
-        render: (text, item) => <span className="link-arrow"></span>
+        width: '12%',
+        // render: (text, item) => <span className="link-arrow"></span>
+        render: (text, item) => (
+          this.state.mobile ? (
+            <span
+              className="records-link"
+              onClick={e => {
+                e.stopPropagation();
+                this.props.userRecords.handleToDetail('Vote', item);
+              }}
+            >
+              {intl.get('jlv2.record.details')}
+            </span>
+          ) : (
+            <span className="records-link">{intl.get('jlv2.record.details')}</span>
+          )
+        )
       }
     ];
     return columns;
   };
 
   getPageContent = currentPageNumber => {
-    this.props.userRecords.setData({ currentPageNumber });
+    this.props.userRecords.setOneData('currentPageNumber', currentPageNumber);
     this.props.userRecords.getVoteRecordsData();
   };
 
@@ -187,9 +202,10 @@ class VoteRecords extends React.Component {
         className="user-records-table"
         columns={this.getInfoColumns()}
         onRow={record => {
+          if(this.state.mobile) return ;
           return {
             onClick: e => {
-              this.clickRow(e, record?.txId, 'userRecord');
+              this.props.userRecords.handleToDetail('Vote', record);
             }
           };
         }}
@@ -208,7 +224,7 @@ class VoteRecords extends React.Component {
         locale={{
           emptyText: emptyReactNodeNew
         }}
-        rowKey={'id'}
+        rowKey={record => record.txId}
       />
     );
   }

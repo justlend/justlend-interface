@@ -2,14 +2,17 @@ import React from 'react';
 import intl from 'react-intl-universal';
 import { inject, observer } from 'mobx-react';
 import { checkIfShouldShowMintApyDetail } from './utils';
+import { BigNumber } from '../../../utils/helper';
 import { Config } from '../../../config';
 
 @inject('lend')
+@inject('market')
 @observer
 class DepositDetailMobileTooltip extends React.Component {
   render() {
     const { dataList, getTooltipData, collateralSymbol } = this.props;
-    const { lang, depositDetailGraphIndex, openMint } = this.props.lend;
+    const { lang, openMint } = this.props.lend;
+    const { depositDetailGraphIndex } = this.props.market;
 
     const dataIndex = dataList.length - 1;
     var params = [{ dataIndex }, { dataIndex }];
@@ -37,6 +40,8 @@ class DepositDetailMobileTooltip extends React.Component {
       depositedUSD,
       totalAPY,
       farmApy,
+      farmUsddApy,
+      farmTrxApy,
       underlyingIncrementApy
     } = getTooltipData({
       params,
@@ -46,6 +51,8 @@ class DepositDetailMobileTooltip extends React.Component {
     });
 
     const shouldShowMintApyDetail = checkIfShouldShowMintApyDetail(true, collateralSymbol, farmApy);
+    const hasFarmUsddApy = farmUsddApy !== '--' && farmUsddApy !== 0;
+    const hasFarmTrxApy = farmTrxApy !== '--' && farmTrxApy !== 0;
 
     return (
       <div className="chart-tooltip chart-tooltip-fake interest-rate">
@@ -53,7 +60,7 @@ class DepositDetailMobileTooltip extends React.Component {
           <div className="item">
             <span className="label color-light">{intl.get('market.detail_date')}</span>
             <div className="value-wrap">
-              <span className="value color-primary fs12">{dateText}</span>
+              <span className="value color-primary fs12">{dateText} 00:00:00 (UTC)</span>
             </div>
           </div>
           <div className="item">
@@ -91,7 +98,13 @@ class DepositDetailMobileTooltip extends React.Component {
               <span className="label fs12 color-light"></span>
               <div className="value-wrap">
                 <span className="detail color-primary fs12">
-                  ({depositedAPY}% + {farmApy}%)
+                  {'('}
+                  {`${depositedAPY}%`}
+                  {hasFarmUsddApy || hasFarmTrxApy ? ' + ' : ''}
+                  {hasFarmUsddApy ? `${farmUsddApy}%` : ''}
+                  {hasFarmUsddApy && hasFarmTrxApy ? ' + ' : ''}
+                  {hasFarmTrxApy ? `${farmTrxApy}%` : ''}
+                  {')'}
                 </span>
               </div>
             </div>

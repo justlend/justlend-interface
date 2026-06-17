@@ -1,6 +1,6 @@
 .season-toolbar {
   background: rgba(245, 135, 33, 0.1);
-  backdrop-filter: blur(50px);
+  // backdrop-filter: blur(50px);
   min-height: 30px;
   display: flex;
   justify-content: center;
@@ -22,6 +22,7 @@
     opacity: 0.5;
   }
 }
+.jlv2-bg.white .season-toolbar,
 .j-wrapper.white .season-toolbar {
   background: rgba(245, 135, 33, 0.06);
   color: #f58721;
@@ -138,7 +139,6 @@ body .ant-tooltip.j-tooltip-dropdown.season-l,
     display: none;
   }
   .j-market-list .show-stake .stake-tip.season {
-    border-radius: 2px;
     background: #53545a;
     color: rgba(255, 255, 255, 0.6);
     font-size: 12px;
@@ -238,7 +238,6 @@ body .ant-tooltip.j-tooltip-dropdown.season-l,
   }
 
   .j-market-list .show-stake .stake-tip.season {
-    border-radius: 2px;
     color: rgba(255, 255, 255, 1);
     background: #d3d3d5;
     &:hover {
@@ -349,9 +348,6 @@ body .ant-tooltip.j-tooltip-dropdown.season-l,
   }
   .market-summary-list .market-cards .market-card .stake-tip.usdt {
     display: none;
-  }
-  .j-wrapper .market-summary-list .market-cards .market-card .stake-tip {
-    border-radius: 2px;
   }
   .j-wrapper .market-summary-list .market-cards .market-card .stake-tip.season {
     background: #53545a;

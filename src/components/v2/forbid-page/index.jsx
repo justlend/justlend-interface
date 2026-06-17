@@ -16,7 +16,12 @@ export class ForbidPage extends React.Component {
       <div className={`forbid${isWhite ? '' : ' dark'}`}>
         <div className="content">
           <div className="icon"></div>
-          {}
+          {/* <div className="text-wrap">
+            <div className="text en">
+              Users from mainland China are not allowed to access or use the products and services. If you are a user
+              from mainland China, please stop using immediately.
+            </div>
+          </div> */}
         </div>
       </div>
     );

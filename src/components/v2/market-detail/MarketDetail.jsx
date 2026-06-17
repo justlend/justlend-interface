@@ -3,8 +3,8 @@ import React from 'react';
 
 import { Modal, Progress, Tooltip, Skeleton } from 'antd';
 import { Link } from 'react-router-dom';
-import { getJTokenDetails } from '../../../utils/backend.js';
-import { getJTokenLogo, getParameterByName, isMobile, skeletonRender } from '../../../utils/helper.js';
+import { getJTokenDetails } from '../../../utils/backend.jsx';
+import { getJTokenLogo, getParameterByName, isMobile, skeletonRender } from '../../../utils/helper.jsx';
 import { MarketSelect } from './MarketSelect.jsx';
 import intl from 'react-intl-universal';
 import { MarketDetailPrice } from './MarketDetailPrice.jsx';
@@ -22,13 +22,13 @@ import { BorrowDetailModel } from './BorrowDetailModel.jsx';
 import DAW from '../../Modals/v2/DAW';
 import BorrowModal from '../../Modals/v2/Borrow';
 import MortgageModal from '../../Modals/v2/Mortgage';
-import Footer from '../Footer.js';
-import Header from '../Header.js';
+import Footer from '../Footer.jsx';
+import Header from '../Header.jsx';
 import SeasonToolBar from '../season/index';
 import CollateralLimit from '../../Modals/v2/CollateralLimit';
 import TransactionModal from '../../Modals/v2/Transaction';
 import defaultIcon from '../../../assets/images/default.svg';
-import TabsBar from '../mobile/TabsBar.js';
+import TabsBar from '../mobile/TabsBar.jsx';
 
 import legendImg1 from '../../../assets/images/skeleton/legend-1.png';
 import legendImg2 from '../../../assets/images/skeleton/legend-2.png';
@@ -56,11 +56,14 @@ const defaultJTokenData = {
 @inject('network')
 @inject('lend')
 @inject('pool')
+@inject('user')
+@inject('market')
+@inject('app')
 @observer
 class MarketDetailV2 extends React.Component {
   constructor(props) {
     super(props);
-    document.title = 'Market - JustLend DAO';
+    document.title = 'Market V1 - JustLend DAO';
     this.state = {
       jTokenData: processJTokenData({
         jTokenData: defaultJTokenData,
@@ -76,18 +79,11 @@ class MarketDetailV2 extends React.Component {
     this.timer = null;
   }
   async componentDidMount() {
-    // if (this.state.mobile) {
-    //   window.location.hash = window.location.hash.replace('/marketDetailNew', '/marketDetail');
-    //   return;
-    // }
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-
-    await this.props.lend.getMintInfo();
     this.getJTokenData();
-    await this.props.network.getNowTime();
-    this.props.network.getCountTime();
+    this.props.app.init();
     this.timer = setInterval(() => {
       this.getJTokenData();
     }, 30000);
@@ -123,23 +119,23 @@ class MarketDetailV2 extends React.Component {
     }
   };
   getUserData = async () => {
-    await this.props.lend.getUserData();
-    await this.props.lend.getUserDataFromMarkets();
-    await this.props.lend.getTokenBalanceInfo();
+    await this.props.user.getUserData();
+    await this.props.user.getUserDataFromMarkets();
+    await this.props.market.getTokenBalanceInfo();
     if (this.props.network.isConnected) {
-      this.props.lend.getContinueDisabledStatus();
-      this.props.lend.getRiojBalance();
+      this.props.market.getContinueDisabledStatus();
+      this.props.market.getRiojBalance();
     }
   };
 
   getMarketData = async () => {
-    this.props.lend.getRiojCheck();
+    this.props.market.getRiojCheck();
     this.props.lend.getMintPaused();
     this.props.lend.getPaused();
     this.props.lend.getAmountLimit();
-    await this.props.lend.getMarketData();
-    await this.props.lend.getMintInfo();
-    this.props.lend.getDashboardData();
+    await this.props.market.getMarketData();
+    await this.props.market.getMintInfo();
+    this.props.market.getDashboardData();
   };
 
   onMarketChange = async jtokenAddress => {
@@ -187,7 +183,9 @@ class MarketDetailV2 extends React.Component {
               </>
             ) : (
               <div className="section market-d-select">
-                <div className="market-d-select-inner">{Config.totalDebtTokenArr.map(item => skeletonRender())}</div>
+                <div className="market-d-select-inner">
+                  {Config.totalDebtTokenArrAfterProposal.map((item, i) => skeletonRender({ key: i }))}
+                </div>
               </div>
             )}
 
@@ -237,16 +235,16 @@ class MarketDetailV2 extends React.Component {
                         <div className="mb-10">{skeletonRender()}</div>
                         <div className="mb-10">{skeletonRender({ rows: 3 })}</div>
                         <div>
-                          {new Array(7).fill(1).map(() => (
-                            <div>{skeletonRender()}</div>
+                          {new Array(7).fill(1).map((item, i) => (
+                            <div key={i}>{skeletonRender()}</div>
                           ))}
                         </div>
                       </div>
 
                       <div className="skeleton-block">
                         <div>
-                          {new Array(9).fill(1).map(() => (
-                            <div>{skeletonRender()}</div>
+                          {new Array(9).fill(1).map((item, i) => (
+                            <div key={i}>{skeletonRender()}</div>
                           ))}
                         </div>
                       </div>
@@ -260,32 +258,32 @@ class MarketDetailV2 extends React.Component {
                       <div className="md-sec skeleton-block">
                         <div className="mb-10">{skeletonRender()}</div>
                         <div className="two-part">
-                          {new Array(2).fill(1).map(() => (
-                            <div>{skeletonRender({ rows: 2 })}</div>
+                          {new Array(2).fill(1).map(i => (
+                            <div key={i}>{skeletonRender({ rows: 2 })}</div>
                           ))}
                         </div>
                       </div>
                       <div className="half-part">{skeletonRender()} </div>
                       <div className="skeleton-block">
-                        {new Array(2).fill(1).map(() => (
-                          <div>{skeletonRender()}</div>
+                        {new Array(2).fill(1).map((item, i) => (
+                          <div key={i}>{skeletonRender()}</div>
                         ))}
                       </div>
                       <div className="half-part">{skeletonRender()} </div>
                       <div className="md-fir skeleton-block">
-                        {new Array(3).fill(1).map(() => (
-                          <div>{skeletonRender()}</div>
+                        {new Array(3).fill(1).map((item, i) => (
+                          <div key={i}>{skeletonRender()}</div>
                         ))}
                       </div>
                       <div className="skeleton-space-block"></div>
                       <div className="md-sec skeleton-block border-bottom">
-                        {new Array(2).fill(1).map(() => (
-                          <div>{skeletonRender()}</div>
+                        {new Array(2).fill(1).map((item, i) => (
+                          <div key={i}>{skeletonRender()}</div>
                         ))}
                       </div>
                       <div className="md-thi skeleton-block border-bottom">
-                        {new Array(7).fill(1).map(() => (
-                          <div>{skeletonRender()}</div>
+                        {new Array(7).fill(1).map((item, i) => (
+                          <div key={i}>{skeletonRender()}</div>
                         ))}
                       </div>
                     </>
@@ -300,13 +298,16 @@ class MarketDetailV2 extends React.Component {
   };
 
   riskMarketsTipRender = jTokenData => {
+    const { isUSDDOLDDisabled, disabledDataSuccess } = this.props.market;
+
     return (
       (Config.riskMarkets.includes(jTokenData?.collateralSymbol) ||
         jTokenData?.collateralSymbol === 'WBTT' ||
+        (jTokenData?.collateralSymbol === 'USDJ' && jTokenData?.mintPaused && jTokenData?.borrowPaused) ||
         (jTokenData?.collateralSymbol === 'USDDOLD' && miningSymbol === 'USDD')) && (
         <div
           className={
-            jTokenData?.collateralSymbol === 'USDDOLD' && miningSymbol === 'USDD'
+            jTokenData?.collateralSymbol === 'USDDOLD' && miningSymbol === 'USDD' && !isUSDDOLDDisabled
               ? 'market-head-tips usdd-update'
               : 'market-head-tips'
           }
@@ -320,8 +321,14 @@ class MarketDetailV2 extends React.Component {
                 ? 'risk_tip.busd_icon'
                 : jTokenData?.collateralSymbol === 'WBTT'
                 ? 'risk_tip.wbtt_icon'
+                : jTokenData?.collateralSymbol === 'USDJ'
+                ? 'risk_tip.usdj_icon'
                 : jTokenData?.collateralSymbol === 'USDDOLD' && miningSymbol === 'USDD'
-                ? 'usdd_update.tip'
+                ? !disabledDataSuccess
+                  ? 'loading'
+                  : isUSDDOLDDisabled
+                  ? 'usdd_update.migrate'
+                  : 'usdd_update.tip'
                 : 'risk_tip.eth_icon',
               { link: Config.announceLink }
             )}
@@ -332,16 +339,9 @@ class MarketDetailV2 extends React.Component {
   };
 
   render() {
-    const {
-      theme,
-      borrowModalInfo,
-      DAWPop,
-      lang,
-      mortgageModalInfo,
-      userDepositDataSource,
-      dashboardData,
-      totalCollateralShow
-    } = this.props.lend;
+    const { theme, borrowModalInfo, lang, totalCollateralShow, mortgageModalInfo } = this.props.lend;
+    const { dashboardData, DAWPop } = this.props.market;
+    const { userDepositDataSource } = this.props.user;
     const { jtokenAddress, showMintApy, showDepositMintApy, mobile } = this.state;
     const jTokenData = processJTokenData({ jTokenData: this.state.jTokenData, jtokenAddress, showMintApy });
     const markets = dashboardData?.markets || [];
@@ -371,6 +371,7 @@ class MarketDetailV2 extends React.Component {
               {mobile &&
                 (Config.riskMarkets.includes(jTokenData?.collateralSymbol) ||
                   jTokenData?.collateralSymbol === 'WBTT' ||
+                  (jTokenData?.collateralSymbol === 'USDJ' && jTokenData?.mintPaused && jTokenData?.borrowPaused) ||
                   (jTokenData?.collateralSymbol === 'USDDOLD' && miningSymbol === 'USDD')) &&
                 this.riskMarketsTipRender(jTokenData)}
               <div className="market-d-head">
@@ -390,7 +391,9 @@ class MarketDetailV2 extends React.Component {
                         : getLendIcons(jTokenData.collateralSymbol)
                     }
                     alt="logo"
-                    className={jTokenData.collateralSymbol === 'ETHB' && 'add-white-bg'}
+                    className={
+                      jTokenData.collateralSymbol === 'ETHB' ? 'add-white-bg' : `${jTokenData.collateralSymbol}-logo`
+                    }
                     onError={e => {
                       e.target.onerror = null;
                       e.target.src = getLendIcons(jTokenData.collateralSymbol);
@@ -425,11 +428,11 @@ class MarketDetailV2 extends React.Component {
                   {!mobile &&
                     (Config.riskMarkets.includes(jTokenData?.collateralSymbol) ||
                       jTokenData?.collateralSymbol === 'WBTT' ||
+                      (jTokenData?.collateralSymbol === 'USDJ' && jTokenData?.mintPaused && jTokenData?.borrowPaused) ||
                       (jTokenData?.collateralSymbol === 'USDDOLD' && miningSymbol === 'USDD')) &&
                     this.riskMarketsTipRender(jTokenData)}
                   <MarketDetailPrice jTokenData={jTokenData} bttLogoUrl={bttLogoUrl}></MarketDetailPrice>
                   <div className="market-d-main-content-wrap flex mt-base">
-                    {}
                     <div className="market-d-main-content flex-col">
                       <InterestRateModel
                         showMintApy={showMintApy}

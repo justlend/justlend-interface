@@ -8,7 +8,7 @@ import { inject, observer } from 'mobx-react';
 class MarketDetailV2 extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
-    this.props.network.setData({ routeName: 'marketDetailV2' });
+    this.props.network.setRouteName('marketDetailV2');
   }
   render() {
     return (

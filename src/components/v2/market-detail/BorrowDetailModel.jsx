@@ -1,4 +1,4 @@
-import ReactEcharts from 'echarts-for-react';
+import ReactEcharts from 'echarts-for-react/lib';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import intl from 'react-intl-universal';
@@ -62,7 +62,7 @@ function getTooltipData({ params, lang, dataList }) {
   }
   return {
     dateText,
-    borrowedAPY: formatNumber(data.borrowedAPY * 100, data.borrowedAPY * 100 >= 100 ? 0 : 2, { miniText: 0.01 }),
+    borrowedAPY: formatNumber(data.borrowedAPY * 100, 2, { miniText: 0.01 }),
     borrowedUSD: amountFormat(data.borrowedUSD, 2, {
       miniText: 0.01
     }),
@@ -71,6 +71,7 @@ function getTooltipData({ params, lang, dataList }) {
 }
 
 @inject('lend')
+@inject('market')
 @observer
 class BorrowDetailModel extends React.Component {
   constructor() {
@@ -87,6 +88,12 @@ class BorrowDetailModel extends React.Component {
     setTimeout(() => {
       this.showTooltipForCurrentData();
     });
+  }
+  componentWillUnmount() {
+    const chartInstance = this.echartRef?.getEchartsInstance();
+    if (chartInstance) {
+      chartInstance.dispose();
+    }
   }
 
   getChartData() {
@@ -166,7 +173,7 @@ class BorrowDetailModel extends React.Component {
           const { dateText, borrowedAPY, borrowedUSD, isCurrent } = getTooltipData({ params, lang, dataList });
           return `<div class="chart-tooltip interest-rate">
               <header class="chart-tooltip-header">
-                <span class="color-light">${dateText}</span>
+                <span class="color-light">${dateText} 00:00:00（UTC）</span>
               </header>
               <main>
                 <div class="item">
@@ -337,7 +344,7 @@ class BorrowDetailModel extends React.Component {
       return;
     }
 
-    this.props.lend.setData({ borrowDetailGraphIndex: params.batch[0].dataIndex });
+    this.props.market.setBorrowDetailGraphIndex(params.batch[0].dataIndex);
   };
 
   initRef = e => {

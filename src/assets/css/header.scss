@@ -1825,6 +1825,7 @@ div.ant-modal {
     height: 12px;
     background: url(../images/vote_close.svg) 0 0 no-repeat;
     background-size: 100%;
+    user-select: none;
 
     .anticon > svg {
       display: none;

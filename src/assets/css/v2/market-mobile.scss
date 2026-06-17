@@ -805,7 +805,18 @@
         padding: 15px;
         background-image: none;
         align-items: center;
+        flex-direction: row;
         justify-content: space-between;
+
+        .reward-amount-box {
+          display: flex;
+          align-items: center;
+          margin-top: 0 !important;
+        }
+
+        .plus-symbol {
+          margin: 0 4px;
+        }
       }
 
       .market-summary-wrap {
@@ -841,6 +852,7 @@
       }
 
       .block-title {
+        flex-shrink: 0;
         font-size: 14px;
         height: unset;
         line-height: unset;

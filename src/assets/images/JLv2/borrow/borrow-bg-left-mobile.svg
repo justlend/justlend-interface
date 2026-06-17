@@ -1,0 +1,34 @@
+<svg width="376" height="720" viewBox="0 0 376 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2034_23613)">
+<rect width="376" height="720" fill="#0A1010"/>
+<g filter="url(#filter0_f_2034_23613)">
+<path d="M513.5 373.973C513.5 456.815 160 399.473 44.7812 337.973C-31.7102 337.973 -81.7188 119.815 -81.7188 36.9726C-81.7188 -45.8702 -39.2102 201.473 37.2812 201.473C113.773 201.473 475.719 319.472 513.5 373.973Z" fill="#705AFF" fill-opacity="0.65"/>
+</g>
+<g filter="url(#filter1_f_2034_23613)">
+<ellipse cx="-26" cy="205.973" rx="112" ry="105.5" fill="#5A60FF" fill-opacity="0.33"/>
+</g>
+<g filter="url(#filter2_f_2034_23613)">
+<ellipse cx="-15.1975" cy="139.489" rx="112" ry="37" transform="rotate(39.7064 -15.1975 139.489)" fill="#575AFF"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_2034_23613" x="-365.219" y="-263.5" width="1162.22" height="962.287" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="141.75" result="effect1_foregroundBlur_2034_23613"/>
+</filter>
+<filter id="filter1_f_2034_23613" x="-421.5" y="-183.027" width="791" height="778" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="141.75" result="effect1_foregroundBlur_2034_23613"/>
+</filter>
+<filter id="filter2_f_2034_23613" x="-217.868" y="-50.8369" width="405.342" height="380.653" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="56.65" result="effect1_foregroundBlur_2034_23613"/>
+</filter>
+<clipPath id="clip0_2034_23613">
+<rect width="376" height="720" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -10,6 +10,7 @@ import {
   tableClickRowToTransaction,
   BigNumber
 } from '../../../utils/helper';
+import { formatTokenAmount, formatFiatValue } from '../../../utils/formatters';
 import '../../../assets/css/userRecords.scss';
 
 @inject('network')
@@ -26,11 +27,11 @@ class StrxRecords extends React.Component {
 
   getContextFromOpType = opType => {
     const actions = {
-      '1': intl.get('strx_records.stake_trx'),
-      '2': intl.get('strx_records.unstake_strx'),
-      '4': intl.get('strx_records.withdraw_trx'),
-      '5': intl.get('strx_records.send_strx'),
-      '6': intl.get('strx_records.receive_strx')
+      '1': intl.get('jlv2.record.stake'),
+      '2': intl.get('jlv2.record.unstake'),
+      '4': intl.get('jlv2.record.withdraw1'),
+      '5': intl.get('jlv2.record.send1'),
+      '6': intl.get('jlv2.record.receive2')
     };
     return actions[opType];
   };
@@ -51,9 +52,14 @@ class StrxRecords extends React.Component {
     if (!item.amount) return '--';
 
     return (
-      <div className={'token-amount ' + (currentSign === '+' ? 'green' : currentSign === '-' ? 'red' : '')}>
-        <span>{currentSign}</span>
-        <span>{formatNumber(item.amount, tokenDecimal, { miniText: '0.000001' })}</span>
+      <div className="token-amount">
+        <span>
+          {formatTokenAmount(
+            item.amount,
+            trxSymbolList.includes(item.opType) ? 'TRX' : strxSymbolList.includes(item.opType) ? 'sTRX' : '--'
+          )}
+        </span>
+        {/* <span>{formatNumber(item.amount, tokenDecimal, { miniText: '0.000001' })}</span>
         {showEllipsis(item.amount, tokenDecimal) && (
           <Tooltip
             overlayClassName="user-records-tooltip"
@@ -66,7 +72,7 @@ class StrxRecords extends React.Component {
         )}
         <span>
           {' ' + (trxSymbolList.includes(item.opType) ? 'TRX' : strxSymbolList.includes(item.opType) ? 'sTRX' : '--')}
-        </span>
+        </span> */}
       </div>
     );
   };
@@ -75,45 +81,41 @@ class StrxRecords extends React.Component {
     const { mobile } = this.state;
     let columns = [
       {
-        title: intl.get('user_records.type'),
-        dataIndex: 'opType',
-        key: '1',
-        ellipsis: true,
+        title: intl.get('user_records.time'),
+        dataIndex: 'blockTimestamp',
+        align: 'left',
         fixed: 'left',
-        width: '30%',
+        width: '20%',
+        render: (text, item) => {
+          return <div className="time">{text ? new Date(text).format('yyyy-MM-dd h:m:s') : '--'}</div>;
+        }
+      },
+      {
+        title: intl.get('jlv2.record.protocol'),
+        dataIndex: 'protocol',
+        align: 'left',
+        width: '15%',
+        render: (text, item) => 'Staked TRX'
+      },
+      {
+        title: intl.get('jlv2.record.operation'),
+        dataIndex: 'opType',
+        ellipsis: true,
+        width: '25%',
         className: 'opType',
         render: (text, item) => {
           const showDescriptionList = [5, 6];
           return (
-            <div className="flex-center">
-              {item?.status && (
-                <span
-                  className={'icon mr-10 ' + (item.status === 1 ? 'loading' : item.status === 2 ? 'success' : '')}
-                ></span>
-              )}
-              {mobile ? (
-                showDescriptionList.includes(item.opType) ? (
-                  <Tooltip
-                    overlayClassName="j-tooltip-dropdown"
-                    title={
-                      item.opType === 6
-                        ? intl.get('action_records_hover.received_strx')
-                        : item.opType === 5
-                        ? intl.get('action_records_hover.sent_strx')
-                        : ''
-                    }
-                    placement="topRight"
-                    arrowPointAtCenter
-                  >
-                    <span className="underline-dashed">{this.getContextFromOpType(text)}</span>
-                  </Tooltip>
-                ) : (
-                  <span className="mr-10">{this.getContextFromOpType(text)}</span>
-                )
-              ) : (
-                <>
-                  <span className="mr-10">{this.getContextFromOpType(text)}</span>
-                  {showDescriptionList.includes(item.opType) && (
+            <div className="mobile-card">
+              {mobile && <span>{intl.get('jlv2.record.operation')}</span>}
+              <div className="flex-center">
+                {item?.status && (
+                  <span
+                    className={'icon mr-10 ' + (item.status === 1 ? 'loading' : item.status === 2 ? 'success' : '')}
+                  ></span>
+                )}
+                {mobile ? (
+                  showDescriptionList.includes(item.opType) ? (
                     <Tooltip
                       overlayClassName="j-tooltip-dropdown"
                       title={
@@ -126,29 +128,33 @@ class StrxRecords extends React.Component {
                       placement="topRight"
                       arrowPointAtCenter
                     >
-                      <span className="j-tooltip-icon"></span>
+                      <span className="underline-dashed">{this.getContextFromOpType(text)}</span>
                     </Tooltip>
-                  )}
-                </>
-              )}
-            </div>
-          );
-        }
-      },
-      {
-        title: intl.get('user_records.time'),
-        dataIndex: 'blockTimestamp',
-        align: 'left',
-        width: '30%',
-        key: '2',
-        render: (text, item) => {
-          return (
-            <div className="time">
-              {text
-                ? new Date(text).format('yyyy-MM-dd h:m:s')
-                : item?.blocktimestamp
-                ? new Date(item.blocktimestamp).format('yyyy-MM-dd h:m:s')
-                : '--'}
+                  ) : (
+                    <span className="mr-10">{this.getContextFromOpType(text)}</span>
+                  )
+                ) : (
+                  <>
+                    <span className="mr-10">{this.getContextFromOpType(text)}</span>
+                    {showDescriptionList.includes(item.opType) && (
+                      <Tooltip
+                        overlayClassName="j-tooltip-dropdown"
+                        title={
+                          item.opType === 6
+                            ? intl.get('action_records_hover.received_strx')
+                            : item.opType === 5
+                            ? intl.get('action_records_hover.sent_strx')
+                            : ''
+                        }
+                        placement="topRight"
+                        arrowPointAtCenter
+                      >
+                        <span className="j-tooltip-icon"></span>
+                      </Tooltip>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           );
         }
@@ -157,36 +163,50 @@ class StrxRecords extends React.Component {
         title: intl.get('user_records.amount'),
         dataIndex: 'amount',
         align: 'left',
-        key: '3',
         render: (text, item) => (
           <div className="mobile-card">
             {mobile && <span>{intl.get('user_records.amount')}</span>}
-            <div className="detail">
+            <div >
               {this.renderTokenAmount(item)}
-              <div className="associate-usd">
-                {formatNumber(item.usd, 2, {
+              <div className={"associate-usd" + (mobile ? ' tar' : '')}>
+                {formatFiatValue(item.usd)}
+                {/* {formatNumber(item.usd, 2, {
                   cutZero: true,
                   needDolar: true,
                   miniText: '0.01'
-                })}
+                })} */}
               </div>
             </div>
           </div>
         )
       },
       {
-        title: '',
+        title: intl.get('jlv2.record.action'),
         dataIndex: 'txId',
-        key: '5',
-        width: 80,
-        render: (text, item) => <span className="link-arrow"></span>
+        width: '12%',
+        // render: (text, item) => <span className="link-arrow"></span>
+        render: (text, item) => (
+          this.state.mobile ? (
+            <span
+              className="records-link"
+              onClick={e => {
+                e.stopPropagation();
+                this.props.userRecords.handleToDetail('Strx', item);
+              }}
+            >
+              {intl.get('jlv2.record.details')}
+            </span>
+          ) : (
+            <span className="records-link">{intl.get('jlv2.record.details')}</span>
+          )
+        )
       }
     ];
     return columns;
   };
 
   getPageContent = currentPageNumber => {
-    this.props.userRecords.setData({ currentPageNumber });
+    this.props.userRecords.setOneData('currentPageNumber', currentPageNumber);
     this.props.userRecords.getStrxRecordsData();
   };
 
@@ -197,9 +217,10 @@ class StrxRecords extends React.Component {
         className="user-records-table"
         columns={this.getInfoColumns()}
         onRow={record => {
+          if(this.state.mobile) return ;
           return {
             onClick: () => {
-              tableClickRowToTransaction(record?.txId, 'userRecord');
+              this.props.userRecords.handleToDetail('Strx', record);
             }
           };
         }}
@@ -218,7 +239,7 @@ class StrxRecords extends React.Component {
         locale={{
           emptyText: emptyReactNodeNew
         }}
-        rowKey={'id'}
+        rowKey={record => record.txId}
       />
     );
   }

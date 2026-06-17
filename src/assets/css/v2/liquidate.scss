@@ -96,106 +96,6 @@
     }
   }
 }
-.risk-filter {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-
-  > em {
-    display: inline-block;
-    width: 10px;
-    height: 1px;
-    margin: 0 2px;
-    background: #22232b;
-  }
-  .j-input {
-    width: 80px;
-    height: 24px;
-    line-height: 24px;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 500;
-    background: #22232b !important;
-    border-radius: 5px;
-    border: none;
-    margin: 0;
-    &:focus {
-      border: none !important;
-      box-shadow: none !important;
-    }
-    &::-webkit-input-placeholder {
-      font-weight: 400;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.4);
-    }
-    &.j-error-input {
-      border: 1px solid #ff5266;
-      background: rgba(255, 82, 102, 0.08) !important;
-      &:hover,
-      &:focus {
-        border: 1px solid #ff5266 !important;
-        background: rgba(255, 82, 102, 0.08) !important;
-      }
-    }
-  }
-  .risk-filter-btn {
-    width: 70px;
-    height: 24px;
-    line-height: 24px;
-    background: #4d54ff !important;
-    border-color: #4d54ff !important;
-    margin-left: 10px;
-    > span {
-      font-size: 12px;
-      font-weight: 400;
-      color: #fff !important;
-    }
-    &:hover {
-      background: #9195fb !important;
-      border-color: #9195fb !important;
-    }
-    &:disabled {
-      background: #53545a !important;
-      color: rgba(255, 255, 255, 0.6) !important;
-      > span {
-        color: rgba(255, 255, 255, 0.6) !important;
-      }
-      border-color: #53545a !important;
-      &:hover {
-        background: #53545a !important;
-        color: rgba(255, 255, 255, 0.6) !important;
-        border-color: #53545a !important;
-      }
-    }
-  }
-  .risk-error-msg {
-    position: absolute;
-    left: 0;
-    bottom: -38px;
-    display: flex;
-    align-items: center;
-    height: auto;
-    padding: 0 10px;
-    border-radius: 5px;
-    background: #40414a;
-    > span {
-      color: #ff5266;
-      font-size: 12px;
-      line-height: 30px;
-      white-space: nowrap;
-    }
-    > em {
-      position: relative;
-      top: -1px;
-      display: inline-block;
-      min-width: 12px;
-      height: 12px;
-      background: url(../../images/liquidate/error-triangle.svg) 0 0 no-repeat;
-      background-size: 100%;
-      margin-right: 6px;
-    }
-  }
-}
 
 .liquidate-banner {
   margin-top: 30px !important;
@@ -218,7 +118,7 @@
   }
 }
 .liquidate-popover {
-  width: 138px;
+  width: 148px;
   .ant-popover-inner {
     max-height: 420px;
     overflow-y: scroll;
@@ -229,13 +129,11 @@
     // box-shadow: 3px -3px -4px rgba(0, 0, 0, 0.12), 0 -3px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
 
     &::-webkit-scrollbar {
-      /*滚动条整体样式*/
-      width: 1px; /*高宽分别对应横竖滚动条的尺寸*/
+      width: 1px;
       height: 40px;
       display: none;
     }
     &::-webkit-scrollbar-thumb {
-      /*滚动条里面小方块*/
       max-height: 40px;
       border-radius: 1px;
       background-color: rgba(255, 255, 255, 0.2);
@@ -500,6 +398,7 @@
   }
   .ant-table-tbody > tr > td {
     height: 70px;
+    left: auto !important;
   }
 }
 
@@ -698,7 +597,7 @@
     }
     .top-subtitle {
       opacity: 1;
-      color: #737480;
+      color: #737480 !important;
       > em {
         opacity: 0.6;
       }
@@ -745,48 +644,6 @@
       > em {
         background-image: url(../../images/liquidate/white-theme/load-more-icon.svg);
       }
-    }
-  }
-  .risk-filter {
-    > em {
-      background: #8d8e92;
-    }
-    .j-input {
-      color: #22232b;
-      background: #edeeff !important;
-      &::-webkit-input-placeholder {
-        font-weight: 400;
-        font-size: 12px;
-        color: rgba(34, 35, 43, 0.4);
-      }
-      &.j-error-input {
-        border: 1px solid #ff5266;
-        background: rgba(255, 82, 102, 0.08) !important;
-        &:hover,
-        &:focus {
-          border: 1px solid #ff5266 !important;
-          background: rgba(255, 82, 102, 0.08) !important;
-        }
-      }
-    }
-    .risk-filter-btn {
-      &:disabled {
-        background: #d3d3d5 !important;
-        color: rgba(255, 255, 255, 0.6) !important;
-        border-color: #d3d3d5 !important;
-        > span {
-          color: rgba(255, 255, 255, 1) !important;
-        }
-        &:hover {
-          background: #d3d3d5 !important;
-          color: rgba(255, 255, 255, 0.6) !important;
-          border-color: #d3d3d5 !important;
-        }
-      }
-    }
-    .risk-error-msg {
-      background: #f0f2f7;
-      box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
     }
   }
 }

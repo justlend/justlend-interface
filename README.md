@@ -9,7 +9,7 @@
 
 <p align="center">
     <a href="">
-        <img alt="npm" src="https://img.shields.io/badge/npm-v18.15.0-blue?logo=nodedotjs">
+        <img alt="node" src="https://img.shields.io/badge/node-v20.19.2-blue?logo=nodedotjs">
     </a>
     <a href="./LICENSE.md">
       <img alt="License" src="https://img.shields.io/badge/License-Apache_2.0-blue.svg">
@@ -59,8 +59,8 @@ Getting the interface running on your local machine is straightforward.
 
 1. **Prerequisites**
 
-   - Ensure you have **Node.js v18.x** installed (we recommend using `nvm`).
-   - This project uses `npm` as its package manager.
+   - Ensure you have **Node.js v20.19.2** installed (we recommend using `nvm`).
+   - This project uses **`pnpm`** (`pnpm@10.12.4`) as its package manager — run `corepack enable` to get it.
 
 2. **Clone and Install Dependencies**
 
@@ -69,7 +69,7 @@ Getting the interface running on your local machine is straightforward.
    ```
    git clone https://github.com/justlend/justlend-interface.git
    cd justlend-interface
-   npm install
+   pnpm install
    ```
 
 3. Start the Development Server
@@ -79,7 +79,7 @@ Getting the interface running on your local machine is straightforward.
    Bash
 
    ```
-   npm run start
+   pnpm run dev
    ```
 
 ------
@@ -155,7 +155,7 @@ We encourage developers to get directly involved with coding. Issues tagged with
   Bash
 
   ```
-  npm run start
+  pnpm run dev
   ```
 
 - **Production Mode (local preview)**
@@ -164,10 +164,10 @@ We encourage developers to get directly involved with coding. Issues tagged with
 
   ```
   # Build the project for production
-  npm run build
-  
-  # Start the production server
-  npm run startPro
+  pnpm run build
+
+  # Preview the production build locally
+  pnpm run serve
   ```
 
 

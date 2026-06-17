@@ -89,6 +89,16 @@
   }
   .market-summary-list {
     margin: 0 15px;
+    .new-switch {
+      transform: translateY(-1px);
+    }
+    .cannot-open {
+      display: flex;
+      .new-switch {
+        transform: translateY(0);
+      }
+    }
+
     .color-primary {
       color: #fff;
     }
@@ -162,7 +172,7 @@
       .ant-input {
         background-color: #31333a;
         color: rgba(255, 255, 255, 0.6);
-        font-size: 12px;
+        font-size: 16px;
         line-height: 26px;
         font-weight: 500;
         height: 26px;
@@ -304,28 +314,32 @@
             .tooltip-text {
               // color: rgba(255, 255, 255, 0.6);
               margin-right: 20px;
-            }
-            .new-switch {
-              width: 28px;
-              height: 10px;
-              .switch-circle {
-                width: 14px;
-                height: 14px;
-                top: -2px;
-              }
-              .switch-line {
-                width: 28px;
-                height: 10px;
-                top: 0;
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 5px;
-              }
-              &.switch-on {
-                .switch-line {
-                  background-color: #3d56d6;
-                }
+
+              &.no-border-bottom {
+                border-bottom: none;
               }
             }
+            // .new-switch {
+            //   width: 28px;
+            //   height: 10px;
+            //   .switch-circle {
+            //     width: 14px;
+            //     height: 14px;
+            //     top: -2px;
+            //   }
+            //   .switch-line {
+            //     width: 28px;
+            //     height: 10px;
+            //     top: 0;
+            //     background: rgba(255, 255, 255, 0.1);
+            //     border-radius: 5px;
+            //   }
+            //   &.switch-on {
+            //     .switch-line {
+            //       background-color: #3d56d6;
+            //     }
+            //   }
+            // }
           }
         }
         .card-bottom {
@@ -380,6 +394,7 @@
         }
 
         .btn-wrap {
+          position: relative;
           padding: 0 0px 15px 0;
           margin-top: 15px;
           display: flex;
@@ -471,6 +486,20 @@
   }
 
   .white {
+    // .new-switch {
+    //   .switch-line {
+    //     background: #d0d0d6;
+    //   }
+    //   .switch-circle {
+    //     box-shadow: 0px 0px 6px rgba(20, 22, 49, 0.3);
+    //   }
+    //   &.switch-on {
+    //     .switch-line {
+    //       background-color: #3d56d6;
+    //     }
+    //   }
+    // }
+
     .market-summary-list {
       .color-primary {
         color: #22232b;
@@ -552,19 +581,6 @@
               // .tooltip-text {
               //   color: rgba(34, 35, 43, 0.6);
               // }
-              .new-switch {
-                .switch-line {
-                  background: #d0d0d6;
-                }
-                .switch-circle {
-                  box-shadow: 0px 0px 6px rgba(20, 22, 49, 0.3);
-                }
-                &.switch-on {
-                  .switch-line {
-                    background-color: #3d56d6;
-                  }
-                }
-              }
             }
           }
           .card-bottom {

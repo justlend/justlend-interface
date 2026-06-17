@@ -199,6 +199,8 @@
           ::-webkit-input-placeholder {
             color: #ffffff;
             opacity: 0.4;
+            // 收窄字号，避免 Custom 占位文案在窄输入框里被截断
+            font-size: 14px;
           }
           .ant-input-group-addon {
             width: auto;
@@ -207,7 +209,7 @@
 
             .switch-unit-button {
               position: relative;
-
+              line-height: 20px;
               color: #ffffff;
               cursor: pointer;
               opacity: 0.6;
@@ -425,13 +427,14 @@
       .available-amount-title {
         text-align: right;
         margin-right: 4px;
-
         font-size: 12px;
+        line-height: 18px;
         font-weight: 500;
       }
       .available-amount-value,
       .available-amount-suffix {
         font-size: 12px;
+        line-height: 18px;
         font-weight: 500;
       }
 
@@ -501,6 +504,7 @@
     .estimated-transaction-count-hint {
       padding: 12px 20px 20px 20px;
       font-size: 12px;
+      line-height: 18px;
       font-weight: 400;
     }
 
@@ -533,31 +537,33 @@
             height: 30px;
           }
           .ant-input-wrapper {
-            padding-left: 15px;
+            padding-left: 16px;
           }
           .ant-input {
             padding-top: 1px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 500;
 
+            // placeholder 收窄到 14px，避免 Custom 占位文案被截断（输入值仍 16px）
             &::placeholder {
               font-size: 14px;
               font-weight: 500;
             }
           }
           ::-webkit-input-placeholder {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 500;
           }
           .ant-input-group-addon {
             padding-left: 8px;
-            padding-right: 6px;
+            padding-right: 16px;
             padding-top: 1px;
 
             .switch-unit-button {
               // padding-right: 15px;
 
-              font-size: 12px;
+              // 单位（天/时）字号与 placeholder 保持一致
+              font-size: 14px;
               font-weight: 500;
 
               // &::after {
@@ -621,16 +627,17 @@
         }
         .ant-input {
           padding-top: 1px;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 500;
 
+          // placeholder 收窄到 14px，与其它输入框占位文案保持一致（输入值仍 16px）
           &::placeholder {
             font-size: 14px;
             font-weight: 500;
           }
         }
         ::-webkit-input-placeholder {
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 500;
           opacity: 0.4;
         }
@@ -657,6 +664,7 @@
         .row-value,
         .row-suffix {
           font-size: 12px;
+          line-height: 18px;
           font-weight: 500;
 
           .j-tooltip-icon {
@@ -843,6 +851,7 @@
           .duration-input {
             ::-webkit-input-placeholder {
               color: #9c9daa !important;
+              font-size: 14px;
             }
             .ant-input-group-addon {
               background: transparent;
@@ -955,7 +964,7 @@
 /* large screen */
 @media (min-width: 799px) {
   .rental-form {
-    flex-basis: 70%;
+    flex-basis: 100%;
     padding: 20px 30px 20px;
 
     .form-content .duration-input-row {
@@ -965,6 +974,9 @@
         right: 10px;
       }
     }
+  }
+  .show-mini-list .rental-form {
+    flex-basis: 70%;
   }
 }
 

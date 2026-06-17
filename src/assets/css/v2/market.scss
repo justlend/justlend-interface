@@ -596,7 +596,7 @@ $bg: #31333a;
       // border-bottom: 1px solid rgba($color: #22232b, $alpha: 0.1);
     }
 
-    // 最后一行padding-bottom20px
+    // padding-bottom20px
     .ant-table-tbody > tr:last-child > td {
       padding-bottom: 20px;
     }
@@ -789,21 +789,34 @@ $bg: #31333a;
 
       &.reward-block {
         width: 15%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         background: #31333a url(../../images/v2/market/market-reward-bg.png) right bottom no-repeat;
         background-size: 100%;
         text-align: center;
-        padding: 26px 0 36px;
+        padding: 20px 0 12px;
 
         .reward-amount {
           font-family: 'Avenir Next';
           font-style: normal;
           font-weight: 600;
-          font-size: 24px;
-          line-height: 33px;
+          font-size: 18px;
+          line-height: 24px;
           text-align: center;
           font-feature-settings: 'tnum' on, 'lnum' on;
           color: #e9b361;
-          margin-top: 20px;
+
+          .token-name {
+            font-size: 16px;
+          }
+        }
+        .plus-symbol {
+          margin: 2px auto;
+          font-size: 18px;
+          line-height: 18px;
+          font-weight: 600;
+          color: #e9b361;
         }
         &.csc-box {
           padding-bottom: 20px;
@@ -813,8 +826,7 @@ $bg: #31333a;
       .block-title {
         font-weight: 500;
         font-size: 14px;
-        line-height: 24px;
-        height: 24px;
+        line-height: 20px;
         color: #fff;
       }
 

@@ -8,6 +8,7 @@ import NotifyImg from '../../../assets/images/v2/energy-rental/subsidy.svg';
 import NotifyImgWhiteTheme from '../../../assets/images/v2/energy-rental/subsidy-white-theme.svg';
 
 @inject('network')
+@inject('ui')
 @inject('lend')
 @inject('energyRental')
 @observer
@@ -123,9 +124,7 @@ class EnergySubsidyBar extends React.Component {
             <div
               className="claim-btn purple-link-btn hover"
               onClick={() => {
-                this.props.network.setData({
-                  'allowanceVisible': true
-                });
+                this.props.ui.setAllowanceVisible(true);
               }}
             >
               {intl.get('strx.claime')}

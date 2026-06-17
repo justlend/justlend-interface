@@ -63,7 +63,7 @@ class BindEmailModal extends React.Component {
   };
 
   triggerSignAction = async () => {
-    const { defaultAccount, isLedgerConnected, isWalletConnected } = this.props.network;
+    const { defaultAccount, isLedgerConnected, isWalletConnectConnected: isWalletConnected } = this.props.network;
     const { isSigning } = this.state;
 
     if (!isSigning) {
@@ -372,6 +372,8 @@ class BindEmailModal extends React.Component {
     const { bindedEmail, bindEmailModalVisible, bindEmailModalStep, bindEmailModalIsChangingEmail } =
       this.props.settings;
 
+    const { walletType: connectedWallet, currentAppName } = this.props.network;
+
     var modalTitle;
 
     if (bindEmailModalIsChangingEmail) {
@@ -538,13 +540,24 @@ class BindEmailModal extends React.Component {
                 {intl.get('settings.bind_email_modal.otp_sent_hint')}
               </div>
 
+              {(connectedWallet === 'binance' || currentAppName === 'imToken Wallet') && (
+                <div className="j-error-tip wallet-reject">
+                  <span className="j-error-img"></span>
+                  <div>
+                    {currentAppName === 'imToken Wallet' ? intl.get('not_support_im') : intl.get('not_support')}
+                  </div>
+                </div>
+              )}
+
               <button
                 className={classnames('action-btn', 'link-btn', { 'is-signing': isBindingEmail })}
                 disabled={
                   emailInputValue.length === 0 ||
                   emailInputError !== '' ||
                   otpInputValue.length === 0 ||
-                  otpInputError !== ''
+                  otpInputError !== '' ||
+                  connectedWallet === 'binance' ||
+                  currentAppName === 'imToken Wallet'
                 }
                 onClick={() => {
                   this.onClickVerify(bindedEmail.length > 0 ? 2 : 1);

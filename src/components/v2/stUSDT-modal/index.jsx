@@ -24,9 +24,7 @@ export class StUSDTModal extends React.Component {
   };
 
   onCancel = () => {
-    this.props.lend.setData({
-      stUSDTModalShow: false
-    });
+    this.props.lend.setStUSDTModalShow(false);
   };
 
   render() {

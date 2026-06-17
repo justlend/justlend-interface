@@ -29,10 +29,13 @@
   .market-top-mobile {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 8px;
 
     .j-order-list {
       width: auto;
-      margin-left: 0;
+      margin-left: auto;
     }
 
     .order-title {
@@ -880,7 +883,7 @@
       align-items: center;
 
       &:last-child {
-        flex-direction: column;
+        // flex-direction: column;
         .row-value {
           width: 100%;
         }

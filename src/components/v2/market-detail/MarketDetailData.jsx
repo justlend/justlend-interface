@@ -6,8 +6,8 @@ import { BigNumber, tooltip, isMobile, formatNumber } from '../../../utils/helpe
 import { MarketTooltip } from './MarketTooltip';
 import { TooltipText } from '../strx/TooltipText';
 import { LinkButton } from '../../Common/LinkButton';
-import { checkIfShouldShowMintApyDetail } from './utils';
-const { miningSymbol } = Config;
+import { checkIfShouldShowMintApyDetail, tryFormatNumber } from './utils';
+const { miningSymbol, miningNewSymbol } = Config;
 @inject('lend')
 @observer
 class MarketDetailData extends React.Component {
@@ -23,13 +23,13 @@ class MarketDetailData extends React.Component {
     const { jTokenData } = this.props;
     const { lang, openMint } = this.props.lend;
     const collateralSymbol = jTokenData.collateralSymbol;
-    const shouldShowMintApyDetail =
-      checkIfShouldShowMintApyDetail(true, collateralSymbol, jTokenData.depositMiningAPYDisplay) && openMint;
-    const announcementUrl = Config.usddV2MiningAnnoucement;
-    // lang && lang.includes('en')
-    //   ? 'https://justlendorg.zendesk.com/hc/en-us/sections/900001080386-Announcements'
-    //   : 'https://justlendorg.zendesk.com/hc/zh-cn/sections/900001080386-%E5%85%AC%E5%91%8A';
-
+    const { mintApy, mintApyTRX } = jTokenData;
+    const apy = mintApy !== '--' && BigNumber(mintApy).gt(0) ? mintApy : mintApyTRX;
+    const shouldShowMintApyDetail = checkIfShouldShowMintApyDetail(true, collateralSymbol, apy) && openMint;
+    const announcementUrl =
+      jTokenData.collateralSymbol === 'WBTC' ? Config.wbtcMiningAnnoucement : Config.usddV2MiningAnnoucement;
+    const usddAmount = jTokenData.farmRewardUsddAmount24h;
+    const trxAmount = jTokenData.farmRewardTrxAmount24h;
     return (
       <div className="market-d-main-data ml-base">
         {shouldShowMintApyDetail ? (
@@ -40,21 +40,45 @@ class MarketDetailData extends React.Component {
             </div>
             <div className="section-content">
               <div className="item mint-reward-item">
-                <div className="label color-light">{intl.get('v2.market_detail_mint_tip', { miningSymbol })}</div>
-                <div className="value color-primary">
-                  <LinkButton
-                    href={announcementUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mint-info-link"
-                  >
-                    {intl.get('v2.detail')}
-                  </LinkButton>
+                <div className="label color-light">
+                  {intl.get('v2.market_detail_mint_tip', {
+                    miningSymbol: `${Number(usddAmount) ? miningSymbol : ''}${
+                      Number(usddAmount) && Number(trxAmount) ? ' & ' : ''
+                    }${Number(trxAmount) ? miningNewSymbol : ''}`
+                  })}
                 </div>
+                {announcementUrl ? (
+                  <div className="value color-primary">
+                    <LinkButton
+                      href={announcementUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mint-info-link"
+                    >
+                      {intl.get('v2.detail')}
+                    </LinkButton>
+                  </div>
+                ) : null}
               </div>
               <div className="item">
-                <div className="label color-light">{intl.get('v2.daily_rewards')}</div>
-                <div className="value reward strong">{jTokenData.farmRewardUSD24hDisplay}</div>
+                <div className="label color-light" style={{ flexShrink: 0 }}>
+                  {intl.get('v2.daily_rewards')}
+                </div>
+                <div className="value reward strong">
+                  {jTokenData.farmRewardUSD24h === undefined ? (
+                    '--'
+                  ) : (
+                    <>
+                      {Number(usddAmount) ? (
+                        <span>{`${tryFormatNumber(usddAmount, 0, { round: true })} ${miningSymbol}`}</span>
+                      ) : null}
+                      {Number(usddAmount) && Number(trxAmount) ? <span className="ml-4 mr-4">{`+`}</span> : null}
+                      {Number(trxAmount) ? (
+                        <span>{`${tryFormatNumber(trxAmount, 0, { round: true })} ${miningNewSymbol}`}</span>
+                      ) : null}
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -82,10 +106,20 @@ class MarketDetailData extends React.Component {
                   <div className="label color-light">{`- ${intl.get('risk_tip.basic_apy1')}`}</div>
                   <div className="value color-primary">{jTokenData.depositBaseAPYDisplay}</div>
                 </div>
-                <div className="item">
-                  <div className="label color-light">{`- ${intl.get('risk_tip.mining_apy2', { miningSymbol })}`}</div>
-                  <div className="value color-primary">{jTokenData.depositMiningAPYDisplay}</div>
-                </div>
+                {mintApy !== '--' && BigNumber(mintApy).gt(0) ? (
+                  <div className="item">
+                    <div className="label color-light">{`- ${intl.get('risk_tip.mining_apy2', { miningSymbol })}`}</div>
+                    <div className="value color-primary">{jTokenData.depositMiningAPYDisplay}</div>
+                  </div>
+                ) : null}
+                {mintApyTRX !== '--' && BigNumber(mintApyTRX).gt(0) ? (
+                  <div className="item">
+                    <div className="label color-light">{`- ${intl.get('risk_tip.mining_apy2', {
+                      miningSymbol: miningNewSymbol
+                    })}`}</div>
+                    <div className="value color-primary">{jTokenData.depositMiningAPYTRXDisplay}</div>
+                  </div>
+                ) : null}
               </div>
             ) : null}
             {Config.holdingTokens.includes(collateralSymbol) ? (
@@ -182,7 +216,6 @@ class MarketDetailData extends React.Component {
           <div className="title-wrap">
             <span className="title color-primary">{intl.get('v2.market_parameters')}</span>
           </div>
-          {}
 
           <div className="section-content">
             <div className="item mt-base">
@@ -208,12 +241,12 @@ class MarketDetailData extends React.Component {
               )}
               <div className="value color-primary">{jTokenData.collateralDisplay}</div>
             </div>
-            {}
+
             <div className="item">
               <div className="label color-light">{intl.get('market.detail_reserves')}</div>
               <div className="value color-primary">{jTokenData.totalReservesDisplay}</div>
             </div>
-            {}
+
             <div className="item">
               <div className="label color-light">{intl.get('market.detail_factor')}</div>
               <div className="value color-primary">{jTokenData.reserveFactorDisplay}</div>

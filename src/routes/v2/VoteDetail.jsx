@@ -7,7 +7,7 @@ import { inject, observer } from 'mobx-react';
 @observer
 class VoteDetailV2 extends React.Component {
   componentDidMount() {
-    this.props.network.setData({ routeName: 'vote' });
+    this.props.network.setRouteName('vote');
   }
   render() {
     return (

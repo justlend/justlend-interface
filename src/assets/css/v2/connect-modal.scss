@@ -3,6 +3,7 @@
   background: #282931;
   border-radius: 10px;
   padding-bottom: 0 !important;
+  overflow: hidden;
 
   .ant-modal-content {
     background: #282931;
@@ -42,6 +43,7 @@
     width: 56px !important;
     height: 56px !important;
     background: none !important;
+    user-select: none;
   }
 
   &.white {
@@ -49,6 +51,8 @@
 
     .ant-modal-content {
       background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
     }
 
     .ant-modal-header {
@@ -189,53 +193,66 @@
 }
 
 .connect-element-v2 {
-  padding: 30px 0 0;
+  padding: 26px 0 0;
 }
 
 .entry-modal-v2 {
   max-width: 400px !important;
 
   .ant-modal-body {
-    padding: 0 10px 30px;
+    padding: 0 30px 20px;
   }
 
   .top-tip {
-    font-family: 'Avenir Next';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+    font-size: 13px;
     line-height: 20px;
-    text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: #fff;
   }
 
   .bottom-tip {
-    // display: flex;
-    // justify-content: center;
-    //align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
 
-    > a,
+    &.en {
+      flex-direction: column;
+
+      .j-link {
+        margin-left: 20px;
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+      > span {
+        margin-bottom: 4px;
+        white-space: nowrap;
+        &.accept-tips {
+          white-space: normal;
+        }
+      }
+    }
+
+    .j-link,
     > span {
       // display: inline-block;
-      font-family: 'Avenir Next';
-      font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
+      font-weight: 400;
+      font-size: 14px;
       border-bottom: 1px solid transparent;
-      padding-bottom: 3px;
       line-height: 17px;
     }
 
     > span {
       color: rgba(255, 255, 255, 0.6);
-      display: block;
     }
 
-    > a {
-      color: #9195fb;
-      margin: 0 10px;
+    .j-link {
+      margin-left: 6px;
       position: relative;
 
       em {
@@ -245,47 +262,86 @@
         height: 7px;
         margin-left: 6px;
       }
+    }
+  }
 
-      // &::after {
-      //   content: '';
-      //   width: 0;
-      //   height: 1px;
-      //   background: #9195fb;
-      //   position: absolute;
-      //   top: 100%;
-      //   left: 50%;
-      //   transition: all 0.6s;
-      // }
+  .bottom-doc {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 20px;
+    margin-top: 20px;
+    text-align: center;
 
-      // &:hover::after {
-      //   left: 0%;
-      //   width: 100%;
-      // }
+    .bd-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: #b3b4b7;
+    }
+
+    .bd-links {
+      margin-top: 4px;
+      > a {
+        margin-left: 20px;
+        font-weight: 400;
+        font-size: 12px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
     }
   }
 
   .entry-logos {
-    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
 
     .entry-logo {
-      width: 300px;
-      height: 60px;
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: calc(33.33% - 20px);
+      min-width: 106px;
+      border-radius: 10px;
       cursor: pointer;
-      padding: 15px 20px;
-      margin: 0 auto 20px;
+      padding: 17px 0;
       position: relative;
       background: rgba(255, 255, 255, 0.04);
       transition: background-color 0.3s ease-in-out;
+      margin-bottom: 10px;
+      margin-right: 10px;
+
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+
+      &:nth-child(4),
+      &:nth-child(5),
+      &:nth-child(6) {
+        margin-bottom: 0;
+      }
 
       &:hover {
-        background: rgba(19, 93, 205, 0.1) url(../../images/v2/connect-arrow.svg) no-repeat right 25px center;
+        background: rgba(0, 0, 0, 0.3);
       }
 
       &.disabled {
         cursor: default;
         background: rgba(19, 93, 205, 0.1);
+      }
+
+      .no-install {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 2px 4px;
+        border-top-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        background: #6f512c;
+        font-size: 10px;
+        line-height: 12px;
+        color: #ff972e;
+        font-weight: 400;
       }
     }
 
@@ -293,20 +349,19 @@
       > img {
         width: 30px;
         height: 30px;
-        margin-bottom: 10px;
+        margin-bottom: 6px;
+        &.is-loading {
+          animation: rotation 2s linear infinite;
+        }
       }
 
       > span {
-        font-family: 'Avenir Next';
-        font-style: normal;
         font-weight: 500;
-        font-size: 16px;
-        line-height: 30px;
+        font-size: 14px;
+        line-height: 18px;
         text-align: center;
         color: #ffffff;
-        margin-left: 14px;
         display: inline-block;
-        vertical-align: top;
       }
 
       .loading {
@@ -338,7 +393,7 @@
 
     .bottom-tip {
       > span {
-        color: rgba(34, 35, 43, 0.8);
+        color: #737480;
       }
 
       > a {
@@ -354,8 +409,14 @@
       .entry-logo {
         background: rgba(75, 82, 223, 0.04);
 
+        .no-install {
+          background: rgba(255, 153, 34, 0.3);
+          color: #e57c00;
+        }
+
         &:hover {
-          background: rgba(19, 93, 205, 0.1) url(../../images/v2/connect-arrow-dark.svg) no-repeat right 25px center;
+          background: rgba(0, 0, 0, 0.1);
+          // background: rgba(19, 93, 205, 0.1) url(../../images/v2/connect-arrow-dark.svg) no-repeat right 25px center;
         }
 
         &.disabled {
@@ -369,6 +430,10 @@
           color: #22232b;
         }
       }
+    }
+
+    .bottom-doc .bd-title {
+      color: #737480;
     }
   }
 }
@@ -520,16 +585,15 @@
   }
 }
 
-// .entry-logos > div,
-// .entry-ele-v2 .bottm-tip > a {
-//   transition: all 0.3s ease-in-out;
-// }
-
 .loading-modal-v2 {
   max-width: 400px !important;
 
+  .ant-modal-body {
+    padding: 24px;
+  }
+
   .ant-modal-content {
-    height: 340px;
+    min-height: 378px;
   }
 
   @keyframes rotation {
@@ -542,19 +606,50 @@
     }
   }
 
-  img {
+  img.loading {
     width: 60px;
     height: 60px;
-    margin: 10px auto 20px;
+    margin: 0 auto 20px;
     display: block;
     transform: rotate(360deg);
     animation: rotation 2s linear infinite;
   }
 
+  img.no-wallet {
+    position: relative;
+    width: 66px;
+    height: 66px;
+    margin: 0 auto 20px;
+    display: block;
+  }
+
+  img.no-wallet-warn {
+    position: absolute;
+    display: block;
+    width: 30px;
+    height: 30px;
+    top: 40px;
+    left: 50%;
+    transform: translateX(12px);
+  }
+
+  .no-wallet-wrap {
+    position: relative;
+  }
+
+  .jl-links {
+    padding: 0;
+    line-height: 16px;
+
+    &::before {
+      display: none;
+    }
+  }
+
   .title {
     font-family: 'Avenir Next';
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 20px;
     line-height: 20px;
     color: #fff;
@@ -563,25 +658,28 @@
   }
 
   .desc {
+    padding-bottom: 42px;
     font-family: 'Avenir Next';
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
-    line-height: 20px;
+    line-height: 16px;
     text-align: center;
     color: rgba(255, 255, 255, 0.6);
+    span {
+      font-size: 12px;
+      line-height: 16px;
+    }
   }
 
   .tips {
+    margin: 10px auto 0;
     font-family: 'Avenir Next';
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
-    line-height: 20px;
+    line-height: 16px;
     color: rgba(90, 94, 137, 0.5);
-    position: absolute;
-    bottom: 20px;
-    width: calc(100% - 48px);
     text-align: center;
 
     span {
@@ -594,6 +692,7 @@
       font-size: 12px;
       position: relative;
       margin-left: 6px;
+      white-space: nowrap;
 
       em {
         background: url(../../images/v2/wallet-link-arrow.svg) no-repeat center;
@@ -627,12 +726,16 @@
     }
 
     .desc {
-      color: rgba(34, 35, 43, 0.8);
+      color: #737480;
+
+      .jl-links {
+        color: #4c54ff;
+      }
     }
 
     .tips {
       span {
-        color: rgba(34, 35, 43, 0.8);
+        color: #737480;
       }
 
       a {
@@ -886,86 +989,6 @@
   }
 }
 
-.failure-modal-v2 {
-  max-width: 400px !important;
-
-  .ant-modal-body {
-    padding: 20px;
-  }
-
-  .ant-modal-content {
-    height: 388px;
-  }
-
-  img {
-    width: 61px;
-    height: 61px;
-    margin: 10px auto 20px;
-    display: block;
-  }
-
-  .title {
-    font-family: 'Avenir Next';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 25px;
-    text-align: center;
-    color: #fff;
-    height: 25px;
-    margin-bottom: 10px;
-  }
-
-  .desc {
-    font-family: 'Avenir Next';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 20px;
-    text-align: center;
-
-    color: rgba(255, 255, 255, 0.6);
-    text-align: center;
-  }
-
-  .reconnect {
-    position: absolute;
-    bottom: 40px;
-    width: 360px;
-    height: 40px;
-    background: #4c54ff;
-    border-radius: 2px;
-    margin: 0 auto;
-    font-size: 14px;
-    line-height: 40px;
-    text-align: center;
-    color: #ffffff;
-    cursor: pointer;
-
-    &:hover {
-      background: #9195fb;
-    }
-  }
-
-  &.white {
-    .title {
-      color: #22232b;
-    }
-
-    .desc {
-      color: rgba(34, 35, 43, 0.8);
-    }
-
-    .reconnect {
-      background: #4c54ff;
-
-      &:hover {
-        background: #9195fb;
-      }
-    }
-  }
-}
-
 .copied-v2 {
   position: absolute;
   left: 0;
@@ -999,6 +1022,12 @@
   margin-top: 20px;
 }
 
+.white {
+  &.entry-modal-v2 .bottom-doc {
+    border-top-color: rgba(34, 35, 43, 0.06);
+  }
+}
+
 @keyframes copied-animation {
   0% {
     opacity: 0;
@@ -1030,6 +1059,21 @@
   .ant-modal.account-modal-v2 .account-info-v2 span {
     height: unset;
     font-size: 12px;
+  }
+  .entry-modal-v2 .entry-logos {
+    justify-content: space-between;
+
+    .entry-logo {
+      width: calc(50% - 20px);
+      min-width: 120px;
+      margin-right: 10px !important;
+      &:nth-child(2n) {
+        margin-right: 0 !important;
+      }
+      &:nth-child(4) {
+        margin-bottom: 10px;
+      }
+    }
   }
 }
 

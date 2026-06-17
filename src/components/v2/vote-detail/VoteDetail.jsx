@@ -5,13 +5,13 @@ import classnames from 'classnames';
 import { inject, observer } from 'mobx-react';
 import { Button, Input, Spin, Tooltip } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
-
+import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
 import WinterTheme from '../../WinterTheme';
 import Config from '../../../config';
 import { BigNumber, getParameterByName, formatNumber, skeletonRender } from '../../../utils/helper';
-import Footer from '../Footer.js';
-import Header from '../Header.js';
+import Footer from '../Footer.jsx';
+import Header from '../Header.jsx';
 import TabsBar from '../mobile/TabsBar';
 import SeasonToolBar from '../season/index';
 
@@ -22,6 +22,7 @@ import TransactionModal from '../../Modals/v2/Transaction';
 import VoteDetailModal from '../../Modals/v2/VoteDetail';
 
 import '../../../assets/css/v2/vote-detail.scss';
+import '../../../assets/css/v2/theme.scss';
 
 const StatusIcon = {
   Succeeded: 'succeeded',
@@ -30,8 +31,10 @@ const StatusIcon = {
   Waiting: 'waiting'
 };
 @inject('network')
+@inject('ui')
 @inject('system')
 @inject('lend')
+@inject('vote')
 @observer
 class VoteDetail extends React.Component {
   constructor(props) {
@@ -44,15 +47,13 @@ class VoteDetail extends React.Component {
       mobile: isMobile(window.navigator).any,
       editMode: 0,
       previewDetailContent: null,
-      env: process.env.REACT_APP_ENV
+      env: import.meta.env.VITE_ENV
     };
   }
 
   componentDidMount = async () => {
     document.title = 'Vote - JustLend DAO';
-    this.props.lend.setData({
-      voteDetailData: null
-    });
+    this.props.vote.setVoteDetailData(null);
 
     this.getProposalIdFromUrl();
     this.startInterval();
@@ -62,11 +63,11 @@ class VoteDetail extends React.Component {
   startInterval = async () => {
     if (!this.timerInterval) {
       if (this.state.proposalId) {
-        await this.props.lend.getVoteDetail(this.state.proposalId);
+        await this.props.vote.getVoteDetail(this.state.proposalId);
       }
       this.timerInterval = setInterval(async () => {
         if (this.state.proposalId) {
-          await this.props.lend.getVoteDetail(this.state.proposalId);
+          await this.props.vote.getVoteDetail(this.state.proposalId);
         }
       }, 30000);
     }
@@ -86,10 +87,10 @@ class VoteDetail extends React.Component {
   };
 
   getProposalIdFromUrl = () => {
-    this.props.lend.setData({ lockNum: BigNumber(0) });
+    this.props.vote.setLockNum(BigNumber(0));
     const pId = getParameterByName('proposalId');
     this.setState({ proposalId: pId }, () => {
-      this.props.lend.getVoteDetail(pId);
+      this.props.vote.getVoteDetail(pId);
     });
   };
 
@@ -100,26 +101,16 @@ class VoteDetail extends React.Component {
   showRedeemFromVotePop = () => {
     const { proposalId } = this.state;
 
-    this.props.lend.setData({
-      redeemFromVotePop: true,
-      redeemFromVotePopProposalId: proposalId
-    });
-
-    // For dev
-    // this.props.lend.setData({ lockNum: BigNumber(601000000000000000000) });
+    this.props.vote.setRedeemFromVotePop(true);
+    this.props.vote.setRedeemFromVotePopProposalId(proposalId);
   };
 
   voteAgainstButtonOnClick = () => {
     const { proposalId } = this.state;
-    const { addVote } = this.props.lend;
+    const { addVote } = this.props.vote;
 
     if (this.props.network.isRightChain === 0) {
       this.props.network.changeChain();
-      return;
-    }
-
-    if (this.props.network.isMainNetwork === 0) {
-      this.props.network.showNetworkErrorModal();
       return;
     }
 
@@ -127,24 +118,17 @@ class VoteDetail extends React.Component {
       return;
     }
 
-    this.props.lend.setData({
-      voteForPop: true,
-      voteForPopIsFor: false,
-      voteForPopProposalId: proposalId
-    });
+    this.props.vote.setVoteForPop(true);
+    this.props.vote.setVoteForPopIsFor(false);
+    this.props.vote.setVoteForPopProposalId(proposalId);
   };
 
   voteForButtonOnClick = () => {
     const { proposalId } = this.state;
-    const { addVote } = this.props.lend;
+    const { addVote } = this.props.vote;
 
     if (this.props.network.isRightChain === 0) {
       this.props.network.changeChain();
-      return;
-    }
-
-    if (this.props.network.isMainNetwork === 0) {
-      this.props.network.showNetworkErrorModal();
       return;
     }
 
@@ -152,11 +136,9 @@ class VoteDetail extends React.Component {
       return;
     }
 
-    this.props.lend.setData({
-      voteForPop: true,
-      voteForPopIsFor: true,
-      voteForPopProposalId: proposalId
-    });
+    this.props.vote.setVoteForPop(true);
+    this.props.vote.setVoteForPopIsFor(true);
+    this.props.vote.setVoteForPopProposalId(proposalId);
   };
 
   renderStatusItem = (history, expandable = false, collapsed = false, index) => {
@@ -296,8 +278,8 @@ class VoteDetail extends React.Component {
 
   render() {
     const { lang, isMobileLayout, shouldExpandTimeline } = this.state;
-    const { theme, voteDetailData, addVote, lockNum } = this.props.lend;
-
+    const { theme } = this.props.lend;
+    const { voteDetailData, addVote, lockNum } = this.props.vote;
     const { isConnected } = this.props.network;
 
     const isEN = lang === 'en-US';
@@ -310,8 +292,6 @@ class VoteDetail extends React.Component {
     var shouldShowRedeemVoteBar;
 
     if (voteDetailData) {
-      // console.log('voteDetailData: ', JSON.stringify(voteDetailData));
-
       // Header
       title = isEN ? voteDetailData.title.split('&&')[1] : voteDetailData.title.split('&&')[0];
       id = voteDetailData.proposalId;
@@ -411,13 +391,13 @@ class VoteDetail extends React.Component {
       forVoteDisplayString = BigNumber(forVoteCount).eq(0)
         ? '0'
         : BigNumber(forVoteCount).lt(0.001)
-        ? '< 0.001'
-        : formatNumber(forVoteCount, 3);
+          ? '< 0.001'
+          : formatNumber(forVoteCount, 3);
       againstVoteDisplayString = BigNumber(againstVoteCount).eq(0)
         ? '0'
         : BigNumber(againstVoteCount).lt(0.001)
-        ? '< 0.001'
-        : formatNumber(againstVoteCount, 3);
+          ? '< 0.001'
+          : formatNumber(againstVoteCount, 3);
       if (forVoteCount <= 0 && againstVoteCount <= 0) {
         supportPercentage = -1;
       } else {
@@ -440,8 +420,8 @@ class VoteDetail extends React.Component {
       walletVoteDisplayString = BigNumber(voteValue).eq(0)
         ? '0'
         : BigNumber(voteValue).lt(0.001)
-        ? '< 0.001'
-        : formatNumber(voteValue, 3);
+          ? '< 0.001'
+          : formatNumber(voteValue, 3);
 
       // Redeem
       shouldShowRedeemVoteBar = isConnected && voteState != '1' && voteState != '0' && isLockNumNonZero;
@@ -480,7 +460,7 @@ class VoteDetail extends React.Component {
                         className="link-item"
                         href={Config.tronscanUrl + '/address/' + voteDetailData?.proposer}
                         target="tronscan"
-                        onClick={window.gtag('event', 'PC_vote_on_chain_info', {
+                        onClick={() => window.gtag('event', 'PC_vote_on_chain_info', {
                           'event_category': 'PC_V1.5',
                           'event_label': 'vote_on_chain_info'
                         })}
@@ -502,13 +482,13 @@ class VoteDetail extends React.Component {
                   >
                     {shouldShowExpandableStatusBox
                       ? statusHistoryArray.map((history, index) => {
-                          if (index === 0 || index > statusHistoryArray.length - 3) {
-                            return this.renderStatusItem(history, index === 0, false, index);
-                          }
-                        })
+                        if (index === 0 || index > statusHistoryArray.length - 3) {
+                          return this.renderStatusItem(history, index === 0, false, index);
+                        }
+                      })
                       : statusHistoryArray.map((history, index) => {
-                          return this.renderStatusItem(history, false, false, index);
-                        })}
+                        return this.renderStatusItem(history, false, false, index);
+                      })}
                     {shouldShowExpandableStatusBox && (
                       <div
                         className={classnames('vote-detail-status-box content-container expandable-display', {
@@ -517,15 +497,15 @@ class VoteDetail extends React.Component {
                       >
                         {shouldExpandTimeline
                           ? statusHistoryArray.map((history, index) => {
-                              return this.renderStatusItem(history, false, false, index);
-                            })
+                            return this.renderStatusItem(history, false, false, index);
+                          })
                           : statusHistoryArray.map((history, index) => {
-                              if (index === 0 || index > statusHistoryArray.length - 3) {
-                                return this.renderStatusItem(history, index === 0, false, index);
-                              } else {
-                                return this.renderStatusItem(history, index === 0, true, index);
-                              }
-                            })}
+                            if (index === 0 || index > statusHistoryArray.length - 3) {
+                              return this.renderStatusItem(history, index === 0, false, index);
+                            } else {
+                              return this.renderStatusItem(history, index === 0, true, index);
+                            }
+                          })}
                       </div>
                     )}
                   </div>
@@ -554,7 +534,7 @@ class VoteDetail extends React.Component {
                       {shouldShowVoteCTA && (
                         <button
                           className="action-button"
-                          disabled={!isConnected || isWalletVotedAgainst}
+                          disabled={!isConnected || isWalletVotedAgainst || voteDetailData?.notValid}
                           onClick={() => {
                             this.voteForButtonOnClick();
                             window.gtag('event', `${isWalletVotedFor ? 'PC_add_vote_for' : 'PC_vote_for'}`, {
@@ -596,7 +576,7 @@ class VoteDetail extends React.Component {
                       {shouldShowVoteCTA && (
                         <button
                           className="action-button"
-                          disabled={!isConnected || isWalletVotedFor}
+                          disabled={!isConnected || isWalletVotedFor || voteDetailData?.notValid}
                           onClick={() => {
                             this.voteAgainstButtonOnClick();
                             window.gtag(
@@ -636,7 +616,7 @@ class VoteDetail extends React.Component {
                         <button
                           className="bar-action-btn season"
                           onClick={() => {
-                            this.props.lend.setData({ noServiceModalAllVisible: true });
+                            this.props.lend.setNoServiceModalAllVisible(true);
                           }}
                         >
                           {intl.get('v2.vote.connect_wallet_btn')}
@@ -720,12 +700,21 @@ class VoteDetail extends React.Component {
                   ) : this.state.editMode === 2 && this.state.env === 'test' ? (
                     <div
                       className={classnames('vote-detail-info-text', { 'dark': theme !== 'white' })}
-                      dangerouslySetInnerHTML={{ __html: this.state.previewDetailContent }}
+                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(this.state.previewDetailContent) }}
                     ></div>
                   ) : (
+                    // Trust boundary: `htmlContent` comes from backend
+                    // admin-curated proposals — there is no user-generated
+                    // content path feeding this field as of 2026-04-10.
+                    // DOMPurify here is defense in depth, not the primary
+                    // control. If product ever opens community proposals
+                    // with user-submitted markup, upgrade the backend to
+                    // return structured JSON (dropping the `&&&&&&&&`
+                    // delimiter at the same time) and KEEP DOMPurify on
+                    // this sink. Do NOT remove DOMPurify.
                     <div
                       className={classnames('vote-detail-info-text', { 'dark': theme !== 'white' })}
-                      dangerouslySetInnerHTML={{ __html: htmlContent }}
+                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(htmlContent) }}
                     ></div>
                   )}
                 </div>

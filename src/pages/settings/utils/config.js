@@ -1,9 +1,9 @@
 export function getFaqUrlNotReceivingEmail() {
-  return 'https://docs.justlend.org/getting-started/faq/risk-alert';
+  return 'https://docs.justlend.org/getting_started/concepts/risks/#risk-alert';
 }
 
 export function getFaqUrlWhatIsLiquidation() {
-  return 'https://docs.justlend.org/getting-started/faq/supply-and-borrow-market#what-are-the-liquidation-rule';
+  return 'https://docs.justlend.org/getting_started/concepts/liquidations/';
 }
 
 export function getFaqUrlHowToAvoidRentalLiquidation() {

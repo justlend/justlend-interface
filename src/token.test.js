@@ -113,6 +113,11 @@ export default {
     symbol: 'USDDOLD',
     decimal: 18
   },
+  usddnew: {
+    token: 'THfS8gUDH5Cx1FnwvdQ2QfBdCHyeNDaKzs',
+    symbol: 'USDD',
+    decimal: 18
+  },
   usdjlp: {
     token: 'TSerw6nn5arY2MQoGbnwVbmW7Q7HH1k58h',
     tokenAddress: 'TMTqj3nkT9jFfGniT8Fw8qSmfiZ42Yhqjb',
@@ -139,6 +144,11 @@ export default {
     symbol: 'WIN',
     decimal: 6
   },
+  htx: {
+    token: 'TC9wyHyAQqnvz6oQBfoLMu4kJpfqdp9nMY',
+    symbol: 'HTX',
+    decimal: 18
+  },
   winlp: {
     token: 'THFb8tEvzpCtjHk2UxPvMsgP8fuXTzjA1h',
     tokenAddress: 'TXb9QiPy2EwHy6C8hu3gkR82FvMJwNyxg6',
@@ -146,6 +156,11 @@ export default {
     lp: 'WIN',
     decimal: 6,
     tokenDecimal: 6
+  },
+  u: {
+    token: 'TUSXhJzCebJu54JMjAM7jtfnyDM5zT6ZHU',
+    symbol: 'U',
+    decimal: 18
   },
   btc: {
     token: 'TSkW3KiyHNbS9ozn99PHZz6rz1V2DMBFVa',
@@ -304,5 +319,15 @@ export default {
     token: 'TBEzkiB2JUevVNLUnnD8NtCYnnaE9XeviM',
     symbol: 'BUSD',
     decimal: 18
+  },
+  usd1: {
+    token: 'TM3H36y6i8U6ju3xjo6vipsLM1pw5yT8Qs',
+    symbol: 'USD1',
+    decimal: 18
+  },
+  wbtc: {
+    token: 'TW714k8Ni3g7yiHUUckXXuSdCPqFmNXZis',
+    symbol: 'WBTC',
+    decimal: 8
   }
 };

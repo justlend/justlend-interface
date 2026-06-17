@@ -19,7 +19,7 @@ class MarketData extends Component {
     super(props);
     this.state = {
       mobile: isMobile().any,
-      reverseRate: false
+      reverseRate: window.sessionStorage.getItem('reverse_rate') ? true : false
     };
   }
 
@@ -28,6 +28,11 @@ class MarketData extends Component {
     this.setState({
       reverseRate: !reverseRate
     });
+
+    !reverseRate
+      ? window.sessionStorage.setItem('reverse_rate', true)
+      : window.sessionStorage.removeItem('reverse_rate');
+
     window.gtag('event', 'PC_stake_reverse_rate', { 'event_category': 'sTRX', 'event_label': 'stake_reverse_rate' });
   };
 
