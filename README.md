@@ -170,18 +170,6 @@ We encourage developers to get directly involved with coding. Issues tagged with
   npm run startPro
   ```
 
-
-
-### BTFS Deployment
-
-
-
-Every version of this interface is deployed to the **BTFS (BitTorrent File System)** for decentralized hosting. The primary domain `app.justlend.org` always points to the latest stable version.
-
-If you encounter access issues, you can also try the fallback domain: `https://justlend.on.btfs.io/`.
-
-
-
 ### Translations
 
 

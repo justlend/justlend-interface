@@ -581,14 +581,6 @@ const Config = {
 };
 
 let devConfig = {};
-if (env === 'btfs') {
-  devConfig = {
-    trongrid: {
-      host: 'https://api.trongrid.io',
-      key: ''
-    }
-  };
-}
 if (env === 'test') {
   devConfig = {
     rewardbBasePhaseForNewPeriod: 32,

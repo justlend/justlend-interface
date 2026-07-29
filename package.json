@@ -2,7 +2,6 @@
   "name": "justlend-front",
   "version": "1.7.4",
   "appVersion": "1.7.4",
-  "btfsVersion": "1.7.4",
   "homepage": ".",
   "private": true,
   "dependencies": {
@@ -57,12 +56,10 @@
   "scripts": {
     "start": "PORT=18113 cross-env REACT_APP_ENV=test react-app-rewired start",
     "startNile": "PORT=18113 cross-env REACT_APP_ENV=nile react-app-rewired start",
-    "startBTFS": "PORT=18116 cross-env REACT_APP_ENV=btfs react-app-rewired start",
     "startPro": "PORT=18116 react-app-rewired start",
     "startBackendPro": "PORT=18116  REACT_APP_ENV=backendPro react-app-rewired start",
     "build": "react-app-rewired build",
     "backendPro": "cross-env REACT_APP_ENV=backendPro react-app-rewired build",
-    "btfs": "cross-env REACT_APP_ENV=btfs react-app-rewired build",
     "test": "cross-env REACT_APP_ENV=test react-app-rewired build",
     "nile": "cross-env REACT_APP_ENV=nile react-app-rewired build",
     "eject": "react-scripts eject",
